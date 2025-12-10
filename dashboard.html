@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>നന്ദകുമാറിന്റെ ഡിജിറ്റൽ ലൈബ്രറി</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 40px; }
+        
+        /* ഡാഷ്ബോർഡ് ഗ്രിഡ് */
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ബട്ടൺ കാർഡ് ഡിസൈൻ */
+        .category-card {
+            background: white;
+            width: 160px;
+            height: 160px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #007bff; /* ഹോവർ ചെയ്യുമ്പോൾ നീല ബോർഡർ */
+        }
+
+        .icon { font-size: 45px; margin-bottom: 15px; }
+        .label { font-size: 18px; font-weight: 600; }
+        .count { font-size: 12px; color: #888; margin-top: 5px; }
+
+        /* Footer */
+        footer { margin-top: 50px; color: #aaa; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <br>
+    <h1>📚 ഡിജിറ്റൽ ലൈബ്രറി</h1>
+    <p>വായനയ്ക്കായി ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക</p>
+
+    <div class="dashboard-container">
+
+        <a href="malayalam.html" class="category-card">
+            <span class="icon">🥥</span>
+            <span class="label">മലയാളം</span>
+        </a>
+
+        <a href="english.html" class="category-card">
+            <span class="icon">📘</span>
+            <span class="label">English</span>
+        </a>
+
+        <a href="novels.html" class="category-card">
+            <span class="icon">📖</span>
+            <span class="label">Novels</span>
+        </a>
+
+        <a href="history.html" class="category-card">
+            <span class="icon">📜</span>
+            <span class="label">History</span>
+        </a>
+
+        <a href="science.html" class="category-card">
+            <span class="icon">🔬</span>
+            <span class="label">Science</span>
+        </a>
+
+        <a href="others.html" class="category-card">
+            <span class="icon">📂</span>
+            <span class="label">Others</span>
+        </a>
+
+    </div>
+
+    <footer>
+        &copy; 2025 Nandakumar's Library
+    </footer>
+
+</body>
+</html>
