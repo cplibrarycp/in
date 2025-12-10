@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>എൻ്റെ ലൈബ്രറി</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; padding: 20px; text-align: center; }
+        h1 { color: #2c3e50; }
+        #searchBar { width: 80%; max-width: 500px; padding: 12px; margin-bottom: 30px; border-radius: 25px; border: 1px solid #ddd; font-size: 16px; outline: none; }
+        .library-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+        .book-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 220px; transition: transform 0.3s; display: flex; flex-direction: column; align-items: center; height: auto; }
+        .book-card:hover { transform: translateY(-5px); }
+        .book-cover { width: 100%; height: 280px; object-fit: contain; background-color: #eee; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
+        .book-title { font-size: 14px; font-weight: bold; color: #333; margin-bottom: 5px; word-wrap: break-word; line-height: 1.4em; }
+        a { text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <h1>📚 ഡിജിറ്റൽ ലൈബ്രറി</h1>
+    <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
+
+    <div class="library-container" id="bookList">
+        
+       <div class='book-card'><a href='https://drive.google.com/file/d/1y5HMhT7LSDmluDA-nax02DvF8m_nnFWn/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Al_9tGpxdQYhb70VHAmoNhDcikUhlHKv' alt='DjVu Document - alfred' class='book-cover' loading='lazy'></a><div class='book-title'>DjVu Document - alfred</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1j616FPQSCKf2w59gSPzllUySf7gflXPA/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1tKgOsC6JhqYCRaj1y6NBzZI5oQBhBcgI' alt='Chair Yoga Sit, Stretch, and St - Kristin McGee' class='book-cover' loading='lazy'></a><div class='book-title'>Chair Yoga Sit, Stretch, and St - Kristin McGee</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1XgS1BRbey0yrFm6w_Y6c1XiMY57YllLC/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1ntPx9mqKjkQHnzb7JbFhpSQRtbEG6Lxs' alt='Kriya Yoga- The Science of Life - Unknown' class='book-cover' loading='lazy'></a><div class='book-title'>Kriya Yoga- The Science of Life - Unknown</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1t5t0Z3BBSEnJcKuLiy1U3rnCFToIgHnG/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1z-7i7eK4nhZd2yjsn_OFjtx9EV3uPghK' alt='Laughter Yoga  Daily laughter p - Madan Kataria' class='book-cover' loading='lazy'></a><div class='book-title'>Laughter Yoga  Daily laughter p - Madan Kataria</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1XckE27q6Z4CMJsKDCwfRXY0fe23szF2A/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=11lsbC1cz1G-zag5sXsmcj48K7NFE84Qr' alt='Advanced Thai yoga massage   po - Kam Thye Chow' class='book-cover' loading='lazy'></a><div class='book-title'>Advanced Thai yoga massage   po - Kam Thye Chow</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1ZQLHFnGV11rOC3gaBOWeEguZINuQwo56/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=15vgU9FYu8CjVHwPADCk6LJnLJI9D68BW' alt='A Systematic Course in the Anci - Unknown' class='book-cover' loading='lazy'></a><div class='book-title'>A Systematic Course in the Anci - Unknown</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1rCKvwCqf8ODWzYhDsHu87sxAKudJqDK3/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Pov2yGImpwAEiWXUkNr9qP1A_rplXRTM' alt='Swami Venkatesananda - The Supreme Yoga' class='book-cover' loading='lazy'></a><div class='book-title'>Swami Venkatesananda - The Supreme Yoga</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1PkeT9slaAvm2tcVsYqrVf0KEZoHOtAVC/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Z-JTTtiXjJcdLADABtZ0k3Y6Ro4kI3Ai' alt='Supernormal  Science, Yoga, and - Dean Radin, Ph.D ' class='book-cover' loading='lazy'></a><div class='book-title'>Supernormal  Science, Yoga, and - Dean Radin, Ph.D </div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1bnO85grpsspsGnRcnrzQMOyLWRzVdIo9/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1sQ0ZBJvC2f6gr8AkLvIr6yg0kqbiwfJb' alt='Myths of the Asanas  The Storie - Alanna Kaivalya' class='book-cover' loading='lazy'></a><div class='book-title'>Myths of the Asanas  The Storie - Alanna Kaivalya</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/11gG9fpm__9iJuaDRp2HMNwgcb4j5h4q6/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1A-Je6jGu2UFCiRanMnU5LWPmw2__o3XC' alt='The Bliss of Inner Fire Heart P - Unknown' class='book-cover' loading='lazy'></a><div class='book-title'>The Bliss of Inner Fire Heart P - Unknown</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/10fRefQBYFxpYaPMOwCxC7Hd7H2cSa-59/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1GG-KwL8kscZyrsVram-2LXMBgdRJINl8' alt='Yoga Mind  Journey Beyond the P - Suzan Colon' class='book-cover' loading='lazy'></a><div class='book-title'>Yoga Mind  Journey Beyond the P - Suzan Colon</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1v9ukyFfXwfDFJzupEZQse8TdCdImB1XI/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1uxb1IB56aTNyH2voWvwsuJDm2hJi9SrG' alt='Yoga for Kids - Susannah Hoffman' class='book-cover' loading='lazy'></a><div class='book-title'>Yoga for Kids - Susannah Hoffman</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1VtQn51GPhnHu8hWsIaAW_nz48QuEbJOl/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1mcUkMWTTsnth4anH2h6wVM2x1zo2oIqt' alt='Yoga Therapy for Stroke  A Hand - Arlene Schmid' class='book-cover' loading='lazy'></a><div class='book-title'>Yoga Therapy for Stroke  A Hand - Arlene Schmid</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/19Q5JF1ZEW81Bs44ceWXdlpDP33JfOfJs/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1tbtxhAYHh_1mTU7Tp-pv9dg8O4DhrkQO' alt='Yoga for Wellness - Gary Kraftsow' class='book-cover' loading='lazy'></a><div class='book-title'>Yoga for Wellness - Gary Kraftsow</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1cBJzWujOylJr8_wOEYeaoWPfuNzM0aPA/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1uRVwpkrFbDqw8lqfsQkXaBQjuFq3dn2K' alt='Yoga Therapy  A Personalized Ap - Butera, Kristen,Elgelid, Staffa' class='book-cover' loading='lazy'></a><div class='book-title'>Yoga Therapy  A Personalized Ap - Butera, Kristen,Elgelid, Staffa</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1iVQ0v09pt-sUzg9U9Y6zItEWpIs_HFNq/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1BaxykC68c4Vj4ARV7M1g8HUDe29oJNzA' alt='Yoga - Iyengar, B. K. S ' class='book-cover' loading='lazy'></a><div class='book-title'>Yoga - Iyengar, B. K. S </div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+
+    </div>
+
+    <script>
+        function searchBooks() {
+            var input = document.getElementById('searchBar');
+            var filter = input.value.toUpperCase();
+            var cards = document.getElementsByClassName('book-card');
+            for (var i = 0; i < cards.length; i++) {
+                var title = cards[i].getElementsByClassName("book-title")[0];
+                if (title) {
+                    var txtValue = title.textContent || title.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
