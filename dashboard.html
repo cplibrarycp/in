@@ -60,17 +60,9 @@
 <div id="top-bar" style="background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
     
     <div style="display: flex; gap: 10px;">
-        <button onclick="history.back()" style="padding: 5px 12px; cursor: pointer; background: #555; color: white; border: none; border-radius: 4px;" title="Go Back">
-            ⬅ Prev
-        </button>
-        
-        <button onclick="history.forward()" style="padding: 5px 12px; cursor: pointer; background: #555; color: white; border: none; border-radius: 4px;" title="Go Forward">
-            Next ➡
-        </button>
-
-        <button onclick="window.location.href='dashboard.html'" style="padding: 5px 12px; cursor: pointer; background: #ffad06; color: black; border: none; border-radius: 4px; font-weight: bold;" title="Go to Dashboard">
-            🏠 Home
-        </button>
+        <button onclick="history.back()" style="padding: 5px 12px; cursor: pointer; background: #555; color: white; border: none; border-radius: 4px;" title="Go Back">⬅ Prev</button>
+        <button onclick="history.forward()" style="padding: 5px 12px; cursor: pointer; background: #555; color: white; border: none; border-radius: 4px;" title="Go Forward">Next ➡</button>
+        <button onclick="window.location.href='dashboard.html'" style="padding: 5px 12px; cursor: pointer; background: #ffad06; color: black; border: none; border-radius: 4px; font-weight: bold;" title="Go to Dashboard">🏠 Home</button>
     </div>
 
     <div style="display: flex; align-items: center; gap: 15px;">
@@ -102,9 +94,9 @@
         const logoutBtn = document.getElementById('logout-btn');
 
         if (user) {
-            // പേര് ഉണ്ടെങ്കിൽ അത്, ഇല്ലെങ്കിൽ ഇമെയിൽ
             const displayName = user.displayName ? user.displayName : user.email;
-            userInfo.innerHTML = `User: <b>${displayName}</b>`;
+            // മാറ്റം വരുത്തിയത് ഇവിടെയാണ്:
+            userInfo.innerHTML = `സ്വാഗതം, <b>${displayName}</b>`;
             logoutBtn.style.display = "block"; 
         } else {
             window.location.href = "index.html"; 
@@ -160,6 +152,7 @@
 </body>
 
 </html>
+
 
 
 
