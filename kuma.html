@@ -17,9 +17,19 @@
     </style>
 </head>
 <body>
-<div id="top-bar" style="background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif;">
-    <span id="user-info">Checking login...</span>
-    <button id="logout-btn" style="padding: 5px 15px; background: #ff105f; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">Logout</button>
+<div id="top-bar" style="background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+    
+    <div>
+        <button onclick="window.location.href='dashboard.html'" style="padding: 6px 15px; cursor: pointer; background: #ffad06; color: black; border: none; border-radius: 4px; font-weight: bold; font-size: 14px;" title="Go to Dashboard">
+            🏠 Home
+        </button>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <span id="user-info" style="font-size: 14px;">Checking...</span>
+        <button id="logout-btn" style="padding: 5px 15px; background: #ff105f; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">Logout</button>
+    </div>
+
 </div>
 
 <script type="module">
@@ -39,30 +49,21 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // ലോഗിൻ പരിശോധന
     onAuthStateChanged(auth, (user) => {
         const userInfo = document.getElementById('user-info');
         const logoutBtn = document.getElementById('logout-btn');
 
         if (user) {
-            // പേര് ഉണ്ടെങ്കിൽ അത് കാണിക്കും, ഇല്ലെങ്കിൽ ഇമെയിൽ കാണിക്കും
             const displayName = user.displayName ? user.displayName : user.email;
-            
             userInfo.innerHTML = `സ്വാഗതം, <b>${displayName}</b>`;
             logoutBtn.style.display = "block"; 
         } else {
-            // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ നേരെ ലോഗിൻ പേജിലേക്ക് പോകും (മെസ്സേജ് കാണിക്കില്ല)
             window.location.href = "index.html"; 
         }
     });
 
-    // ലോഗൗട്ട് (മെസ്സേജ് കാണിക്കാതെ ലോഗിൻ പേജിലേക്ക് പോകും)
     document.getElementById('logout-btn').addEventListener('click', () => {
-        signOut(auth).then(() => {
-            // ഇവിടെ പ്രത്യേകിച്ച് ഒന്നും ചെയ്യേണ്ട, onAuthStateChanged ബാക്കി നോക്കിക്കോളും
-        }).catch((error) => {
-            alert("Error: " + error.message);
-        });
+        signOut(auth).then(() => {}).catch((error) => { alert("Error: " + error.message); });
     });
 </script>
     <h1>📚 ഡിജിറ്റൽ ലൈബ്രറി</h1>
@@ -193,3 +194,4 @@
 </body>
 
 </html>
+
