@@ -5,48 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Login System</title>
     <style>
-        * { margin: 0; padding: 0; font-family: sans-serif; }
+        /* അടിസ്ഥാന സ്റ്റൈലുകൾ */
+        * { margin: 0; padding: 0; font-family: sans-serif; box-sizing: border-box; }
+
+        /* 1. ബാക്ക്ഗ്രൗണ്ട് ഇമേജ് (ലൈബ്രറി) */
         .hero {
-            height: 100%; width: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1507842217343-583bb7260b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
-            background-position: center; background-size: cover; position: absolute;
+            height: 100vh; /* സ്ക്രീൻ മുഴുവൻ നിറയാൻ */
+            width: 100%;
+            /* ലൈബ്രറി ഇമേജ് + ഒരു കറുത്ത ഷേഡ് */
+            background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        /* 2. ഗ്ലാസ് ടൈപ്പ് വിൻഡോ (Glassmorphism Effect) */
         .form-box {
-            width: 380px; height: 480px; position: relative; margin: 6% auto;
-            background: #fff; padding: 5px; overflow: hidden; border-radius: 10px;
-            box-shadow: 0 0 20px 9px #ff61241f;
+            width: 380px;
+            height: 480px;
+            position: relative;
+            /* ഗ്ലാസ് എഫക്റ്റിനുള്ള പ്രധാന കോഡുകൾ */
+            background: rgba(255, 255, 255, 0.1); /* വളരെ കുറഞ്ഞ സുതാര്യതയുള്ള വെള്ള നിറം */
+            backdrop-filter: blur(15px); /* പിന്നിലെ കാഴ്ച മങ്ങിക്കാൻ */
+            -webkit-backdrop-filter: blur(15px); /* സഫാരി ബ്രൗസറിന് വേണ്ടി */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* നേർത്ത വെളുത്ത ബോർഡർ */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* ഒരു ഷാഡോ */
+            
+            padding: 5px;
+            overflow: hidden;
+            border-radius: 20px; /* മൂലകൾ കുറച്ചുകൂടി വളച്ചു */
         }
+
+        /* ബട്ടൺ ബോക്സ് സ്റ്റൈൽ */
         .button-box {
-            width: 220px; margin: 35px auto; position: relative;
-            box-shadow: 0 0 20px 9px #ff61241f; border-radius: 30px;
+            width: 220px;
+            margin: 35px auto;
+            position: relative;
+            box-shadow: 0 0 20px 9px rgba(0,0,0,0.1); /* ഷാഡോ കുറച്ചു */
+            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.2); /* ബട്ടൺ ബോക്സിനും ചെറിയ ഗ്ലാസ് ഫീൽ */
         }
+
+        /* ടോഗിൾ ബട്ടണുകൾ (വാക്കുകളുടെ നിറം വെള്ളയാക്കി) */
         .toggle-btn {
-            padding: 10px 30px; cursor: pointer; background: transparent;
-            border: 0; outline: none; position: relative; font-weight: bold;
+            padding: 10px 30px;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            outline: none;
+            position: relative;
+            font-weight: bold;
+            color: #fff; /* ടെക്സ്റ്റ് കളർ വെള്ള */
         }
+
+        /* സ്ലൈഡിങ് കളർ */
         #btn {
             top: 0; left: 0; position: absolute; width: 110px; height: 100%;
             background: linear-gradient(to right, #ff105f, #ffad06);
             border-radius: 30px; transition: .5s;
         }
+
+        /* ഇൻപുട്ട് ഗ്രൂപ്പ് */
         .input-group {
             top: 180px; position: absolute; width: 280px; transition: .5s;
         }
+
+        /* ഇൻപുട്ട് ഫീൽഡുകൾ (വാക്കുകളുടെ നിറം വെള്ളയാക്കി) */
         .input-field {
             width: 100%; padding: 10px 0; margin: 5px 0;
             border-left: 0; border-top: 0; border-right: 0;
-            border-bottom: 1px solid #999; outline: none; background: transparent;
+            border-bottom: 1px solid #fff; /* വരയുടെ നിറം വെള്ളയാക്കി */
+            outline: none; background: transparent;
+            color: #fff; /* ടൈപ്പ് ചെയ്യുന്ന അക്ഷരങ്ങളുടെ നിറം വെള്ള */
         }
+        /* Placeholder (അകത്ത് കാണുന്ന മാതൃകാ വാചകം) നിറം മാറ്റാൻ */
+        ::placeholder { color: #ddd; opacity: 1; }
+
+        /* സബ്മിറ്റ് ബട്ടൺ */
         .submit-btn {
             width: 85%; padding: 10px 30px; cursor: pointer; display: block; margin: auto;
             background: linear-gradient(to right, #ff105f, #ffad06);
             border: 0; outline: none; border-radius: 30px; color: #fff; margin-top: 20px;
+            font-weight: bold;
         }
+
+        /* പൊസിഷനുകൾ */
         #login { left: 50px; }
         #register { left: 450px; }
     </style>
 </head>
 <body>
+
     <div class="hero">
         <div class="form-box">
             <div class="button-box">
@@ -54,11 +106,13 @@
                 <button type="button" class="toggle-btn" onclick="openLogin()">Log In</button>
                 <button type="button" class="toggle-btn" onclick="openRegister()">Register</button>
             </div>
+
             <div id="login" class="input-group">
                 <input type="email" id="loginEmail" class="input-field" placeholder="Email Id" required>
                 <input type="password" id="loginPassword" class="input-field" placeholder="Enter Password" required>
                 <button type="button" class="submit-btn" id="loginBtn">Log In</button>
             </div>
+
             <div id="register" class="input-group">
                 <input type="text" id="regUser" class="input-field" placeholder="User Name" required>
                 <input type="email" id="regEmail" class="input-field" placeholder="Email Id" required>
@@ -78,7 +132,6 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        // updateProfile ഇവിടെ അധികമായി ചേർത്തിട്ടുണ്ട്
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -94,9 +147,9 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // രജിസ്ട്രേഷൻ (പേര് സേവ് ചെയ്യുന്ന പുതിയ കോഡ്)
+        // രജിസ്ട്രേഷൻ
         document.getElementById('regBtn').addEventListener('click', (e) => {
-            const username = document.getElementById('regUser').value; // പേര് എടുക്കുന്നു
+            const username = document.getElementById('regUser').value;
             const email = document.getElementById('regEmail').value;
             const password = document.getElementById('regPassword').value;
 
@@ -106,7 +159,6 @@
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    // ഇവിടെയാണ് പേര് അപ്‌ഡേറ്റ് ചെയ്യുന്നത്
                     updateProfile(user, {
                         displayName: username
                     }).then(() => {
