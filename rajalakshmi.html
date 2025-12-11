@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>എൻ്റെ ലൈബ്രറി</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; padding: 20px; text-align: center; }
+        h1 { color: #2c3e50; }
+        #searchBar { width: 80%; max-width: 500px; padding: 12px; margin-bottom: 30px; border-radius: 25px; border: 1px solid #ddd; font-size: 16px; outline: none; }
+        .library-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+        .book-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 220px; transition: transform 0.3s; display: flex; flex-direction: column; align-items: center; height: auto; }
+        .book-card:hover { transform: translateY(-5px); }
+        .book-cover { width: 100%; height: 280px; object-fit: contain; background-color: #eee; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
+        .book-title { font-size: 14px; font-weight: bold; color: #333; margin-bottom: 5px; word-wrap: break-word; line-height: 1.4em; }
+        a { text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div id="top-bar" style="background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+    
+    <div>
+        <button onclick="window.location.href='dashboard.html'" style="padding: 6px 15px; cursor: pointer; background: #ffad06; color: black; border: none; border-radius: 4px; font-weight: bold; font-size: 14px;" title="Go to Dashboard">
+            🏠 Home
+        </button>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <span id="user-info" style="font-size: 14px;">Checking...</span>
+        <button id="logout-btn" style="padding: 5px 15px; background: #ff105f; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">Logout</button>
+    </div>
+
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+        authDomain: "thripudilibrary.firebaseapp.com",
+        projectId: "thripudilibrary",
+        storageBucket: "thripudilibrary.firebasestorage.app",
+        messagingSenderId: "887018912750",
+        appId: "1:887018912750:web:cc05190a72b13db816acff",
+        measurementId: "G-B59RDW4KG4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        const userInfo = document.getElementById('user-info');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        if (user) {
+            const displayName = user.displayName ? user.displayName : user.email;
+            userInfo.innerHTML = `സ്വാഗതം, <b>${displayName}</b>`;
+            logoutBtn.style.display = "block"; 
+        } else {
+            window.location.href = "index.html"; 
+        }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        signOut(auth).then(() => {}).catch((error) => { alert("Error: " + error.message); });
+    });
+</script>
+    <h1>📚 ഡിജിറ്റൽ ലൈബ്രറി</h1>
+    <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
+
+    <div class="library-container" id="bookList">
+        
+        <div class='book-card'><a href='https://drive.google.com/file/d/1INMcHLDpN6oRiBAngqwldhhSQWFuQmui/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1MbiUaeyteFSbz-XKNAc902GVvq_E0XdT' alt='ഒരു വഴിയും കുറെ നിഴലുകളും' class='book-cover' loading='lazy'></a><div class='book-title'>ഒരു വഴിയും കുറെ നിഴലുകളും</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/15kM1bxtCMSXBVcxbnflELtwpHp5a6CJJ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1fXdUNv41tivnlrCwAN0C2rqzN3sHrE6c' alt='ശാപം' class='book-cover' loading='lazy'></a><div class='book-title'>ശാപം</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1N8Jy15lEbBr8GS1oC3TOdlcgQWxH3p0C/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1HOJ3_X43_07zW0jf6IrYEfzF8IpvUpfO' alt='ആത്മഹത്യ' class='book-cover' loading='lazy'></a><div class='book-title'>ആത്മഹത്യ</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1ZsRxj0vz177CD2WioJ4pPeZXiD3ohPZA/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1aLOZwxXLVsEvKNYSovU9f19idGnhuAku' alt='പരാജിത' class='book-cover' loading='lazy'></a><div class='book-title'>പരാജിത</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1sShVq2vQjZjTiFnyPwkh2PbEKFZD84-e/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=197JhDPumLz4fPqYlbgkaE0xa7cst_VJy' alt='ചങ്ങലകള്‍ പൊട്ടിക്കാന്‍ ഇനിയും' class='book-cover' loading='lazy'></a><div class='book-title'>ചങ്ങലകള്‍ പൊട്ടിക്കാന്‍ ഇനിയും</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1CbbN8Mlgq7wgC0CVuRykpg13wOx6PsfT/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1M8Dg5BIz24TEnCP5OgfZcmC6GRtG3Mpb' alt='ചരിത്രം ആവര്‍ത്തിച്ചില്ല' class='book-cover' loading='lazy'></a><div class='book-title'>ചരിത്രം ആവര്‍ത്തിച്ചില്ല</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/15j-QD4Dm7fR7BpDGaWZRQS-zfCcRbYjv/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Rdl-Ols5xbtkpMiI-uCbAVKRkg9nSOJc' alt='തെറ്റുകള്‍' class='book-cover' loading='lazy'></a><div class='book-title'>തെറ്റുകള്‍</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1LnM36SYl2JF_oMTgmSQJ57U_-RgXWC3N/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1GoBYAX6pKxxve4-XiB9RxldGvkBqN5_F' alt='മാപ്പ്' class='book-cover' loading='lazy'></a><div class='book-title'>മാപ്പ്</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1bgY569uBDmWo_C5IVUPH7qxTyK6Lrzq-/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=13X1LSnKjoG4BYzyrf8-dlcY3OAqjsLym' alt='മകള്‍' class='book-cover' loading='lazy'></a><div class='book-title'>മകള്‍</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1GLDlProG7bev1CVUCQHdpyvRLDcew7ks/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1XuISuotJqeIlvzLmrtAApS_aBLcOR_mZ' alt='കുമിള' class='book-cover' loading='lazy'></a><div class='book-title'>കുമിള</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/17VWT1cL_moYy5IfJUwySkpUYjjLKoWCX/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1EecH6arVQ2ZozCOY0VRtommTODKXrCcc' alt='സുന്ദരിയും കൂട്ടുകാരും' class='book-cover' loading='lazy'></a><div class='book-title'>സുന്ദരിയും കൂട്ടുകാരും</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/15nage9Vj-7sEX8GlOH9JB5FSQDvqV9z_/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1yyBqZlz8wCi5QfVlCF4wIieatkvxcQWK' alt='ഒരദ്ധ്യാപിക ജനിക്കുന്നു' class='book-cover' loading='lazy'></a><div class='book-title'>ഒരദ്ധ്യാപിക ജനിക്കുന്നു</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1JHJzyQOUHpPADJnuXozIwrYpKS5EXkgK/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1thtv1-kWGK43Yzagd_N61OQbgZD3g3tm' alt='നിന്നെ ഞാന്‍ സ്നേഹിക്കുന്നു' class='book-cover' loading='lazy'></a><div class='book-title'>നിന്നെ ഞാന്‍ സ്നേഹിക്കുന്നു</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+<div class='book-card'><a href='https://drive.google.com/file/d/1Y92sw23ZHlmBfU7cXEgkcfGfmFRsfrTE/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1X84mCPZlAW33JrtH0yza36edUPVYnchf' alt='ഹാന്‍ഡ്കര്‍ചീഫ്' class='book-cover' loading='lazy'></a><div class='book-title'>ഹാന്‍ഡ്കര്‍ചീഫ്</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+
+
+    </div>
+
+    <script>
+        function searchBooks() {
+            var input = document.getElementById('searchBar');
+            var filter = input.value.toUpperCase();
+            var cards = document.getElementsByClassName('book-card');
+            for (var i = 0; i < cards.length; i++) {
+                var title = cards[i].getElementsByClassName("book-title")[0];
+                if (title) {
+                    var txtValue = title.textContent || title.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+
