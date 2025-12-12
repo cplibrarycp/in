@@ -9,13 +9,13 @@
     <style>
         /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
         :root {
-            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ (ഹൈലൈറ്റ്) */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ (ഹെഡർ) */
+            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
+            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
             --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
             --text-color: #263238;
             --light-text: #FFFFFF;
             --card-bg: #FFFFFF;
-            --outline-color: #B2DFDB; /* ബോർഡർ കളർ */
+            --outline-color: #B2DFDB;
         }
 
         body {
@@ -35,7 +35,7 @@
 
         a { text-decoration: none; }
 
-        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
+        /* --- 2. ഹെഡർ --- */
         header {
             background-color: var(--secondary-dark);
             padding: 15px 0;
@@ -77,13 +77,12 @@
             color: var(--outline-color);
         }
 
-        /* Active Link Style */
         .nav-links a.active {
             color: var(--outline-color);
             border-bottom: 2px solid var(--outline-color);
         }
 
-        /* --- User Profile Section --- */
+        /* --- User Profile --- */
         .user-profile {
             display: flex;
             align-items: center;
@@ -189,7 +188,6 @@
             text-align: left;
         }
 
-        /* ഇടത് വശം: ഇമേജ് */
         .contact-image-box {
             flex: 1;
             min-width: 300px;
@@ -211,7 +209,6 @@
             border-color: var(--primary-orange);
         }
 
-        /* വലത് വശം: ഫോം */
         .contact-form-box {
             flex: 1;
             min-width: 300px;
@@ -250,6 +247,7 @@
             border-color: var(--primary-orange);
         }
 
+        /* Button Loading State */
         .btn-submit {
             background-color: var(--primary-orange);
             color: white;
@@ -265,6 +263,11 @@
 
         .btn-submit:hover {
             background-color: var(--secondary-dark);
+        }
+        
+        .btn-submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
         /* --- 4. ഫൂട്ടർ --- */
@@ -349,12 +352,9 @@
                 <div class="contact-form-box">
                     <h3>സന്ദേശങ്ങൾ അയക്കൂ</h3>
                     
-                    <form action="https://formsubmit.co/cplibrarycp@gmail.com" method="POST">
-                        
+                    <form id="contactForm">
                         <input type="hidden" name="_captcha" value="false">
                         
-                        <input type="hidden" name="_next" value="https://thripudilibrary.firebaseapp.com/contact.html">
-
                         <div class="form-group">
                             <label for="name">പേര്</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="നിങ്ങളുടെ പേര്" required>
@@ -367,7 +367,7 @@
                             <label for="message">സന്ദേശം</label>
                             <textarea name="message" id="message" rows="5" class="form-control" placeholder="നിങ്ങളുടെ അഭിപ്രായങ്ങൾ ഇവിടെ എഴുതുക..." required></textarea>
                         </div>
-                        <button type="submit" class="btn-submit">അയക്കുക <i class="fas fa-paper-plane"></i></button>
+                        <button type="submit" class="btn-submit" id="submitBtn">അയക്കുക <i class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
@@ -403,7 +403,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Auth State Check
         onAuthStateChanged(auth, (user) => {
             const nameDisplay = document.getElementById('display-name');
             const logoutLink = document.getElementById('logout-link');
@@ -411,18 +410,55 @@
             if (user) {
                 const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
                 nameDisplay.textContent = displayName;
-            } else {
-                // window.location.href = "index.html"; 
+                
+                // ഓട്ടോമാറ്റിക് ആയി ഫോമിൽ പേരും ഇമെയിലും നിറയ്ക്കാൻ (Optional)
+                document.getElementById('name').value = displayName;
+                document.getElementById('email').value = user.email;
             }
         });
 
-        // Logout Functionality
         document.getElementById('logout-link').addEventListener('click', (e) => {
             e.preventDefault(); 
             signOut(auth).then(() => {
                 window.location.href = "index.html";
             }).catch((error) => {
                 alert("Error: " + error.message);
+            });
+        });
+    </script>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // പേജ് റീലോഡ് ആകുന്നത് തടയുന്നു
+            
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            
+            // ബട്ടൺ ഡിസേബിൾ ചെയ്യുന്നു (Sending...)
+            btn.disabled = true;
+            btn.innerHTML = 'അയക്കുന്നു... <i class="fas fa-spinner fa-spin"></i>';
+
+            const formData = new FormData(this);
+
+            // FormSubmit AJAX Call
+            fetch("https://formsubmit.co/ajax/cplibrarycp@gmail.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // വിജയിച്ചാൽ
+                alert("നിങ്ങളുടെ സന്ദേശം അയച്ചിരിക്കുന്നു!"); 
+                this.reset(); // ഫോം ക്ലിയർ ചെയ്യുന്നു
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            })
+            .catch(error => {
+                // പരാജയപ്പെട്ടാൽ
+                console.error('Error:', error);
+                alert("ക്ഷമിക്കണം, സന്ദേശം അയക്കാൻ സാധിച്ചില്ല. വീണ്ടും ശ്രമിക്കുക.");
+                btn.disabled = false;
+                btn.innerHTML = originalText;
             });
         });
     </script>
