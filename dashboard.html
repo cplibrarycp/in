@@ -51,21 +51,12 @@
             align-items: center;
         }
 
+        /* ലോഗോ ടെക്സ്റ്റ് മാത്രമായി */
         .logo {
             font-size: 1.8em;
             font-weight: 700;
             color: var(--light-text);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        /* ലോഗോ ഇമേജ് സ്റ്റൈൽ */
-        .logo-icon {
-            height: 40px;
-            margin-right: 10px;
-            /* ലോഗോ വെളുത്ത നിറത്തിൽ കാണിക്കാൻ ഫിൽറ്റർ */
-            filter: brightness(0) invert(1);
         }
 
         .nav-links {
@@ -167,7 +158,7 @@
         .dashboard-section {
             padding: 60px 0;
             text-align: center;
-            min-height: 60vh; /* ഫൂട്ടർ താഴെ നിൽക്കാൻ */
+            min-height: 60vh;
         }
 
         .dashboard-section h1 {
@@ -263,10 +254,7 @@
 
     <header>
         <div class="container navbar">
-            <a href="dashboard.html" class="logo">
-                <img src="logo.png" alt="Logo" class="logo-icon">
-                THRIPUDI LIBRARY
-            </a>
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
             
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-item" style="color: var(--outline-color);"><i class="fas fa-home"></i> Home</a>
