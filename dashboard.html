@@ -3,158 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>നന്ദകുമാറിൻ്റെ ഡിജിറ്റൽ ലൈബ്രറി</title>
+    <title>📚 THRIPUDI LIBRARY - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
+        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        :root {
+            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ (ഹൈലൈറ്റ്) */
+            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ (ഹെഡർ) */
+            --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB; /* ബോർഡർ കളർ */
         }
-        h1 { color: #2c3e50; margin-bottom: 10px; }
-        p { color: #666; margin-bottom: 40px; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        a { text-decoration: none; }
+
+        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ലോഗോ ഇമേജ് സ്റ്റൈൽ */
+        .logo-icon {
+            height: 40px;
+            margin-right: 10px;
+            /* ലോഗോ വെളുത്ത നിറത്തിൽ കാണിക്കാൻ ഫിൽറ്റർ */
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a.nav-item:hover {
+            color: var(--outline-color);
+        }
+
+        /* --- User Profile Section --- */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-left: 25px;
+            padding-left: 25px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #fff;
+            color: var(--primary-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+
+        .user-info {
+            color: #fff;
+            font-size: 0.85em;
+            line-height: 1.2;
+            text-align: left;
+        }
         
-        /* ഡാഷ്ബോർഡ് ഗ്രിഡ് */
+        .user-name {
+            font-weight: 600;
+            display: block;
+        }
+
+        .user-role {
+            font-size: 0.8em;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* Dropdown Menu */
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px;
+            min-width: 160px;
+            overflow: hidden;
+            margin-top: 10px;
+            z-index: 1001;
+        }
+
+        .user-profile:hover .profile-dropdown {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-color);
+            font-size: 0.9em;
+            transition: background 0.3s;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: var(--background-light);
+            color: var(--primary-orange);
+        }
+
+        /* --- 3. ഡാഷ്ബോർഡ് കാർഡുകൾ --- */
+        .dashboard-section {
+            padding: 60px 0;
+            text-align: center;
+            min-height: 60vh; /* ഫൂട്ടർ താഴെ നിൽക്കാൻ */
+        }
+
+        .dashboard-section h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            color: var(--secondary-dark);
+            margin-bottom: 10px;
+        }
+
+        .dashboard-section p {
+            color: #546E7A;
+            margin-bottom: 50px;
+            font-weight: 500;
+        }
+
         .dashboard-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 25px;
-            max-width: 900px;
             margin: 0 auto;
         }
 
-        /* ബട്ടൺ കാർഡ് ഡിസൈൻ */
         .category-card {
-            background: white;
-            width: 160px;
-            height: 160px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: var(--card-bg);
+            width: 180px;
+            height: 180px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: #333;
+            color: var(--text-color);
             transition: all 0.3s ease;
-            border: 2px solid transparent;
+            border: 2px solid var(--outline-color); /* തീം ബോർഡർ */
         }
 
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            border-color: #007bff; /* ഹോവർ ചെയ്യുമ്പോൾ നീല ബോർഡർ */
+            box-shadow: 0 10px 20px rgba(0, 77, 64, 0.15);
+            border-color: var(--primary-orange); /* ഹോവർ ചെയ്യുമ്പോൾ ടീൽ കളർ */
         }
 
-        .icon { font-size: 45px; margin-bottom: 15px; }
-        .label { font-size: 18px; font-weight: 600; }
-        .count { font-size: 12px; color: #888; margin-top: 5px; }
+        .icon { 
+            font-size: 50px; 
+            margin-bottom: 15px; 
+        }
+        
+        .label { 
+            font-size: 18px; 
+            font-weight: 700; 
+            color: var(--secondary-dark);
+        }
 
-        /* Footer */
-        footer { margin-top: 50px; color: #aaa; font-size: 14px; }
+        /* --- 4. ഫൂട്ടർ & മൊബൈൽ --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 60px;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            margin: 0 10px;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-orange);
+        }
+
+        @media (max-width: 900px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
+            .profile-dropdown { left: 0; right: 0; text-align: center; }
+        }
     </style>
 </head>
 <body>
-<div id="top-bar" style="background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-    
-    <div>
-        <button onclick="window.location.href='dashboard.html'" style="padding: 6px 15px; cursor: pointer; background: #ffad06; color: black; border: none; border-radius: 4px; font-weight: bold; font-size: 14px;" title="Go to Dashboard">
-            🏠 Home
-        </button>
-    </div>
 
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <span id="user-info" style="font-size: 14px;">Checking...</span>
-        <button id="logout-btn" style="padding: 5px 15px; background: #ff105f; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">Logout</button>
-    </div>
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">
+                <img src="logo.png" alt="Logo" class="logo-icon">
+                THRIPUDI LIBRARY
+            </a>
+            
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item" style="color: var(--outline-color);"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="#" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
 
-</div>
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    
+                    <div class="profile-dropdown">
+                        <a href="#">Profile Settings</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    <section class="dashboard-section">
+        <div class="container">
+            <h1>ഡിജിറ്റൽ ലൈബ്രറി</h1>
+            <p>വായനയ്ക്കായി ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക</p>
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-        authDomain: "thripudilibrary.firebaseapp.com",
-        projectId: "thripudilibrary",
-        storageBucket: "thripudilibrary.firebasestorage.app",
-        messagingSenderId: "887018912750",
-        appId: "1:887018912750:web:cc05190a72b13db816acff",
-        measurementId: "G-B59RDW4KG4"
-    };
+            <div class="dashboard-container">
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+                <a href="malayalam.html" class="category-card">
+                    <span class="icon">🥥</span>
+                    <span class="label">മലയാളം</span>
+                </a>
 
-    onAuthStateChanged(auth, (user) => {
-        const userInfo = document.getElementById('user-info');
-        const logoutBtn = document.getElementById('logout-btn');
+                <a href="english.html" class="category-card">
+                    <span class="icon">📘</span>
+                    <span class="label">English</span>
+                </a>
 
-        if (user) {
-            const displayName = user.displayName ? user.displayName : user.email;
-            userInfo.innerHTML = `സ്വാഗതം, <b>${displayName}</b>`;
-            logoutBtn.style.display = "block"; 
-        } else {
-            window.location.href = "index.html"; 
-        }
-    });
+                <a href="yoga.html" class="category-card">
+                    <span class="icon">🧘‍♂️</span>
+                    <span class="label">Yoga</span>
+                </a>
 
-    document.getElementById('logout-btn').addEventListener('click', () => {
-        signOut(auth).then(() => {}).catch((error) => { alert("Error: " + error.message); });
-    });
-</script>
-    <br>
-    <h1>📚 ഡിജിറ്റൽ ലൈബ്രറി</h1>
-    <p>വായനയ്ക്കായി ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക</p>
+                <a href="history.html" class="category-card">
+                    <span class="icon">📜</span>
+                    <span class="label">History</span>
+                </a>
 
-    <div class="dashboard-container">
+                <a href="science.html" class="category-card">
+                    <span class="icon">🔬</span>
+                    <span class="label">Science</span>
+                </a>
 
-        <a href="malayalam.html" class="category-card">
-            <span class="icon">🥥</span>
-            <span class="label">മലയാളം</span>
-        </a>
+                <a href="others.html" class="category-card">
+                    <span class="icon">📂</span>
+                    <span class="label">Others</span>
+                </a>
 
-        <a href="english.html" class="category-card">
-            <span class="icon">📘</span>
-            <span class="label">English</span>
-        </a>
-
-        <a href="yoga.html" class="category-card">
-            <span class="icon">🧘‍♂️</span>
-            <span class="label">Yoga</span>
-        </a>
-
-        <a href="history.html" class="category-card">
-            <span class="icon">📜</span>
-            <span class="label">History</span>
-        </a>
-
-        <a href="science.html" class="category-card">
-            <span class="icon">🔬</span>
-            <span class="label">Science</span>
-        </a>
-
-        <a href="others.html" class="category-card">
-            <span class="icon">📂</span>
-            <span class="label">Others</span>
-        </a>
-
-    </div>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        &copy; 2025 Nandakumar's Library
+        <div class="container">
+            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="#">സ്വകാര്യതാ നയം</a> |
+                <a href="#">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
     </footer>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Auth State Check
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (user) {
+                // User is signed in
+                const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+            } else {
+                // No user is signed in, redirect to index
+                window.location.href = "index.html"; 
+            }
+        });
+
+        // Logout Functionality
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault(); 
+            signOut(auth).then(() => {
+                // Sign-out successful.
+                window.location.href = "index.html";
+            }).catch((error) => {
+                alert("Error: " + error.message);
+            });
+        });
+    </script>
+
 </body>
-
 </html>
-
-
-
-
-
-
-
