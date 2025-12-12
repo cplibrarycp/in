@@ -337,30 +337,35 @@
             
             <div class="contact-container">
                 <div class="contact-image-box">
-                    <img src="https://drive.google.com/thumbnail?sz=w600&id=1kR0sfXVA3JMj464R-cQSVTO3LB4p9nZC" alt="Contact Us Image" class="contact-thumb">
+                    <img src="https://drive.google.com/thumbnail?sz=w600&id=1kR0sfXVA3JMj464R-cQSVTO3LB4p9nZC" alt="Contact Us" class="contact-thumb">
                     
                     <div style="margin-top: 20px; color: #546E7A;">
                         <p><i class="fas fa-map-marker-alt"></i> <strong>Thripudi Library</strong></p>
                         <p>Near Main Road, Kerala, India</p>
-                        <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
-                        <p><i class="fas fa-envelope"></i> info@thripudilibrary.com</p>
+                        <p><i class="fas fa-envelope"></i> cplibrarycp@gmail.com</p>
                     </div>
                 </div>
 
                 <div class="contact-form-box">
                     <h3>സന്ദേശങ്ങൾ അയക്കൂ</h3>
-                    <form>
+                    
+                    <form action="https://formsubmit.co/cplibrarycp@gmail.com" method="POST">
+                        
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <input type="hidden" name="_next" value="https://thripudilibrary.firebaseapp.com/contact.html">
+
                         <div class="form-group">
                             <label for="name">പേര്</label>
-                            <input type="text" id="name" class="form-control" placeholder="നിങ്ങളുടെ പേര്">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="നിങ്ങളുടെ പേര്" required>
                         </div>
                         <div class="form-group">
                             <label for="email">ഇമെയിൽ</label>
-                            <input type="email" id="email" class="form-control" placeholder="example@gmail.com">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="example@gmail.com" required>
                         </div>
                         <div class="form-group">
                             <label for="message">സന്ദേശം</label>
-                            <textarea id="message" rows="5" class="form-control" placeholder="നിങ്ങളുടെ അഭിപ്രായങ്ങൾ ഇവിടെ എഴുതുക..."></textarea>
+                            <textarea name="message" id="message" rows="5" class="form-control" placeholder="നിങ്ങളുടെ അഭിപ്രായങ്ങൾ ഇവിടെ എഴുതുക..." required></textarea>
                         </div>
                         <button type="submit" class="btn-submit">അയക്കുക <i class="fas fa-paper-plane"></i></button>
                     </form>
@@ -407,7 +412,6 @@
                 const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
                 nameDisplay.textContent = displayName;
             } else {
-                // ലോഗിൻ ചെയ്തില്ലെങ്കിൽ ഹോം പേജിലേക്ക് പോകാൻ (വേണമെങ്കിൽ ഇത് മാറ്റാം)
                 // window.location.href = "index.html"; 
             }
         });
