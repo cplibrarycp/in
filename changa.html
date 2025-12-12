@@ -3,125 +3,752 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>എൻ്റെ ലൈബ്രറി</title>
+    <title>📚 THRIPUDI LIBRARY - ചങ്ങമ്പുഴ കൃതികൾ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; padding: 20px; text-align: center; }
-        h1 { color: #2c3e50; }
-        #searchBar { width: 80%; max-width: 500px; padding: 12px; margin-bottom: 30px; border-radius: 25px; border: 1px solid #ddd; font-size: 16px; outline: none; }
-        .library-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
-        .book-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 220px; transition: transform 0.3s; display: flex; flex-direction: column; align-items: center; height: auto; }
-        .book-card:hover { transform: translateY(-5px); }
-        .book-cover { width: 100%; height: 280px; object-fit: contain; background-color: #eee; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
-        .book-title { font-size: 14px; font-weight: bold; color: #333; margin-bottom: 5px; word-wrap: break-word; line-height: 1.4em; }
+        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        :root {
+            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
+            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
+            --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB; /* ഇമേജ് ബോർഡർ കളർ */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
         a { text-decoration: none; }
+
+        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.85em;
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a.nav-item:hover {
+            color: var(--outline-color);
+        }
+
+        /* --- User Profile Section --- */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-left: 25px;
+            padding-left: 25px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #fff;
+            color: var(--primary-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+
+        .user-info {
+            color: #fff;
+            font-size: 0.85em;
+            line-height: 1.2;
+            text-align: left;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            display: block;
+        }
+
+        .user-role {
+            font-size: 0.8em;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px;
+            min-width: 160px;
+            overflow: hidden;
+            margin-top: 10px;
+            z-index: 1001;
+        }
+
+        .user-profile:hover .profile-dropdown {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-color);
+            font-size: 0.9em;
+            transition: background 0.3s;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: var(--background-light);
+            color: var(--primary-orange);
+        }
+
+        /* --- 3. സെർച്ച് ബാർ --- */
+        .search-container {
+            margin-bottom: 40px;
+            position: relative;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #searchBar {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 45px; 
+            border-radius: 50px;
+            border: 2px solid var(--outline-color);
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        #searchBar:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-dark);
+            opacity: 0.6;
+        }
+
+        /* --- 4. ബുക്ക് കാർഡ്സ് --- */
+        .collection-section {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .collection-section h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2em;
+            color: var(--secondary-dark);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-orange);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .library-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .book-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--outline-color);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 77, 64, 0.15);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 250px;
+            object-fit: cover; 
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 4px solid var(--outline-color); 
+            transition: border-color 0.3s;
+        }
+        
+        .book-card:hover .book-cover {
+            border-color: var(--primary-orange);
+        }
+        
+        .book-title {
+            font-weight: 700;
+            color: var(--secondary-dark);
+            margin-top: 5px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.3;
+        }
+
+        .download-button-style {
+            display: inline-block;
+            background-color: var(--primary-orange);
+            color: var(--light-text);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            border: 2px solid var(--primary-orange);
+            cursor: pointer;
+        }
+
+        .download-button-style:hover {
+            background-color: var(--secondary-dark);
+            border-color: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* --- 5. ഫൂട്ടർ & മൊബൈൽ --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 60px;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            margin: 0 10px;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-orange);
+        }
+
+        @media (max-width: 900px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
+            .profile-dropdown { left: 0; right: 0; text-align: center; }
+        }
     </style>
 </head>
 <body>
-<div id="top-bar" style="background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-    
-    <div>
-        <button onclick="window.location.href='dashboard.html'" style="padding: 6px 15px; cursor: pointer; background: #ffad06; color: black; border: none; border-radius: 4px; font-weight: bold; font-size: 14px;" title="Go to Dashboard">
-            🏠 Home
-        </button>
-    </div>
 
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <span id="user-info" style="font-size: 14px;">Checking...</span>
-        <button id="logout-btn" style="padding: 5px 15px; background: #ff105f; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">Logout</button>
-    </div>
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="#" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
 
-</div>
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    
+                    <div class="profile-dropdown">
+                        <a href="#">Profile Settings</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    <section class="collection-section">
+        <div class="container">
+            <h1>ചങ്ങമ്പുഴ കൃതികൾ</h1>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക... (ഉദാ: രമണൻ)">
+            </div>
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-        authDomain: "thripudilibrary.firebaseapp.com",
-        projectId: "thripudilibrary",
-        storageBucket: "thripudilibrary.firebasestorage.app",
-        messagingSenderId: "887018912750",
-        appId: "1:887018912750:web:cc05190a72b13db816acff",
-        measurementId: "G-B59RDW4KG4"
-    };
+            <div class="library-container" id="bookList">
+                
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/194PvVP0GDVNnIq4bWjL_1_plYu8gm4cs/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1lpQauDBgQ9BoGWLVtaIk9kDyjdwEjEeS' alt='AARADHAKAN' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>AARADHAKAN</div>
+                    <a href='https://drive.google.com/file/d/194PvVP0GDVNnIq4bWjL_1_plYu8gm4cs/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/15XU5_7SoHLy7_0QFiVqjkMSGiJVDzYEE/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1LNy8_DRi64zTRhalNc4AhkOslwfGjCyL' alt='AKASAGANGA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>AKASAGANGA</div>
+                    <a href='https://drive.google.com/file/d/15XU5_7SoHLy7_0QFiVqjkMSGiJVDzYEE/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
 
-    onAuthStateChanged(auth, (user) => {
-        const userInfo = document.getElementById('user-info');
-        const logoutBtn = document.getElementById('logout-btn');
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1Zc9ekAxCFGkQIqnPurSzN6vqSjgB1VXR/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=17EqFBDg6qwENeYG4105YGd9YKpK0wMoo' alt='ASTHIYUDE POOKKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>ASTHIYUDE POOKKAL</div>
+                    <a href='https://drive.google.com/file/d/1Zc9ekAxCFGkQIqnPurSzN6vqSjgB1VXR/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
 
-        if (user) {
-            const displayName = user.displayName ? user.displayName : user.email;
-            userInfo.innerHTML = `സ്വാഗതം, <b>${displayName}</b>`;
-            logoutBtn.style.display = "block"; 
-        } else {
-            window.location.href = "index.html"; 
-        }
-    });
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1pKAVyhy2qeBYqllzNCL88shvc56_kF_j/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1Irbs9zvHfYb7ZrfjJYxS19IYUTSnqffv' alt='DEVAGEETHA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>DEVAGEETHA</div>
+                    <a href='https://drive.google.com/file/d/1pKAVyhy2qeBYqllzNCL88shvc56_kF_j/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
 
-    document.getElementById('logout-btn').addEventListener('click', () => {
-        signOut(auth).then(() => {}).catch((error) => { alert("Error: " + error.message); });
-    });
-</script>
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1GW2buXt3-puNbDm8KnsWl62O12xQuaG-/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=12UKKUBrNbJcXqk3SaK1IG8_VrxivqW89' alt='DEVAYANI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>DEVAYANI</div>
+                    <a href='https://drive.google.com/file/d/1GW2buXt3-puNbDm8KnsWl62O12xQuaG-/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
 
-    <h1>📚 ഡിജിറ്റൽ ലൈബ്രറി</h1>
-    <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1EGuq6cHa93X1sULxgnf-NrrZ3GK9d5lG/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1ykVbs1zjPHxkQtplpJPk9mly9Xbl3IGR' alt='DEVATHA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>DEVATHA</div>
+                    <a href='https://drive.google.com/file/d/1EGuq6cHa93X1sULxgnf-NrrZ3GK9d5lG/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
 
-    <div class="library-container" id="bookList">
-        
-        <div class='book-card'><a href='https://drive.google.com/file/d/194PvVP0GDVNnIq4bWjL_1_plYu8gm4cs/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1lpQauDBgQ9BoGWLVtaIk9kDyjdwEjEeS' alt='AARADHAKAN' class='book-cover' loading='lazy'></a><div class='book-title'>AARADHAKAN</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/15XU5_7SoHLy7_0QFiVqjkMSGiJVDzYEE/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1LNy8_DRi64zTRhalNc4AhkOslwfGjCyL' alt='AKASAGANGA' class='book-cover' loading='lazy'></a><div class='book-title'>AKASAGANGA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1Zc9ekAxCFGkQIqnPurSzN6vqSjgB1VXR/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=17EqFBDg6qwENeYG4105YGd9YKpK0wMoo' alt='ASTHIYUDE POOKKAL' class='book-cover' loading='lazy'></a><div class='book-title'>ASTHIYUDE POOKKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1pKAVyhy2qeBYqllzNCL88shvc56_kF_j/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Irbs9zvHfYb7ZrfjJYxS19IYUTSnqffv' alt='DEVAGEETHA' class='book-cover' loading='lazy'></a><div class='book-title'>DEVAGEETHA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1GW2buXt3-puNbDm8KnsWl62O12xQuaG-/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=12UKKUBrNbJcXqk3SaK1IG8_VrxivqW89' alt='DEVAYANI' class='book-cover' loading='lazy'></a><div class='book-title'>DEVAYANI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1EGuq6cHa93X1sULxgnf-NrrZ3GK9d5lG/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1ykVbs1zjPHxkQtplpJPk9mly9Xbl3IGR' alt='DEVATHA' class='book-cover' loading='lazy'></a><div class='book-title'>DEVATHA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1juiVf_0rNV5mvG3lCBzmYCVh1o6hSoLV/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Os7Hsjhu2EWyTE_X2pyWDfVqexI8P-Cs' alt='APARADHIKAL' class='book-cover' loading='lazy'></a><div class='book-title'>APARADHIKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1lBK_sAI7vbCUMFxfNTgO4-MQSGEpCc_-/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1yCDMa4Lwva3KIT2l7091TghNttRG9jzV' alt='HANELA' class='book-cover' loading='lazy'></a><div class='book-title'>HANELA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1VAlBTK3P6_89gf1XDxcOsC50T4-BRYw6/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=14RnIQiFlMWlxc8cPHeUmI3HsO0gtQ-yR' alt='KALAKELI' class='book-cover' loading='lazy'></a><div class='book-title'>KALAKELI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1fDL2gL86SHWnQPG_jNeYqsaaMiyaslW7/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=11TKTLnHBMmHtTWyQlRrubooHfG47TAtZ' alt='BHASHPANJALI' class='book-cover' loading='lazy'></a><div class='book-title'>BHASHPANJALI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1JoZXWfuwqIBloC8aOFLYUo-vnFqR-5wZ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1G3byYB5Xk1RjeB4c_4w5DgYdP4FlD6H1' alt='IDAPPALI KATHAKAL' class='book-cover' loading='lazy'></a><div class='book-title'>IDAPPALI KATHAKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1CLXsN8MhpJMamei3TQsfYUNHSTW1bWtb/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1B-vJy_-yUKuKgMS_e2NinpVDmKUZy7uk' alt='KALITHOZHI' class='book-cover' loading='lazy'></a><div class='book-title'>KALITHOZHI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1HEokccn3s15ZvM60g14c96za-LylG-vW/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1ed1tI376Oehgjia20P_bb_y3KA8VSnhy' alt='MADIROLSAVAM' class='book-cover' loading='lazy'></a><div class='book-title'>MADIROLSAVAM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1vuNziotNfN-WJ3EwqrvIcaKFh3-gbBdJ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1jfoJgn8wSqn8pr1T9wE-xpWoRx2iyjQa' alt='KATHARATHNAMALIKA' class='book-cover' loading='lazy'></a><div class='book-title'>KATHARATHNAMALIKA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1oCtywM4PGA62h8_M1TYV6BYkLjY63_Ft/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Fbbhnt_BYCP5faoONH5XSLH1A4J8hiPD' alt='MANASESWARI' class='book-cover' loading='lazy'></a><div class='book-title'>MANASESWARI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1b9Rleu1ymUWzOWFPZLakA_ELrGAslNAV/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1kLRhujK6M8D65qVfA3zMKf90e1rUb943' alt='MANJA KILIKAL' class='book-cover' loading='lazy'></a><div class='book-title'>MANJA KILIKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1MBDfcoTxmTG69_b8aLpjd362_Jn0nLMt/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1QOHjnfwhb7dMn4NjoDUAq1IwGetWQ0RF' alt='MANI VEENA' class='book-cover' loading='lazy'></a><div class='book-title'>MANI VEENA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1HBdClpnsfQrubHCtE_viPTXHMs0fNmlL/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1pjgAP1du0oe5cWQkHMv8y6DzKuwXpWtH' alt='MANASANTHARAM' class='book-cover' loading='lazy'></a><div class='book-title'>MANASANTHARAM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1he708k4Ja4Kr9n4TLX8VH2v8Twp1zA03/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1i1jmhWukKeH5ySEgbtI2lKBChT47QPkp' alt='NARTHAKI' class='book-cover' loading='lazy'></a><div class='book-title'>NARTHAKI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/13_VyD2dJGkvL9tivzNuLcxipcv9pCQHr/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1g8mFHJcAzd5Ec7_JQLaUKCAlY9AlXq08' alt='NEERUNNA THEECHOOLA' class='book-cover' loading='lazy'></a><div class='book-title'>NEERUNNA THEECHOOLA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/14mHFnT-W6e_HK-KKJfGyGaey0zIT6j2a/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=18rb5IZL6WTMkFtjQ3iqAkfrFx25dvKRZ' alt='MOHINI' class='book-cover' loading='lazy'></a><div class='book-title'>MOHINI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1QsmqU4mQRYb84goGo6J-nDsyZGX3nH__/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1lzDirPuno8E5bVl-dT3TlIic-KGH19v1' alt='MOUNAGANAM' class='book-cover' loading='lazy'></a><div class='book-title'>MOUNAGANAM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1o4d_iUnru1ozKnlREcSWLjMqncL8K6TV/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1ZDP1lgPNeYWroW9NHMAtyyVkYMIdNWeE' alt='NIRVRUTHI' class='book-cover' loading='lazy'></a><div class='book-title'>NIRVRUTHI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1qBwfjYd7W7wT6GEflsks_vXkmzw7P9Lt/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1DgQS_KnIbCkyLPMZJMru8OUyDOWcl3Q6' alt='ONAPPOOKKAL' class='book-cover' loading='lazy'></a><div class='book-title'>ONAPPOOKKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1YLdjAoDue4zTARLc21E7FHxVcfrwwdDn/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1x659_ve7tBHoF46tLDFr73ASJc37-p9U' alt='NIRVANAMANDALAM' class='book-cover' loading='lazy'></a><div class='book-title'>NIRVANAMANDALAM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1wfmFsl04WdjUD5gnTOdAU1G-cTOwjd61/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1e3gnCypC3pO-WAHXEYhBRIJZ4-an-zsQ' alt='PADUNNA PISACH' class='book-cover' loading='lazy'></a><div class='book-title'>PADUNNA PISACH</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1r3AkJDl8fpm_Y6AyLkqSAsuuHVS_uTC1/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1WHkyQI354PLXAI5I9bP2gHa2NmdtqFGb' alt='PRATHIKARA DURGA' class='book-cover' loading='lazy'></a><div class='book-title'>PRATHIKARA DURGA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1zVck-zXcEMdnqt9Gh-iXMXq1fkkABP_h/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1N5JIBuBr7noyoB58EZtpQQyKh4GjLw37' alt='PELLISUM MADASALAYUM' class='book-cover' loading='lazy'></a><div class='book-title'>PELLISUM MADASALAYUM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/13-MgPPRXdrgIXYj4Lc6E7K2djdrJMg3w/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1xyuZddWNDJ-chH5rTm0mMtnodknWWZKM' alt='SAHITHYA CHINTHAKAL' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA CHINTHAKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1-SzaESp7E_WreI512eUxS54ZAhMk7Gg9/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1vaSuxOpJXLgDpeBNapuSTgMQa7AHbA9k' alt='SANGALPA KANTHI' class='book-cover' loading='lazy'></a><div class='book-title'>SANGALPA KANTHI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1ebdECi8A2vb16OwjntJa6O7yU5ZQZ3Yz/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1m-sQ5Uihww9tC_hD1NOo-SU94dkve2aI' alt='RAGAPARAGAM' class='book-cover' loading='lazy'></a><div class='book-title'>RAGAPARAGAM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1XULnNODLrcQadg09ZSSMKyXfugpNl7Co/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=11nQgCd5qB0GhD55CmNktBQ_fMdhOuoKz' alt='RAMANAN' class='book-cover' loading='lazy'></a><div class='book-title'>RAMANAN</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/16yZtlGc6GjlDbOPOGe6rk3vkKi18ot_o/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1nr-uzVhusb5TVz2MPdUWelXyZfeX4AsR' alt='THALIRTHOTHUKAL' class='book-cover' loading='lazy'></a><div class='book-title'>THALIRTHOTHUKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1n9HYv62YWvsvKmHlaS56Su9Y7T98KWD6/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1M6gDvEL0W-CtqQIdFy4ID-DIx_mF2Yn9' alt='SMASANATHILE THULASI' class='book-cover' loading='lazy'></a><div class='book-title'>SMASANATHILE THULASI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1iVW0Ly88x3FQK5RQexBzrJqBcpZ2nD6o/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1CsGL33ASZqit1uT7pk6fAQk2wF_ygOSF' alt='SWARARAGASUDHA' class='book-cover' loading='lazy'></a><div class='book-title'>SWARARAGASUDHA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/16_P3KstCN2YDwgTBpSx9QWJ8mogD8HcB/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1ZUXJCU-hUR_uWr7BJTygnhcRm9UyZ2be' alt='THILOTHAMA' class='book-cover' loading='lazy'></a><div class='book-title'>THILOTHAMA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1choDj6lCX4YtOVuyF9C_O29wS-LoEGNN/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1OfKEsqqpAx5-GvoaEzw5zwvx90LAjfu4' alt='SUDHAMGATHA' class='book-cover' loading='lazy'></a><div class='book-title'>SUDHAMGATHA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1kkB3rw4muXKyZWxVktF4O6vZbD_upUoq/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1pcyd2QNnMuzTmuirrS4MEiou5G_WMtE9' alt='SREE THILAKAM' class='book-cover' loading='lazy'></a><div class='book-title'>SREE THILAKAM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1TB2AH3OdSPaDDoMrWWSGoVueztvGUFup/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1CH6CZcl40Pc-SZCkRXdgqUPfHm7VIvzD' alt='THUDIKUNNA THALUKAL' class='book-cover' loading='lazy'></a><div class='book-title'>THUDIKUNNA THALUKAL</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1vy_7RlcSZdQB8zMaXG0DV5oCgbSpGaVc/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1O3g82q296nai3fFOeqR-qGmaxliTBW81' alt='UDYANALAKSHMI' class='book-cover' loading='lazy'></a><div class='book-title'>UDYANALAKSHMI</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1KyFezOzKwStn-CCzoTMs0qWAOgrYq2eJ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Eg2vxcEHFOV_t0qwMWeliZhexa_TMnTB' alt='YAVANIKA' class='book-cover' loading='lazy'></a><div class='book-title'>YAVANIKA</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1Q6fFDqKKd-xW7LYbvGnDrOsxbBVZj1Tg/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1YsFlL5PGspnns_S6KE-wtU6efNrzt2sI' alt='VASANTHOLSAVAM' class='book-cover' loading='lazy'></a><div class='book-title'>VASANTHOLSAVAM</div><span style='font-size: 12px; color: blue;'>Click to View PDF</span></div>
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1juiVf_0rNV5mvG3lCBzmYCVh1o6hSoLV/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1Os7Hsjhu2EWyTE_X2pyWDfVqexI8P-Cs' alt='APARADHIKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>APARADHIKAL</div>
+                    <a href='https://drive.google.com/file/d/1juiVf_0rNV5mvG3lCBzmYCVh1o6hSoLV/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
 
-    </div>
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1lBK_sAI7vbCUMFxfNTgO4-MQSGEpCc_-/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1yCDMa4Lwva3KIT2l7091TghNttRG9jzV' alt='HANELA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>HANELA</div>
+                    <a href='https://drive.google.com/file/d/1lBK_sAI7vbCUMFxfNTgO4-MQSGEpCc_-/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1VAlBTK3P6_89gf1XDxcOsC50T4-BRYw6/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=14RnIQiFlMWlxc8cPHeUmI3HsO0gtQ-yR' alt='KALAKELI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>KALAKELI</div>
+                    <a href='https://drive.google.com/file/d/1VAlBTK3P6_89gf1XDxcOsC50T4-BRYw6/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1fDL2gL86SHWnQPG_jNeYqsaaMiyaslW7/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=11TKTLnHBMmHtTWyQlRrubooHfG47TAtZ' alt='BHASHPANJALI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>BHASHPANJALI</div>
+                    <a href='https://drive.google.com/file/d/1fDL2gL86SHWnQPG_jNeYqsaaMiyaslW7/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1JoZXWfuwqIBloC8aOFLYUo-vnFqR-5wZ/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1G3byYB5Xk1RjeB4c_4w5DgYdP4FlD6H1' alt='IDAPPALI KATHAKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>IDAPPALI KATHAKAL</div>
+                    <a href='https://drive.google.com/file/d/1JoZXWfuwqIBloC8aOFLYUo-vnFqR-5wZ/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1CLXsN8MhpJMamei3TQsfYUNHSTW1bWtb/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1B-vJy_-yUKuKgMS_e2NinpVDmKUZy7uk' alt='KALITHOZHI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>KALITHOZHI</div>
+                    <a href='https://drive.google.com/file/d/1CLXsN8MhpJMamei3TQsfYUNHSTW1bWtb/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1HEokccn3s15ZvM60g14c96za-LylG-vW/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1ed1tI376Oehgjia20P_bb_y3KA8VSnhy' alt='MADIROLSAVAM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>MADIROLSAVAM</div>
+                    <a href='https://drive.google.com/file/d/1HEokccn3s15ZvM60g14c96za-LylG-vW/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1vuNziotNfN-WJ3EwqrvIcaKFh3-gbBdJ/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1jfoJgn8wSqn8pr1T9wE-xpWoRx2iyjQa' alt='KATHARATHNAMALIKA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>KATHARATHNAMALIKA</div>
+                    <a href='https://drive.google.com/file/d/1vuNziotNfN-WJ3EwqrvIcaKFh3-gbBdJ/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1oCtywM4PGA62h8_M1TYV6BYkLjY63_Ft/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1Fbbhnt_BYCP5faoONH5XSLH1A4J8hiPD' alt='MANASESWARI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>MANASESWARI</div>
+                    <a href='https://drive.google.com/file/d/1oCtywM4PGA62h8_M1TYV6BYkLjY63_Ft/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1b9Rleu1ymUWzOWFPZLakA_ELrGAslNAV/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1kLRhujK6M8D65qVfA3zMKf90e1rUb943' alt='MANJA KILIKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>MANJA KILIKAL</div>
+                    <a href='https://drive.google.com/file/d/1b9Rleu1ymUWzOWFPZLakA_ELrGAslNAV/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1MBDfcoTxmTG69_b8aLpjd362_Jn0nLMt/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1QOHjnfwhb7dMn4NjoDUAq1IwGetWQ0RF' alt='MANI VEENA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>MANI VEENA</div>
+                    <a href='https://drive.google.com/file/d/1MBDfcoTxmTG69_b8aLpjd362_Jn0nLMt/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1HBdClpnsfQrubHCtE_viPTXHMs0fNmlL/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1pjgAP1du0oe5cWQkHMv8y6DzKuwXpWtH' alt='MANASANTHARAM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>MANASANTHARAM</div>
+                    <a href='https://drive.google.com/file/d/1HBdClpnsfQrubHCtE_viPTXHMs0fNmlL/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1he708k4Ja4Kr9n4TLX8VH2v8Twp1zA03/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1i1jmhWukKeH5ySEgbtI2lKBChT47QPkp' alt='NARTHAKI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>NARTHAKI</div>
+                    <a href='https://drive.google.com/file/d/1he708k4Ja4Kr9n4TLX8VH2v8Twp1zA03/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/13_VyD2dJGkvL9tivzNuLcxipcv9pCQHr/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1g8mFHJcAzd5Ec7_JQLaUKCAlY9AlXq08' alt='NEERUNNA THEECHOOLA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>NEERUNNA THEECHOOLA</div>
+                    <a href='https://drive.google.com/file/d/13_VyD2dJGkvL9tivzNuLcxipcv9pCQHr/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/14mHFnT-W6e_HK-KKJfGyGaey0zIT6j2a/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=18rb5IZL6WTMkFtjQ3iqAkfrFx25dvKRZ' alt='MOHINI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>MOHINI</div>
+                    <a href='https://drive.google.com/file/d/14mHFnT-W6e_HK-KKJfGyGaey0zIT6j2a/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1QsmqU4mQRYb84goGo6J-nDsyZGX3nH__/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1lzDirPuno8E5bVl-dT3TlIic-KGH19v1' alt='MOUNAGANAM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>MOUNAGANAM</div>
+                    <a href='https://drive.google.com/file/d/1QsmqU4mQRYb84goGo6J-nDsyZGX3nH__/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1o4d_iUnru1ozKnlREcSWLjMqncL8K6TV/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZDP1lgPNeYWroW9NHMAtyyVkYMIdNWeE' alt='NIRVRUTHI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>NIRVRUTHI</div>
+                    <a href='https://drive.google.com/file/d/1o4d_iUnru1ozKnlREcSWLjMqncL8K6TV/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1qBwfjYd7W7wT6GEflsks_vXkmzw7P9Lt/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1DgQS_KnIbCkyLPMZJMru8OUyDOWcl3Q6' alt='ONAPPOOKKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>ONAPPOOKKAL</div>
+                    <a href='https://drive.google.com/file/d/1qBwfjYd7W7wT6GEflsks_vXkmzw7P9Lt/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1YLdjAoDue4zTARLc21E7FHxVcfrwwdDn/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1x659_ve7tBHoF46tLDFr73ASJc37-p9U' alt='NIRVANAMANDALAM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>NIRVANAMANDALAM</div>
+                    <a href='https://drive.google.com/file/d/1YLdjAoDue4zTARLc21E7FHxVcfrwwdDn/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1wfmFsl04WdjUD5gnTOdAU1G-cTOwjd61/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1e3gnCypC3pO-WAHXEYhBRIJZ4-an-zsQ' alt='PADUNNA PISACH' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>PADUNNA PISACH</div>
+                    <a href='https://drive.google.com/file/d/1wfmFsl04WdjUD5gnTOdAU1G-cTOwjd61/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1r3AkJDl8fpm_Y6AyLkqSAsuuHVS_uTC1/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1WHkyQI354PLXAI5I9bP2gHa2NmdtqFGb' alt='PRATHIKARA DURGA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>PRATHIKARA DURGA</div>
+                    <a href='https://drive.google.com/file/d/1r3AkJDl8fpm_Y6AyLkqSAsuuHVS_uTC1/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1zVck-zXcEMdnqt9Gh-iXMXq1fkkABP_h/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1N5JIBuBr7noyoB58EZtpQQyKh4GjLw37' alt='PELLISUM MADASALAYUM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>PELLISUM MADASALAYUM</div>
+                    <a href='https://drive.google.com/file/d/1zVck-zXcEMdnqt9Gh-iXMXq1fkkABP_h/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/13-MgPPRXdrgIXYj4Lc6E7K2djdrJMg3w/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1xyuZddWNDJ-chH5rTm0mMtnodknWWZKM' alt='SAHITHYA CHINTHAKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>SAHITHYA CHINTHAKAL</div>
+                    <a href='https://drive.google.com/file/d/13-MgPPRXdrgIXYj4Lc6E7K2djdrJMg3w/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1-SzaESp7E_WreI512eUxS54ZAhMk7Gg9/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1vaSuxOpJXLgDpeBNapuSTgMQa7AHbA9k' alt='SANGALPA KANTHI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>SANGALPA KANTHI</div>
+                    <a href='https://drive.google.com/file/d/1-SzaESp7E_WreI512eUxS54ZAhMk7Gg9/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1ebdECi8A2vb16OwjntJa6O7yU5ZQZ3Yz/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1m-sQ5Uihww9tC_hD1NOo-SU94dkve2aI' alt='RAGAPARAGAM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>RAGAPARAGAM</div>
+                    <a href='https://drive.google.com/file/d/1ebdECi8A2vb16OwjntJa6O7yU5ZQZ3Yz/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1XULnNODLrcQadg09ZSSMKyXfugpNl7Co/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=11nQgCd5qB0GhD55CmNktBQ_fMdhOuoKz' alt='RAMANAN' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>RAMANAN</div>
+                    <a href='https://drive.google.com/file/d/1XULnNODLrcQadg09ZSSMKyXfugpNl7Co/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/16yZtlGc6GjlDbOPOGe6rk3vkKi18ot_o/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1nr-uzVhusb5TVz2MPdUWelXyZfeX4AsR' alt='THALIRTHOTHUKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>THALIRTHOTHUKAL</div>
+                    <a href='https://drive.google.com/file/d/16yZtlGc6GjlDbOPOGe6rk3vkKi18ot_o/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1n9HYv62YWvsvKmHlaS56Su9Y7T98KWD6/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1M6gDvEL0W-CtqQIdFy4ID-DIx_mF2Yn9' alt='SMASANATHILE THULASI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>SMASANATHILE THULASI</div>
+                    <a href='https://drive.google.com/file/d/1n9HYv62YWvsvKmHlaS56Su9Y7T98KWD6/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1iVW0Ly88x3FQK5RQexBzrJqBcpZ2nD6o/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1CsGL33ASZqit1uT7pk6fAQk2wF_ygOSF' alt='SWARARAGASUDHA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>SWARARAGASUDHA</div>
+                    <a href='https://drive.google.com/file/d/1iVW0Ly88x3FQK5RQexBzrJqBcpZ2nD6o/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/16_P3KstCN2YDwgTBpSx9QWJ8mogD8HcB/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZUXJCU-hUR_uWr7BJTygnhcRm9UyZ2be' alt='THILOTHAMA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>THILOTHAMA</div>
+                    <a href='https://drive.google.com/file/d/16_P3KstCN2YDwgTBpSx9QWJ8mogD8HcB/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1choDj6lCX4YtOVuyF9C_O29wS-LoEGNN/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1OfKEsqqpAx5-GvoaEzw5zwvx90LAjfu4' alt='SUDHAMGATHA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>SUDHAMGATHA</div>
+                    <a href='https://drive.google.com/file/d/1choDj6lCX4YtOVuyF9C_O29wS-LoEGNN/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1kkB3rw4muXKyZWxVktF4O6vZbD_upUoq/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1pcyd2QNnMuzTmuirrS4MEiou5G_WMtE9' alt='SREE THILAKAM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>SREE THILAKAM</div>
+                    <a href='https://drive.google.com/file/d/1kkB3rw4muXKyZWxVktF4O6vZbD_upUoq/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1TB2AH3OdSPaDDoMrWWSGoVueztvGUFup/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1CH6CZcl40Pc-SZCkRXdgqUPfHm7VIvzD' alt='THUDIKUNNA THALUKAL' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>THUDIKUNNA THALUKAL</div>
+                    <a href='https://drive.google.com/file/d/1TB2AH3OdSPaDDoMrWWSGoVueztvGUFup/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1vy_7RlcSZdQB8zMaXG0DV5oCgbSpGaVc/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1O3g82q296nai3fFOeqR-qGmaxliTBW81' alt='UDYANALAKSHMI' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>UDYANALAKSHMI</div>
+                    <a href='https://drive.google.com/file/d/1vy_7RlcSZdQB8zMaXG0DV5oCgbSpGaVc/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1KyFezOzKwStn-CCzoTMs0qWAOgrYq2eJ/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1Eg2vxcEHFOV_t0qwMWeliZhexa_TMnTB' alt='YAVANIKA' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>YAVANIKA</div>
+                    <a href='https://drive.google.com/file/d/1KyFezOzKwStn-CCzoTMs0qWAOgrYq2eJ/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+                <div class='book-card'>
+                    <a href='https://drive.google.com/file/d/1Q6fFDqKKd-xW7LYbvGnDrOsxbBVZj1Tg/view' target='_blank'>
+                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1YsFlL5PGspnns_S6KE-wtU6efNrzt2sI' alt='VASANTHOLSAVAM' class='book-cover' loading='lazy'>
+                    </a>
+                    <div class='book-title'>VASANTHOLSAVAM</div>
+                    <a href='https://drive.google.com/file/d/1Q6fFDqKKd-xW7LYbvGnDrOsxbBVZj1Tg/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="#">സ്വകാര്യതാ നയം</a> |
+                <a href="#">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Auth State Check
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (user) {
+                // User is signed in
+                const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+            } else {
+                // No user is signed in, redirect to index
+                window.location.href = "index.html"; 
+            }
+        });
+
+        // Logout Functionality
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault(); 
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => {
+                alert("Error: " + error.message);
+            });
+        });
+    </script>
 
     <script>
         function searchBooks() {
             var input = document.getElementById('searchBar');
             var filter = input.value.toUpperCase();
             var cards = document.getElementsByClassName('book-card');
+            
             for (var i = 0; i < cards.length; i++) {
                 var title = cards[i].getElementsByClassName("book-title")[0];
                 if (title) {
@@ -135,7 +762,6 @@
             }
         }
     </script>
+
 </body>
-
 </html>
-
