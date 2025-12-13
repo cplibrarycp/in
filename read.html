@@ -56,12 +56,12 @@
             opacity: 0.8;
         }
 
-        /* --- PDF കണ്ടെയ്നർ (Iframe) --- */
+        /* --- PDF കണ്ടെയ്നർ --- */
         .pdf-container {
             flex: 1;
             width: 100%;
             height: 100%;
-            position: relative;
+            position: relative; /* ഇത് പ്രധാനം */
         }
 
         iframe {
@@ -71,17 +71,16 @@
             display: block;
         }
 
-        /* --- സുരക്ഷാ കവചം (Overlay) --- */
-        /* വായനക്കാർക്ക് റൈറ്റ് ക്ലിക്ക് ചെയ്യുന്നതും നേരിട്ട് പ്രിന്റ് എടുക്കുന്നതും തടയാൻ */
-        .security-overlay {
+        /* --- Pop-out ബട്ടൺ ബ്ലോക്കർ (TRICK) --- */
+        .popout-blocker {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 5;
-            pointer-events: none; /* സ്ക്രോൾ ചെയ്യാൻ അനുവദിക്കുന്നു */
+            right: 0;
+            width: 60px;  /* ബട്ടന്റെ ഏകദേശ വീതി */
+            height: 60px; /* ബട്ടന്റെ ഏകദേശ ഉയരം */
+            background: transparent; /* സുതാര്യം (കാണില്ല) */
+            z-index: 20; /* iframe-ന് മുകളിൽ */
+            cursor: default;
         }
 
     </style>
@@ -98,7 +97,7 @@
     <div class="pdf-container">
         <iframe id="pdf-frame" src="" allow="autoplay"></iframe>
         
-        <div class="security-overlay"></div>
+        <div class="popout-blocker" title="Pop-out disabled"></div>
     </div>
 
     <script>
@@ -108,11 +107,9 @@
 
         if (!fileId) {
             alert("പുസ്തകം കണ്ടെത്തിയില്ല!");
-            // ഐഡി ഇല്ലെങ്കിൽ ഹോം പേജിലേക്ക് വിടുന്നു
             window.location.href = 'dashboard.html';
         } else {
-            // Preview URL സെറ്റ് ചെയ്യുന്നു
-            // /preview എന്നത് /view-നേക്കാൾ ക്ലീൻ ആയ ഇന്റർഫേസ് നൽകും.
+            // Preview URL
             const driveUrl = `https://drive.google.com/file/d/${fileId}/preview`;
             document.getElementById('pdf-frame').src = driveUrl;
         }
