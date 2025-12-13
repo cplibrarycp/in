@@ -3,373 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 THRIPUDI LIBRARY - വള്ളത്തോൾ കൃതികൾ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>📚 വള്ളത്തോൾ കൃതികൾ | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        /* --- Themes --- */
         :root {
-            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ (ഹൈലൈറ്റ്) */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ (ഹെഡർ) */
-            --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
+            --primary-orange: #00897B; /* Teal */
+            --secondary-dark: #004D40; /* Dark Green */
+            --background-light: #E0F2F1;
             --text-color: #263238;
             --light-text: #FFFFFF;
             --card-bg: #FFFFFF;
-            --outline-color: #B2DFDB; /* ബോർഡർ കളർ */
+            --outline-color: #B2DFDB; /* Light Teal for Border */
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
-        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
-        header {
-            background-color: var(--secondary-dark);
-            padding: 15px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        /* --- Header --- */
+        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+        
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 10px; font-size: 1em; overflow: hidden; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; overflow: hidden; margin-top: 10px; z-index: 1001; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee; }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .collection-section { padding: 40px 0; text-align: center; }
+        .collection-section h1 { font-family: 'Poppins', sans-serif; font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+        .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #searchBar { width: 100%; padding: 15px 20px; padding-left: 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
+        #searchBar:focus { border-color: var(--primary-orange); box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
 
-        /* ലോഗോ: ഇമേജ് ഇല്ലാതെ ടെക്സ്റ്റ് മാത്രം */
-        .logo {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--light-text);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links a.nav-item:hover {
-            color: var(--outline-color);
-        }
-
-        /* --- User Profile Section --- */
-        .user-profile {
-            display: flex;
-            align-items: center;
-            margin-left: 25px;
-            padding-left: 25px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            background-color: #fff;
-            color: var(--primary-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1em;
-        }
-
-        .user-info {
-            color: #fff;
-            font-size: 0.85em;
-            line-height: 1.2;
-            text-align: left;
+        /* --- THICK BORDER CARD DESIGN --- */
+        .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+        
+        .book-card {
+            background: transparent;
+            text-align: center;
+            transition: transform 0.3s;
         }
         
-        .user-name {
-            font-weight: 600;
-            display: block;
-        }
-
-        .user-role {
-            font-size: 0.8em;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-
-        /* Dropdown Menu */
-        .profile-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 5px;
-            min-width: 160px;
-            overflow: hidden;
-            margin-top: 10px;
-            z-index: 1001;
-        }
-
-        .user-profile:hover .profile-dropdown {
-            display: block;
-        }
-
-        .profile-dropdown a {
-            display: block;
-            padding: 10px 15px;
-            color: var(--text-color);
-            font-size: 0.9em;
-            transition: background 0.3s;
-            border-bottom: 1px solid #eee;
-        }
-
-        .profile-dropdown a:hover {
-            background-color: var(--background-light);
-            color: var(--primary-orange);
-        }
-
-        /* --- 3. കണ്ടന്റ് സെക്ഷൻ --- */
-        .collection-section {
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .collection-section h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.2em;
-            color: var(--secondary-dark);
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--primary-orange);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .search-container {
-            margin-bottom: 40px;
+        /* 1. Image Wrapper (The Frame) */
+        .image-wrapper {
             position: relative;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #searchBar {
             width: 100%;
-            padding: 15px 20px;
-            padding-left: 45px; 
-            border-radius: 50px;
-            border: 2px solid var(--outline-color);
-            font-size: 1em;
-            outline: none;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-
-        #searchBar:focus {
-            border-color: var(--primary-orange);
-            box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary-dark);
-            opacity: 0.6;
-        }
-
-        /* --- 4. ബുക്ക് കാർഡ്സ് --- */
-        .library-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .book-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--outline-color);
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            height: 320px;
+            border-radius: 10px; /* മൂലകൾ അൽപ്പം വളച്ചു */
             overflow: hidden;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            
+            /* --- മാറ്റം ഇവിടെയാണ്: കട്ടിയുള്ള ബോർഡർ --- */
+            border: 6px solid var(--outline-color); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* നല്ല ഷാഡോ */
+            background-color: white; /* ബോർഡറിനുള്ളിൽ വെള്ള */
+            
+            transition: all 0.3s ease;
         }
 
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 77, 64, 0.15);
-        }
-
-        /* ഇമേജ് ഔട്ട്‌ലൈൻ (4px) */
         .book-cover {
             width: 100%;
-            height: 250px;
-            object-fit: cover; 
-            border-radius: 4px;
-            margin-bottom: 15px;
-            border: 4px solid var(--outline-color); 
-            transition: border-color 0.3s;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        
-        .book-card:hover .book-cover {
-            border-color: var(--primary-orange);
+
+        /* 2. Overlay */
+        .read-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 77, 64, 0.75); /* ഡാർക്ക് ഗ്രീൻ */
+            opacity: 0;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.3s ease;
         }
-        
+
+        /* 3. Hover Effects */
+        .book-card:hover .image-wrapper {
+            transform: translateY(-5px);
+            /* ഹോവർ ചെയ്യുമ്പോൾ ബോർഡർ കളർ മാറുന്നു */
+            border-color: var(--primary-orange); 
+            box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25);
+        }
+
+        .book-card:hover .book-cover { transform: scale(1.05); }
+        .book-card:hover .read-overlay { opacity: 1; }
+
+        /* 4. Button inside Overlay */
+        .overlay-btn {
+            background-color: var(--primary-orange);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-orange);
+        }
+
+        .book-card:hover .overlay-btn { transform: translateY(0); }
+        .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+
         .book-title {
+            margin-top: 15px;
             font-weight: 700;
             color: var(--secondary-dark);
-            margin-top: 5px;
-            margin-bottom: 15px;
-            font-size: 1em;
-            line-height: 1.3;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
-        /* ഡൗൺലോഡ് ബട്ടൺ */
-        .read-button-style {
-            display: inline-block;
-            background-color: var(--primary-orange);
-            color: var(--light-text);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: background-color 0.3s, transform 0.2s;
-            border: 2px solid var(--primary-orange);
-            cursor: pointer;
-        }
-
-        .download-button-style:hover {
-            background-color: var(--secondary-dark);
-            border-color: var(--secondary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* --- 5. ഫൂട്ടർ & മൊബൈൽ --- */
-        footer {
-            background-color: var(--secondary-dark);
-            color: var(--light-text);
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9em;
-            margin-top: 60px;
-        }
-
-        .footer-links {
-            margin-top: 15px;
-        }
-
-        .footer-links a {
-            color: var(--light-text);
-            margin: 0 10px;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
+        /* Footer */
+        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: 60px; }
+        .footer-links { margin-top: 15px; }
+        .footer-links a { color: var(--light-text); margin: 0 10px; text-decoration: none; opacity: 0.8; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
         
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-orange);
-        }
-
-        @media (max-width: 900px) {
-            .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
-            .profile-dropdown { left: 0; right: 0; text-align: center; }
-        }
+        @media (max-width: 900px) { .navbar { flex-direction: column; gap: 15px; } .nav-links { flex-wrap: wrap; justify-content: center; } }
     </style>
 </head>
 <body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // പേജിലെ എല്ലാ ലിങ്കുകളും (a tags) എടുക്കുന്നു
-        var links = document.getElementsByTagName("a");
 
-        for (var i = 0; i < links.length; i++) {
-            var href = links[i].href;
-
-            // ലിങ്ക് ഗൂഗിൾ ഡ്രൈവ് വ്യൂ ലിങ്ക് ആണോ എന്ന് നോക്കുന്നു
-            if (href.includes("drive.google.com/file/d/") && href.includes("/view")) {
-                
-                // ലിങ്കിൽ നിന്ന് ഫയൽ ഐഡി (File ID) മാത്രം വേർതിരിച്ചെടുക്കുന്നു
-                var fileId = href.split("/d/")[1].split("/")[0];
-
-                // പുതിയ read.html ലിങ്ക് ഉണ്ടാക്കുന്നു
-                var newUrl = "read.html?id=" + fileId;
-
-                // ലിങ്ക് അപ്ഡേറ്റ് ചെയ്യുന്നു
-                links[i].href = newUrl;
-
-                // പുതിയ ടാബിൽ തുറക്കുന്നത് ഒഴിവാക്കുന്നു (ഒരേ പേജിൽ വരാൻ)
-                links[i].removeAttribute("target");
-
-                // പഴയ 'Download' ബട്ടൺ ആണെങ്കിൽ അതിനെ പുതിയ 'Read' ബട്ടൺ ആക്കുന്നു
-                if (links[i].classList.contains("download-button-style")) {
-                    links[i].className = "read-button-style"; // പുതിയ ക്ലാസ് നൽകുന്നു
-                    links[i].innerHTML = "വായിക്കുക <i class='fas fa-book-open'></i>"; // ടെക്സ്റ്റ് മാറ്റുന്നു
-                }
-            }
-        }
-    });
-</script>
     <header>
         <div class="container navbar">
             <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
                 <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
                 <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
-
                 <div class="user-profile" id="profile-section">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <div class="user-avatar"><i class="fas fa-user"></i></div>
                     <div class="user-info">
                         <span class="user-name" id="display-name">Guest</span>
                         <span class="user-role">Member</span>
                     </div>
-                    
                     <div class="profile-dropdown">
-                        <a href="#">Profile Settings</a>
+                        <a href="profile.html">Profile Settings</a>
+                        <a href="history.html">Reading History</a>
                         <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
@@ -380,83 +163,704 @@
     <section class="collection-section">
         <div class="container">
             <h1>വള്ളത്തോൾ കൃതികൾ</h1>
-            
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
             </div>
-
+            
             <div class="library-container" id="bookList">
-               <div class='book-card'><a href='https://drive.google.com/file/d/1AmEDjCvZh7V_1VygcT8ATOol-7l1siHm/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1p6mLEFZXQemxpKC5aMk6q5uJbGP6gCwI' alt='ABHINJANA SAKUMTHALAM' class='book-cover' loading='lazy'></a><div class='book-title'>ABHINJANA SAKUMTHALAM</div><a href='https://drive.google.com/file/d/1AmEDjCvZh7V_1VygcT8ATOol-7l1siHm/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1auRHAr79DAUJLwp7UueQxUcLu5J1X7xS/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1rVSS1UQQNiEi9EckQtGOrCS5p6nLH70m' alt='ABHIVADYAM' class='book-cover' loading='lazy'></a><div class='book-title'>ABHIVADYAM</div><a href='https://drive.google.com/file/d/1auRHAr79DAUJLwp7UueQxUcLu5J1X7xS/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/101MzraMOYj2Tikb9mkLmEzPTBilROzcC/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=19k9Me3W8wPMHzcihgKzHeDoVnS7TEza7' alt='ALLAH' class='book-cover' loading='lazy'></a><div class='book-title'>ALLAH</div><a href='https://drive.google.com/file/d/101MzraMOYj2Tikb9mkLmEzPTBilROzcC/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1amVfoujXRX1etJ-KRWX4cyaBHQnElkl5/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1FQZIQZR1M9dc_STJf4IPEFCMmldWSRkZ' alt='ACHANUM MAKALUM' class='book-cover' loading='lazy'></a><div class='book-title'>ACHANUM MAKALUM</div><a href='https://drive.google.com/file/d/1amVfoujXRX1etJ-KRWX4cyaBHQnElkl5/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1rW1690SlFbcWPsDTFOrvyWhCYSIh_4Xj/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=10YcxNlw2mX8S_DKPWBqN1VXx3ph2tJ7B' alt='BADIRAVILAPAM' class='book-cover' loading='lazy'></a><div class='book-title'>BADIRAVILAPAM</div><a href='https://drive.google.com/file/d/1rW1690SlFbcWPsDTFOrvyWhCYSIh_4Xj/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/12AFD4vo_JgaJCMQha6GsY_b3DdXBt8g3/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1wzf1_vxeGeCk-fQcDB_gvlbxqXeAxAUR' alt='BAPUJI' class='book-cover' loading='lazy'></a><div class='book-title'>BAPUJI</div><a href='https://drive.google.com/file/d/12AFD4vo_JgaJCMQha6GsY_b3DdXBt8g3/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1Oi6zqOuTw_IhnUNuj-Hrg2Ubb5qiatTM/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Omq673r5xN9UZv_ZrtyNE79doHPnx55L' alt='BANDANASTHANAYA ANIRUDHAN' class='book-cover' loading='lazy'></a><div class='book-title'>BANDANASTHANAYA ANIRUDHAN</div><a href='https://drive.google.com/file/d/1Oi6zqOuTw_IhnUNuj-Hrg2Ubb5qiatTM/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/13T12nDUUbD2wETJGzVtEuI-S08TyPV7N/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1_rFWG4jsKaNZARATTYePPkFgYfLeCNhk' alt='ABHISHEKANADAKAM' class='book-cover' loading='lazy'></a><div class='book-title'>ABHISHEKANADAKAM</div><a href='https://drive.google.com/file/d/13T12nDUUbD2wETJGzVtEuI-S08TyPV7N/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1HPUo82YC2kL7iXus_8UqvJU3TDNkyz5J/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1vJ1arEcPi1i80tG9MYXgcw5z1kamF7PI' alt='AUSHADAHARANAM' class='book-cover' loading='lazy'></a><div class='book-title'>AUSHADAHARANAM</div><a href='https://drive.google.com/file/d/1HPUo82YC2kL7iXus_8UqvJU3TDNkyz5J/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1w3uqNsho3DlpbsQTdmna8xObeW4pAjI3/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1xjpHJIaAt-LUhmC8fi4EDzlu82FYyFuD' alt='BHAGAVALSTHOTHRAMALA' class='book-cover' loading='lazy'></a><div class='book-title'>BHAGAVALSTHOTHRAMALA</div><a href='https://drive.google.com/file/d/1w3uqNsho3DlpbsQTdmna8xObeW4pAjI3/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1zQBi8RHAN1rFaHjkbKkhMorekPAoZphg/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1En7QzYjJThWmf807QKlImOAjqsl1a73p' alt='CHITHRAYOGAM' class='book-cover' loading='lazy'></a><div class='book-title'>CHITHRAYOGAM</div><a href='https://drive.google.com/file/d/1zQBi8RHAN1rFaHjkbKkhMorekPAoZphg/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1vK2MMW96A160VCqzHkR09_z1NRlpj3zz/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Sdzj9L4u8HUFFn8qspv8Bs9vHf9-O_XP' alt='GRAMASOUBHAGYAM' class='book-cover' loading='lazy'></a><div class='book-title'>GRAMASOUBHAGYAM</div><a href='https://drive.google.com/file/d/1vK2MMW96A160VCqzHkR09_z1NRlpj3zz/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1QbvVSCRMiYCGt7gTwmIyXi40smrdPfYe/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1sx8S16D1F3brbokfVGCxQQgQLkp0nrHo' alt='GANAPATHI' class='book-cover' loading='lazy'></a><div class='book-title'>GANAPATHI</div><a href='https://drive.google.com/file/d/1QbvVSCRMiYCGt7gTwmIyXi40smrdPfYe/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1-GzvXRh7CG6rpzBlYWueDZn7vSGaVZMn/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1XexJCojZdQzkq1w0jLTRFJ9gkm0r_B3W' alt='KAIRALIKADAKSHAM 1' class='book-cover' loading='lazy'></a><div class='book-title'>KAIRALIKADAKSHAM 1</div><a href='https://drive.google.com/file/d/1-GzvXRh7CG6rpzBlYWueDZn7vSGaVZMn/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1yP0G5LNX3Lnikc4hL2mGeNOwmIL8P_-O/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1YfWWg17a-RtBSi80yC1yv0x1huZieyLE' alt='DHIVASWAPNAM' class='book-cover' loading='lazy'></a><div class='book-title'>DHIVASWAPNAM</div><a href='https://drive.google.com/file/d/1yP0G5LNX3Lnikc4hL2mGeNOwmIL8P_-O/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1jBmpPDCS0iZz2MQT2_33B9yRmLN2b4eX/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1DpOhAiuj8zE09M5wdtpbZcS2Kl3ofuWq' alt='KAIRALIKADAKSHAM 2' class='book-cover' loading='lazy'></a><div class='book-title'>KAIRALIKADAKSHAM 2</div><a href='https://drive.google.com/file/d/1jBmpPDCS0iZz2MQT2_33B9yRmLN2b4eX/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1jXwD0Tu6aqYsbeCedsHGmu8mBZIGMnDN/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1W1yEnKdjPYXbIRkKsZYUEJ5NDcwciK55' alt='GRANTHAVIHARAM' class='book-cover' loading='lazy'></a><div class='book-title'>GRANTHAVIHARAM</div><a href='https://drive.google.com/file/d/1jXwD0Tu6aqYsbeCedsHGmu8mBZIGMnDN/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1XNezRyBno5vkBoXN1s2fVSHbDmjFR_cl/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1kD9mphrmKn91skvPlRgSbmq_2R42xroi' alt='DHANDAKARANYAM' class='book-cover' loading='lazy'></a><div class='book-title'>DHANDAKARANYAM</div><a href='https://drive.google.com/file/d/1XNezRyBno5vkBoXN1s2fVSHbDmjFR_cl/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/119VN3ek2iZkgDHcPpsS9aUmNrHKu4fSA/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1zrVu8VlLhxUkFTB9dEqnb0AbfEl1Dwc0' alt='INTHYAYUDE KARACHIL' class='book-cover' loading='lazy'></a><div class='book-title'>INTHYAYUDE KARACHIL</div><a href='https://drive.google.com/file/d/119VN3ek2iZkgDHcPpsS9aUmNrHKu4fSA/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1bEQokISBTfuqK4dZND5vWiI30rt3mcc8/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1kMLqoRwhPvj-lKEpgN0uuCPaG-U5lve0' alt='KARPOORACHARITHAM' class='book-cover' loading='lazy'></a><div class='book-title'>KARPOORACHARITHAM</div><a href='https://drive.google.com/file/d/1bEQokISBTfuqK4dZND5vWiI30rt3mcc8/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1GdKRJr8BE2gBWMgWdM7T1742AsRJhTdB/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1F_r9REbAOhB8cUCcPjDYgOZGTHMIwPOq' alt='KAIRALIKADAKSHAM 3' class='book-cover' loading='lazy'></a><div class='book-title'>KAIRALIKADAKSHAM 3</div><a href='https://drive.google.com/file/d/1GdKRJr8BE2gBWMgWdM7T1742AsRJhTdB/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1CLvOrfRMIT_jNuTGjTK5DlOHC-zX-WM_/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1aOELUZGWeEqn3uI2f0-cbhJhHDmhfi3d' alt='KOCHUSEETHA' class='book-cover' loading='lazy'></a><div class='book-title'>KOCHUSEETHA</div><a href='https://drive.google.com/file/d/1CLvOrfRMIT_jNuTGjTK5DlOHC-zX-WM_/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1GCtqhEYROPsez_vPO34ELLDv-k_c2iI2/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1lQEPE_m__J5d8ou1PiNiX8jStq6eRIFA' alt='KATHUKAL' class='book-cover' loading='lazy'></a><div class='book-title'>KATHUKAL</div><a href='https://drive.google.com/file/d/1GCtqhEYROPsez_vPO34ELLDv-k_c2iI2/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1el3jfdevLSN_rOMh0rNs9uRbIJndpmFE/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1jF6aQQcCaib9ZfY02Vw1KFmglO2IEFIN' alt='KAVYAMANJUSHA' class='book-cover' loading='lazy'></a><div class='book-title'>KAVYAMANJUSHA</div><a href='https://drive.google.com/file/d/1el3jfdevLSN_rOMh0rNs9uRbIJndpmFE/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1QwcQ2yXD64MKGmNyvGmd4xMlNfLczEKJ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=14DsO7r7vpNAcXM_BDc9sB993h_vGaHXn' alt='KAPADAKELI' class='book-cover' loading='lazy'></a><div class='book-title'>KAPADAKELI</div><a href='https://drive.google.com/file/d/1QwcQ2yXD64MKGmNyvGmd4xMlNfLczEKJ/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/13565k4sjKg7x9gpNTc0knKvMr0FV2qUf/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=15spuY5oS6_Lh6mN3XLFI9aGyLtn-9wtk' alt='MAGDALANAMARIYAM' class='book-cover' loading='lazy'></a><div class='book-title'>MAGDALANAMARIYAM</div><a href='https://drive.google.com/file/d/13565k4sjKg7x9gpNTc0knKvMr0FV2qUf/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1pvKOiPukkuNEaqgtMgQWjhcL5sKqxE9i/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=13M5cBdqpba6GfRgRcAMQ4RuzJELuOTtC' alt='MADHYAMAVYAYOGAM' class='book-cover' loading='lazy'></a><div class='book-title'>MADHYAMAVYAYOGAM</div><a href='https://drive.google.com/file/d/1pvKOiPukkuNEaqgtMgQWjhcL5sKqxE9i/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1wbZt0SsHSWGxp6IIH6RTCjOZS1YQaycm/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1W7KmkIiBr2GSIDyo6YYMW7FwZylqDX-q' alt='MATHAMGALEELA' class='book-cover' loading='lazy'></a><div class='book-title'>MATHAMGALEELA</div><a href='https://drive.google.com/file/d/1wbZt0SsHSWGxp6IIH6RTCjOZS1YQaycm/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1pZVa7vxfzZHQuv9mRX28I7TMZECXvV-9/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1wasujiy-wKH-uTZbaOHMAdVAqdaiel1i' alt='NAGILA' class='book-cover' loading='lazy'></a><div class='book-title'>NAGILA</div><a href='https://drive.google.com/file/d/1pZVa7vxfzZHQuv9mRX28I7TMZECXvV-9/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1VeR7kHWtiEELkpjRk5TEmTOHR2u8uqoK/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=12dDYGto02l0qPqqVEZjUOMdThfCwIJxp' alt='NIROOPANAM' class='book-cover' loading='lazy'></a><div class='book-title'>NIROOPANAM</div><a href='https://drive.google.com/file/d/1VeR7kHWtiEELkpjRk5TEmTOHR2u8uqoK/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1ubhPHJUW7tkZyZIn91ttcwrDloLVi52G/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1hOFtOHuHr6riG4gKJjWpzSV_9tzRHMxv' alt='PADAMAPURANAM 2' class='book-cover' loading='lazy'></a><div class='book-title'>PADAMAPURANAM 2</div><a href='https://drive.google.com/file/d/1ubhPHJUW7tkZyZIn91ttcwrDloLVi52G/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1aZ9pBc3FNZfHzJg3qslIhz26Z-UB6yFO/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Q8_-0q-gR9GSEfQDlhecdob47B3yxS9v' alt='OORUBHAMGAM' class='book-cover' loading='lazy'></a><div class='book-title'>OORUBHAMGAM</div><a href='https://drive.google.com/file/d/1aZ9pBc3FNZfHzJg3qslIhz26Z-UB6yFO/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1SoO5xqnj93bFGqaGYkQ2fKfHfuk7BClx/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1HwkDbRBQ1wrdqZmRPspLh-44hzuUw6xS' alt='PADAMAPURANAM2' class='book-cover' loading='lazy'></a><div class='book-title'>PADAMAPURANAM2</div><a href='https://drive.google.com/file/d/1SoO5xqnj93bFGqaGYkQ2fKfHfuk7BClx/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1oDoBMcWjq_7m_ZwEsWKYAcKtRymZhsbV/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1dCE-dW9pF89oGoBAWHULcTv4-PVmkD3c' alt='PADMAPURANAM' class='book-cover' loading='lazy'></a><div class='book-title'>PADMAPURANAM</div><a href='https://drive.google.com/file/d/1oDoBMcWjq_7m_ZwEsWKYAcKtRymZhsbV/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1sqtl3_MgFyZSOfxz_UW5QACSfPAW7oTo/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1gOacBQtx6-wyVyDR78pk2ILc7vWw-gkW' alt='ORU KATHU' class='book-cover' loading='lazy'></a><div class='book-title'>ORU KATHU</div><a href='https://drive.google.com/file/d/1sqtl3_MgFyZSOfxz_UW5QACSfPAW7oTo/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1jmKDe2DTOVasf06SXTSesLcIs9d57hym/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1IMcwLk3uTw6kDYxN2FCui94mVnNgU9vJ' alt='PADYAKRITHIKAL' class='book-cover' loading='lazy'></a><div class='book-title'>PADYAKRITHIKAL</div><a href='https://drive.google.com/file/d/1jmKDe2DTOVasf06SXTSesLcIs9d57hym/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1LdzfDKrbwYXRu9s5KvGR1oYEahYfA7zI/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1fSHVXwep6l6g9kz74b_cFBeWpuKk5thq' alt='PANCHARATHRAM' class='book-cover' loading='lazy'></a><div class='book-title'>PANCHARATHRAM</div><a href='https://drive.google.com/file/d/1LdzfDKrbwYXRu9s5KvGR1oYEahYfA7zI/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/10bf14u2T8NbcI-R8JHfgV7cAK0Hr3dfT/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1T3xOzQ8CDA9G_ftuCJz3dnOG9K0ljH95' alt='ONAPUDAVA' class='book-cover' loading='lazy'></a><div class='book-title'>ONAPUDAVA</div><a href='https://drive.google.com/file/d/10bf14u2T8NbcI-R8JHfgV7cAK0Hr3dfT/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1OPPysGAOWUPgb0mI8HtcCBqX63CFCNYR/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1ZxPRFJjcCcdiZ5IhdpfpPGsbkqv89JW2' alt='PARALOKAM' class='book-cover' loading='lazy'></a><div class='book-title'>PARALOKAM</div><a href='https://drive.google.com/file/d/1OPPysGAOWUPgb0mI8HtcCBqX63CFCNYR/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1aR4sH4pZvOvulJsrpXkdaPZ1BWGvZl4W/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1_zXy3uH3YUEwpWrA-9B_luqEcYUXszMp' alt='PURANAMANJARI' class='book-cover' loading='lazy'></a><div class='book-title'>PURANAMANJARI</div><a href='https://drive.google.com/file/d/1aR4sH4pZvOvulJsrpXkdaPZ1BWGvZl4W/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1YaNDT11gfNGlSPyvtcel2P373DoCRngi/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1jMVT596I3-TvwkeMJFlOMZIgqc_KPDxQ' alt='RASHYAYIL' class='book-cover' loading='lazy'></a><div class='book-title'>RASHYAYIL</div><a href='https://drive.google.com/file/d/1YaNDT11gfNGlSPyvtcel2P373DoCRngi/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1Lb0_ZvrtPHPLht7YpyL91L2MiMnRxjhb/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1xVJHe43assfDRvo58iy0EsSlZPeaiWAT' alt='RUGMINIHARANAM' class='book-cover' loading='lazy'></a><div class='book-title'>RUGMINIHARANAM</div><a href='https://drive.google.com/file/d/1Lb0_ZvrtPHPLht7YpyL91L2MiMnRxjhb/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/19lPkciN0_ProUnCRPiNe7ap--cTO1ouZ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1AhdxjFRP6R4nWF0xqhQ1tmiJP7Wne3Ir' alt='RIGVEDAM 3' class='book-cover' loading='lazy'></a><div class='book-title'>RIGVEDAM 3</div><a href='https://drive.google.com/file/d/19lPkciN0_ProUnCRPiNe7ap--cTO1ouZ/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1tcRAVCNzlODosmjKeOketM26sHSqJ2iY/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1kaGMEKGqCCeX8OSKfNT7d97wHYmLWlzv' alt='SAHITHYA MANJARI 1' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 1</div><a href='https://drive.google.com/file/d/1tcRAVCNzlODosmjKeOketM26sHSqJ2iY/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1fbnw0Fkrd56UYqItxbYw_t41MYnWRGAg/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1R3Kgsmn4TrvbXEFjrspjBxIVr_MKT9rX' alt='SAHITHYA MANJARI 2' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 2</div><a href='https://drive.google.com/file/d/1fbnw0Fkrd56UYqItxbYw_t41MYnWRGAg/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1FaMM1rCknaQTzjORRcwu42xnwvU3QtA8/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1ZpCTxSDDgkZ91lR9JmvCdQ0BewOKIsQ_' alt='SAHITHYA MANJARI 10' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 10</div><a href='https://drive.google.com/file/d/1FaMM1rCknaQTzjORRcwu42xnwvU3QtA8/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1bSXL3MU-whO_JiXM-OFEn7tirRM9-5Yx/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1Rmlf1qhVdlcDrmQst3Y_-dxT2KGA1xOc' alt='SAHITHYA MANJARI 4' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 4</div><a href='https://drive.google.com/file/d/1bSXL3MU-whO_JiXM-OFEn7tirRM9-5Yx/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1-rmANIeid0QSvl6yF4-4nU3RSc_AmpwQ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1nsUwTJ4g66LQ9jKajJnxDwnaaxzGsugc' alt='SAHITHYA MANJARI 3' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 3</div><a href='https://drive.google.com/file/d/1-rmANIeid0QSvl6yF4-4nU3RSc_AmpwQ/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1KEUxVTLAhnr9HH3NOB2aExJnrV0fHFJG/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1i4UVA3wqKP4VMWOpWNKDXEA78DNj08UN' alt='RIGVEDAM 4' class='book-cover' loading='lazy'></a><div class='book-title'>RIGVEDAM 4</div><a href='https://drive.google.com/file/d/1KEUxVTLAhnr9HH3NOB2aExJnrV0fHFJG/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1XDi619slOelV3m5FxbQyZZPTnqYR4og3/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1YodqOnK__i79KlGK522Pmg9xgsuVY67T' alt='SAHITHYA MANJARI 5' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 5</div><a href='https://drive.google.com/file/d/1XDi619slOelV3m5FxbQyZZPTnqYR4og3/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1CRl3VX3O0p4K6Y5R2075GnkIw0WeMLdn/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1G01_XbHdyHEFQu3SeDdtu5Jh18K4dAtu' alt='SANSKRIT NADAKAM' class='book-cover' loading='lazy'></a><div class='book-title'>SANSKRIT NADAKAM</div><a href='https://drive.google.com/file/d/1CRl3VX3O0p4K6Y5R2075GnkIw0WeMLdn/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1Juj0YxVpoJ-VIQkWe-cUuyaeu2nlSfAX/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1sYJaRjAMosH_7yebP5ooNIVvaoYsaIye' alt='SAHITHYA MANJARI 6' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 6</div><a href='https://drive.google.com/file/d/1Juj0YxVpoJ-VIQkWe-cUuyaeu2nlSfAX/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/10CttsJEJYe8OTLU6NmHmPvrcUImWehbg/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1oN6Yb1unnegMHb24LJEW6r644vo5DxWO' alt='SAHITHYA MANJARI 8' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 8</div><a href='https://drive.google.com/file/d/10CttsJEJYe8OTLU6NmHmPvrcUImWehbg/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1WmfPW6e3rLq5zdZsGX_ltDYlP2_Algyl/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1vL9cYHKzbeBx0zGPqUcB7VyV12XkmATx' alt='SAHITHYA MANJARI 9' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 9</div><a href='https://drive.google.com/file/d/1WmfPW6e3rLq5zdZsGX_ltDYlP2_Algyl/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/15VI3ubLfY6yWpytVZDWx8oSs-gxdFsWO/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=10-rtORrjsPwlYgc9ogp-vzl8O9Z5aeKJ' alt='SARANAMAYYAPPA' class='book-cover' loading='lazy'></a><div class='book-title'>SARANAMAYYAPPA</div><a href='https://drive.google.com/file/d/15VI3ubLfY6yWpytVZDWx8oSs-gxdFsWO/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1fqxfiaCjlhdAhXKf2JgUkNgNbe5zCDWo/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=10UQ3bicKCuZYxwwYiGnhuZcuAod6uQIp' alt='SELECTED POEMS' class='book-cover' loading='lazy'></a><div class='book-title'>SELECTED POEMS</div><a href='https://drive.google.com/file/d/1fqxfiaCjlhdAhXKf2JgUkNgNbe5zCDWo/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1COU5lmc9EJEmgsE08xRht6X4UC4sO0dr/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=15cuEm9jZi3PoVhLVoBu_ei9DSRGq4Gvb' alt='SISHYANUM MAKANUM' class='book-cover' loading='lazy'></a><div class='book-title'>SISHYANUM MAKANUM</div><a href='https://drive.google.com/file/d/1COU5lmc9EJEmgsE08xRht6X4UC4sO0dr/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1k2wDrEwNtYMS7rPcoFHtCnEsOrPxnmX9/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=17_yssp1ZXI_9aKSqUlZIAgEm9Bs_RatG' alt='SAHITHYA MANJARI 7' class='book-cover' loading='lazy'></a><div class='book-title'>SAHITHYA MANJARI 7</div><a href='https://drive.google.com/file/d/1k2wDrEwNtYMS7rPcoFHtCnEsOrPxnmX9/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1nweZInjSLwYEodygwD3VI7hgZuJbrV1O/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1nKL3ezdAQw0Jv_Ixw2wGsLaaUZmdZWKy' alt='SISHYANUM MAKANUM KHANDAKAVYAM' class='book-cover' loading='lazy'></a><div class='book-title'>SISHYANUM MAKANUM KHANDAKAVYAM</div><a href='https://drive.google.com/file/d/1nweZInjSLwYEodygwD3VI7hgZuJbrV1O/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1VhpdTqzdSHEBjpn1GOOv7RjAWSK2u6bq/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1GgMpKCP6Oi43sudbFfYdB9IukqA9AWZh' alt='VALLATHOL SUDHA 1' class='book-cover' loading='lazy'></a><div class='book-title'>VALLATHOL SUDHA 1</div><a href='https://drive.google.com/file/d/1VhpdTqzdSHEBjpn1GOOv7RjAWSK2u6bq/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1DQ3PbvlJTcvTaM7kR3HlOpf8nsq0Y_kj/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=145RafgO3l_5-Dyc4Me6zCOlkZbAqxum7' alt='THRIPURADHAHANAM' class='book-cover' loading='lazy'></a><div class='book-title'>THRIPURADHAHANAM</div><a href='https://drive.google.com/file/d/1DQ3PbvlJTcvTaM7kR3HlOpf8nsq0Y_kj/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1vlD5zdwphlo1Did4saBu3Rw1N5v3HRXC/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=16cf-JKZpaOz-5_hXz7q-oi2pZo5ae3eP' alt='VILASA LATHIKA' class='book-cover' loading='lazy'></a><div class='book-title'>VILASA LATHIKA</div><a href='https://drive.google.com/file/d/1vlD5zdwphlo1Did4saBu3Rw1N5v3HRXC/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1Er7io6v5HaGWGLOAkYdDPwEQs6u-2JAQ/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1WNtWKVUDySYku-Z8Chd3lB8DRa_7Rh6J' alt='STHREE' class='book-cover' loading='lazy'></a><div class='book-title'>STHREE</div><a href='https://drive.google.com/file/d/1Er7io6v5HaGWGLOAkYdDPwEQs6u-2JAQ/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1J3VUMVa0aZIuUfP_2ka723yOL5QZs1UF/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1nopT_IUWuigMMItiDN1nT5Sir5gSg-ek' alt='SREE BODISATHWA' class='book-cover' loading='lazy'></a><div class='book-title'>SREE BODISATHWA</div><a href='https://drive.google.com/file/d/1J3VUMVa0aZIuUfP_2ka723yOL5QZs1UF/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1EGrUAnViQX3obd9Xo0nqQrFDZcmd4d1J/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1gHYw2KR4m8XbiJ8TpBpRaC5e0qz_vArC' alt='SWAPNAVASAVADATHAM' class='book-cover' loading='lazy'></a><div class='book-title'>SWAPNAVASAVADATHAM</div><a href='https://drive.google.com/file/d/1EGrUAnViQX3obd9Xo0nqQrFDZcmd4d1J/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1QUW7DDo3j42uvyqXCFveoDJ5pyySmSm-/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1nktl6pmmJEDlcENRXxnGzU6UEBqQ3B_3' alt='VALLATHOL SUDHA 2' class='book-cover' loading='lazy'></a><div class='book-title'>VALLATHOL SUDHA 2</div><a href='https://drive.google.com/file/d/1QUW7DDo3j42uvyqXCFveoDJ5pyySmSm-/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1yJNeDT4TCizy6t4pEXXfBU057KoFKqaa/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1E8meXUsoFj-WypjzTD5OhV-UFcAXFrxN' alt='UNMATHARAGHAVAM' class='book-cover' loading='lazy'></a><div class='book-title'>UNMATHARAGHAVAM</div><a href='https://drive.google.com/file/d/1yJNeDT4TCizy6t4pEXXfBU057KoFKqaa/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/17CKHS4NEkOE1BlNJ9ZhUFhOVcmFaVnkc/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=17nIWucN2w3vbTGgJHR1fteZjHcpUFbdy' alt='VEERASRINKHALA' class='book-cover' loading='lazy'></a><div class='book-title'>VEERASRINKHALA</div><a href='https://drive.google.com/file/d/17CKHS4NEkOE1BlNJ9ZhUFhOVcmFaVnkc/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div>
-<div class='book-card'><a href='https://drive.google.com/file/d/1V0QJFxD7a75rlu3c489A-ASqNO3NEBEv/view' target='_blank'><img src='https://drive.google.com/thumbnail?sz=w600&id=1L85Rdo0XgvxMCc4tjO6u-conSqdwqOI9' alt='VISHUKKANI' class='book-cover' loading='lazy'></a><div class='book-title'>VISHUKKANI</div><a href='https://drive.google.com/file/d/1V0QJFxD7a75rlu3c489A-ASqNO3NEBEv/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a></div> 
+  
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1p6mLEFZXQemxpKC5aMk6q5uJbGP6gCwI' alt='അഭിജ്ഞാനശാകുന്തളം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1AmEDjCvZh7V_1VygcT8ATOol-7l1siHm' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>അഭിജ്ഞാനശാകുന്തളം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rVSS1UQQNiEi9EckQtGOrCS5p6nLH70m' alt='അഭിവാദ്യം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1auRHAr79DAUJLwp7UueQxUcLu5J1X7xS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>അഭിവാദ്യം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19k9Me3W8wPMHzcihgKzHeDoVnS7TEza7' alt='അല്ലാഹു' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=101MzraMOYj2Tikb9mkLmEzPTBilROzcC' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>അല്ലാഹു</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FQZIQZR1M9dc_STJf4IPEFCMmldWSRkZ' alt='അച്ഛനും മകളും' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1amVfoujXRX1etJ-KRWX4cyaBHQnElkl5' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>അച്ഛനും മകളും</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=10YcxNlw2mX8S_DKPWBqN1VXx3ph2tJ7B' alt='ബധിരവിലാപം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1rW1690SlFbcWPsDTFOrvyWhCYSIh_4Xj' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ബധിരവിലാപം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1wzf1_vxeGeCk-fQcDB_gvlbxqXeAxAUR' alt='ബാപ്പുജി' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=12AFD4vo_JgaJCMQha6GsY_b3DdXBt8g3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ബാപ്പുജി</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Omq673r5xN9UZv_ZrtyNE79doHPnx55L' alt='ബന്ധനസ്ഥനായ അനിരുദ്ധൻ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Oi6zqOuTw_IhnUNuj-Hrg2Ubb5qiatTM' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ബന്ധനസ്ഥനായ അനിരുദ്ധൻ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_rFWG4jsKaNZARATTYePPkFgYfLeCNhk' alt='അഭിഷേകനാടകം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=13T12nDUUbD2wETJGzVtEuI-S08TyPV7N' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>അഭിഷേകനാടകം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1vJ1arEcPi1i80tG9MYXgcw5z1kamF7PI' alt='ഔഷധാഹരണം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1HPUo82YC2kL7iXus_8UqvJU3TDNkyz5J' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഔഷധാഹരണം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1xjpHJIaAt-LUhmC8fi4EDzlu82FYyFuD' alt='ഭഗവൽസ്തോത്രമാല' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1w3uqNsho3DlpbsQTdmna8xObeW4pAjI3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഭഗവൽസ്തോത്രമാല</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1En7QzYjJThWmf807QKlImOAjqsl1a73p' alt='ചിത്രയോഗം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1zQBi8RHAN1rFaHjkbKkhMorekPAoZphg' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ചിത്രയോഗം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Sdzj9L4u8HUFFn8qspv8Bs9vHf9-O_XP' alt='ഗ്രാമസൗഭാഗ്യം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1vK2MMW96A160VCqzHkR09_z1NRlpj3zz' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഗ്രാമസൗഭാഗ്യം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1sx8S16D1F3brbokfVGCxQQgQLkp0nrHo' alt='ഗണപതി' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1QbvVSCRMiYCGt7gTwmIyXi40smrdPfYe' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഗണപതി</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XexJCojZdQzkq1w0jLTRFJ9gkm0r_B3W' alt='കൈരളീകടാക്ഷം 1' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1-GzvXRh7CG6rpzBlYWueDZn7vSGaVZMn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കൈരളീകടാക്ഷം 1</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1YfWWg17a-RtBSi80yC1yv0x1huZieyLE' alt='ദിവാസ്വപ്നം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1yP0G5LNX3Lnikc4hL2mGeNOwmIL8P_-O' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ദിവാസ്വപ്നം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1DpOhAiuj8zE09M5wdtpbZcS2Kl3ofuWq' alt='കൈരളീകടാക്ഷം 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jBmpPDCS0iZz2MQT2_33B9yRmLN2b4eX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കൈരളീകടാക്ഷം 2</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1W1yEnKdjPYXbIRkKsZYUEJ5NDcwciK55' alt='ഗ്രന്ഥവിഹാരം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jXwD0Tu6aqYsbeCedsHGmu8mBZIGMnDN' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഗ്രന്ഥവിഹാരം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1kD9mphrmKn91skvPlRgSbmq_2R42xroi' alt='ദണ്ഡകാരണ്യം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1XNezRyBno5vkBoXN1s2fVSHbDmjFR_cl' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ദണ്ഡകാരണ്യം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1zrVu8VlLhxUkFTB9dEqnb0AbfEl1Dwc0' alt='ഇന്ത്യയുടെ കരച്ചിൽ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=119VN3ek2iZkgDHcPpsS9aUmNrHKu4fSA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഇന്ത്യയുടെ കരച്ചിൽ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1kMLqoRwhPvj-lKEpgN0uuCPaG-U5lve0' alt='കർപ്പൂരചരിതം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1bEQokISBTfuqK4dZND5vWiI30rt3mcc8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കർപ്പൂരചരിതം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1F_r9REbAOhB8cUCcPjDYgOZGTHMIwPOq' alt='കൈരളീകടാക്ഷം 3' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1GdKRJr8BE2gBWMgWdM7T1742AsRJhTdB' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കൈരളീകടാക്ഷം 3</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1aOELUZGWeEqn3uI2f0-cbhJhHDmhfi3d' alt='കൊച്ചുസീത' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1CLvOrfRMIT_jNuTGjTK5DlOHC-zX-WM_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കൊച്ചുസീത</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1lQEPE_m__J5d8ou1PiNiX8jStq6eRIFA' alt='കത്തുകൾ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1GCtqhEYROPsez_vPO34ELLDv-k_c2iI2' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കത്തുകൾ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jF6aQQcCaib9ZfY02Vw1KFmglO2IEFIN' alt='കാവ്യമഞ്ജുഷ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1el3jfdevLSN_rOMh0rNs9uRbIJndpmFE' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കാവ്യമഞ്ജുഷ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14DsO7r7vpNAcXM_BDc9sB993h_vGaHXn' alt='കപടകേളി' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1QwcQ2yXD64MKGmNyvGmd4xMlNfLczEKJ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>കപടകേളി</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=15spuY5oS6_Lh6mN3XLFI9aGyLtn-9wtk' alt='മഗ്ദലനമറിയം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=13565k4sjKg7x9gpNTc0knKvMr0FV2qUf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>മഗ്ദലനമറിയം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=13M5cBdqpba6GfRgRcAMQ4RuzJELuOTtC' alt='മധ്യമവ്യയോഗം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1pvKOiPukkuNEaqgtMgQWjhcL5sKqxE9i' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>മധ്യമവ്യയോഗം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1W7KmkIiBr2GSIDyo6YYMW7FwZylqDX-q' alt='മാതംഗലീല' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1wbZt0SsHSWGxp6IIH6RTCjOZS1YQaycm' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>മാതംഗലീല</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1wasujiy-wKH-uTZbaOHMAdVAqdaiel1i' alt='നാഗില' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1pZVa7vxfzZHQuv9mRX28I7TMZECXvV-9' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>നാഗില</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12dDYGto02l0qPqqVEZjUOMdThfCwIJxp' alt='നിരൂപണം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1VeR7kHWtiEELkpjRk5TEmTOHR2u8uqoK' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>നിരൂപണം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1hOFtOHuHr6riG4gKJjWpzSV_9tzRHMxv' alt='പദ്മപുരാണം 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ubhPHJUW7tkZyZIn91ttcwrDloLVi52G' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>പദ്മപുരാണം 2</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Q8_-0q-gR9GSEfQDlhecdob47B3yxS9v' alt='ഊരുഭംഗം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1aZ9pBc3FNZfHzJg3qslIhz26Z-UB6yFO' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഊരുഭംഗം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1HwkDbRBQ1wrdqZmRPspLh-44hzuUw6xS' alt='പദ്മപുരാണം 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1SoO5xqnj93bFGqaGYkQ2fKfHfuk7BClx' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>പദ്മപുരാണം 2</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1dCE-dW9pF89oGoBAWHULcTv4-PVmkD3c' alt='പദ്മപുരാണം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1oDoBMcWjq_7m_ZwEsWKYAcKtRymZhsbV' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>പദ്മപുരാണം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gOacBQtx6-wyVyDR78pk2ILc7vWw-gkW' alt='ഒരു കത്ത്' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1sqtl3_MgFyZSOfxz_UW5QACSfPAW7oTo' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഒരു കത്ത്</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1IMcwLk3uTw6kDYxN2FCui94mVnNgU9vJ' alt='പദ്യകൃതികൾ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jmKDe2DTOVasf06SXTSesLcIs9d57hym' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>പദ്യകൃതികൾ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1fSHVXwep6l6g9kz74b_cFBeWpuKk5thq' alt='പഞ്ചരാത്രം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1LdzfDKrbwYXRu9s5KvGR1oYEahYfA7zI' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>പഞ്ചരാത്രം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1T3xOzQ8CDA9G_ftuCJz3dnOG9K0ljH95' alt='ഓണപ്പുടവ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=10bf14u2T8NbcI-R8JHfgV7cAK0Hr3dfT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഓണപ്പുടവ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZxPRFJjcCcdiZ5IhdpfpPGsbkqv89JW2' alt='പരലോകം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1OPPysGAOWUPgb0mI8HtcCBqX63CFCNYR' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>പരലോകം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_zXy3uH3YUEwpWrA-9B_luqEcYUXszMp' alt='പുരാണമഞ്ജരി' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1aR4sH4pZvOvulJsrpXkdaPZ1BWGvZl4W' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>പുരാണമഞ്ജരി</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jMVT596I3-TvwkeMJFlOMZIgqc_KPDxQ' alt='റഷ്യയിൽ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1YaNDT11gfNGlSPyvtcel2P373DoCRngi' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>റഷ്യയിൽ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1xVJHe43assfDRvo58iy0EsSlZPeaiWAT' alt='രുക്മിണീഹരണം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Lb0_ZvrtPHPLht7YpyL91L2MiMnRxjhb' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>രുക്മിണീഹരണം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1AhdxjFRP6R4nWF0xqhQ1tmiJP7Wne3Ir' alt='ഋഗ്വേദം 3' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=19lPkciN0_ProUnCRPiNe7ap--cTO1ouZ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഋഗ്വേദം 3</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1kaGMEKGqCCeX8OSKfNT7d97wHYmLWlzv' alt='സാഹിത്യമഞ്ജരി 1' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1tcRAVCNzlODosmjKeOketM26sHSqJ2iY' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 1</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1R3Kgsmn4TrvbXEFjrspjBxIVr_MKT9rX' alt='സാഹിത്യമഞ്ജരി 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1fbnw0Fkrd56UYqItxbYw_t41MYnWRGAg' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 2</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZpCTxSDDgkZ91lR9JmvCdQ0BewOKIsQ_' alt='സാഹിത്യമഞ്ജരി 10' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1FaMM1rCknaQTzjORRcwu42xnwvU3QtA8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 10</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Rmlf1qhVdlcDrmQst3Y_-dxT2KGA1xOc' alt='സാഹിത്യമഞ്ജരി 4' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1bSXL3MU-whO_JiXM-OFEn7tirRM9-5Yx' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 4</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1nsUwTJ4g66LQ9jKajJnxDwnaaxzGsugc' alt='സാഹിത്യമഞ്ജരി 3' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1-rmANIeid0QSvl6yF4-4nU3RSc_AmpwQ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 3</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1i4UVA3wqKP4VMWOpWNKDXEA78DNj08UN' alt='ഋഗ്വേദം 4' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1KEUxVTLAhnr9HH3NOB2aExJnrV0fHFJG' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഋഗ്വേദം 4</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1YodqOnK__i79KlGK522Pmg9xgsuVY67T' alt='സാഹിത്യമഞ്ജരി 5' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1XDi619slOelV3m5FxbQyZZPTnqYR4og3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 5</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1G01_XbHdyHEFQu3SeDdtu5Jh18K4dAtu' alt='സംസ്കൃത നാടകം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1CRl3VX3O0p4K6Y5R2075GnkIw0WeMLdn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സംസ്കൃത നാടകം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1sYJaRjAMosH_7yebP5ooNIVvaoYsaIye' alt='സാഹിത്യമഞ്ജരി 6' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Juj0YxVpoJ-VIQkWe-cUuyaeu2nlSfAX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 6</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1oN6Yb1unnegMHb24LJEW6r644vo5DxWO' alt='സാഹിത്യമഞ്ജരി 8' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=10CttsJEJYe8OTLU6NmHmPvrcUImWehbg' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 8</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1vL9cYHKzbeBx0zGPqUcB7VyV12XkmATx' alt='സാഹിത്യമഞ്ജരി 9' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1WmfPW6e3rLq5zdZsGX_ltDYlP2_Algyl' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 9</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=10-rtORrjsPwlYgc9ogp-vzl8O9Z5aeKJ' alt='ശരണം അയ്യപ്പാ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=15VI3ubLfY6yWpytVZDWx8oSs-gxdFsWO' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ശരണം അയ്യപ്പാ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=10UQ3bicKCuZYxwwYiGnhuZcuAod6uQIp' alt='തിരഞ്ഞെടുത്ത കവിതകൾ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1fqxfiaCjlhdAhXKf2JgUkNgNbe5zCDWo' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>തിരഞ്ഞെടുത്ത കവിതകൾ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=15cuEm9jZi3PoVhLVoBu_ei9DSRGq4Gvb' alt='ശിഷ്യനും മകനും' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1COU5lmc9EJEmgsE08xRht6X4UC4sO0dr' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ശിഷ്യനും മകനും</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=17_yssp1ZXI_9aKSqUlZIAgEm9Bs_RatG' alt='സാഹിത്യമഞ്ജരി 7' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1k2wDrEwNtYMS7rPcoFHtCnEsOrPxnmX9' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സാഹിത്യമഞ്ജരി 7</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1nKL3ezdAQw0Jv_Ixw2wGsLaaUZmdZWKy' alt='ശിഷ്യനും മകനും (ഖണ്ഡകാവ്യം)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1nweZInjSLwYEodygwD3VI7hgZuJbrV1O' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ശിഷ്യനും മകനും (ഖണ്ഡകാവ്യം)</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1GgMpKCP6Oi43sudbFfYdB9IukqA9AWZh' alt='വള്ളത്തോൾ സുധ 1' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1VhpdTqzdSHEBjpn1GOOv7RjAWSK2u6bq' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>വള്ളത്തോൾ സുധ 1</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=145RafgO3l_5-Dyc4Me6zCOlkZbAqxum7' alt='ത്രിപുരദഹനം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1DQ3PbvlJTcvTaM7kR3HlOpf8nsq0Y_kj' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ത്രിപുരദഹനം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=16cf-JKZpaOz-5_hXz7q-oi2pZo5ae3eP' alt='വിലാസലതിക' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1vlD5zdwphlo1Did4saBu3Rw1N5v3HRXC' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>വിലാസലതിക</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WNtWKVUDySYku-Z8Chd3lB8DRa_7Rh6J' alt='സ്ത്രീ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Er7io6v5HaGWGLOAkYdDPwEQs6u-2JAQ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സ്ത്രീ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1nopT_IUWuigMMItiDN1nT5Sir5gSg-ek' alt='ശ്രീ ബോധിസത്വ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1J3VUMVa0aZIuUfP_2ka723yOL5QZs1UF' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ശ്രീ ബോധിസത്വ</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gHYw2KR4m8XbiJ8TpBpRaC5e0qz_vArC' alt='സ്വപ്നവാസവദത്തം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1EGrUAnViQX3obd9Xo0nqQrFDZcmd4d1J' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>സ്വപ്നവാസവദത്തം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1nktl6pmmJEDlcENRXxnGzU6UEBqQ3B_3' alt='വള്ളത്തോൾ സുധ 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1QUW7DDo3j42uvyqXCFveoDJ5pyySmSm-' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>വള്ളത്തോൾ സുധ 2</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1E8meXUsoFj-WypjzTD5OhV-UFcAXFrxN' alt='ഉന്മത്തരഘവം' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1yJNeDT4TCizy6t4pEXXfBU057KoFKqaa' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഉന്മത്തരഘവം</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=17nIWucN2w3vbTGgJHR1fteZjHcpUFbdy' alt='വീരശൃംഖല' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=17CKHS4NEkOE1BlNJ9ZhUFhOVcmFaVnkc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>വീരശൃംഖല</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1L85Rdo0XgvxMCc4tjO6u-conSqdwqOI9' alt='വിഷുക്കണി' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1V0QJFxD7a75rlu3c489A-ASqNO3NEBEv' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>വിഷുക്കണി</div>
+            </div>
+        
+            </div>
         </div>
     </section>
 
@@ -464,10 +868,8 @@
         <div class="container">
             <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
             <div class="footer-links">
-                <a href="#">സ്വകാര്യതാ നയം</a> |
-                <a href="#">ഉപയോഗ നിബന്ധനകൾ</a> |
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
             </div>
         </div>
     </footer>
@@ -475,64 +877,41 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-            authDomain: "thripudilibrary.firebaseapp.com",
-            projectId: "thripudilibrary",
-            storageBucket: "thripudilibrary.firebasestorage.app",
-            messagingSenderId: "887018912750",
-            appId: "1:887018912750:web:cc05190a72b13db816acff",
-            measurementId: "G-B59RDW4KG4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app);
         onAuthStateChanged(auth, (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const logoutLink = document.getElementById('logout-link');
-
+            const nameDisplay = document.getElementById('display-name'); const avatarDiv = document.querySelector('.user-avatar');
             if (user) {
-                const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
                 nameDisplay.textContent = displayName;
-            } else {
-                // window.location.href = "index.html"; 
+                if (user.photoURL) { avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`; }
             }
         });
-
-        document.getElementById('logout-link').addEventListener('click', (e) => {
-            e.preventDefault(); 
-            signOut(auth).then(() => {
-                window.location.href = "index.html";
-            }).catch((error) => {
-                alert("Error: " + error.message);
-            });
-        });
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
     </script>
 
     <script>
         function searchBooks() {
-            var input = document.getElementById('searchBar');
-            var filter = input.value.toUpperCase();
-            var cards = document.getElementsByClassName('book-card');
-            
+            var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card');
             for (var i = 0; i < cards.length; i++) {
                 var title = cards[i].getElementsByClassName("book-title")[0];
-                if (title) {
-                    var txtValue = title.textContent || title.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        cards[i].style.display = "";
-                    } else {
-                        cards[i].style.display = "none";
-                    }
-                }
+                if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
             }
         }
+        document.addEventListener("DOMContentLoaded", function() {
+            const bookLinks = document.querySelectorAll("a[href^='read.html']");
+            bookLinks.forEach(link => {
+                link.addEventListener("click", function(e) {
+                    const card = this.closest('.book-card');
+                    if (card) {
+                        const title = card.querySelector('.book-title').innerText; const image = card.querySelector('.book-cover').src; const url = this.getAttribute('href'); const date = new Date().toLocaleDateString('ml-IN');
+                        let history = JSON.parse(localStorage.getItem('thripudiHistory')) || [];
+                        history = history.filter(item => item.url !== url); history.unshift({ title, image, url, date });
+                        if (history.length > 50) history.pop(); localStorage.setItem('thripudiHistory', JSON.stringify(history));
+                    }
+                });
+            });
+        });
     </script>
-
 </body>
 </html>
-
-
-
