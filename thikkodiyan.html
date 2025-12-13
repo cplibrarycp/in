@@ -313,7 +313,38 @@
     </style>
 </head>
 <body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // പേജിലെ എല്ലാ ലിങ്കുകളും (a tags) എടുക്കുന്നു
+        var links = document.getElementsByTagName("a");
 
+        for (var i = 0; i < links.length; i++) {
+            var href = links[i].href;
+
+            // ലിങ്ക് ഗൂഗിൾ ഡ്രൈവ് വ്യൂ ലിങ്ക് ആണോ എന്ന് നോക്കുന്നു
+            if (href.includes("drive.google.com/file/d/") && href.includes("/view")) {
+                
+                // ലിങ്കിൽ നിന്ന് ഫയൽ ഐഡി (File ID) മാത്രം വേർതിരിച്ചെടുക്കുന്നു
+                var fileId = href.split("/d/")[1].split("/")[0];
+
+                // പുതിയ read.html ലിങ്ക് ഉണ്ടാക്കുന്നു
+                var newUrl = "read.html?id=" + fileId;
+
+                // ലിങ്ക് അപ്ഡേറ്റ് ചെയ്യുന്നു
+                links[i].href = newUrl;
+
+                // പുതിയ ടാബിൽ തുറക്കുന്നത് ഒഴിവാക്കുന്നു (ഒരേ പേജിൽ വരാൻ)
+                links[i].removeAttribute("target");
+
+                // പഴയ 'Download' ബട്ടൺ ആണെങ്കിൽ അതിനെ പുതിയ 'Read' ബട്ടൺ ആക്കുന്നു
+                if (links[i].classList.contains("download-button-style")) {
+                    links[i].className = "read-button-style"; // പുതിയ ക്ലാസ് നൽകുന്നു
+                    links[i].innerHTML = "വായിക്കുക <i class='fas fa-book-open'></i>"; // ടെക്സ്റ്റ് മാറ്റുന്നു
+                }
+            }
+        }
+    });
+</script>
     <header>
         <div class="container navbar">
             <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
@@ -522,3 +553,4 @@
 
 </body>
 </html>
+
