@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📚 THRIPUDI LIBRARY - മലയാളം വിഭാഗം</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        /* --- 1. തീം (Teal & Green) --- */
         :root {
             --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
             --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
-            --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
+            --background-light: #E0F2F1;
             --text-color: #263238;
             --light-text: #FFFFFF;
             --card-bg: #FFFFFF;
@@ -22,17 +24,11 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--background-light);
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             line-height: 1.6;
         }
 
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
         /* --- 2. ഹെഡർ --- */
@@ -40,111 +36,74 @@
             background-color: var(--secondary-dark);
             padding: 15px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        
         .logo {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--light-text);
-            text-decoration: none;
+            font-size: 1.8em; font-weight: 700;
+            color: var(--light-text); text-decoration: none;
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
+        .nav-links { display: flex; align-items: center; }
 
         .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--light-text); margin-left: 20px;
+            font-weight: 500; transition: color 0.3s;
+            font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        .nav-links a.nav-item:hover {
-            color: var(--outline-color);
-        }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
 
-        /* --- User Profile --- */
+        /* --- User Profile & Dropdown --- */
         .user-profile {
-            display: flex;
-            align-items: center;
-            margin-left: 25px;
-            padding-left: 25px;
+            display: flex; align-items: center;
+            margin-left: 25px; padding-left: 25px;
             border-left: 1px solid rgba(255,255,255,0.2);
-            position: relative;
-            cursor: pointer;
+            position: relative; cursor: pointer;
+            padding-bottom: 5px;
         }
 
         .user-avatar {
-            width: 32px;
-            height: 32px;
-            background-color: #fff;
-            color: var(--primary-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1em;
+            width: 32px; height: 32px;
+            background-color: #fff; color: var(--primary-orange);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: bold; margin-right: 10px; font-size: 1em;
+            overflow: hidden;
         }
+        .user-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        .user-info {
-            color: #fff;
-            font-size: 0.85em;
-            line-height: 1.2;
-            text-align: left;
-        }
-        
-        .user-name {
-            font-weight: 600;
-            display: block;
-        }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
 
-        .user-role {
-            font-size: 0.8em;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-
+        /* Dropdown Menu */
         .profile-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
+            display: none; position: absolute;
+            top: 100%; right: 0;
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 5px;
-            min-width: 160px;
-            overflow: hidden;
-            margin-top: 10px;
-            z-index: 1001;
+            border-radius: 5px; min-width: 180px;
+            overflow: visible;
+            margin-top: 10px; z-index: 1001;
         }
 
-        .user-profile:hover .profile-dropdown {
-            display: block;
+        /* Hover Bridge Fix */
+        .profile-dropdown::before {
+            content: "";
+            position: absolute; top: -15px; left: 0;
+            width: 100%; height: 15px; background: transparent;
         }
+
+        .user-profile:hover .profile-dropdown { display: block; }
 
         .profile-dropdown a {
-            display: block;
-            padding: 10px 15px;
-            color: var(--text-color);
-            font-size: 0.9em;
-            transition: background 0.3s;
-            border-bottom: 1px solid #eee;
+            display: block; padding: 12px 15px;
+            color: var(--text-color); font-size: 0.9em;
+            transition: background 0.3s; border-bottom: 1px solid #eee;
+            display: flex; align-items: center; gap: 10px;
         }
 
         .profile-dropdown a:hover {
@@ -152,46 +111,28 @@
             color: var(--primary-orange);
         }
 
-        /* --- 3. മെയിൻ കണ്ടന്റ് --- */
-        .collection-section {
-            padding: 60px 0;
-            text-align: center;
-            min-height: 60vh;
-        }
+        /* --- 3. കണ്ടന്റ് സെക്ഷൻ --- */
+        .collection-section { padding: 50px 0; text-align: center; min-height: 70vh; }
 
         .collection-section h1 {
             font-family: 'Poppins', sans-serif;
-            font-size: 2.2em;
-            color: var(--secondary-dark);
+            font-size: 2.2em; color: var(--secondary-dark);
             margin-bottom: 10px;
         }
 
-        .collection-section p {
-            color: #546E7A;
-            margin-bottom: 40px;
-            font-weight: 500;
-        }
+        .collection-section p { color: #546E7A; margin-bottom: 40px; }
 
         /* സെർച്ച് ബാർ */
         .search-container {
-            margin-bottom: 40px;
-            position: relative;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 40px; position: relative;
+            max-width: 600px; margin-left: auto; margin-right: auto;
         }
 
         #searchBar {
-            width: 100%;
-            padding: 15px 20px;
-            padding-left: 45px; 
-            border-radius: 50px;
-            border: 2px solid var(--outline-color);
-            font-size: 1em;
-            outline: none;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+            width: 100%; padding: 15px 20px; padding-left: 45px; 
+            border-radius: 50px; border: 2px solid var(--outline-color);
+            font-size: 1em; outline: none; transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box;
         }
 
         #searchBar:focus {
@@ -200,89 +141,71 @@
         }
 
         .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary-dark);
+            position: absolute; left: 15px; top: 50%;
+            transform: translateY(-50%); color: var(--secondary-dark);
             opacity: 0.6;
         }
 
         /* ഗ്രിഡ് ലേഔട്ട് */
         .dashboard-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px; margin: 0 auto;
         }
 
         /* കാർഡ് സ്റ്റൈൽ */
         .category-card {
             background: var(--card-bg);
-            width: 180px;
-            height: 180px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.3s ease;
             border: 2px solid var(--outline-color);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--secondary-dark);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 77, 64, 0.15);
             border-color: var(--primary-orange);
+            box-shadow: 0 10px 25px rgba(0, 137, 123, 0.2);
         }
 
-        .icon { 
-            font-size: 50px; 
-            margin-bottom: 15px; 
+        .icon-circle {
+            width: 70px; height: 70px;
+            background-color: var(--background-light);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.8em; color: var(--primary-orange);
+            transition: 0.3s;
         }
-        
-        .label { 
-            font-size: 1.1em; 
-            font-weight: 700; 
-            color: var(--secondary-dark);
+
+        .category-card:hover .icon-circle {
+            background-color: var(--primary-orange);
+            color: white;
         }
+
+        .label { font-size: 1.1em; font-weight: 700; }
 
         /* --- 4. ഫൂട്ടർ --- */
         footer {
             background-color: var(--secondary-dark);
-            color: var(--light-text);
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9em;
-            margin-top: 60px;
+            color: var(--light-text); padding: 40px 0;
+            text-align: center; font-size: 0.9em; margin-top: 60px;
         }
-
-        .footer-links {
-            margin-top: 15px;
-        }
-
         .footer-links a {
-            color: var(--light-text);
-            margin: 0 10px;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
+            color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s;
         }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-orange);
-        }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 
         @media (max-width: 900px) {
             .navbar { flex-direction: column; gap: 15px; }
             .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
-            .profile-dropdown { left: 0; right: 0; text-align: center; }
+            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
+            .profile-dropdown { left: 0; right: 0; width: 100%; position: relative; box-shadow: none; border: 1px solid #eee; }
         }
     </style>
 </head>
@@ -294,7 +217,7 @@
             
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="collection.html" class="nav-item" style="color: var(--outline-color);"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
                 <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
 
                 <div class="user-profile" id="profile-section">
@@ -307,7 +230,8 @@
                     </div>
                     
                     <div class="profile-dropdown">
-                        <a href="#">Profile Settings</a>
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
                         <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
@@ -328,58 +252,58 @@
             <div class="dashboard-container" id="categoryList">
 
                 <a href="changa.html" class="category-card">
-                    <span class="icon">🍀</span>
+                    <div class="icon-circle"><i class="fas fa-feather-alt"></i></div>
                     <span class="label">ചങ്ങമ്പുഴ</span>
                 </a>
         
                 <a href="kuma.html" class="category-card">
-                    <span class="icon">🪴</span>
+                    <div class="icon-circle"><i class="fas fa-pen-nib"></i></div>
                     <span class="label">കുമാരനാശാന്‍</span>
                 </a>
         
                 <a href="valla.html" class="category-card">
-                    <span class="icon">🌴</span>
+                    <div class="icon-circle"><i class="fas fa-scroll"></i></div>
                     <span class="label">വള്ളത്തോള്‍</span>
                 </a>
         
                 <a href="ullu.html" class="category-card">
-                    <span class="icon">🌿</span>
+                    <div class="icon-circle"><i class="fas fa-book-reader"></i></div>
                     <span class="label">ഉള്ളൂര്‍</span>
                 </a>
         
                 <a href="ramayana.html" class="category-card">
-                    <span class="icon">🧘‍♂️</span>
+                    <div class="icon-circle"><i class="fas fa-om"></i></div>
                     <span class="label">രാമായണം</span>
                 </a>
 
                 <a href="bagavada.html" class="category-card">
-                    <span class="icon">🥥</span>
+                    <div class="icon-circle"><i class="fas fa-dharmachakra"></i></div>
                     <span class="label">ഭാഗവതം</span>
                 </a>
 
                 <a href="sahithya.html" class="category-card">
-                    <span class="icon">📔</span>
+                    <div class="icon-circle"><i class="fas fa-book"></i></div>
                     <span class="label">സാഹിത്യ ചരിത്രം</span>
                 </a>
 
                 <a href="rig.html" class="category-card">
-                    <span class="icon">📖</span>
+                    <div class="icon-circle"><i class="fas fa-university"></i></div>
                     <span class="label">ഋഗ്വേദം</span>
                 </a>
 
-                <a href="malayala.html" class="category-card">
-                    <span class="icon">🥥</span>
-                    <span class="label">മറ്റുള്ളവ</span>
-                </a>
-
                 <a href="thikkodiyan.html" class="category-card">
-                    <span class="icon">🙍‍♂️</span>
+                    <div class="icon-circle"><i class="fas fa-user-edit"></i></div>
                     <span class="label">തിക്കോടിയന്‍</span>
                 </a>
 
                 <a href="rajalakshmi.html" class="category-card">
-                    <span class="icon">🙍‍♀️</span>
+                    <div class="icon-circle"><i class="fas fa-user-circle"></i></div>
                     <span class="label">രാജലക്ഷ്മി</span>
+                </a>
+
+                <a href="malayala.html" class="category-card">
+                    <div class="icon-circle"><i class="fas fa-folder-open"></i></div>
+                    <span class="label">മറ്റുള്ളവ</span>
                 </a>
 
             </div>
@@ -390,8 +314,8 @@
         <div class="container">
             <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
             <div class="footer-links">
-                <a href="#">സ്വകാര്യതാ നയം</a> |
-                <a href="#">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
             </div>
@@ -415,26 +339,27 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Auth State Check
+        // Auth Check
         onAuthStateChanged(auth, (user) => {
             const nameDisplay = document.getElementById('display-name');
-            const logoutLink = document.getElementById('logout-link');
+            const avatarDiv = document.querySelector('.user-avatar');
 
             if (user) {
-                // User is signed in
                 const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
                 nameDisplay.textContent = displayName;
+                
+                if (user.photoURL) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                }
             } else {
-                // No user is signed in, redirect to index
-                window.location.href = "index.html"; 
+                // window.location.href = "index.html"; 
             }
         });
 
-        // Logout Functionality
+        // Logout
         document.getElementById('logout-link').addEventListener('click', (e) => {
             e.preventDefault(); 
             signOut(auth).then(() => {
-                // Sign-out successful.
                 window.location.href = "index.html";
             }).catch((error) => {
                 alert("Error: " + error.message);
@@ -454,7 +379,7 @@
                 if (label) {
                     var txtValue = label.textContent || label.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        cards[i].style.display = "";
+                        cards[i].style.display = "flex"; /* Flex is important for layout */
                     } else {
                         cards[i].style.display = "none";
                     }
@@ -465,4 +390,3 @@
 
 </body>
 </html>
-
