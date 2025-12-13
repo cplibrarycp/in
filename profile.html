@@ -1,4 +1,286 @@
-<script type="module">
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ | THRIPUDI LIBRARY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* --- 1. തീം (Teal & Green) --- */
+        :root {
+            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
+            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            margin: 0; padding: 0;
+            line-height: 1.6;
+        }
+
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; }
+
+        /* --- 2. ഹെഡർ --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo {
+            font-size: 1.8em; font-weight: 700;
+            color: var(--light-text); text-decoration: none;
+        }
+
+        .nav-links { display: flex; align-items: center; }
+
+        .nav-links a.nav-item {
+            color: var(--light-text); margin-left: 20px;
+            font-weight: 500; transition: color 0.3s;
+            font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+
+        /* --- User Profile & Dropdown Fix --- */
+        .user-profile {
+            display: flex; align-items: center;
+            margin-left: 25px; padding-left: 25px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative; cursor: pointer;
+            padding-bottom: 5px;
+        }
+
+        .user-avatar {
+            width: 32px; height: 32px;
+            background-color: #fff; color: var(--primary-orange);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: bold; margin-right: 10px; font-size: 1em;
+            overflow: hidden;
+        }
+        .user-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+
+        /* Dropdown Menu & Bridge Fix (Hover Gap Fix) */
+        .profile-dropdown {
+            display: none; position: absolute;
+            top: 100%; right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px; min-width: 180px;
+            overflow: visible;
+            margin-top: 10px; z-index: 1001;
+        }
+
+        .profile-dropdown::before {
+            content: ""; position: absolute;
+            top: -15px; left: 0; width: 100%; height: 15px;
+            background: transparent;
+        }
+
+        .user-profile:hover .profile-dropdown { display: block; }
+
+        .profile-dropdown a {
+            display: block; padding: 12px 15px;
+            color: var(--text-color); font-size: 0.9em;
+            transition: background 0.3s; border-bottom: 1px solid #eee;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: var(--background-light);
+            color: var(--primary-orange);
+        }
+
+        /* --- 3. Profile Edit Section --- */
+        .profile-section { padding: 60px 0; min-height: 70vh; }
+        
+        .profile-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--outline-color);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-avatar-large {
+            width: 120px; height: 120px;
+            background-color: var(--primary-orange);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 4em; margin: 0 auto 20px auto;
+            border: 5px solid var(--outline-color);
+            overflow: hidden;
+        }
+
+        .profile-avatar-large img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .profile-card h2 { color: var(--secondary-dark); margin-bottom: 30px; font-weight: 700; }
+
+        .form-group { margin-bottom: 20px; text-align: left; }
+
+        label {
+            display: block; margin-bottom: 8px; font-weight: 600;
+            color: var(--secondary-dark); font-size: 0.9em;
+        }
+
+        input {
+            width: 100%; padding: 12px;
+            border: 2px solid var(--outline-color);
+            border-radius: 8px; font-size: 1em;
+            box-sizing: border-box; transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input:focus { border-color: var(--primary-orange); outline: none; }
+        input:disabled { background-color: #f9f9f9; color: #777; cursor: not-allowed; border-color: #eee; }
+
+        .btn-update {
+            background-color: var(--primary-orange);
+            color: white; border: none;
+            padding: 12px 30px; border-radius: 50px;
+            font-size: 1em; cursor: pointer;
+            font-weight: 600; margin-top: 10px;
+            width: 100%; transition: 0.3s;
+        }
+
+        .btn-update:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background-color: transparent;
+            color: #d32f2f; border: 2px solid #d32f2f;
+            margin-top: 15px;
+        }
+
+        .btn-reset:hover {
+            background-color: #d32f2f; color: white;
+        }
+
+        .status-msg { margin-top: 15px; font-weight: 600; display: none; }
+
+        /* --- 4. Footer --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text); padding: 40px 0;
+            text-align: center; font-size: 0.9em; margin-top: 60px;
+        }
+        .footer-links { margin-top: 15px; }
+        .footer-links a {
+            color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; text-decoration: none;
+        }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+
+        @media (max-width: 900px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
+            .profile-dropdown { left: 0; right: 0; width: 100%; position: relative; box-shadow: none; border: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
+
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar" id="header-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    
+                    <div class="profile-dropdown">
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-card">
+                
+                <div class="profile-avatar-large" id="avatar-display-large">
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <h2>പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ</h2>
+
+                <div class="form-group">
+                    <label>ഇമെയിൽ (മാറ്റാൻ സാധിക്കില്ല)</label>
+                    <input type="email" id="email-field" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>പേര് (Display Name)</label>
+                    <input type="text" id="name-field" placeholder="നിങ്ങളുടെ പേര് നൽകുക">
+                </div>
+
+                <div class="form-group">
+                    <label>പ്രൊഫൈൽ ചിത്രം (Image URL)</label>
+                    <input type="text" id="photo-field" placeholder="ചിത്രത്തിന്റെ ലിങ്ക് ഉണ്ടെങ്കിൽ നൽകുക">
+                </div>
+
+                <button class="btn-update" id="update-btn">മാറ്റങ്ങൾ സേവ് ചെയ്യുക</button>
+                <button class="btn-update btn-reset" id="reset-pass-btn">പാസ്‌വേഡ് മാറ്റാനുള്ള ലിങ്ക് അയക്കുക</button>
+
+                <div id="status-message" class="status-msg"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, updateProfile, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -15,12 +297,11 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // --- IMPROVED: ഡ്രൈവ് ലിങ്ക് കൺവെർട്ടർ ---
+        // --- Helper: Convert Google Drive Link to Direct Image Link ---
         function getDirectDriveLink(url) {
             if (!url) return "";
             
             let fileId = "";
-            
             // പാറ്റേൺ 1: https://drive.google.com/file/d/FILE_ID/view...
             if (url.indexOf("/d/") !== -1) {
                 fileId = url.split("/d/")[1].split("/")[0];
@@ -30,7 +311,7 @@
                 fileId = url.split("id=")[1].split("&")[0];
             }
 
-            // ഐഡി കിട്ടിയാൽ ഡയറക്ട് ലിങ്ക് ആക്കുന്നു
+            // ID കിട്ടിയാൽ High Speed Google Content URL ആക്കുന്നു
             if (fileId) {
                 return `https://lh3.googleusercontent.com/d/${fileId}`;
             }
@@ -38,16 +319,23 @@
             return url; // ഡ്രൈവ് ലിങ്ക് അല്ലെങ്കിൽ കൊടുത്തത് തന്നെ തിരിച്ചയക്കുന്നു
         }
 
-        // --- ഫോട്ടോ സെറ്റ് ചെയ്യുന്നു ---
+        // --- Helper: Set Profile Image Safely (Prevents Blinking) ---
         function setProfileImage(imgUrl) {
+            if (!imgUrl) return;
+
             const validUrl = getDirectDriveLink(imgUrl);
             const avatarHtml = `<img src="${validUrl}" alt="Profile" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fas fa-user\\'></i>';">`;
             
-            document.getElementById('header-avatar').innerHTML = avatarHtml;
-            document.getElementById('avatar-display-large').innerHTML = avatarHtml;
+            // Set Header Avatar
+            const headerAvatar = document.getElementById('header-avatar');
+            if(headerAvatar) headerAvatar.innerHTML = avatarHtml;
+
+            // Set Large Avatar
+            const bigAvatar = document.getElementById('avatar-display-large');
+            if(bigAvatar) bigAvatar.innerHTML = avatarHtml;
         }
 
-        // 1. പേജ് ലോഡ് ആകുമ്പോൾ
+        // 1. Load User Data
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
@@ -55,7 +343,7 @@
                 document.getElementById('email-field').value = user.email;
                 document.getElementById('name-field').value = user.displayName || "";
                 
-                // ഇൻപുട്ട് ബോക്സിൽ ഒറിജിനൽ ലിങ്ക് തന്നെ കാണിക്കുന്നു
+                // ഇൻപുട്ടിൽ ഒറിജിനൽ ലിങ്ക് തന്നെ കാണിക്കുന്നു
                 document.getElementById('photo-field').value = user.photoURL || "";
 
                 if (user.photoURL) {
@@ -66,10 +354,10 @@
             }
         });
 
-        // 2. അപ്ഡേറ്റ് ബട്ടൺ
+        // 2. Update Profile Button Click
         document.getElementById('update-btn').addEventListener('click', () => {
             const newName = document.getElementById('name-field').value;
-            const originalPhotoUrl = document.getElementById('photo-field').value;
+            const originalPhotoUrl = document.getElementById('photo-field').value; // Get raw input
             const statusMsg = document.getElementById('status-message');
             const btn = document.getElementById('update-btn');
 
@@ -77,8 +365,6 @@
             btn.disabled = true;
 
             // ഫയർബേസിലേക്ക് ഒറിജിനൽ ലിങ്ക് തന്നെ സേവ് ചെയ്യുന്നു
-            // (ഡിസ്പ്ലേ ചെയ്യുമ്പോൾ നമ്മൾ കൺവെർട്ട് ചെയ്തോളാം)
-            
             updateProfile(auth.currentUser, {
                 displayName: newName,
                 photoURL: originalPhotoUrl 
@@ -100,14 +386,14 @@
 
             }).catch((error) => {
                 statusMsg.style.display = 'block';
-                statusMsg.style.color = 'red';
+                statusMsg.style.color = '#d32f2f';
                 statusMsg.innerText = "Error: " + error.message;
                 btn.textContent = "മാറ്റങ്ങൾ സേവ് ചെയ്യുക";
                 btn.disabled = false;
             });
         });
 
-        // 3. Logout & Reset
+        // 3. Logout & Reset Logic
         document.getElementById('logout-link').addEventListener('click', (e) => {
             e.preventDefault(); 
             signOut(auth).then(() => { window.location.href = "index.html"; });
@@ -123,3 +409,6 @@
         });
 
     </script>
+
+</body>
+</html>
