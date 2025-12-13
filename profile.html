@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        /* --- 1. തീം (Teal & Green) --- */
         :root {
             --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
             --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
@@ -24,90 +24,94 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--background-light);
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             line-height: 1.6;
         }
 
         .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
-        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
+        /* --- 2. ഹെഡർ --- */
         header {
             background-color: var(--secondary-dark);
             padding: 15px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
         }
-        
+
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         
         .logo {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--light-text);
-            text-decoration: none;
+            font-size: 1.8em; font-weight: 700;
+            color: var(--light-text); text-decoration: none;
         }
 
         .nav-links { display: flex; align-items: center; }
 
         .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--light-text); margin-left: 20px;
+            font-weight: 500; transition: color 0.3s;
+            font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
         .nav-links a.nav-item:hover { color: var(--outline-color); }
 
-        /* --- User Profile Section (Header) --- */
+        /* --- User Profile & Dropdown Fix --- */
         .user-profile {
             display: flex; align-items: center;
             margin-left: 25px; padding-left: 25px;
             border-left: 1px solid rgba(255,255,255,0.2);
             position: relative; cursor: pointer;
+            padding-bottom: 5px;
         }
 
         .user-avatar {
             width: 32px; height: 32px;
             background-color: #fff; color: var(--primary-orange);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
             font-weight: bold; margin-right: 10px; font-size: 1em;
             overflow: hidden;
         }
-
         .user-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
         .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
         .user-name { font-weight: 600; display: block; }
         .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
 
-        /* Dropdown */
+        /* Dropdown Menu & Bridge Fix */
         .profile-dropdown {
             display: none; position: absolute;
             top: 100%; right: 0;
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 5px; min-width: 160px;
-            overflow: hidden; margin-top: 10px; z-index: 1001;
+            border-radius: 5px; min-width: 180px;
+            overflow: visible;
+            margin-top: 10px; z-index: 1001;
+        }
+
+        .profile-dropdown::before {
+            content: ""; position: absolute;
+            top: -15px; left: 0; width: 100%; height: 15px;
+            background: transparent;
         }
 
         .user-profile:hover .profile-dropdown { display: block; }
 
         .profile-dropdown a {
-            display: block; padding: 10px 15px; color: var(--text-color);
-            font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee;
+            display: block; padding: 12px 15px;
+            color: var(--text-color); font-size: 0.9em;
+            transition: background 0.3s; border-bottom: 1px solid #eee;
+            display: flex; align-items: center; gap: 10px;
         }
 
-        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+        .profile-dropdown a:hover {
+            background-color: var(--background-light);
+            color: var(--primary-orange);
+        }
 
-        /* --- 3. പ്രൊഫൈൽ എഡിറ്റ് കാർഡ് --- */
-        .profile-section { padding: 60px 0; min-height: 60vh; }
+        /* --- 3. Profile Edit Section --- */
+        .profile-section { padding: 60px 0; min-height: 70vh; }
         
         .profile-card {
             background: var(--card-bg);
@@ -136,7 +140,6 @@
 
         .profile-card h2 { color: var(--secondary-dark); margin-bottom: 30px; font-weight: 700; }
 
-        /* ഫോം ഫീൽഡുകൾ */
         .form-group { margin-bottom: 20px; text-align: left; }
 
         label {
@@ -155,7 +158,6 @@
         input:focus { border-color: var(--primary-orange); outline: none; }
         input:disabled { background-color: #f9f9f9; color: #777; cursor: not-allowed; border-color: #eee; }
 
-        /* Buttons */
         .btn-update {
             background-color: var(--primary-orange);
             color: white; border: none;
@@ -182,24 +184,22 @@
 
         .status-msg { margin-top: 15px; font-weight: 600; display: none; }
 
-        /* --- 4. ഫൂട്ടർ --- */
+        /* --- 4. Footer --- */
         footer {
             background-color: var(--secondary-dark);
             color: var(--light-text); padding: 40px 0;
             text-align: center; font-size: 0.9em; margin-top: 60px;
         }
-        .footer-links { margin-top: 15px; }
         .footer-links a {
-            color: var(--light-text); margin: 0 10px; text-decoration: none;
-            opacity: 0.8; transition: opacity 0.3s;
+            color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s;
         }
         .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 
         @media (max-width: 900px) {
             .navbar { flex-direction: column; gap: 15px; }
             .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
-            .profile-dropdown { left: 0; right: 0; text-align: center; }
+            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
+            .profile-dropdown { left: 0; right: 0; width: 100%; position: relative; box-shadow: none; border: 1px solid #eee; }
         }
     </style>
 </head>
@@ -224,8 +224,8 @@
                     </div>
                     
                     <div class="profile-dropdown">
-                        <a href="profile.html">Profile Settings</a>
-                        <a href="history.html">Reading History</a>
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
                         <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
@@ -296,7 +296,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // 1. പേജ് ലോഡ് ആകുമ്പോൾ വിവരങ്ങൾ കാണിക്കുന്നു
+        // 1. വിവരങ്ങൾ കാണിക്കുന്നു
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // ഹെഡറിലെ വിവരങ്ങൾ
@@ -304,7 +304,8 @@
                 document.getElementById('display-name').textContent = displayName;
                 
                 if (user.photoURL) {
-                    document.getElementById('header-avatar').innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                    // onerror ഉപയോഗിക്കുന്നു (ലിങ്ക് തെറ്റാണെങ്കിൽ ഡീഫോൾട്ട് ചിത്രം വരാൻ)
+                    document.getElementById('header-avatar').innerHTML = `<img src="${user.photoURL}" alt="Profile" onerror="this.src='https://via.placeholder.com/150'">`;
                 }
 
                 // ഫോമിലെ വിവരങ്ങൾ
@@ -314,45 +315,70 @@
 
                 // വലിയ അവതാർ
                 if(user.photoURL) {
-                    document.getElementById('avatar-display-large').innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                    document.getElementById('avatar-display-large').innerHTML = `<img src="${user.photoURL}" alt="Profile" onerror="this.src='https://via.placeholder.com/150'">`;
                 }
 
             } else {
-                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ ലോഗിൻ പേജിലേക്ക് വിടുന്നു
+                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ
                 // window.location.href = "index.html"; 
             }
         });
 
-        // 2. പ്രൊഫൈൽ അപ്ഡേറ്റ് ചെയ്യുന്നു
+        // 2. പ്രൊഫൈൽ അപ്ഡേറ്റ് (Instant UI Update)
         document.getElementById('update-btn').addEventListener('click', () => {
             const newName = document.getElementById('name-field').value;
             const newPhoto = document.getElementById('photo-field').value;
             const statusMsg = document.getElementById('status-message');
+            const btn = document.getElementById('update-btn');
+
+            // ബട്ടൺ ലോഡിംഗ് ആക്കുന്നു
+            btn.textContent = "Wait...";
+            btn.disabled = true;
 
             updateProfile(auth.currentUser, {
                 displayName: newName,
                 photoURL: newPhoto
             }).then(() => {
+                // വിജയിച്ചാൽ ഉടനടി സ്ക്രീനിൽ മാറ്റം വരുത്തുന്നു (Reload ഇല്ലാതെ)
+                if (newPhoto) {
+                    document.getElementById('avatar-display-large').innerHTML = `<img src="${newPhoto}" alt="Profile" onerror="this.src='https://via.placeholder.com/150'">`;
+                    document.getElementById('header-avatar').innerHTML = `<img src="${newPhoto}" alt="Profile" onerror="this.src='https://via.placeholder.com/150'">`;
+                }
+                
+                if (newName) {
+                    document.getElementById('display-name').textContent = newName;
+                }
+
+                // സന്ദേശം കാണിക്കുന്നു
                 statusMsg.style.display = 'block';
                 statusMsg.style.color = 'green';
                 statusMsg.innerText = "✅ പ്രൊഫൈൽ വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു!";
                 
-                // 2 സെക്കൻഡിന് ശേഷം റീഫ്രഷ് ചെയ്യുന്നു
-                setTimeout(() => location.reload(), 2000);
+                // ബട്ടൺ പഴയതുപോലെ ആക്കുന്നു
+                btn.textContent = "മാറ്റങ്ങൾ സേവ് ചെയ്യുക";
+                btn.disabled = false;
+
+                // 3 സെക്കൻഡിന് ശേഷം മെസേജ് മായ്ക്കുന്നു
+                setTimeout(() => {
+                    statusMsg.style.display = 'none';
+                }, 3000);
+
             }).catch((error) => {
                 statusMsg.style.display = 'block';
                 statusMsg.style.color = '#d32f2f';
                 statusMsg.innerText = "Error: " + error.message;
+                btn.textContent = "മാറ്റങ്ങൾ സേവ് ചെയ്യുക";
+                btn.disabled = false;
             });
         });
 
-        // 3. പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുന്നു
+        // 3. പാസ്‌വേഡ് റീസെറ്റ്
         document.getElementById('reset-pass-btn').addEventListener('click', () => {
             const email = auth.currentUser.email;
             if(confirm(email + " എന്ന മെയിലിലേക്ക് പാസ്‌വേഡ് മാറ്റാനുള്ള ലിങ്ക് അയക്കട്ടെ?")) {
                 sendPasswordResetEmail(auth, email)
                     .then(() => {
-                        alert("ലിങ്ക് അയച്ചിട്ടുണ്ട്. ദയവായി ഇമെയിൽ പരിശോധിക്കുക.");
+                        alert("ലിങ്ക് അയച്ചിട്ടുണ്ട്. മെയിൽ ചെക്ക് ചെയ്യുക.");
                     })
                     .catch((error) => {
                         alert("Error: " + error.message);
@@ -360,7 +386,7 @@
             }
         });
 
-        // 4. ലോഗൗട്ട് (ഹെഡറിലെ ലിങ്ക്)
+        // 4. ലോഗൗട്ട്
         document.getElementById('logout-link').addEventListener('click', (e) => {
             e.preventDefault(); 
             signOut(auth).then(() => {
