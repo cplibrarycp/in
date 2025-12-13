@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- തീം --- */
+        :root {
+            --primary-orange: #00897B;
+            --secondary-dark: #004D40;
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container { width: 90%; margin: 0 auto; max-width: 800px; }
+        a { text-decoration: none; }
+
+        /* --- ഹെഡർ --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5em; font-weight: 700; color: var(--light-text); }
+        .nav-item { color: var(--light-text); margin-left: 20px; font-size: 0.9em; }
+
+        /* --- പ്രൊഫൈൽ കാർഡ് --- */
+        .profile-section { padding: 60px 0; }
+        
+        .profile-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--outline-color);
+            text-align: center;
+        }
+
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            margin: 0 auto 20px auto;
+            border: 4px solid var(--background-light);
+        }
+
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        h2 { color: var(--secondary-dark); margin-bottom: 30px; }
+
+        /* --- ഫോം സ്റ്റൈൽ --- */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary-dark);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--outline-color);
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-orange);
+            outline: none;
+        }
+
+        input:disabled {
+            background-color: #f0f0f0;
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        .btn-update {
+            background-color: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn-update:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background-color: transparent;
+            color: #d32f2f;
+            border: 2px solid #d32f2f;
+            margin-top: 15px;
+        }
+
+        .btn-reset:hover {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .status-msg {
+            margin-top: 15px;
+            font-weight: 600;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-arrow-left"></i> ഡാഷ്ബോർഡിലേക്ക്</a>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-card">
+                
+                <div class="profile-avatar-large" id="avatar-display">
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <h2>പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ</h2>
+
+                <div class="form-group">
+                    <label>ഇമെയിൽ (മാറ്റാൻ സാധിക്കില്ല)</label>
+                    <input type="email" id="email-field" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>പേര് (Display Name)</label>
+                    <input type="text" id="name-field" placeholder="നിങ്ങളുടെ പേര് നൽകുക">
+                </div>
+
+                <div class="form-group">
+                    <label>പ്രൊഫൈൽ ചിത്രം (Image URL)</label>
+                    <input type="text" id="photo-field" placeholder="ചിത്രത്തിന്റെ ലിങ്ക് ഉണ്ടെങ്കിൽ നൽകുക">
+                </div>
+
+                <button class="btn-update" id="update-btn">മാറ്റങ്ങൾ സേവ് ചെയ്യുക</button>
+                <button class="btn-update btn-reset" id="reset-pass-btn">പാസ്‌വേഡ് മാറ്റാനുള്ള ലിങ്ക് അയക്കുക</button>
+
+                <div id="status-message" class="status-msg"></div>
+
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // വിവരങ്ങൾ കാണിക്കുന്നു
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('email-field').value = user.email;
+                document.getElementById('name-field').value = user.displayName || "";
+                document.getElementById('photo-field').value = user.photoURL || "";
+
+                if(user.photoURL) {
+                    document.getElementById('avatar-display').innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // പ്രൊഫൈൽ അപ്ഡേറ്റ് ചെയ്യുന്നു
+        document.getElementById('update-btn').addEventListener('click', () => {
+            const newName = document.getElementById('name-field').value;
+            const newPhoto = document.getElementById('photo-field').value;
+            const statusMsg = document.getElementById('status-message');
+
+            updateProfile(auth.currentUser, {
+                displayName: newName,
+                photoURL: newPhoto
+            }).then(() => {
+                statusMsg.style.display = 'block';
+                statusMsg.style.color = 'green';
+                statusMsg.innerText = "✅ പ്രൊഫൈൽ വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു!";
+                
+                // 2 സെക്കൻഡിന് ശേഷം റീഫ്രഷ് ചെയ്യുന്നു
+                setTimeout(() => location.reload(), 2000);
+            }).catch((error) => {
+                statusMsg.style.display = 'block';
+                statusMsg.style.color = 'red';
+                statusMsg.innerText = "Error: " + error.message;
+            });
+        });
+
+        // പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുന്നു
+        document.getElementById('reset-pass-btn').addEventListener('click', () => {
+            const email = auth.currentUser.email;
+            sendPasswordResetEmail(auth, email)
+                .then(() => {
+                    alert("പാസ്‌വേഡ് മാറ്റാനുള്ള ലിങ്ക് " + email + " എന്ന മെയിലിലേക്ക് അയച്ചിട്ടുണ്ട്. മെയിൽ ചെക്ക് ചെയ്യുക.");
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                });
+        });
+
+    </script>
+
+</body>
+</html>
