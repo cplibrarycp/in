@@ -3,369 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 THRIPUDI LIBRARY - ഭാഗവതം</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>📚 ഭാഗവതം മലയാളം | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        /* --- Themes --- */
         :root {
-            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ (ഹൈലൈറ്റ്) */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ (ഹെഡർ) */
-            --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
+            --primary-orange: #00897B; /* Teal */
+            --secondary-dark: #004D40; /* Dark Green */
+            --background-light: #E0F2F1;
             --text-color: #263238;
             --light-text: #FFFFFF;
             --card-bg: #FFFFFF;
-            --outline-color: #B2DFDB; /* ഇമേജ് ബോർഡർ കളർ */
+            --outline-color: #B2DFDB; /* Light Teal for Border */
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
-        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
-        header {
-            background-color: var(--secondary-dark);
-            padding: 15px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        /* --- Header --- */
+        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+        
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 10px; font-size: 1em; overflow: hidden; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; overflow: hidden; margin-top: 10px; z-index: 1001; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee; }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .collection-section { padding: 40px 0; text-align: center; }
+        .collection-section h1 { font-family: 'Poppins', sans-serif; font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+        .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #searchBar { width: 100%; padding: 15px 20px; padding-left: 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
+        #searchBar:focus { border-color: var(--primary-orange); box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
 
-        /* ലോഗോ സ്റ്റൈൽ മാറ്റി: ബാക്ക്ഗ്രൗണ്ട് ഒഴിവാക്കി */
-        .logo {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--light-text); /* അക്ഷരങ്ങൾ വൈറ്റ് കളറിൽ */
-            text-decoration: none;
-            /* background, padding എന്നിവ ഒഴിവാക്കി */
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.85em;
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links a.nav-item:hover {
-            color: var(--outline-color);
-        }
-
-        /* --- User Profile Section --- */
-        .user-profile {
-            display: flex;
-            align-items: center;
-            margin-left: 25px;
-            padding-left: 25px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            background-color: #fff;
-            color: var(--primary-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1em;
-        }
-
-        .user-info {
-            color: #fff;
-            font-size: 0.85em;
-            line-height: 1.2;
-            text-align: left;
+        /* --- THICK BORDER CARD DESIGN --- */
+        .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+        
+        .book-card {
+            background: transparent;
+            text-align: center;
+            transition: transform 0.3s;
         }
         
-        .user-name {
-            font-weight: 600;
-            display: block;
-        }
-
-        .user-role {
-            font-size: 0.8em;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-
-        /* Dropdown Menu */
-        .profile-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 5px;
-            min-width: 160px;
-            overflow: hidden;
-            margin-top: 10px;
-            z-index: 1001;
-        }
-
-        .user-profile:hover .profile-dropdown {
-            display: block;
-        }
-
-        .profile-dropdown a {
-            display: block;
-            padding: 10px 15px;
-            color: var(--text-color);
-            font-size: 0.9em;
-            transition: background 0.3s;
-            border-bottom: 1px solid #eee;
-        }
-
-        .profile-dropdown a:hover {
-            background-color: var(--background-light);
-            color: var(--primary-orange);
-        }
-
-        /* --- 3. സെർച്ച് ബാർ --- */
-        .search-container {
-            margin-bottom: 40px;
+        /* 1. Image Wrapper (The Frame) */
+        .image-wrapper {
             position: relative;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #searchBar {
             width: 100%;
-            padding: 15px 20px;
-            padding-left: 45px; 
-            border-radius: 50px;
-            border: 2px solid var(--outline-color);
-            font-size: 1em;
-            outline: none;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-
-        #searchBar:focus {
-            border-color: var(--primary-orange);
-            box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary-dark);
-            opacity: 0.6;
-        }
-
-        /* --- 4. ബുക്ക് കാർഡ്സ് --- */
-        .collection-section {
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .collection-section h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.2em;
-            color: var(--secondary-dark);
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--primary-orange);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .library-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .book-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--outline-color);
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            height: 320px;
+            border-radius: 10px; /* മൂലകൾ അൽപ്പം വളച്ചു */
             overflow: hidden;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            
+            /* --- മാറ്റം ഇവിടെയാണ്: കട്ടിയുള്ള ബോർഡർ --- */
+            border: 6px solid var(--outline-color); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* നല്ല ഷാഡോ */
+            background-color: white; /* ബോർഡറിനുള്ളിൽ വെള്ള */
+            
+            transition: all 0.3s ease;
         }
 
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 77, 64, 0.15);
-        }
-
-        /* --- ഔട്ട്‌ലൈൻ ചേർത്ത ഭാഗം --- */
         .book-cover {
             width: 100%;
-            height: 250px;
-            object-fit: cover; 
-            border-radius: 4px;
-            margin-bottom: 15px;
-            border: 4px solid var(--outline-color); 
-            transition: border-color 0.3s;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        
-        .book-card:hover .book-cover {
-            border-color: var(--primary-orange);
+
+        /* 2. Overlay */
+        .read-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 77, 64, 0.75); /* ഡാർക്ക് ഗ്രീൻ */
+            opacity: 0;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.3s ease;
         }
-        /* --------------------------- */
-        
+
+        /* 3. Hover Effects */
+        .book-card:hover .image-wrapper {
+            transform: translateY(-5px);
+            /* ഹോവർ ചെയ്യുമ്പോൾ ബോർഡർ കളർ മാറുന്നു */
+            border-color: var(--primary-orange); 
+            box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25);
+        }
+
+        .book-card:hover .book-cover { transform: scale(1.05); }
+        .book-card:hover .read-overlay { opacity: 1; }
+
+        /* 4. Button inside Overlay */
+        .overlay-btn {
+            background-color: var(--primary-orange);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-orange);
+        }
+
+        .book-card:hover .overlay-btn { transform: translateY(0); }
+        .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+
         .book-title {
+            margin-top: 15px;
             font-weight: 700;
             color: var(--secondary-dark);
-            margin-top: 5px;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-            line-height: 1.3;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
-        .read-button-style {
-            display: inline-block;
-            background-color: var(--primary-orange);
-            color: var(--light-text);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: background-color 0.3s, transform 0.2s;
-            border: 2px solid var(--primary-orange);
-            cursor: pointer;
-        }
-
-        .download-button-style:hover {
-            background-color: var(--secondary-dark);
-            border-color: var(--secondary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* --- 5. ഫൂട്ടർ & മൊബൈൽ --- */
-        footer {
-            background-color: var(--secondary-dark);
-            color: var(--light-text);
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9em;
-            margin-top: 60px;
-        }
-
-        .footer-links {
-            margin-top: 15px;
-        }
-
-        .footer-links a {
-            color: var(--light-text);
-            margin: 0 10px;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
+        /* Footer */
+        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: 60px; }
+        .footer-links { margin-top: 15px; }
+        .footer-links a { color: var(--light-text); margin: 0 10px; text-decoration: none; opacity: 0.8; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
         
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-orange);
-        }
-
-        @media (max-width: 900px) {
-            .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
-            .profile-dropdown { left: 0; right: 0; text-align: center; }
-        }
+        @media (max-width: 900px) { .navbar { flex-direction: column; gap: 15px; } .nav-links { flex-wrap: wrap; justify-content: center; } }
     </style>
 </head>
 <body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // പേജിലെ എല്ലാ ലിങ്കുകളും (a tags) എടുക്കുന്നു
-        var links = document.getElementsByTagName("a");
 
-        for (var i = 0; i < links.length; i++) {
-            var href = links[i].href;
-
-            // ലിങ്ക് ഗൂഗിൾ ഡ്രൈവ് വ്യൂ ലിങ്ക് ആണോ എന്ന് നോക്കുന്നു
-            if (href.includes("drive.google.com/file/d/") && href.includes("/view")) {
-                
-                // ലിങ്കിൽ നിന്ന് ഫയൽ ഐഡി (File ID) മാത്രം വേർതിരിച്ചെടുക്കുന്നു
-                var fileId = href.split("/d/")[1].split("/")[0];
-
-                // പുതിയ read.html ലിങ്ക് ഉണ്ടാക്കുന്നു
-                var newUrl = "read.html?id=" + fileId;
-
-                // ലിങ്ക് അപ്ഡേറ്റ് ചെയ്യുന്നു
-                links[i].href = newUrl;
-
-                // പുതിയ ടാബിൽ തുറക്കുന്നത് ഒഴിവാക്കുന്നു (ഒരേ പേജിൽ വരാൻ)
-                links[i].removeAttribute("target");
-
-                // പഴയ 'Download' ബട്ടൺ ആണെങ്കിൽ അതിനെ പുതിയ 'Read' ബട്ടൺ ആക്കുന്നു
-                if (links[i].classList.contains("download-button-style")) {
-                    links[i].className = "read-button-style"; // പുതിയ ക്ലാസ് നൽകുന്നു
-                    links[i].innerHTML = "വായിക്കുക <i class='fas fa-book-open'></i>"; // ടെക്സ്റ്റ് മാറ്റുന്നു
-                }
-            }
-        }
-    });
-</script>
     <header>
         <div class="container navbar">
             <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
                 <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
                 <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
-
                 <div class="user-profile" id="profile-section">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <div class="user-avatar"><i class="fas fa-user"></i></div>
                     <div class="user-info">
                         <span class="user-name" id="display-name">Guest</span>
                         <span class="user-role">Member</span>
                     </div>
-                    
                     <div class="profile-dropdown">
                         <a href="profile.html">Profile Settings</a>
+                        <a href="history.html">Reading History</a>
                         <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
@@ -375,119 +162,144 @@
 
     <section class="collection-section">
         <div class="container">
-            <h1>ശ്രീമദ് ഭാഗവതം</h1>
-            
+            <h1>ഭാഗവതം മലയാളം</h1>
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക... (ഉദാ: ഭാഗവതം 1)">
+                <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
+            </div>
+            
+            <div class="library-container" id="bookList">
+  
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=123tK0eDxZKc6IO0DFbsqZ8bFWgIiO8ug' alt='ഭാഗവതം 1' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1j-zH__1UCEDxTNWEJTlUZnAnuvcR8k8o' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഭാഗവതം 1</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WAflep01BsxOZK4dKyl4r8jEbwEqgQ-d' alt='ഭാഗവതം 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=180WW8Ka8EThdKaLn3DUsANxtSKwTMvs3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഭാഗവതം 2</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1G3PwxPCwVb4wPsjGyZhObKYa4voAlEW3' alt='ഭാഗവതം 3' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1SK7a9MPUmLde_Bwwb6pf8Y7dSAGm4O0v' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ഭാഗവതം 3</div>
             </div>
 
-            <div class="library-container" id="bookList">
-                
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1j-zH__1UCEDxTNWEJTlUZnAnuvcR8k8o/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=123tK0eDxZKc6IO0DFbsqZ8bFWgIiO8ug' alt='ഭാഗവതം 1' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 1</div>
-                    <a href='https://drive.google.com/file/d/1j-zH__1UCEDxTNWEJTlUZnAnuvcR8k8o/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-JhxwglSgCW6g0ZTUu7Ynl7-jOw8_ucZ' alt='ഭാഗവതം 4' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1TJd1rKzFwucQHcsYmut6RVOydVGMbOFn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
-
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/180WW8Ka8EThdKaLn3DUsANxtSKwTMvs3/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1WAflep01BsxOZK4dKyl4r8jEbwEqgQ-d' alt='ഭാഗവതം 2' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 2</div>
-                    <a href='https://drive.google.com/file/d/180WW8Ka8EThdKaLn3DUsANxtSKwTMvs3/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                <div class='book-title'>ഭാഗവതം 4</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1EWqtOTXR_j5gbGE1Kfk_og0Tww8FMJr1' alt='ഭാഗവതം 5' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1sIrc64JlENGM5m4fveraRMGDqJkf9ERl' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>ഭാഗവതം 5</div>
+            </div>
 
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1SK7a9MPUmLde_Bwwb6pf8Y7dSAGm4O0v/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1G3PwxPCwVb4wPsjGyZhObKYa4voAlEW3' alt='ഭാഗവതം 3' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 3</div>
-                    <a href='https://drive.google.com/file/d/1SK7a9MPUmLde_Bwwb6pf8Y7dSAGm4O0v/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1o8ldfrLSkNyU5GHHoca4N2PpxkaTM46w' alt='ഭാഗവതം 6' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1toeodKOzBySofD4V9pjQnmkW1aogdGHU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
-
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1TJd1rKzFwucQHcsYmut6RVOydVGMbOFn/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1-JhxwglSgCW6g0ZTUu7Ynl7-jOw8_ucZ' alt='ഭാഗവതം 4' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 4</div>
-                    <a href='https://drive.google.com/file/d/1TJd1rKzFwucQHcsYmut6RVOydVGMbOFn/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+                <div class='book-title'>ഭാഗവതം 6</div>
+            </div>
+        
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ajT3r90fk3JSBobiirhLd_Rtpem89kRC' alt='ഭാഗവതം 7' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1dHdTR7T1QmjM8KGb0xcf2jpFRHYLoan9' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>ഭാഗവതം 7</div>
+            </div>
 
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1sIrc64JlENGM5m4fveraRMGDqJkf9ERl/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1EWqtOTXR_j5gbGE1Kfk_og0Tww8FMJr1' alt='ഭാഗവതം 5' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 5</div>
-                    <a href='https://drive.google.com/file/d/1sIrc64JlENGM5m4fveraRMGDqJkf9ERl/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Fd2RwpvLoUS8Dlp841eIXcmueqAXJcMl' alt='ഭാഗവതം 8' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Im5eQghDEo60fJp7JNnTwO8o04Ug_G4e' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>ഭാഗവതം 8</div>
+            </div>
 
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1toeodKOzBySofD4V9pjQnmkW1aogdGHU/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1o8ldfrLSkNyU5GHHoca4N2PpxkaTM46w' alt='ഭാഗവതം 6' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 6</div>
-                    <a href='https://drive.google.com/file/d/1toeodKOzBySofD4V9pjQnmkW1aogdGHU/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=17s2ntQ4ZUdT_v8zFqPwtXkSEwDHhXIB6' alt='ഭാഗവതം 9' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1H6mlAPom7l_b2sRp-4p0AQq4veybaFS4' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>ഭാഗവതം 9</div>
+            </div>
 
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1dHdTR7T1QmjM8KGb0xcf2jpFRHYLoan9/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1ajT3r90fk3JSBobiirhLd_Rtpem89kRC' alt='ഭാഗവതം 7' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 7</div>
-                    <a href='https://drive.google.com/file/d/1dHdTR7T1QmjM8KGb0xcf2jpFRHYLoan9/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=17GZSMjVDJIlMuwGWF1oCwMuKcnlGLPfL' alt='ഭാഗവതം 10' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=17BkMWTwszQJqxdkOYVQyATM7hcFvn9zX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>ഭാഗവതം 10</div>
+            </div>
 
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1Im5eQghDEo60fJp7JNnTwO8o04Ug_G4e/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1Fd2RwpvLoUS8Dlp841eIXcmueqAXJcMl' alt='ഭാഗവതം 8' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 8</div>
-                    <a href='https://drive.google.com/file/d/1Im5eQghDEo60fJp7JNnTwO8o04Ug_G4e/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jijAf_nr5RjPXejQ89ipVvWDAwideNqB' alt='ഭാഗവതം 11' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1a5dImlR0DCoiaRxpfCwbw___Fubjd7-q' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>ഭാഗവതം 11</div>
+            </div>
 
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1H6mlAPom7l_b2sRp-4p0AQq4veybaFS4/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=17s2ntQ4ZUdT_v8zFqPwtXkSEwDHhXIB6' alt='ഭാഗവതം 9' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 9</div>
-                    <a href='https://drive.google.com/file/d/1H6mlAPom7l_b2sRp-4p0AQq4veybaFS4/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gGgFT6odOzRCutYfg8DZr7PEQsBPnMwa' alt='ഭാഗവതം 12' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1_Y2KgCr1BzHRqC7XBey_-ssCmNyXYL9r' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
+                <div class='book-title'>ഭാഗവതം 12</div>
+            </div>
 
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/17BkMWTwszQJqxdkOYVQyATM7hcFvn9zX/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=17GZSMjVDJIlMuwGWF1oCwMuKcnlGLPfL' alt='ഭാഗവതം 10' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 10</div>
-                    <a href='https://drive.google.com/file/d/17BkMWTwszQJqxdkOYVQyATM7hcFvn9zX/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12CpZC7iO-Ck2tnKpk8IogDTVKOTZigXB' alt='ഭാഗവതം 13' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1xoAFqW0Y6cAhfDjH9QCXXalWer-mrgwW' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
                 </div>
-
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1a5dImlR0DCoiaRxpfCwbw___Fubjd7-q/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1jijAf_nr5RjPXejQ89ipVvWDAwideNqB' alt='ഭാഗവതം 11' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 11</div>
-                    <a href='https://drive.google.com/file/d/1a5dImlR0DCoiaRxpfCwbw___Fubjd7-q/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
-                </div>
-
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1_Y2KgCr1BzHRqC7XBey_-ssCmNyXYL9r/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=1gGgFT6odOzRCutYfg8DZr7PEQsBPnMwa' alt='ഭാഗവതം 12' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 12</div>
-                    <a href='https://drive.google.com/file/d/1_Y2KgCr1BzHRqC7XBey_-ssCmNyXYL9r/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
-                </div>
-
-                <div class='book-card'>
-                    <a href='https://drive.google.com/file/d/1xoAFqW0Y6cAhfDjH9QCXXalWer-mrgwW/view' target='_blank'>
-                        <img src='https://drive.google.com/thumbnail?sz=w600&id=12CpZC7iO-Ck2tnKpk8IogDTVKOTZigXB' alt='ഭാഗവതം 13' class='book-cover' loading='lazy'>
-                    </a>
-                    <div class='book-title'>ഭാഗവതം 13</div>
-                    <a href='https://drive.google.com/file/d/1xoAFqW0Y6cAhfDjH9QCXXalWer-mrgwW/view' target='_blank' class='download-button-style'>ഡൗൺലോഡ് <i class='fas fa-download'></i></a>
-                </div>
-
+                <div class='book-title'>ഭാഗവതം 13</div>
+            </div>
+        
             </div>
         </div>
     </section>
@@ -497,9 +309,7 @@
             <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
             <div class="footer-links">
                 <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
             </div>
         </div>
     </footer>
@@ -507,71 +317,41 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-            authDomain: "thripudilibrary.firebaseapp.com",
-            projectId: "thripudilibrary",
-            storageBucket: "thripudilibrary.firebasestorage.app",
-            messagingSenderId: "887018912750",
-            appId: "1:887018912750:web:cc05190a72b13db816acff",
-            measurementId: "G-B59RDW4KG4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Auth State Check
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app);
         onAuthStateChanged(auth, (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const logoutLink = document.getElementById('logout-link');
-
+            const nameDisplay = document.getElementById('display-name'); const avatarDiv = document.querySelector('.user-avatar');
             if (user) {
-                // User is signed in
-                const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
                 nameDisplay.textContent = displayName;
-            } else {
-                // No user is signed in, redirect to index
-                window.location.href = "index.html"; 
+                if (user.photoURL) { avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`; }
             }
         });
-
-        // Logout Functionality
-        document.getElementById('logout-link').addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default anchor click behavior
-            signOut(auth).then(() => {
-                // Sign-out successful.
-                window.location.href = "index.html";
-            }).catch((error) => {
-                alert("Error: " + error.message);
-            });
-        });
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
     </script>
 
     <script>
         function searchBooks() {
-            var input = document.getElementById('searchBar');
-            var filter = input.value.toUpperCase();
-            var cards = document.getElementsByClassName('book-card');
-            
+            var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card');
             for (var i = 0; i < cards.length; i++) {
                 var title = cards[i].getElementsByClassName("book-title")[0];
-                if (title) {
-                    var txtValue = title.textContent || title.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        cards[i].style.display = "";
-                    } else {
-                        cards[i].style.display = "none";
-                    }
-                }
+                if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
             }
         }
+        document.addEventListener("DOMContentLoaded", function() {
+            const bookLinks = document.querySelectorAll("a[href^='read.html']");
+            bookLinks.forEach(link => {
+                link.addEventListener("click", function(e) {
+                    const card = this.closest('.book-card');
+                    if (card) {
+                        const title = card.querySelector('.book-title').innerText; const image = card.querySelector('.book-cover').src; const url = this.getAttribute('href'); const date = new Date().toLocaleDateString('ml-IN');
+                        let history = JSON.parse(localStorage.getItem('thripudiHistory')) || [];
+                        history = history.filter(item => item.url !== url); history.unshift({ title, image, url, date });
+                        if (history.length > 50) history.pop(); localStorage.setItem('thripudiHistory', JSON.stringify(history));
+                    }
+                });
+            });
+        });
     </script>
-
 </body>
 </html>
-
-
-
-
-
