@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 THRIPUDI LIBRARY - സ്വകാര്യതാ നയം</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        :root {
+            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ (ഹൈലൈറ്റ്) */
+            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ (ഹെഡർ) */
+            --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB; /* ബോർഡർ കളർ */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        a { text-decoration: none; }
+
+        /* --- 2. ഹെഡർ --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a.nav-item:hover {
+            color: var(--outline-color);
+        }
+
+        /* --- User Profile Section --- */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-left: 25px;
+            padding-left: 25px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #fff;
+            color: var(--primary-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+
+        .user-info {
+            color: #fff;
+            font-size: 0.85em;
+            line-height: 1.2;
+            text-align: left;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            display: block;
+        }
+
+        .user-role {
+            font-size: 0.8em;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px;
+            min-width: 160px;
+            overflow: hidden;
+            margin-top: 10px;
+            z-index: 1001;
+        }
+
+        .user-profile:hover .profile-dropdown {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-color);
+            font-size: 0.9em;
+            transition: background 0.3s;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: var(--background-light);
+            color: var(--primary-orange);
+        }
+
+        /* --- 3. Privacy Policy Content --- */
+        .policy-section {
+            padding: 60px 0;
+            min-height: 60vh;
+        }
+
+        .policy-content {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--outline-color);
+        }
+
+        .policy-content h1 {
+            color: var(--secondary-dark);
+            border-bottom: 3px solid var(--primary-orange);
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .policy-content h2 {
+            color: var(--primary-orange);
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .policy-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+            color: #455A64;
+        }
+
+        .policy-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            color: #455A64;
+        }
+
+        .policy-content li {
+            margin-bottom: 10px;
+        }
+
+        /* --- 4. ഫൂട്ടർ --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 60px;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            margin: 0 10px;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-orange);
+        }
+
+        @media (max-width: 900px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
+            .policy-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
+
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    
+                    <div class="profile-dropdown">
+                        <a href="#">Profile Settings</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="policy-section">
+        <div class="container">
+            <div class="policy-content">
+                <h1>സ്വകാര്യതാ നയം (Privacy Policy)</h1>
+                
+                <p><strong>അവസാനം പുതുക്കിയത്: 2025</strong></p>
+                <p>തൃപ്പൂടി ലൈബ്രറി (Thripudi Library) സന്ദർശിക്കുന്ന ഓരോ വായനക്കാരന്റെയും സ്വകാര്യത ഞങ്ങൾ മാനിക്കുന്നു. ഈ വെബ്സൈറ്റ് ഉപയോഗിക്കുമ്പോൾ നിങ്ങളുടെ വിവരങ്ങൾ എങ്ങനെ ശേഖരിക്കുന്നുവെന്നും കൈകാര്യം ചെയ്യുന്നുവെന്നും താഴെ വിവരിക്കുന്നു.</p>
+
+                <h2>1. വിവര ശേഖരണം</h2>
+                <p>ഞങ്ങൾ താഴെ പറയുന്ന വിവരങ്ങൾ ശേഖരിച്ചേക്കാം:</p>
+                <ul>
+                    <li><strong>വ്യക്തിഗത വിവരങ്ങൾ:</strong> നിങ്ങൾ ലോഗിൻ ചെയ്യുമ്പോഴോ സന്ദേശങ്ങൾ അയക്കുമ്പോഴോ നൽകുന്ന പേര്, ഇമെയിൽ വിലാസം തുടങ്ങിയവ.</li>
+                    <li><strong>സാങ്കേതിക വിവരങ്ങൾ:</strong> ലോഗിൻ സുരക്ഷയ്ക്കായി ഉപയോഗിക്കുന്ന കുക്കികൾ (Cookies), ഐ.പി വിലാസം എന്നിവ.</li>
+                </ul>
+
+                <h2>2. വിവരങ്ങളുടെ ഉപയോഗം</h2>
+                <p>ശേഖരിക്കുന്ന വിവരങ്ങൾ താഴെ പറയുന്ന ആവശ്യങ്ങൾക്ക് മാത്രമാണ് ഉപയോഗിക്കുന്നത്:</p>
+                <ul>
+                    <li>നിങ്ങൾക്ക് മികച്ച വായനാനുഭവം നൽകാൻ.</li>
+                    <li>നിങ്ങളുടെ അക്കൗണ്ട് സുരക്ഷിതമായി സൂക്ഷിക്കാൻ.</li>
+                    <li>നിങ്ങളുടെ അഭിപ്രായങ്ങൾക്കും സംശയങ്ങൾക്കും മറുപടി നൽകാൻ.</li>
+                </ul>
+
+                <h2>3. വിവരങ്ങളുടെ സുരക്ഷ</h2>
+                <p>നിങ്ങളുടെ വ്യക്തിഗത വിവരങ്ങൾ ഞങ്ങൾ മറ്റാർക്കും കൈമാറുന്നതല്ല. ഗൂഗിൾ ഫയർബേസ് (Google Firebase) പോലുള്ള സുരക്ഷിതമായ സംവിധാനങ്ങൾ ഉപയോഗിച്ചാണ് ഡാറ്റ സൂക്ഷിക്കുന്നത്.</p>
+
+                <h2>4. കുക്കികൾ (Cookies)</h2>
+                <p>ഈ വെബ്സൈറ്റ് പ്രവർത്തിക്കാൻ അത്യാവശ്യമായ കുക്കികൾ (ഉദാഹരണത്തിന് ലോഗിൻ വിവരങ്ങൾ ഓർത്തു വെക്കാൻ) ഞങ്ങൾ ഉപയോഗിക്കുന്നുണ്ട്. ബ്രൗസർ സെറ്റിംഗ്സ് വഴി നിങ്ങൾക്ക് ഇത് നിയന്ത്രിക്കാവുന്നതാണ്.</p>
+
+                <h2>5. പുറത്തേക്കുള്ള ലിങ്കുകൾ</h2>
+                <p>ഈ വെബ്സൈറ്റിൽ മറ്റ് വെബ്സൈറ്റുകളിലേക്കുള്ള (ഉദാ: ഗൂഗിൾ ഡ്രൈവ്) ലിങ്കുകൾ ഉണ്ടായിരിക്കാം. ആ വെബ്സൈറ്റുകളുടെ സ്വകാര്യതാ നയങ്ങൾക്ക് തൃപ്പൂടി ലൈബ്രറി ഉത്തരവാദിയല്ല.</p>
+
+                <h2>6. ഞങ്ങളെ ബന്ധപ്പെടാൻ</h2>
+                <p>ഈ സ്വകാര്യതാ നയത്തെക്കുറിച്ച് നിങ്ങൾക്ക് എന്തെങ്കിലും സംശയങ്ങളുണ്ടെങ്കിൽ, താഴെ പറയുന്ന ഇമെയിലിൽ ബന്ധപ്പെടാവുന്നതാണ്:</p>
+                <p style="color: var(--primary-orange); font-weight: bold;">📧 cplibrarycp@gmail.com</p>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html" style="color: var(--primary-orange);">സ്വകാര്യതാ നയം</a> |
+                <a href="#">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const logoutLink = document.getElementById('logout-link');
+
+            if (user) {
+                const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+            }
+        });
+
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault(); 
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => {
+                alert("Error: " + error.message);
+            });
+        });
+    </script>
+
+</body>
+</html>
