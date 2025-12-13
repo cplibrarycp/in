@@ -3,150 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 THRIPUDI LIBRARY - Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>📚 ഡാഷ്ബോർഡ് | THRIPUDI LIBRARY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        /* --- 1. തീം (Teal & Green) --- */
         :root {
-            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ (ഹൈലൈറ്റ്) */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ (ഹെഡർ) */
-            --background-light: #E0F2F1; /* ഇളം പച്ച പശ്ചാത്തലം */
+            --primary-orange: #00897B;
+            --secondary-dark: #004D40;
+            --background-light: #E0F2F1;
             --text-color: #263238;
             --light-text: #FFFFFF;
             --card-bg: #FFFFFF;
-            --outline-color: #B2DFDB; /* ബോർഡർ കളർ */
+            --outline-color: #B2DFDB;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--background-light);
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             line-height: 1.6;
         }
 
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            max-width: 1200px;
-        }
-
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
-        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
+        /* --- 2. ഹെഡർ --- */
         header {
             background-color: var(--secondary-dark);
             padding: 15px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* ലോഗോ ടെക്സ്റ്റ് മാത്രമായി */
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        
         .logo {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--light-text);
-            text-decoration: none;
+            font-size: 1.8em; font-weight: 700;
+            color: var(--light-text); text-decoration: none;
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
+        .nav-links { display: flex; align-items: center; }
 
         .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 20px;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--light-text); margin-left: 20px;
+            font-weight: 500; transition: color 0.3s;
+            font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        .nav-links a.nav-item:hover {
-            color: var(--outline-color);
-        }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
 
-        /* --- User Profile Section --- */
+        /* --- User Profile & Dropdown Fix --- */
         .user-profile {
-            display: flex;
-            align-items: center;
-            margin-left: 25px;
-            padding-left: 25px;
+            display: flex; align-items: center;
+            margin-left: 25px; padding-left: 25px;
             border-left: 1px solid rgba(255,255,255,0.2);
-            position: relative;
-            cursor: pointer;
+            position: relative; cursor: pointer;
+            padding-bottom: 5px; /* ചെറിയ പാഡിംഗ് */
         }
 
         .user-avatar {
-            width: 32px;
-            height: 32px;
-            background-color: #fff;
-            color: var(--primary-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1em;
+            width: 32px; height: 32px;
+            background-color: #fff; color: var(--primary-orange);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: bold; margin-right: 10px; font-size: 1em;
+            overflow: hidden;
         }
+        .user-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        .user-info {
-            color: #fff;
-            font-size: 0.85em;
-            line-height: 1.2;
-            text-align: left;
-        }
-        
-        .user-name {
-            font-weight: 600;
-            display: block;
-        }
-
-        .user-role {
-            font-size: 0.8em;
-            opacity: 0.8;
-            font-weight: 400;
-        }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
 
         /* Dropdown Menu */
         .profile-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
+            display: none; position: absolute;
+            top: 100%; right: 0;
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 5px;
-            min-width: 160px;
-            overflow: hidden;
-            margin-top: 10px;
-            z-index: 1001;
+            border-radius: 5px; min-width: 180px;
+            overflow: visible; /* വിസിബിൾ ആക്കി വെക്കുന്നു */
+            margin-top: 10px; z-index: 1001;
         }
 
-        .user-profile:hover .profile-dropdown {
-            display: block;
+        /* Hover Bridge Fix (പ്രധാനപ്പെട്ട മാറ്റം) */
+        .profile-dropdown::before {
+            content: "";
+            position: absolute;
+            top: -15px; /* ഗ്യാപ്പ് നികത്തുന്നു */
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: transparent;
         }
+
+        .user-profile:hover .profile-dropdown { display: block; }
 
         .profile-dropdown a {
-            display: block;
-            padding: 10px 15px;
-            color: var(--text-color);
-            font-size: 0.9em;
-            transition: background 0.3s;
-            border-bottom: 1px solid #eee;
+            display: block; padding: 12px 15px;
+            color: var(--text-color); font-size: 0.9em;
+            transition: background 0.3s; border-bottom: 1px solid #eee;
+            display: flex; align-items: center; gap: 10px;
         }
 
         .profile-dropdown a:hover {
@@ -154,99 +115,75 @@
             color: var(--primary-orange);
         }
 
-        /* --- 3. ഡാഷ്ബോർഡ് കാർഡുകൾ --- */
-        .dashboard-section {
-            padding: 60px 0;
-            text-align: center;
-            min-height: 60vh;
-        }
+        /* --- 3. ഡാഷ്ബോർഡ് കണ്ടന്റ് --- */
+        .dashboard-section { padding: 50px 0; text-align: center; min-height: 70vh; }
 
         .dashboard-section h1 {
             font-family: 'Poppins', sans-serif;
-            font-size: 2.5em;
-            color: var(--secondary-dark);
+            font-size: 2.2em; color: var(--secondary-dark);
             margin-bottom: 10px;
         }
 
-        .dashboard-section p {
-            color: #546E7A;
-            margin-bottom: 50px;
-            font-weight: 500;
-        }
+        .dashboard-section p { color: #546E7A; margin-bottom: 40px; }
 
         .dashboard-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px; margin: 0 auto;
         }
 
         .category-card {
             background: var(--card-bg);
-            width: 180px;
-            height: 180px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            border: 2px solid var(--outline-color);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
             text-decoration: none;
-            color: var(--text-color);
+            color: var(--secondary-dark);
             transition: all 0.3s ease;
-            border: 2px solid var(--outline-color); /* തീം ബോർഡർ */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 77, 64, 0.15);
-            border-color: var(--primary-orange); /* ഹോവർ ചെയ്യുമ്പോൾ ടീൽ കളർ */
+            border-color: var(--primary-orange);
+            box-shadow: 0 10px 25px rgba(0, 137, 123, 0.2);
         }
 
-        .icon { 
-            font-size: 50px; 
-            margin-bottom: 15px; 
-        }
-        
-        .label { 
-            font-size: 18px; 
-            font-weight: 700; 
-            color: var(--secondary-dark);
+        .icon-circle {
+            width: 70px; height: 70px;
+            background-color: var(--background-light);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.8em; color: var(--primary-orange);
+            transition: 0.3s;
         }
 
-        /* --- 4. ഫൂട്ടർ & മൊബൈൽ --- */
+        .category-card:hover .icon-circle {
+            background-color: var(--primary-orange);
+            color: white;
+        }
+
+        .label { font-size: 1.1em; font-weight: 700; }
+
+        /* --- 4. ഫൂട്ടർ --- */
         footer {
             background-color: var(--secondary-dark);
-            color: var(--light-text);
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9em;
-            margin-top: 60px;
+            color: var(--light-text); padding: 40px 0;
+            text-align: center; font-size: 0.9em; margin-top: 60px;
         }
-
-        .footer-links {
-            margin-top: 15px;
-        }
-
         .footer-links a {
-            color: var(--light-text);
-            margin: 0 10px;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
+            color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s;
         }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-orange);
-        }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 
         @media (max-width: 900px) {
             .navbar { flex-direction: column; gap: 15px; }
             .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
-            .profile-dropdown { left: 0; right: 0; text-align: center; }
+            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
+            .profile-dropdown { left: 0; right: 0; width: 100%; position: relative; box-shadow: none; border: 1px solid #eee; }
         }
     </style>
 </head>
@@ -271,7 +208,8 @@
                     </div>
                     
                     <div class="profile-dropdown">
-                        <a href="profile.html">Profile Settings</a>
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
                         <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
@@ -281,38 +219,43 @@
 
     <section class="dashboard-section">
         <div class="container">
-            <h1>ഡിജിറ്റൽ ലൈബ്രറി</h1>
-            <p>വായനയ്ക്കായി ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക</p>
+            <h1>ലൈബ്രറി വിഭാഗങ്ങൾ </h1>
+            <p>നിങ്ങൾക്ക് ഇഷ്ടപ്പെട്ട വിഭാഗം തിരഞ്ഞെടുത്ത് വായന തുടങ്ങൂ</p>
 
             <div class="dashboard-container">
 
+                <a href="rig.html" class="category-card">
+                    <div class="icon-circle"><i class="fas fa-om"></i></div>
+                    <span class="label">ഋഗ്വേദം</span>
+                </a>
+
                 <a href="malayalam.html" class="category-card">
-                    <span class="icon">🥥</span>
+                    <div class="icon-circle"><i class="fas fa-pen-nib"></i></div>
                     <span class="label">മലയാളം</span>
                 </a>
 
                 <a href="english.html" class="category-card">
-                    <span class="icon">📘</span>
+                    <div class="icon-circle"><i class="fas fa-language"></i></div>
                     <span class="label">English</span>
                 </a>
 
                 <a href="yoga.html" class="category-card">
-                    <span class="icon">🧘‍♂️</span>
+                    <div class="icon-circle"><i class="fas fa-spa"></i></div>
                     <span class="label">Yoga</span>
                 </a>
 
                 <a href="history.html" class="category-card">
-                    <span class="icon">📜</span>
+                    <div class="icon-circle"><i class="fas fa-landmark"></i></div>
                     <span class="label">History</span>
                 </a>
 
                 <a href="science.html" class="category-card">
-                    <span class="icon">🔬</span>
+                    <div class="icon-circle"><i class="fas fa-flask"></i></div>
                     <span class="label">Science</span>
                 </a>
 
                 <a href="others.html" class="category-card">
-                    <span class="icon">📂</span>
+                    <div class="icon-circle"><i class="fas fa-folder-open"></i></div>
                     <span class="label">Others</span>
                 </a>
 
@@ -349,26 +292,28 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Auth State Check
+        // Auth Check
         onAuthStateChanged(auth, (user) => {
             const nameDisplay = document.getElementById('display-name');
-            const logoutLink = document.getElementById('logout-link');
+            const avatarDiv = document.querySelector('.user-avatar');
 
             if (user) {
-                // User is signed in
                 const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
                 nameDisplay.textContent = displayName;
+                
+                if (user.photoURL) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                }
             } else {
-                // No user is signed in, redirect to index
+                // ലോഗിൻ ചെയ്തില്ലെങ്കിൽ ഇവിടെ കോഡ് നൽകാം (Optional)
                 window.location.href = "index.html"; 
             }
         });
 
-        // Logout Functionality
+        // Logout
         document.getElementById('logout-link').addEventListener('click', (e) => {
             e.preventDefault(); 
             signOut(auth).then(() => {
-                // Sign-out successful.
                 window.location.href = "index.html";
             }).catch((error) => {
                 alert("Error: " + error.message);
@@ -378,8 +323,3 @@
 
 </body>
 </html>
-
-
-
-
-
