@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* --- തീം സ്റ്റൈലുകൾ (Template-ൽ ഉള്ളത് പോലെ) --- */
+        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
         :root {
-            --primary-orange: #00897B;
-            --secondary-dark: #004D40;
+            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
+            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
             --background-light: #E0F2F1;
             --text-color: #263238;
             --light-text: #FFFFFF;
@@ -26,12 +26,13 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
+            line-height: 1.6;
         }
 
         .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
-        /* ഹെഡർ */
+        /* --- 2. ഹെഡർ & നാവിഗേഷൻ --- */
         header {
             background-color: var(--secondary-dark);
             padding: 15px 0;
@@ -39,71 +40,163 @@
             position: sticky;
             top: 0; z-index: 1000;
         }
-        .navbar { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5em; font-weight: 700; color: var(--light-text); }
-        .nav-item { color: var(--light-text); margin-left: 20px; font-size: 0.9em; }
-
-        /* --- ഹിസ്റ്ററി സെക്ഷൻ --- */
-        .history-section { padding: 40px 0; text-align: center; }
         
-        h1 { color: var(--secondary-dark); margin-bottom: 20px; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+        }
 
-        /* ക്ലിയർ ഹിസ്റ്ററി ബട്ടൺ */
+        .nav-links { display: flex; align-items: center; }
+
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+
+        /* --- User Profile --- */
+        .user-profile {
+            display: flex; align-items: center;
+            margin-left: 25px; padding-left: 25px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative; cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px; height: 32px;
+            background-color: #fff; color: var(--primary-orange);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; margin-right: 10px; font-size: 1em;
+            overflow: hidden;
+        }
+
+        .user-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+
+        .profile-dropdown {
+            display: none; position: absolute; top: 100%; right: 0;
+            background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px; min-width: 160px; overflow: hidden;
+            margin-top: 10px; z-index: 1001;
+        }
+
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a {
+            display: block; padding: 10px 15px; color: var(--text-color);
+            font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee;
+        }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+        /* --- 3. ഹിസ്റ്ററി സെക്ഷൻ --- */
+        .history-section { padding: 40px 0; text-align: center; min-height: 60vh; }
+        
+        .history-section h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2em;
+            color: var(--secondary-dark);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-orange);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* ക്ലിയർ ഹിസ്റ്ററി ബട്ടൺ (തീം സ്റ്റൈൽ) */
         .clear-btn {
-            background-color: #d32f2f;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            background-color: transparent;
+            color: var(--secondary-dark);
+            border: 2px solid var(--secondary-dark);
+            padding: 8px 20px;
+            border-radius: 50px;
             cursor: pointer;
             margin-bottom: 30px;
             font-size: 0.9em;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-flex; align-items: center; gap: 8px;
+            font-weight: 600; transition: 0.3s;
         }
-        .clear-btn:hover { background-color: #b71c1c; }
+        .clear-btn:hover {
+            background-color: var(--secondary-dark);
+            color: white;
+        }
 
-        /* ഗ്രിഡ് ലേഔട്ട് */
+        /* കാർഡ് ലേഔട്ട് */
         .library-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 25px;
         }
 
-        /* കാർഡ് സ്റ്റൈൽ */
         .book-card {
             background: var(--card-bg);
             border: 1px solid var(--outline-color);
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 8px; padding: 15px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            position: relative;
+            transition: transform 0.3s;
         }
+        .book-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0, 77, 64, 0.15); }
 
         .book-cover {
             width: 100%; height: 200px; object-fit: cover;
-            border-radius: 4px; border: 2px solid var(--outline-color);
-            margin-bottom: 10px;
+            border-radius: 4px; border: 4px solid var(--outline-color);
+            margin-bottom: 10px; transition: border-color 0.3s;
         }
+        .book-card:hover .book-cover { border-color: var(--primary-orange); }
 
-        .book-title { font-weight: 700; font-size: 1em; color: var(--secondary-dark); margin-bottom: 5px; }
+        .book-title {
+            font-weight: 700; font-size: 1em; color: var(--secondary-dark);
+            margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
         
-        .read-date { font-size: 0.8em; color: #666; display: block; margin-bottom: 10px; }
+        .read-date { font-size: 0.8em; color: #666; display: block; margin-bottom: 15px; }
 
-        .continue-btn {
+        /* Read Button Style */
+        .read-button-style {
             display: inline-block;
             background-color: var(--primary-orange);
-            color: white;
+            color: var(--light-text);
             padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 0.85em;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.85em; font-weight: 600;
+            transition: 0.3s; border: 2px solid var(--primary-orange);
+        }
+        .read-button-style:hover {
+            background-color: var(--secondary-dark); border-color: var(--secondary-dark);
         }
 
-        /* സന്ദേശം */
-        .empty-msg {
-            font-size: 1.2em; color: #777; margin-top: 50px;
+        .empty-msg { font-size: 1.2em; color: #777; margin-top: 50px; }
+
+        /* --- 4. ഫൂട്ടർ --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text); padding: 40px 0;
+            text-align: center; font-size: 0.9em; margin-top: 60px;
+        }
+        .footer-links { margin-top: 15px; }
+        .footer-links a {
+            color: var(--light-text); margin: 0 10px; text-decoration: none;
+            opacity: 0.8; transition: opacity 0.3s;
+        }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+
+        @media (max-width: 900px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
+            .profile-dropdown { left: 0; right: 0; text-align: center; }
         }
     </style>
 </head>
@@ -112,7 +205,28 @@
     <header>
         <div class="container navbar">
             <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            <a href="dashboard.html" class="nav-item"><i class="fas fa-arrow-left"></i> ഡാഷ്ബോർഡിലേക്ക്</a>
+            
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
+
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    
+                    <div class="profile-dropdown">
+                        <a href="profile.html">Profile Settings</a>
+                        <a href="history.html">Reading History</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -131,19 +245,68 @@
         </div>
     </section>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.querySelector('.user-avatar');
+
+            if (user) {
+                const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+                if (user.photoURL) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                }
+            } else {
+                // ലോഗിൻ ചെയ്തില്ലെങ്കിൽ ഇവിടെ കോഡ് നൽകാം
+            }
+        });
+
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault(); 
+            signOut(auth).then(() => { window.location.href = "index.html"; });
+        });
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             loadHistory();
         });
 
         function loadHistory() {
-            // ലോക്കൽ സ്റ്റോറേജിൽ നിന്ന് ഡാറ്റ എടുക്കുന്നു
             const history = JSON.parse(localStorage.getItem('thripudiHistory')) || [];
             const listContainer = document.getElementById('historyList');
             const emptyMsg = document.getElementById('emptyMsg');
             const clearBtn = document.getElementById('clearBtn');
 
-            listContainer.innerHTML = ""; // ആദ്യം ക്ലിയർ ചെയ്യുന്നു
+            listContainer.innerHTML = "";
 
             if (history.length === 0) {
                 emptyMsg.style.display = "block";
@@ -152,14 +315,19 @@
                 emptyMsg.style.display = "none";
                 clearBtn.style.display = "inline-flex";
 
-                // ഓരോ പുസ്തകവും കാർഡ് ആയി മാറ്റുന്നു
                 history.forEach(book => {
+                    // പുസ്തകത്തിന്റെ പേര് കുറച്ചു വലുതാണെങ്കിൽ ഭംഗിയാക്കാൻ
+                    let displayTitle = book.title;
+                    if(displayTitle.length > 25) displayTitle = displayTitle.substring(0, 25) + '...';
+
                     const cardHTML = `
                         <div class="book-card">
-                            <img src="${book.image}" alt="${book.title}" class="book-cover">
-                            <div class="book-title">${book.title}</div>
-                            <span class="read-date"><i class="far fa-clock"></i> ${book.date}-ൽ വായിച്ചു</span>
-                            <a href="${book.url}" class="continue-btn">വീണ്ടും വായിക്കുക</a>
+                            <a href="${book.url}">
+                                <img src="${book.image}" alt="${book.title}" class="book-cover">
+                            </a>
+                            <div class="book-title" title="${book.title}">${displayTitle}</div>
+                            <span class="read-date"><i class="far fa-clock"></i> ${book.date}</span>
+                            <a href="${book.url}" class="read-button-style">വീണ്ടും വായിക്കുക</a>
                         </div>
                     `;
                     listContainer.innerHTML += cardHTML;
@@ -170,7 +338,7 @@
         function clearHistory() {
             if (confirm("വായന ചരിത്രം മുഴുവൻ നീക്കം ചെയ്യട്ടെ?")) {
                 localStorage.removeItem('thripudiHistory');
-                loadHistory(); // പേജ് റിഫ്രഷ് ചെയ്യാതെ തന്നെ ലിസ്റ്റ് അപ്ഡേറ്റ് ചെയ്യുന്നു
+                loadHistory();
             }
         }
     </script>
