@@ -309,7 +309,58 @@
     </style>
 </head>
 <body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // എല്ലാ 'വായിക്കുക' ബട്ടണുകളും, ഇമേജ് ലിങ്കുകളും എടുക്കുന്നു
+        // (പുതിയ read.html ലിങ്കുകൾ മാത്രം)
+        const bookLinks = document.querySelectorAll("a[href^='read.html']");
 
+        bookLinks.forEach(link => {
+            link.addEventListener("click", function(e) {
+                // ക്ലിക്ക് ചെയ്ത ലിങ്കിന്റെ കാർഡ് (Parent Box) കണ്ടെത്തുന്നു
+                const card = this.closest('.book-card');
+                
+                if (card) {
+                    const title = card.querySelector('.book-title').innerText;
+                    const image = card.querySelector('.book-cover').src;
+                    const url = this.getAttribute('href'); // read.html?id=... link
+                    
+                    // ഇപ്പോഴത്തെ സമയം
+                    const date = new Date().toLocaleDateString('ml-IN');
+
+                    // ഹിസ്റ്ററി ഒബ്ജക്റ്റ് ഉണ്ടാക്കുന്നു
+                    const bookData = {
+                        title: title,
+                        image: image,
+                        url: url,
+                        date: date
+                    };
+
+                    saveToHistory(bookData);
+                }
+            });
+        });
+    });
+
+    function saveToHistory(book) {
+        // നിലവിലുള്ള ഹിസ്റ്ററി എടുക്കുന്നു (അല്ലെങ്കിൽ പുതിയ ലിസ്റ്റ് ഉണ്ടാക്കുന്നു)
+        let history = JSON.parse(localStorage.getItem('thripudiHistory')) || [];
+
+        // ഡ്യൂപ്ലിക്കേറ്റ് ഒഴിവാക്കാൻ (ഇതേ പുസ്തകം നേരത്തെ ഉണ്ടെങ്കിൽ അത് കളയുന്നു)
+        history = history.filter(item => item.url !== book.url);
+
+        // പുതിയ പുസ്തകം ഏറ്റവും മുകളിൽ ചേർക്കുന്നു
+        history.unshift(book);
+
+        // പരമാവധി 50 പുസ്തകങ്ങൾ മാത്രം സേവ് ചെയ്യുന്നു (മെമ്മറി ലാഭിക്കാൻ)
+        if (history.length > 50) {
+            history.pop();
+        }
+
+        // ലോക്കൽ സ്റ്റോറേജിലേക്ക് സേവ് ചെയ്യുന്നു
+        localStorage.setItem('thripudiHistory', JSON.stringify(history));
+    }
+</script>
     <header>
         <div class="container navbar">
             <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
@@ -472,6 +523,7 @@
 
 </body>
 </html>
+
 
 
 
