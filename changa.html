@@ -1,16 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="ml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚ചങ്ങമ്പുഴ കൃതികള്‍| THRIPUDI LIBRARY</title>
+    <title>📚 ചങ്ങമ്പുഴ കൃതികള്‍ | THRIPUDI LIBRARY</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- 1. കളർ പാലറ്റ് (Teal & Green Theme) --- */
+        /* --- Themes --- */
         :root {
-            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
+            --primary-orange: #00897B; /* Teal */
+            --secondary-dark: #004D40; /* Dark Green */
             --background-light: #E0F2F1;
             --text-color: #263238;
             --light-text: #FFFFFF;
@@ -37,7 +38,6 @@
         .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
         .user-name { font-weight: 600; display: block; }
         .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
-        
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; overflow: hidden; margin-top: 10px; z-index: 1001; }
         .user-profile:hover .profile-dropdown { display: block; }
         .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee; }
@@ -46,7 +46,6 @@
         /* --- Content --- */
         .collection-section { padding: 40px 0; text-align: center; }
         .collection-section h1 { font-family: 'Poppins', sans-serif; font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
-        
         .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
         #searchBar { width: 100%; padding: 15px 20px; padding-left: 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
         #searchBar:focus { border-color: var(--primary-orange); box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2); }
@@ -60,22 +59,38 @@
         .book-card:hover .book-cover { border-color: var(--primary-orange); }
         .book-title { font-weight: 700; color: var(--secondary-dark); margin-top: 5px; margin-bottom: 15px; font-size: 1.1em; line-height: 1.3; }
 
-        /* Read Button */
-        .read-button-style { display: inline-block; background-color: var(--primary-orange); color: var(--light-text); padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 0.9em; font-weight: 600; transition: background-color 0.3s, transform 0.2s; border: 2px solid var(--primary-orange); cursor: pointer; margin-top: 10px; }
-        .read-button-style:hover { background-color: var(--secondary-dark); border-color: var(--secondary-dark); transform: translateY(-2px); }
+        /* --- Read Button (New Hover Effect) --- */
+        .read-button-style {
+            display: inline-block;
+            background-color: var(--primary-orange); /* സാധാരണ നിറം (Teal) */
+            color: var(--light-text); /* അക്ഷരം വെള്ള */
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease; /* സ്മൂത്ത് മാറ്റം */
+            border: 2px solid var(--primary-orange);
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* ഹോവർ ചെയ്യുമ്പോൾ */
+        .read-button-style:hover {
+            background-color: #FFFFFF; /* ബാക്ക്ഗ്രൗണ്ട് വെള്ളയാകുന്നു */
+            color: var(--primary-orange); /* അക്ഷരം ടീൽ ആകുന്നു */
+            border-color: var(--primary-orange);
+            transform: translateY(-3px); /* ബട്ടൺ ലേശം പൊങ്ങുന്നു */
+            box-shadow: 0 5px 15px rgba(0, 137, 123, 0.3); /* ഒരു ഗ്ലോ ഇഫക്റ്റ് */
+        }
 
         /* --- Footer --- */
         footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: 60px; }
         .footer-links { margin-top: 15px; }
         .footer-links a { color: var(--light-text); margin: 0 10px; text-decoration: none; opacity: 0.8; transition: opacity 0.3s; }
         .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
-
-        @media (max-width: 900px) {
-            .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
-            .profile-dropdown { left: 0; right: 0; text-align: center; }
-        }
+        
+        @media (max-width: 900px) { .navbar { flex-direction: column; gap: 15px; } .nav-links { flex-wrap: wrap; justify-content: center; } .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; } }
     </style>
 </head>
 <body>
@@ -467,67 +482,37 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-            authDomain: "thripudilibrary.firebaseapp.com",
-            projectId: "thripudilibrary",
-            storageBucket: "thripudilibrary.firebasestorage.app",
-            messagingSenderId: "887018912750",
-            appId: "1:887018912750:web:cc05190a72b13db816acff",
-            measurementId: "G-B59RDW4KG4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app);
         onAuthStateChanged(auth, (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const avatarDiv = document.querySelector('.user-avatar');
+            const nameDisplay = document.getElementById('display-name'); const avatarDiv = document.querySelector('.user-avatar');
             if (user) {
                 const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
                 nameDisplay.textContent = displayName;
-                if (user.photoURL) {
-                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
-                }
+                if (user.photoURL) { avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`; }
             }
         });
-
-        document.getElementById('logout-link').addEventListener('click', (e) => {
-            e.preventDefault(); 
-            signOut(auth).then(() => { window.location.href = "index.html"; });
-        });
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
     </script>
 
     <script>
         function searchBooks() {
-            var input = document.getElementById('searchBar');
-            var filter = input.value.toUpperCase();
-            var cards = document.getElementsByClassName('book-card');
+            var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card');
             for (var i = 0; i < cards.length; i++) {
                 var title = cards[i].getElementsByClassName("book-title")[0];
-                if (title) {
-                    var txtValue = title.textContent || title.innerText;
-                    cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-                }
+                if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
             }
         }
-
         document.addEventListener("DOMContentLoaded", function() {
             const bookLinks = document.querySelectorAll("a[href^='read.html']");
             bookLinks.forEach(link => {
                 link.addEventListener("click", function(e) {
                     const card = this.closest('.book-card');
                     if (card) {
-                        const title = card.querySelector('.book-title').innerText;
-                        const image = card.querySelector('.book-cover').src;
-                        const url = this.getAttribute('href');
-                        const date = new Date().toLocaleDateString('ml-IN');
+                        const title = card.querySelector('.book-title').innerText; const image = card.querySelector('.book-cover').src; const url = this.getAttribute('href'); const date = new Date().toLocaleDateString('ml-IN');
                         let history = JSON.parse(localStorage.getItem('thripudiHistory')) || [];
-                        history = history.filter(item => item.url !== url);
-                        history.unshift({ title, image, url, date });
-                        if (history.length > 50) history.pop();
-                        localStorage.setItem('thripudiHistory', JSON.stringify(history));
+                        history = history.filter(item => item.url !== url); history.unshift({ title, image, url, date });
+                        if (history.length > 50) history.pop(); localStorage.setItem('thripudiHistory', JSON.stringify(history));
                     }
                 });
             });
@@ -536,4 +521,3 @@
 </body>
 </html>
   
-
