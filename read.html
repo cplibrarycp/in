@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>വായനശാല | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
+
+    <style>
+        :root {
+            --primary-orange: #00897B;
+            --secondary-dark: #004D40;
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #333; /* വായനയ്ക്ക് അനുയോജ്യമായ ഡാർക്ക് ബാക്ക്ഗ്രൗണ്ട് */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- ടോപ്പ് ബാർ (Close Button) --- */
+        .top-bar {
+            width: 100%;
+            background: var(--secondary-dark);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .page-info {
+            font-size: 0.9em;
+        }
+
+        /* --- PDF കണ്ടെയ്നർ --- */
+        #pdf-render-container {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            width: 100%;
+            background-color: #525659;
+        }
+
+        canvas {
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- താഴെയുള്ള കൺട്രോൾ ബാർ --- */
+        .controls {
+            width: 100%;
+            background: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .btn {
+            background-color: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* ലോഡിംഗ് സ്പിന്നർ */
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> തിരികെ പോവുക</a>
+        <span class="page-info">പേജ്: <span id="page-num">--</span> / <span id="page-count">--</span></span>
+    </div>
+
+    <div id="loader">പുസ്തകം തുറക്കുന്നു... <i class="fas fa-spinner fa-spin"></i></div>
+
+    <div id="pdf-render-container">
+        <canvas id="the-canvas"></canvas>
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prev"><i class="fas fa-chevron-left"></i> Previous</button>
+        <button class="btn" id="next">Next <i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <script>
+        // URL-ൽ നിന്ന് ഫയൽ ID എടുക്കുന്നു (ഉദാ: read.html?id=YOUR_FILE_ID)
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileId = urlParams.get('id');
+
+        if (!fileId) {
+            alert("പുസ്തകം കണ്ടെത്തിയില്ല!");
+            window.location.href = 'dashboard.html';
+        }
+
+        // ഗൂഗിൾ ഡ്രൈവ് ഫയൽ ലിങ്ക് (CORS പ്രശ്നം ഒഴിവാക്കാൻ Proxy ഉപയോഗിക്കേണ്ടി വന്നേക്കാം)
+        // ശ്രദ്ധിക്കുക: ഫയൽ പബ്ലിക് ആയിരിക്കണം (Anyone with the link)
+        const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
+
+        let pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null,
+            scale = 1.5, // സൂം ലെവൽ
+            canvas = document.getElementById('the-canvas'),
+            ctx = canvas.getContext('2d');
+
+        // പേജ് റെൻഡർ ചെയ്യുന്ന ഫംഗ്‌ഷൻ
+        function renderPage(num) {
+            pageRendering = true;
+            
+            // പേജ് എടുക്കുന്നു
+            pdfDoc.getPage(num).then(function(page) {
+                var viewport = page.getViewport({scale: scale});
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+
+                // റെൻഡറിംഗ് കഴിഞ്ഞാൽ
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    document.getElementById('loader').style.display = 'none'; // ലോഡർ മാറ്റുന്നു
+                    
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+
+            // പേജ് നമ്പറുകൾ അപ്ഡേറ്റ് ചെയ്യുന്നു
+            document.getElementById('page-num').textContent = num;
+        }
+
+        // അടുത്ത പേജ് കാത്തിരിക്കുന്നുണ്ടെങ്കിൽ അത് ലോഡ് ചെയ്യുക
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        // Previous Button Click
+        document.getElementById('prev').addEventListener('click', function() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        });
+
+        // Next Button Click
+        document.getElementById('next').addEventListener('click', function() {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        });
+
+        // PDF ലോഡ് ചെയ്യുന്നു
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            document.getElementById('page-count').textContent = pdfDoc.numPages;
+            renderPage(pageNum);
+        }).catch(function(error) {
+            console.error('Error loading PDF:', error);
+            // ചിലപ്പോൾ CORS പ്രശ്നം കാരണം ലോഡ് ആയില്ലെങ്കിൽ അറിയിക്കാൻ
+            alert("ക്ഷമിക്കണം, ഈ പുസ്തകം നേരിട്ട് ലോഡ് ചെയ്യാൻ സാധിക്കുന്നില്ല. ദയവായി ഡ്രൈവ് ലിങ്ക് 'Public' ആണെന്ന് ഉറപ്പുവരുത്തുക.");
+            document.getElementById('loader').innerHTML = "Error loading PDF.";
+        });
+    </script>
+
+</body>
+</html>
