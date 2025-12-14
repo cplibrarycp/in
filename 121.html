@@ -1,0 +1,1519 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 എന്റെ ഗ്രന്ഥശേഖരം | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root { --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --outline-color: #B2DFDB; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; }
+        
+        /* Header & Nav */
+        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+        
+        /* User Profile */
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 10px; font-size: 1em; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+        
+        /* Dropdown */
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
+        .profile-dropdown::before { content: ""; position: absolute; top: -15px; left: 0; width: 100%; height: 15px; background: transparent; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+        /* Search & Grid */
+        .collection-section { padding: 40px 0; text-align: center; }
+        .collection-section h1 { font-family: 'Poppins', sans-serif; font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+        .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #searchBar { width: 100%; padding: 15px 20px; padding-left: 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
+        #searchBar:focus { border-color: var(--primary-orange); box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+        
+        /* Cards */
+        .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+        .book-card { background: transparent; text-align: center; transition: transform 0.3s; position: relative; z-index: 1; }
+        .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: all 0.3s ease; }
+        .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: opacity 0.3s ease; }
+        .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+        .book-card:hover .book-cover { transform: scale(1.05); }
+        .book-card:hover .read-overlay { opacity: 1; }
+        .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: all 0.3s ease; border: 2px solid var(--primary-orange); cursor: pointer; }
+        .book-card:hover .overlay-btn { transform: translateY(0); }
+        .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+        .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; line-height: 1.4; }
+
+        /* Footer */
+        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: 60px; }
+        .footer-links a { color: var(--light-text); margin: 0 10px; text-decoration: none; opacity: 0.8; transition: 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+        
+        @media (max-width: 900px) { .navbar { flex-direction: column; gap: 15px; } .nav-links { flex-wrap: wrap; justify-content: center; } .user-profile { margin-left: 0; border-left: none; margin-top: 10px; } .profile-dropdown { width: 100%; position: relative; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="collection-section">
+        <div class="container">
+           <h1>എന്റെ ഗ്രന്ഥശേഖരം</h1>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+               <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
+           </div>
+            <div class="library-container" id="bookList">
+  
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1YI5hh2oJq_C87jLEj3KtxviPsuM2AEkV' alt='antageskcarfeb83' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1OCS_RZwf3J5WtqqcRxYsTT8wlmL0aJ8T/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>antageskcarfeb83</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1jcTCzgocMskzaqNCVjExPCYl4qsBygre' alt='adomadeasfeb42' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1eG_I1u40UI1QobAFsPQnR-RHDFJfWj4v/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>adomadeasfeb42</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1z-8QSSRVVgL7a2cT9QKS0PvUWvLnZhbL' alt='aqucarmaeasfeb90' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1eW4dLflhizKk_6iKnkQZIqzZOVgOJZw7/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>aqucarmaeasfeb90</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1OPS300fPSVSBpPmSnoWCq44_kMNp1QgB' alt='advavegefeb23' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1qtp07bxR1yWk_0o0Q-zcc7RGrv7oJa8r/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>advavegefeb23</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1LPrB6KIBq70XKokz7XsyFMAsWBF8Hyr9' alt='atvmadeeasfeb114' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1tdWWbfXJwDS5Eo3gasegY_ajMiMG9N6b/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>atvmadeeasfeb114</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1ka8NDmIZUirZUMIHzYPx_hEBiJ4yNayB' alt='autsousymadfeb61' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1uzx-VLAA8qMb4JhnvKd68281SmIKj_zK/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>autsousymadfeb61</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1ez_u0T6n4qUsg-z1BXRi_01TO9669jnY' alt='babboofeb43' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1CJbvtmlv_RzOppSzGUArE4I58R-LNc8c/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>babboofeb43</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1xF395JZBrdESjo4G99drXuqmXHYfg8lK' alt='basfisprfeb26' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1sYcuNooj8Jsbs-eHlkuhmYuLqX8pLp0X/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>basfisprfeb26</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1FRMYvoX4Q_JabwQb9CCurUoPXEJxMGOz' alt='attrwhatwanliffeb9' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1FchuPO8U_6WdYgyyaTPv1UFyFg9pernB/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>attrwhatwanliffeb9</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Gx9eNkPOWlBF22GPT3AlwngvkHnk7Rob' alt='beekpprofeb27' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1PP9YHSLmwZ16Bm5Ypv4B0RsYIhbQajCL/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>beekpprofeb27</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1LNJMK-VwhWa3z70deAM5tTp-vF_IV75z' alt='backyideafrolfeb56' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1tbkpmMm6g2ZjKbVP7OgQZ7AaM5cwR8Lm/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>backyideafrolfeb56</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1cO728_EwEl-I0e4PdimoRifr1dMumYC0' alt='becsuccpuspfeb88' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/187gNQPRlzv1rVTypDbBrWmZFO-_YedhJ/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>becsuccpuspfeb88</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Jm8tCVnTC5K17ChMULsj_EEzi-rzy1Gg' alt='beexsudofeb35' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1PWC1QjCJNX140Wyas39RgVYf98-8SKOG/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>beexsudofeb35</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1RV_Xdmp3e_Rh7aUnnOPIlagngsPVUb-w' alt='boddetxmaefeb70' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1A70BRX7ZiEmNFyFmpw92xomBLEc5qqTC/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>boddetxmaefeb70</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1A7a_yuZSnFp42BBifl65TLmtUGT4w6K_' alt='boomempowfeb12' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1XnwcJwjLaz3DfNR4PANTKArpi6YSM279/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>boomempowfeb12</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1QolbGH-OG8Jj4XBmjstynVldnZEklAyi' alt='booselestfeb94' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1kO2xmpurke2NYZnKbeHjDGUvL0RwMWzz/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>booselestfeb94</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1CO0jhToHh4Yib5VlgaL8m8QRgHadiL0k' alt='canmakmaeasfeb59' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1-GN5Js6u8cKE6AxcdsVrkuZxDbw9lYVL/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>canmakmaeasfeb59</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1TbyK0dRXNxlNlrbUOpLNm_31zcdQ08lk' alt='buymaicarmafeb60' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1rhMpdMRKXTre0QrIXFpNzUDZVJNF0dr0/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>buymaicarmafeb60</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1crd16Q6YyxdNvbW7y-WwuOkiO64ynMie' alt='crgrgibasfeb25' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1XfoRRAXF2ALBz1-tv_4zCnNAs-3P_7F0/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>crgrgibasfeb25</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1w01ZKOPSPDuhxZgPxaz0W0GBYy-szoZn' alt='creofownliffeb11' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1E-KRZmwD8hadImN6Ja4VIktAFwUXo8eh/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>creofownliffeb11</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1GksW_Z0ShiHO__s2rpkrfIKtyuQxIkK3' alt='combodftnfeb19' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1swzF6SLSdyxkvEZUho1tBHrl0Hnt3N4h/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>combodftnfeb19</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1r6Xu_YYwseA-FwFeXyTWa3K7R0pJB8Ky' alt='carplmadeasfeb104' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1EjQKJmLnvWqwPIXTxl6TaGz2aSw_LK7f/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>carplmadeasfeb104</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=106RM1sCLJWjL1Z4ETcF82Yep4W98jcf4' alt='coomasyfeb105' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1RcPBFxcjd-I_ETsLnHQzz9i4zDhSRNwF/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>coomasyfeb105</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1wrPI8xN4SjgPQ4r9CQU5yi8xrxUB9k7e' alt='burcalfitfeb86' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/131nQix0e6OTv-zPWrkFprPipc8zluGHZ/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>burcalfitfeb86</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=10G3L83xxNp2U-Lkc8DzSFmfGhtGx5mH0' alt='digphoinsoufeb89' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1al42lcWMmzTNA7GrapoWxKpG7n9dXkpg/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>digphoinsoufeb89</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1_HYoHxfyPTr6WGZDu_O29zZujqSv7-Lb' alt='devpowconfeb10' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/13zwKhBmr67FRQeFExUhw0eGf-wGtRlbn/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>devpowconfeb10</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1y-ViIRqmBUmmYujDJi0H8K31kLwwLij4' alt='dathotonofffeb47' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Nn4nW5ADIvp55aqcZVbeAlc40Me1jS9C/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>dathotonofffeb47</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Qssk6auAEMqNsdJkL7ECjJzPjmxlUkbQ' alt='decohouprfeb38' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1lLK7tTPrUerXjv7Fbx7o2u1HPiCK7qF2/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>decohouprfeb38</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1DUjtF_cK5CkGR28YCphZ8_IGrNwnE6_V' alt='diwtlosfeb22' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Zo8RHQBr_F3Bp_9O2OhhETSxgl-uqopc/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>diwtlosfeb22</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1IYnmBqOMzUjpTxQgZwPWnG7ugD7l-PuQ' alt='eneconalfuefeb91' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/15TOVHs2EOk1AHxOD-V2FBZorHKyNzfAO/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>eneconalfuefeb91</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1YmwL20etYZ76aF2X51tXmwzeM8HTSPIS' alt='effconangrfeb75' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1C4Gzt0odeBB3jUQ9wUr1yWiMsOpTwfi5/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>effconangrfeb75</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=17wvhzm6PtfjpfIMiwidM4Tz_tpL66MD9' alt='fambudemyfeb4' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1IALeAWVeKd1lMaqZg71KOg3KWyBMASdr/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>fambudemyfeb4</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1alMrrDCs-_qZh8oeJ9OsElrOJAWqs7oX' alt='fismasyfeb106' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1MgcQXdQdaxG2SwiAc5IsXU47iP1aqy1J/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>fismasyfeb106</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1t0MZnmGEYh1BmR2MH6plfC4oyMj9JI1j' alt='flyfisprfeb31' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1jJQZQkv_h88u4iAOno13WF-beIQyZ5ZF/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>flyfisprfeb31</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1ejYDUQBz85thCGFSMsp0Uz1oWNoWjBHW' alt='gardmaeasfeb72' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1LNDn38ripzGpJ6qtIoaKniM3JpLswCuP/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>gardmaeasfeb72</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1ijI9MXOecsSl-wWLF_fY-VJmZbKfkiHs' alt='golsenifeb52' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1i5PZYdI0jQmTF9FWlq-3IZjq1MhJ9On5/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>golsenifeb52</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=12mca8XUeLj3rZ4uYRSqFsKTuTzYsqsCO' alt='funwittelefeb36' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1U9jDmFeC3TpR9g74lbj64g82YMxKiVgL/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>funwittelefeb36</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1lMd8nbl7DhWNixYnWl_sDS0H_hhV54su' alt='gogiidefeb92' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1q80CuD_BhE-dCuOETDB9nWretOvXKPl3/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>gogiidefeb92</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1yc5bMssRtNcSKCWZde5LORD4fJD0OIa2' alt='gpsmadeasfeb123' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1mfszv8pGvXt-JutorGj9frF5rLnHWiyA/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>gpsmadeasfeb123</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1wnyjlSVuROxcJvsVzzuEQqZ3RI0gquNc' alt='grcariguanfeb121' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1XiFmpjGRqnXVcNYpb7KUHQS3ng2SF8l5/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>grcariguanfeb121</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1fPzgP00tmAcZ7p9G8a_1BmP6u8ItpknS' alt='garseclusgarfeb96' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1NAp73SJxvD7Kv0D_AmL-Uozp05CasqDP/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>garseclusgarfeb96</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=15ivgl2ionGDWTo9xm4iXU6WktJ0P6FDH' alt='grcareldefeb78' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1M7w-lziU5r2d19aVbAJ5njaT8gYaz1hl/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>grcareldefeb78</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1R7e1kXqyGPhmt1jhENnVv4FcGC59zWDT' alt='greemaintfeb113' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Kn3U37XAWXrNooqxJPMFortMI1ZvOWEY/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>greemaintfeb113</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1jS-RefY3sZgpeVmOJQ_uxLyQsIqeR1FO' alt='heaaidinsoutfeb80' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1dRqxefG0sntDYiHmGkHsMQ2HdLv0CDSz/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>heaaidinsoutfeb80</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1YyBL7vsrwFZ0hYJdCH0PDCDwWHK1lSNd' alt='hosecmaeasfeb39' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1vwyKxEa4ea1h7QFYBSJ9hfr-JYyFddGp/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>hosecmaeasfeb39</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1gq3yrJRyrku_AyWSTa2PnWBfQX-SV9XP' alt='homautinoutfeb117' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1VdCv6zSJkPZovH6d7SelPCDbjphVUyeD/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>homautinoutfeb117</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1k8Uij9_oQDpGosehqq36nkgdaBMJkDgn' alt='healinsursavfeb58' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1JgpKCKJaeR318LmsRB6OJ85h_zK37V-5/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>healinsursavfeb58</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=10lFNzYIV9b_iAm-Djf8GqYiJ3oomPhO2' alt='hunmasyfeb107' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Vg8QgSPKa72LCwCef1MeNu48nNA_14ki/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>hunmasyfeb107</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Morvj_J8bQ0SyPxLcISN4pdyac2WjEgw' alt='hunvidgafeb34' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1g-1A-h1ayPPXlyJktVTM9XIF1cGxQjL1/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>hunvidgafeb34</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1yjpo81lsPYdX4BIx02IK3i_6Du-Cpmif' alt='hwgamprofeb7' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1XEW6MMz_XcX_DrW18UtrmS-TXlfWsH-p/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>hwgamprofeb7</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Q_BsUPu-HELPnGuHsC_7Q_uHnGQxMkmX' alt='hwtoachcrscfeb3' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1EZsWTnKeQJsaxgO1h4unacheA0aImI0Y/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>hwtoachcrscfeb3</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1cmAEQZIw8to9Vjokb8xQayUqlpNJz8XM' alt='highefftimmanfeb14' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1m_HT3V33M3szhoeFZr29CRBE7vi0W-Y8/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>highefftimmanfeb14</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1LkdF8SwSCciW3e7pTUuKk3rXqBSbzTwm' alt='howtacanyinfeb1' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1mNrgYDlZniPES9ePBKTzkChqI4xrA7Y8/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>howtacanyinfeb1</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1ExQqHzaY8uCF6S8UUZ7GvYx8eliN3Cu2' alt='hosehomtheafeb93' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1IIKk5Eg7Rs2LHTeUgSZw7uFnEwh3l1qD/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>hosehomtheafeb93</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1hSqsoWVQ0G0lNOAYLl1DiVDo_Ch4ciTg' alt='keepcsafvirfeb112' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/15eG0mnIMAZi1x6t_PB04rba8EuQBF1UU/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>keepcsafvirfeb112</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1GiMbb7io7d-5i7RE4oZ-7Yv_RgTwbtqZ' alt='leanmanufeb55' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1FXy_52HnkDuqQRAxH_nFZ_N2N1jaG5Gi/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>leanmanufeb55</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1o8nmo96L-fXtxn8wCuwc9il--JMvuX9Y' alt='kckbadhabliffeb8' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1bGIXyOHeFOfmeS8WtB8exEEjk5rZJnwE/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>kckbadhabliffeb8</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Yo78lQzl2xJwAaYKpT_kH0uQSHDd_ckZ' alt='lawtenexpfeb97' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1teLqKXkYxl_cHur7FaohJGApymv9-xHK/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>lawtenexpfeb97</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1gubahp8gvJ4rZvhAiNu4oZsoSbcfkMA4' alt='lowcholstfeb68' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1rc5hRf9EYhgZ_iPi6XZ8m1U6_8F-ywGD/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>lowcholstfeb68</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=19ZZn9D1X5g1Kt7Q5EGqPq4dUoNhQOxHH' alt='loswtrigfofeb20' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1pVcPmcWLfLs0RjpdKDY69ndLlPaIy5jR/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>loswtrigfofeb20</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1vHm3fA_In6nlt3b8c0ELtp6mh0Dplno4' alt='mascoicolfeb29' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1sJ4R9CD1i6vC-2zD4B6QRI0bRYJCTAuj/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mascoicolfeb29</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1e3lGkH8ntUReOuLOY3U9YfPREeIR2fxV' alt='mastherbodrelfeb81' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1uKPHgcbO2ix4f0na5QHlPlzToi7HS6qh/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mastherbodrelfeb81</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Ibztj_6DIe-wXfztHysJaDk3RiO0dhbK' alt='idthefvictfeb124' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/18Kn3oVu_1bpqnWV9aFhe2Jm_r0TMebDL/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>idthefvictfeb124</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1L2l5G39R0qj4GS36necVWQ1N_rJmGHHk' alt='manliafdivfeb48' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1OX_9ZnU2hZyOsP51mi-RKen69TjHtN_k/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>manliafdivfeb48</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1VCJDRc4s36Bty3K7eB_h-RjtyCC8-oWN' alt='mosoftimshafeb6' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1_5eLwL0AediZpU6h2inT_HTlcffHE_0n/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mosoftimshafeb6</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1nUocRHYpCo-c0OwhwvWs8JPJv6xYhv5p' alt='maxpowyogfeb24' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1jx2w0cFoDskh5cxI_8Cp-DkGtHZacS_o/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>maxpowyogfeb24</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1D5cBsl8jZdVSFupnNtXzr0SuWjygId7x' alt='onlsttrmadeafeb101' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1ELjg_b9F_jSHGQcR-TgxJi7pyVZ6M_cA/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>onlsttrmadeafeb101</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1fPYLejzmNwDZZkEaWdYxubFShgYDYDMC' alt='oveprocrfeb13' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Qz9PYHgy72HJ5nUK4ZAdkskUiF37k-jW/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>oveprocrfeb13</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://via.placeholder.com/300x450?text=No+Cover' alt='Nlp - Hypnosis - Mind Manipulation' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1BP44d0AqjmFWuFCgPGJuZ3EyKmqprBOp/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Nlp - Hypnosis - Mind Manipulation</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1QpqxicQTtUKV309a9MsnDJzwWMsa5UDU' alt='mxperipdfeb2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1ZJkaPpmfjT-6TEW5KtO4FGZc1zO5slKZ/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mxperipdfeb2</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Rp59XJ1FOV6BRnk-P0lPIebokF6Alagi' alt='onledumadeasfeb125' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/17R473N9Z-fnEjZo3mVFi_fvyBzwmfAzU/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>onledumadeasfeb125</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1aWfpn77z1kpFn-t598NzsKgeejHDZstJ' alt='perboaexpfeb28' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1OE0ArvY73CD1Z24IdkMa0gweulPxV94t/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>perboaexpfeb28</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1vAEl6C-ekUzpy_u7TK6dOX_S-au7xVSH' alt='parconchkifeb44' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1bt9S7smjxnj3kA2dy5rX8RPddpPWY16V/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>parconchkifeb44</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1616yF4A7x-fSZlh2pXNggxjCcTyVVlhU' alt='pilabodfitfeb82' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1MCYbeVaCP8n1HuVSb1aESnLRxguO0fQm/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>pilabodfitfeb82</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1M4T778x6hQ6mq8yeOsGBT2p9RdA8aFmB' alt='posattunlsucfeb95' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/16ebfCLMqNKGl0TjH2S3HBOBtXloOCxa2/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>posattunlsucfeb95</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1qUcafgL4InUQCKx3Ji_KemIdtkjBXzWV' alt='relmeasyfeb98' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1amjhdTXvLqgE6YcckH9y02asAXDlXeGB/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>relmeasyfeb98</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1XMgN-Nm0XfH807aLkOFqXoEphjCf0orK' alt='retplagolyeafeb51' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1oHcqBIjnteyrEBq_-x1LIqo94dpgINNC/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>retplagolyeafeb51</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1HbA4bEnGUDJ-I4SObEJblSSQrY48dSJy' alt='roarsucbabshfeb41' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1qcOwR2WZiNaZBZWiUtHs07zXch3qlGYN/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>roarsucbabshfeb41</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1HLs6UPNnNM6IIsOVMW3n3f-LcyULU8gN' alt='rigfoodofeb45' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1fTMxB0v9p_1eHbsk5hAXFKmgydy7aJNn/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>rigfoodofeb45</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1iRwgFHMPgMXoweSbFygPQlPiKzxeXPXz' alt='Save MONEY Cash Back!!!!' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/16ieNI7EFmnNfXJcH1mUILQWIJI5jpK1I/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Save MONEY Cash Back!!!!</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1aKp_4rDU7zj-5UU56T6KIzb2psw79DAE' alt='Robert A. Heinlein - 54 Books' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1cNcFlmuJq9gpZNCM9l3Gbj309y1f0isB/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robert A. Heinlein - 54 Books</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=13G2ItKM5sHq9kEYSe4tWsQO1eAQvmrtk' alt='scrpboomadeafeb122' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1b5fDSUTh-Wihrc4TiVQO1MsV_hCKaA5d/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>scrpboomadeafeb122</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1lCNDuv46TZadVQuiz0zJ9A7cBLlXeF1R' alt='quismotodfeb73' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1xlz_9h9_gpHlfuMjBmwj_FmvqKRiNaj0/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>quismotodfeb73</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1JHWlCvadkhTYMTd-dgwRnn8PXW9Y21rv' alt='remconcarinsfeb62' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1nQ47MXevT8k9i3Z7Tkzy7s-Hg5Ab65NF/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>remconcarinsfeb62</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1nkybYBUwZRvPjQ8ewEx3qo7mxK_cNttC' alt='sinparbesfeb5' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1RSucwFzEfWxnnJfEUROY0lKPJu6XEG6D/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sinparbesfeb5</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1D-q9HlXcUYn-jNLrtJvteTZJjVxz5TIC' alt='selreaeastfeb46' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1XoiQGODoJHM8wO5YzUKB30206XK5a93u/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>selreaeastfeb46</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1AUexEc39lo33fN6viG9mL6-hHgqRyOdf' alt='snowbfufeb119' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1KaCGF3UrhOvDmdWW8_oeMEdri8G-IhJT/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>snowbfufeb119</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1M1YJ_ITGqgXG-CULbSTY8Dt1g-Hp9e5H' alt='spokhallcrfeb33' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1fb73qRCJqwm9bvcyd48gnLUguYojmSPw/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>spokhallcrfeb33</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1WRKBJe7hD1SOyBgRQ7nk5N2tpaDhQhEB' alt='suchomschofeb65' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1NIaqnzhAHML4wvSK37GhcHCNSiOit0wd/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>suchomschofeb65</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1wJ7WodOwPinnz_UREm6bRYzTOFQ-M-6g' alt='sucplorgevefeb67' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/162f0HPLtBas2lXA40t193p95SD48mR3h/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sucplorgevefeb67</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=11Fhn-imvcCMhjGrBSC9HihijErJKrVC-' alt='selfimpmaeafeb109' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Vx_tQGM4okXkXhVWWErNgVJTU_8kxCMu/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>selfimpmaeafeb109</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1lmlOg1b96YHpzaxwIeGNneKb8bc3quu9' alt='surnatcalmyfeb84' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1TLi66gpoJBmfpVU4WoEIi-KAisu3-Bu0/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>surnatcalmyfeb84</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1V6NdXOgK0gic8w0B9GYXDBsYV-UU3lLt' alt='takcardogheafeb57' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Zyhzf8ppxJxE_o6UOSgOtAh88T0IoAbs/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>takcardogheafeb57</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1VZaawd07rjB9Tykd1bK2DsP1wJLSilQN' alt='takcarbabheafeb63' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1zjHEbuXYMGpyrwGZ-TVZ7mcdXKiGN963/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>takcarbabheafeb63</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1p1KnC8Oy2UNxtJ_2Gzyn0eqXPE8V5r50' alt='uncoyougenefeb32' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1TeQgqcBjT2Qg6Q2M5J4pMRHHXoZiJL0u/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>uncoyougenefeb32</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1az6ZVA4UcU4Z2AEiUIx_KKULUT7ZYglB' alt='The Abs Diet (Mens Health)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1BBbtZurRNg7pO7pxhggCdR9BT_A7C8eb/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Abs Diet (Mens Health)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1ku3ntnvZOiBUSIOs0Sl9tcaZXiQMjQ2q' alt='The Magic by Rhonda Byrne - Yasser' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1oDqSDqRumpPNVTdCPKdz-riJ-B6Xuuqy/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Magic by Rhonda Byrne - Yasser</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1MVorlzhrZQb_Cyd3fBsFTX1oyuNyY9W_' alt='taxmaeasfeb110' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1DJqpOAADs8oJ1g6DwNKiy7vzU6s5ph7L/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>taxmaeasfeb110</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1IPodK7eAXn2oYLk4BA1zbFaQw2jUDLW2' alt='The Power (2010)-Rhonda Byrne ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1UZvKOVQWBTBiHI16mvwXO_McNtr5dZQz/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Power (2010)-Rhonda Byrne </div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1hy4jU2AelRqemUUWLeXjGVluWUjIAB_f' alt='trasoccfeb120' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1pN3ONqPAnzNpkYJu65ucmVIiFy7LM-zo/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>trasoccfeb120</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1pMyupGt3C1tfPOJnSrYxW4O_msQrofKp' alt='undaycinsoufeb64' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1bMrRQkzrDvHU1vnIU_mua3bsk3zAD1lv/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undaycinsoufeb64</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Gcs7fGZmongXxIbc6zGYQWvvGW2YkRsS' alt='The Greatest Secret by Rhonda Byrne' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1WBLVU-Yv30RIIYcEMPfo5A2bUnhSOj9G/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Greatest Secret by Rhonda Byrne</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1GNgTWXVLFXkvRJAVtkJNor9DyWUh955Y' alt='ultbofitnfeb18' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1XPIfYcPIAszrsjzKLu3HcLm5_WzXiGoP/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ultbofitnfeb18</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1D_HZnOa3VV9Ee9SaQzbi0KMRX8Jdj8LD' alt='The Abs Diet And Workout Program (Abridged)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1NmN4wLFUDUKFY8g-admmA8mOTdzylVyQ/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Abs Diet And Workout Program (Abridged)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1aHT-UoROELvoqhpJfaKAlmCAY768EK9f' alt='undbasquilfeb87' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1PT8OWirM48sHd66TEn9Gfu5eGerEy_of/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undbasquilfeb87</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1XxMza4a2srkuge_qq528Bofb0jcU-meA' alt='undebuyperffeb54' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1TDrztYFYKPSi89m2F91DsdhDaGRQxUR6/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undebuyperffeb54</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1StWlOsTFAylUOFAgFOqDyn_bsGfgMfhB' alt='undbasfilmmfeb30' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1LHy8YoH1NUUvD-hAe_OdoMAfX2_0-7PW/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undbasfilmmfeb30</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1M51lgnRjd6Kad_pbLupOSAWiPKg6bDJl' alt='undscholrsfeb66' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/134j04rhczM11hlnqIDV1m227hALZ-c_5/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undscholrsfeb66</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1kwh7wrRYoBQ8T7XdqK0YPAB_QhCIb0hi' alt='undtradhdfeb16' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1gKn_K06NnLft5AQN5FwtnjHbsUWVdqBr/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undtradhdfeb16</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1AHAhGhx-sRyhVfzDLhRC7qhr54wqtYEJ' alt='undenjgolfeb100' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1RSmEYd2eyjWbCry2JMDzk2DFPlDkPr_1/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undenjgolfeb100</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1pFcLRRIqx6PcnIH9hgFShGSQupP6RnPm' alt='undtrebabycfeb71' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1yQ_WbYo8REvcloSWKCM2n1KtfcUnparp/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undtrebabycfeb71</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1mham4lhhaptlfyR2UD85fTKAksjqFnTz' alt='undepregnanyfeb108' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1f6fW_4om4QmfDR8uMV8ugYxS6Jlkb-jr/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undepregnanyfeb108</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=12Esg80UyjE9yBf-tFGb09x2pRHrSzJ0Z' alt='undtrautfeb76' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1cPx2PuBraf-g1S3BjGgjl_WSDuyq2QTE/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undtrautfeb76</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1OTHx4OJgvZwC38UOT62Z0znuA89OmvdH' alt='undediabglyinfeb116' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/12k05THkj8xyAR9OzJltF5G0zi-Mj-O0W/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>undediabglyinfeb116</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Oa5nbfSN5D3Tnce2jhes57jLU5vFffQO' alt='waagbronfeb115' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1R5HUMhi5S00uWVHpdLfhGzu6j56PAh7T/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waagbronfeb115</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1hEhErEA9piOjzvB54NOs4TI-aNPM1_wF' alt='unfcampvacfeb103' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1dpw2KEgSNi5Bu03-mnhgMa4QcZKGSjFM/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>unfcampvacfeb103</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1Q4c3bDabjI4LzYCsxuweOJBCkhoiGCW7' alt='waagibsfeb118' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1FNH-pdSlsYaUlsPtz1ZYj8aCJ_fAuPvQ/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waagibsfeb118</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1dhpWjUWyA25p-_3qWBYo-Vyt9hLXgMqO' alt='untrbipofeb17' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1HKbnuYeGgjC8NH6gtKQ7eLqvlg8hd8zr/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>untrbipofeb17</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1DocldSHy3gbS1dIY9FPJ4Lb77ucc0yw5' alt='waragallergfeb74' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/15X3L90bT_V-3tITmzCtk3SJVjdjDmtUB/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waragallergfeb74</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1AmCoUNCWCd8Wuvnz-Gglqrn84zueCEgW' alt='waragbebugfeb37' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1aomI9tqlv6J3aVqHNOnNA_YHMjusVCvl/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waragbebugfeb37</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=17IadEBk1E08GhRJG_sYhWa9tZ0QYkaa_' alt='waaganxdisfeb111' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1nIL9fp68ZiebZE_9DIigGO4Y_ngh8YUM/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waaganxdisfeb111</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1thGDFmUXCqiF9639AO6wvjjuOilVUSNo' alt='waragacnfeb15' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1gcJFjxFhDPAnXeNlW4O6Ol914uYI6wgy/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waragacnfeb15</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1XSTzXdRySR8E6kikjU7hYApATB0Y1dGw' alt='unforcruvacfeb53' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Q5Tg6Z-U4tetQbGpmFNqLtLZLFpH_IG3/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>unforcruvacfeb53</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=10slGu3FVyXjHTnXAEr73kH7Ohryt2et8' alt='waragdeprfeb79' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1UhVmhDrxTiLCjwdKxnuRBHk7wPZh23iQ/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waragdeprfeb79</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1s6BZkge5kRyC0WKvVVZpzsptk9bpAPOa' alt='waraginbadbrefeb77' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1E24x-B74MKurcCUCEggVcoHgtdN-FXxd/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waraginbadbrefeb77</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1EKFcg5ziX5Ec826SQqNkpRsT3T-WQpAt' alt='winwarinsomfeb21' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1yM27-B2NqUZYuLv19dRqkghXSwYvYMXs/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>winwarinsomfeb21</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1XI5ieUsO0Ds_XqqfFs5wMTXpjgVT2oA0' alt='waragsnorapnfeb85' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1VOFAPfbnr3roMWkG2y0zbsSwKURi0uP5/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>waragsnorapnfeb85</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1_nDoa3JwN0Wfuly3tDh2m5ueWvDCtp9E' alt='wedetimaeasfeb50' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1R1hcPmNhsUgl8OVUUplwt3XoMtpOUvYR/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>wedetimaeasfeb50</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1aj1kDG5tXpa23RrT3PBACphFBKpXUtDj' alt='wedbudmaeasfeb49' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/15-Yb4GaMSgT3089Cp1CDZKleKyLx3pRz/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>wedbudmaeasfeb49</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=18tKbmPPQTaUN-DeipjfQimiapaNw_aph' alt='winwaragtermfeb40' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1Hy9QIhvbsRMxAz74XPmhPwwOVA8tD834/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>winwaragtermfeb40</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=180JqjhCtlVZtRW5aLIFC_VMeSUcrmBHp' alt='winspirinsoufeb126' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/109nstp2U13isZLPQBxYVoNWI8hOgYu09/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>winspirinsoufeb126</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=17FW_nhzVfPsJm6GKwIPOEifwsfDOJcIO' alt='winwaagstrfeb69' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1RmnGcUt8OGib73Rl5XqqI4J-BBgJXQmQ/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>winwaagstrfeb69</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=1QtvNdk6CzU0QONeaXM9zSbtbDKftcPzZ' alt='wiwaagbackpfeb102' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1kzFU9p7jltZT4umgJeWqIs7ZsbUX8NxS/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>wiwaagbackpfeb102</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/uc?export=view&id=15iDsDY4FV0FcsItOFb6HZ_EnWZZNY8cO' alt='yogarneienvprfeb99' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='https://drive.google.com/file/d/1ATIg9Zy9cVu8GDCbMClLJSadFWOySQBu/preview' target='_blank' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>yogarneienvprfeb99</div>
+            </div>
+            
+           </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+           <p>&copy; 2025 THRIPUDI LIBRARY. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a> |
+                <a href="terms.html">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+
+            if (user) {
+                // 1. Update UI
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+                if (user.photoURL && avatarDiv) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                }
+
+                // 2. Setup History Listener (User Specific)
+                setupHistorySaving(user.uid);
+
+            } else {
+                window.location.href = "index.html"; 
+            }
+        });
+
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
+
+        // --- HISTORY SAVING LOGIC ---
+        function setupHistorySaving(uid) {
+            const buttons = document.querySelectorAll(".overlay-btn");
+            buttons.forEach(btn => {
+                // Remove old listeners to prevent duplicates
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                newBtn.addEventListener("click", function() {
+                    const card = this.closest('.book-card');
+                    if (card) {
+                        const title = card.querySelector('.book-title').innerText;
+                        const image = card.querySelector('.book-cover').src;
+                        const url = this.getAttribute('href');
+                        const date = new Date().toLocaleDateString('en-IN');
+                        
+                        // Key includes UID: "history_USERID"
+                        const key = 'history_' + uid;
+                        
+                        let history = JSON.parse(localStorage.getItem(key)) || [];
+                        history = history.filter(item => item.title !== title);
+                        history.unshift({ title, image, url, date });
+                        if (history.length > 50) history.pop();
+                        
+                        localStorage.setItem(key, JSON.stringify(history));
+                    }
+                });
+            });
+        }
+    </script>
+    <script>
+        function searchBooks() { var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+    </script>
+</body>
+</html>
+  
