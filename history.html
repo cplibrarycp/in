@@ -4,46 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading History | THRIPUDI LIBRARY</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        /* --- Theme Styles --- */
-        :root { --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --outline-color: #B2DFDB; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        /* --- 1. THEME VARIABLES --- */
+        :root {
+            --primary-orange: #00897B; /* Teal */
+            --secondary-dark: #004D40; /* Dark Green */
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB;
+            --danger-color: #d32f2f;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            margin: 0; padding: 0;
+            line-height: 1.6;
+        }
+
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
-        /* Header */
-        header { background-color: var(--secondary-dark); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        /* --- 2. HEADER --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
         .navbar { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
-        .nav-links a { color: var(--light-text); margin-left: 20px; font-size: 0.9em; text-transform: uppercase; }
+        
+        .logo {
+            font-size: 1.8em; font-weight: 700;
+            color: var(--light-text); text-decoration: none;
+        }
 
-        /* User Profile */
-        .user-profile { display: flex; align-items: center; margin-left: 20px; cursor: pointer; position: relative; }
-        .user-avatar { width: 32px; height: 32px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .nav-links { display: flex; align-items: center; }
+
+        .nav-links a.nav-item {
+            color: var(--light-text); margin-left: 20px;
+            font-weight: 500; transition: color 0.3s;
+            font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+
+        /* --- USER PROFILE --- */
+        .user-profile {
+            display: flex; align-items: center;
+            margin-left: 25px; padding-left: 25px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative; cursor: pointer;
+            padding-bottom: 5px;
+        }
+
+        .user-avatar {
+            width: 32px; height: 32px;
+            background-color: #fff; color: var(--primary-orange);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: bold; margin-right: 10px; font-size: 1em;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background: #fff; min-width: 150px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 5px; z-index: 1001; margin-top: 10px; }
-        .user-profile:hover .profile-dropdown { display: block; }
-        .profile-dropdown a { display: block; padding: 10px; color: #333; border-bottom: 1px solid #eee; }
-        .profile-dropdown a:hover { background: var(--background-light); color: var(--primary-orange); }
 
-        /* History Section */
-        .history-section { padding: 50px 0; min-height: 80vh; }
-        .history-section h1 { color: var(--secondary-dark); border-bottom: 3px solid var(--primary-orange); display: inline-block; }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+
+        /* Dropdown */
+        .profile-dropdown {
+            display: none; position: absolute;
+            top: 100%; right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px; min-width: 180px;
+            margin-top: 10px; z-index: 1001;
+        }
+        .profile-dropdown::before { content: ""; position: absolute; top: -15px; left: 0; width: 100%; height: 15px; background: transparent; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a {
+            display: block; padding: 12px 15px; color: var(--text-color); font-size: 0.9em;
+            transition: background 0.3s; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px;
+        }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+        /* --- 3. HISTORY SECTION --- */
+        .history-section { padding: 50px 0; min-height: 70vh; }
         
-        .history-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .section-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid var(--primary-orange);
+            padding-bottom: 10px; margin-bottom: 30px;
+        }
         
-        .history-card { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 15px; border-left: 5px solid var(--primary-orange); transition: transform 0.3s; }
-        .history-card:hover { transform: translateX(5px); }
-        .history-thumb { width: 60px; height: 80px; object-fit: cover; border-radius: 5px; }
-        .history-info { flex: 1; }
-        .history-title { font-weight: 700; color: var(--secondary-dark); font-size: 1em; display: block; margin-bottom: 5px; }
-        .history-date { font-size: 0.8em; color: #777; }
-        .read-again-btn { display: inline-block; margin-top: 5px; font-size: 0.8em; color: var(--primary-orange); font-weight: 600; }
+        .history-section h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2em; color: var(--secondary-dark); margin: 0;
+        }
+
+        .clear-btn {
+            background-color: var(--danger-color);
+            color: white; border: none;
+            padding: 8px 15px; border-radius: 5px;
+            cursor: pointer; font-size: 0.9em;
+            transition: 0.3s;
+        }
+        .clear-btn:hover { background-color: #b71c1c; }
+
+        /* History Grid */
+        .history-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
         
-        .no-history { text-align: center; color: #777; margin-top: 50px; font-size: 1.2em; }
-        .clear-btn { background: #d32f2f; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; float: right; }
+        .history-card {
+            background: var(--card-bg);
+            padding: 15px; border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex; align-items: center; gap: 15px;
+            border-left: 5px solid var(--primary-orange);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .history-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(0, 77, 64, 0.15);
+        }
+        
+        .history-thumb {
+            width: 60px; height: 85px;
+            object-fit: cover; border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .history-details { flex: 1; }
+        
+        .history-title {
+            font-weight: 700; color: var(--secondary-dark);
+            font-size: 1em; display: block; margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        
+        .history-date {
+            font-size: 0.85em; color: #777;
+            display: block; margin-bottom: 10px;
+        }
+        
+        .read-link {
+            font-size: 0.85em; color: var(--primary-orange);
+            font-weight: 600; text-transform: uppercase;
+        }
+        .read-link:hover { text-decoration: underline; }
+        
+        .no-history {
+            text-align: center; color: #777;
+            font-size: 1.2em; margin-top: 50px;
+            width: 100%;
+        }
+
+        /* --- 4. FOOTER --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text); padding: 40px 0;
+            text-align: center; font-size: 0.9em; margin-top: 60px;
+        }
+        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+
+        @media (max-width: 900px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
+            .profile-dropdown { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -51,12 +195,23 @@
     <header>
         <div class="container navbar">
             <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            
             <div class="nav-links">
-                <a href="dashboard.html">Home</a>
-                <div class="user-profile">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
+
+                <div class="user-profile" id="profile-section">
                     <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    
                     <div class="profile-dropdown">
-                        <a href="#" id="logout-link">Logout</a>
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html" style="background-color: var(--background-light); color: var(--primary-orange);"><i class="fas fa-history"></i> Reading History</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
             </div>
@@ -65,71 +220,116 @@
 
     <section class="history-section">
         <div class="container">
-            <h1>Reading History</h1>
-            <button onclick="clearHistory()" class="clear-btn" id="clearBtn" style="display:none;">Clear History</button>
+            <div class="section-header">
+                <h1>Reading History</h1>
+                <button onclick="clearHistory()" class="clear-btn" id="clearBtn" style="display: none;">
+                    <i class="fas fa-trash-alt"></i> Clear All
+                </button>
+            </div>
+
             <div id="historyContainer" class="history-list">
-                <p class="no-history">Loading history...</p>
+                <p class="no-history">Loading your history...</p>
             </div>
         </div>
     </section>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 THRIPUDI LIBRARY. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a> |
+                <a href="terms.html">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig); const auth = getAuth(app);
 
-        // ഗ്ലോബൽ വേരിയബിൾ (യൂസർ ഐഡി സൂക്ഷിക്കാൻ)
-        window.currentUserUID = null;
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Global variable to store current User ID
+        window.currentUID = null;
 
         onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+
             if (user) {
-                // പ്രൊഫൈൽ സെറ്റ് ചെയ്യുന്നു
-                const avatarDiv = document.getElementById('userAvatar');
-                if (user.photoURL) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                // 1. Update Profile UI
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
                 
-                // യൂസർ ഐഡി സേവ് ചെയ്യുന്നു
-                window.currentUserUID = user.uid;
-                
-                // ഹിസ്റ്ററി ലോഡ് ചെയ്യുന്നു
-                loadUserHistory(user.uid);
+                if (user.photoURL && avatarDiv) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                }
+
+                // 2. Set UID and Load History
+                window.currentUID = user.uid;
+                loadHistory(user.uid);
+
             } else {
-                window.location.href = "index.html";
+                window.location.href = "index.html"; 
             }
         });
 
-        document.getElementById('logout-link').addEventListener('click', () => signOut(auth).then(() => window.location.href = "index.html"));
+        // Logout Logic
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { window.location.href = "index.html"; });
+        });
     </script>
 
     <script>
-        function loadUserHistory(uid) {
+        // --- HISTORY LOGIC ---
+
+        function loadHistory(uid) {
             const container = document.getElementById('historyContainer');
             const clearBtn = document.getElementById('clearBtn');
             
-            // യൂസർ ഐഡി വെച്ചുള്ള പ്രത്യേക കീ (Key) ഉപയോഗിക്കുന്നു
+            // Unique Key for this User: 'history_USERID'
             const storageKey = 'history_' + uid;
             
-            // ലോക്കൽ സ്റ്റോറേജിൽ നിന്ന് ഡാറ്റ എടുക്കുന്നു
+            // Get data from local storage
             const historyData = JSON.parse(localStorage.getItem(storageKey)) || [];
 
             if (historyData.length === 0) {
-                container.innerHTML = '<p class="no-history">നിങ്ങൾ ഇതുവരെ പുസ്തകങ്ങളൊന്നും വായിച്ചിട്ടില്ല.</p>';
+                container.innerHTML = `
+                    <div class="no-history">
+                        <i class="fas fa-book-open" style="font-size: 3em; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>നിങ്ങൾ ഇതുവരെ പുസ്തകങ്ങളൊന്നും വായിച്ചിട്ടില്ല.</p>
+                        <a href="collection.html" style="color: var(--primary-orange); font-weight: bold;">ഗ്രന്ഥശേഖരത്തിലേക്ക് പോകാം</a>
+                    </div>
+                `;
                 clearBtn.style.display = 'none';
                 return;
             }
 
+            // Show Clear Button
             clearBtn.style.display = 'block';
             container.innerHTML = '';
 
+            // Generate Cards
             historyData.forEach(book => {
                 const card = `
                     <div class="history-card">
-                        <img src="${book.image}" class="history-thumb" alt="Cover">
-                        <div class="history-info">
+                        <img src="${book.image}" class="history-thumb" alt="Book Cover" onerror="this.src='https://via.placeholder.com/60x85?text=No+Img'">
+                        <div class="history-details">
                             <span class="history-title">${book.title}</span>
                             <span class="history-date"><i class="far fa-clock"></i> ${book.date}</span>
-                            <br>
-                            <a href="${book.url}" target="_blank" class="read-again-btn">Read Again</a>
+                            <a href="${book.url}" target="_blank" class="read-link">Read Again <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 `;
@@ -138,14 +338,14 @@
         }
 
         function clearHistory() {
-            if(confirm("വായനാ ചരിത്രം മുഴുവൻ മായ്ക്കട്ടേ?")) {
-                if(window.currentUserUID) {
-                    // യൂസറുടെ കീ മാത്രം ഡിലീറ്റ് ചെയ്യുന്നു
-                    localStorage.removeItem('history_' + window.currentUserUID);
-                    location.reload();
-                }
+            if (!window.currentUID) return;
+            
+            if(confirm("വായനാ ചരിത്രം മുഴുവൻ മായ്ക്കട്ടേ? (Clear all history?)")) {
+                localStorage.removeItem('history_' + window.currentUID);
+                location.reload(); // പേജ് റിഫ്രഷ് ചെയ്യുന്നു
             }
         }
     </script>
+
 </body>
 </html>
