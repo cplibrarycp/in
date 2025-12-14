@@ -43,6 +43,7 @@
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
         .nav-links { display: flex; align-items: center; }
        /* --- New Header Button Style --- */
+        /* --- New Header Button Style --- */
         .nav-links a.nav-item {
             color: var(--light-text);
             margin-left: 15px;
@@ -64,6 +65,12 @@
             color: #ffffff;
             transform: translateY(-2px); /* ബട്ടൺ അല്പം പൊങ്ങുന്നു */
             box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* നിഴൽ വരുന്നു */
+        }
+        
+        /* Active Link Style (Optional - if you want highlight active page) */
+        .nav-links a.nav-item.active {
+            background-color: var(--primary-orange);
+            color: white;
         }
         
         /* Active Link Style (Optional - if you want highlight active page) */
@@ -1652,5 +1659,6 @@
 
 
   
+
 
 
