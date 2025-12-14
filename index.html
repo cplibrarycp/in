@@ -26,7 +26,6 @@
             color: var(--text-light);
             
             /* --- ബാക്ക്ഗ്രൗണ്ട് ഇമേജ് & ഓവർലേ --- */
-            /* പുസ്തകങ്ങളും പ്രകൃതിയുമായി ബന്ധപ്പെട്ട ഒരു ചിത്രം */
             background-image: var(--overlay-gradient), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
@@ -34,11 +33,11 @@
         }
 
         .container {
-            /* ഗ്ലാസ് എഫക്റ്റ് (Glassmorphism) */
+            /* ഗ്ലാസ് എഫക്റ്റ് */
             background: rgba(255, 255, 255, 0.1);
             padding: 60px;
             border-radius: 20px;
-            backdrop-filter: blur(15px); /* ബ്ലർ എഫക്റ്റ് */
+            backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -57,36 +56,65 @@
         p {
             font-size: 1.3em;
             margin-bottom: 40px;
-            color: #E0F2F1; /* ഇളം പച്ച ടെക്സ്റ്റ് */
+            color: #E0F2F1;
             line-height: 1.6;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
+        /* ബട്ടണുകൾ ഒരരിപ്പിച്ചു വരാൻ */
+        .btn-group {
+            display: flex;
+            gap: 20px; /* ബട്ടണുകൾക്കിടയിലുള്ള അകലം */
+            justify-content: center;
+            flex-wrap: wrap; /* മൊബൈലിൽ താഴെ താഴെ വരാൻ */
+        }
+
         .btn {
-            background-color: var(--primary-teal);
-            color: var(--text-light);
-            padding: 18px 45px;
+            padding: 15px 40px;
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.1em;
             border-radius: 50px;
             transition: all 0.3s ease-in-out;
             display: inline-block;
-            font-weight: 700;
-            box-shadow: 0 4px 15px rgba(0, 137, 123, 0.4);
-            border: 2px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
         }
 
-        .btn:hover {
+        /* 1. രജിസ്റ്റർ ബട്ടൺ (Filled Style) */
+        .btn-primary {
+            background-color: var(--primary-teal);
+            color: var(--text-light);
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(0, 137, 123, 0.4);
+        }
+
+        .btn-primary:hover {
             background-color: var(--secondary-dark);
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0, 77, 64, 0.5);
-            border-color: #80cbc4;
+        }
+
+        /* 2. ലോഗിൻ ബട്ടൺ (Outline Style / Ghost Button) */
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline:hover {
+            background-color: #ffffff;
+            color: var(--secondary-dark);
+            border-color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
         }
 
         @media (max-width: 600px) {
             h1 { font-size: 2.5em; }
             p { font-size: 1.1em; }
             .container { padding: 40px 20px; }
+            .btn { width: 100%; box-sizing: border-box; } /* മൊബൈലിൽ ബട്ടൺ വലുതായി വരാൻ */
         }
     </style>
 </head>
@@ -97,9 +125,12 @@
         <p>തൃപുടി ലൈബ്രറിയിലേക്ക് സ്വാഗതം.<br>
         അറിവിൻ്റെ വിശാലമായ ലോകത്തേക്ക് പ്രവേശിക്കാൻ തയ്യാറാണോ?</p>
         
-        <a href="dummy.html" class="btn">ലൈബ്രറിയിലേക്ക് പ്രവേശിക്കുക 🚀</a>
+        <div class="btn-group">
+            <a href="register.html" class="btn btn-primary">പുതിയ അംഗമാകുക 🚀</a>
+            
+            <a href="login.html" class="btn btn-outline">ലോഗിൻ ചെയ്യുക 🔐</a>
+        </div>
     </div>
 
 </body>
 </html>
-
