@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Login System</title>
+    <title>Login | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* അടിസ്ഥാന സ്റ്റൈലുകൾ */
-        * { margin: 0; padding: 0; font-family: sans-serif; box-sizing: border-box; }
+        /* --- Theme Variables --- */
+        :root {
+            --primary-teal: #00897B; 
+            --secondary-dark: #004D40; 
+            --text-white: #FFFFFF;
+        }
 
-        /* 1. ബാക്ക്ഗ്രൗണ്ട് ഇമേജ് (ലൈബ്രറി) */
+        * { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; box-sizing: border-box; }
+
         .hero {
-            height: 100vh; /* സ്ക്രീൻ മുഴുവൻ നിറയാൻ */
+            height: 100vh;
             width: 100%;
-            /* ലൈബ്രറി ഇമേജ് + ഒരു കറുത്ത ഷേഡ് */
-            background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
+            background-image: linear-gradient(rgba(0, 77, 64, 0.85), rgba(0, 77, 64, 0.85)), url(https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
             background-position: center;
             background-size: cover;
             position: absolute;
@@ -22,77 +27,112 @@
             justify-content: center;
         }
 
-        /* 2. ഗ്ലാസ് ടൈപ്പ് വിൻഡോ (Glassmorphism Effect) */
         .form-box {
             width: 380px;
-            height: 480px;
+            height: 580px; /* ഇമേജ് അപ്‌ലോഡ് വന്നതുകൊണ്ട് ഉയരം കൂട്ടി */
             position: relative;
-            /* ഗ്ലാസ് എഫക്റ്റിനുള്ള പ്രധാന കോഡുകൾ */
-            background: rgba(255, 255, 255, 0.1); /* വളരെ കുറഞ്ഞ സുതാര്യതയുള്ള വെള്ള നിറം */
-            backdrop-filter: blur(15px); /* പിന്നിലെ കാഴ്ച മങ്ങിക്കാൻ */
-            -webkit-backdrop-filter: blur(15px); /* സഫാരി ബ്രൗസറിന് വേണ്ടി */
-            border: 1px solid rgba(255, 255, 255, 0.2); /* നേർത്ത വെളുത്ത ബോർഡർ */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* ഒരു ഷാഡോ */
-            
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             padding: 5px;
             overflow: hidden;
-            border-radius: 20px; /* മൂലകൾ കുറച്ചുകൂടി വളച്ചു */
+            border-radius: 20px; 
         }
 
-        /* ബട്ടൺ ബോക്സ് സ്റ്റൈൽ */
+        /* --- Toggle Switch Design --- */
         .button-box {
-            width: 220px;
+            width: 240px;
             margin: 35px auto;
             position: relative;
-            box-shadow: 0 0 20px 9px rgba(0,0,0,0.1); /* ഷാഡോ കുറച്ചു */
             border-radius: 30px;
-            background: rgba(0, 0, 0, 0.2); /* ബട്ടൺ ബോക്സിനും ചെറിയ ഗ്ലാസ് ഫീൽ */
+            background: rgba(0, 0, 0, 0.25);
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* ടോഗിൾ ബട്ടണുകൾ (വാക്കുകളുടെ നിറം വെള്ളയാക്കി) */
         .toggle-btn {
-            padding: 10px 30px;
+            padding: 10px 0;
             cursor: pointer;
             background: transparent;
             border: 0;
             outline: none;
             position: relative;
-            font-weight: bold;
-            color: #fff; /* ടെക്സ്റ്റ് കളർ വെള്ള */
+            font-weight: 600;
+            color: #ccc;
+            flex: 1;
+            transition: color 0.5s;
+            z-index: 1;
+            font-size: 14px;
         }
 
-        /* സ്ലൈഡിങ് കളർ */
         #btn {
-            top: 0; left: 0; position: absolute; width: 110px; height: 100%;
-            background: linear-gradient(to right, #ff105f, #ffad06);
-            border-radius: 30px; transition: .5s;
+            top: 5px; left: 5px;
+            position: absolute;
+            width: 115px;
+            height: calc(100% - 10px);
+            background: #fff;
+            border-radius: 25px;
+            transition: .5s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* ഇൻപുട്ട് ഗ്രൂപ്പ് */
         .input-group {
-            top: 180px; position: absolute; width: 280px; transition: .5s;
+            top: 150px; position: absolute; width: 280px; transition: .5s;
         }
 
-        /* ഇൻപുട്ട് ഫീൽഡുകൾ (വാക്കുകളുടെ നിറം വെള്ളയാക്കി) */
         .input-field {
             width: 100%; padding: 10px 0; margin: 5px 0;
             border-left: 0; border-top: 0; border-right: 0;
-            border-bottom: 1px solid #fff; /* വരയുടെ നിറം വെള്ളയാക്കി */
+            border-bottom: 1px solid #fff; 
             outline: none; background: transparent;
-            color: #fff; /* ടൈപ്പ് ചെയ്യുന്ന അക്ഷരങ്ങളുടെ നിറം വെള്ള */
+            color: #fff; 
+            font-size: 14px;
         }
-        /* Placeholder (അകത്ത് കാണുന്ന മാതൃകാ വാചകം) നിറം മാറ്റാൻ */
-        ::placeholder { color: #ddd; opacity: 1; }
+        
+        ::placeholder { color: #ccc; opacity: 0.8; font-size: 13px; }
 
-        /* സബ്മിറ്റ് ബട്ടൺ */
         .submit-btn {
             width: 85%; padding: 10px 30px; cursor: pointer; display: block; margin: auto;
-            background: linear-gradient(to right, #ff105f, #ffad06);
+            background: linear-gradient(to right, var(--primary-teal), var(--secondary-dark));
             border: 0; outline: none; border-radius: 30px; color: #fff; margin-top: 20px;
             font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        
+        .submit-btn:active { transform: scale(0.98); }
+
+        .forgot-pass {
+            display: block; text-align: center; margin-top: 15px; color: #fff;
+            font-size: 12px; text-decoration: none; cursor: pointer; opacity: 0.8; transition: opacity 0.3s;
+        }
+        .forgot-pass:hover { opacity: 1; text-decoration: underline; }
+
+        /* Profile Upload Styles */
+        .profile-upload-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .profile-preview {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-teal);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+        .upload-label {
+            color: #fff; font-size: 11px; cursor: pointer; text-decoration: underline;
+            display: block; opacity: 0.9;
+        }
+        .upload-status {
+            color: yellow; font-size: 10px; margin-top: 2px; min-height: 15px;
         }
 
-        /* പൊസിഷനുകൾ */
         #login { left: 50px; }
         #register { left: 450px; }
     </style>
@@ -103,20 +143,29 @@
         <div class="form-box">
             <div class="button-box">
                 <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="openLogin()">Log In</button>
-                <button type="button" class="toggle-btn" onclick="openRegister()">Register</button>
+                <button type="button" class="toggle-btn" id="loginToggle" onclick="openLogin()" style="color: var(--primary-teal);">Log In</button>
+                <button type="button" class="toggle-btn" id="regToggle" onclick="openRegister()">Register</button>
             </div>
 
             <div id="login" class="input-group">
                 <input type="email" id="loginEmail" class="input-field" placeholder="Email Id" required>
                 <input type="password" id="loginPassword" class="input-field" placeholder="Enter Password" required>
                 <button type="button" class="submit-btn" id="loginBtn">Log In</button>
+                <a href="#" class="forgot-pass" id="forgotPassBtn">Forgot Password?</a>
             </div>
 
             <div id="register" class="input-group">
+                <div class="profile-upload-container">
+                    <img id="previewImg" class="profile-preview" src="https://via.placeholder.com/100?text=User" alt="Profile">
+                    <label for="fileInput" class="upload-label">Upload Profile Photo</label>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="uploadToDrive()">
+                    <input type="hidden" id="uploadedImageUrl">
+                    <p id="uploadStatus" class="upload-status"></p>
+                </div>
+
                 <input type="text" id="regUser" class="input-field" placeholder="User Name" required>
                 <input type="email" id="regEmail" class="input-field" placeholder="Email Id" required>
-                <input type="password" id="regPassword" class="input-field" placeholder="Enter Password" required>
+                <input type="password" id="regPassword" class="input-field" placeholder="Enter Password (Min 6 chars)" required>
                 <button type="button" class="submit-btn" id="regBtn">Register</button>
             </div>
         </div>
@@ -126,13 +175,28 @@
         var x = document.getElementById("login");
         var y = document.getElementById("register");
         var z = document.getElementById("btn");
-        function openRegister() { x.style.left = "-400px"; y.style.left = "50px"; z.style.left = "110px"; }
-        function openLogin() { x.style.left = "50px"; y.style.left = "450px"; z.style.left = "0"; }
+        var loginToggle = document.getElementById("loginToggle");
+        var regToggle = document.getElementById("regToggle");
+
+        function openRegister() { 
+            x.style.left = "-400px"; 
+            y.style.left = "50px"; 
+            z.style.left = "120px"; 
+            loginToggle.style.color = "#ccc";
+            regToggle.style.color = "var(--primary-teal)"; 
+        }
+        function openLogin() { 
+            x.style.left = "50px"; 
+            y.style.left = "450px"; 
+            z.style.left = "5px"; 
+            loginToggle.style.color = "var(--primary-teal)";
+            regToggle.style.color = "#ccc";
+        }
     </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
@@ -147,11 +211,78 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // രജിസ്ട്രേഷൻ
+        // --- 1. IMAGE UPLOAD FUNCTION ---
+        // (Module അല്ലാത്തതിനാൽ ഇത് വിൻഡോ ഒബ്ജക്റ്റിലേക്ക് അസൈൻ ചെയ്യുന്നു)
+        window.uploadToDrive = function() {
+            var fileInput = document.getElementById('fileInput');
+            var status = document.getElementById('uploadStatus');
+            var preview = document.getElementById('previewImg');
+            var hiddenField = document.getElementById('uploadedImageUrl');
+            
+            if (fileInput.files.length === 0) return;
+            
+            var file = fileInput.files[0];
+            // ഫയൽ സൈസ് പരിശോധന (2MB യിൽ കൂടുതൽ വേണ്ട)
+            if(file.size > 2 * 1024 * 1024) {
+                alert("File size is too large! Please choose an image under 2MB.");
+                return;
+            }
+
+            status.textContent = "Uploading... Please wait";
+            status.style.color = "yellow";
+            
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            
+            reader.onload = function(e) {
+                var rawLog = reader.result;
+                
+                // നിങ്ങളുടെ ഗൂഗിൾ സ്ക്രിപ്റ്റ് URL ഇവിടെ നൽകിയിരിക്കുന്നു
+                var googleScriptUrl = "https://script.google.com/macros/s/AKfycbxEaTV09642TwTJdZBGsODqAwLVMFZomYLsUD_SkoYXdmoKyrjER-JhTSCECNk8a6bPnQ/exec";
+                
+                var data = {
+                    image: rawLog,
+                    name: file.name,
+                    mimeType: file.type
+                };
+                
+                // POST Request അയക്കുന്നു
+                fetch(googleScriptUrl, {
+                    method: "POST",
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if(json.result === "success") {
+                        status.textContent = "Upload Success!";
+                        status.style.color = "#00FF7F"; // Light Green
+                        
+                        // ചിത്രം മാറിവരുന്നു
+                        preview.src = json.url;
+                        
+                        // URL ഹിഡൻ ഫീൽഡിൽ സേവ് ചെയ്യുന്നു (രജിസ്ട്രേഷൻ സമയത്ത് ഉപയോഗിക്കാൻ)
+                        hiddenField.value = json.url;
+                    } else {
+                        status.textContent = "Failed. Try again.";
+                        status.style.color = "red";
+                        console.error("Script Error:", json.error);
+                    }
+                })
+                .catch(error => {
+                    status.textContent = "Error! Check internet.";
+                    status.style.color = "red";
+                    console.error("Fetch Error:", error);
+                });
+            };
+        };
+
+        // --- 2. REGISTER BUTTON CLICK ---
         document.getElementById('regBtn').addEventListener('click', (e) => {
             const username = document.getElementById('regUser').value;
             const email = document.getElementById('regEmail').value;
             const password = document.getElementById('regPassword').value;
+            // അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോയുടെ URL എടുക്കുന്നു
+            const photoURL = document.getElementById('uploadedImageUrl').value;
 
             if(password.length < 6){ alert("പാസ്‌വേഡിന് ചുരുങ്ങിയത് 6 അക്ഷരങ്ങൾ വേണം"); return; }
             if(username === ""){ alert("ദയവായി പേര് നൽകുക"); return; }
@@ -159,28 +290,49 @@
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    
+                    // പ്രൊഫൈൽ അപ്ഡേറ്റ് ചെയ്യുന്നു (പേരും ഫോട്ടോയും)
                     updateProfile(user, {
-                        displayName: username
+                        displayName: username,
+                        photoURL: photoURL ? photoURL : "" // ഫോട്ടോ ഉണ്ടെങ്കിൽ അത്, അല്ലെങ്കിൽ കാലി
                     }).then(() => {
-                        alert("രജിസ്ട്രേഷൻ വിജയിച്ചു! ഇനി ലോഗിൻ ചെയ്യാം.");
+                        alert("രജിസ്ട്രേഷൻ വിജയിച്ചു! ലോഗിൻ ചെയ്യുക.");
                         openLogin();
+                        // Reset Fields
+                        document.getElementById('regUser').value = "";
+                        document.getElementById('regEmail').value = "";
+                        document.getElementById('regPassword').value = "";
+                        document.getElementById('uploadedImageUrl').value = "";
+                        document.getElementById('previewImg').src = "https://via.placeholder.com/100?text=User";
+                        document.getElementById('uploadStatus').textContent = "";
                     });
                 })
-                .catch((error) => { alert("Error: " + error.message); });
+                .catch((error) => { 
+                    if(error.code === 'auth/email-already-in-use') { alert("ഈ ഇമെയിൽ നിലവിലുണ്ട്."); } 
+                    else { alert("Error: " + error.message); }
+                });
         });
 
-        // ലോഗിൻ
+        // --- 3. LOGIN BUTTON CLICK ---
         document.getElementById('loginBtn').addEventListener('click', (e) => {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-
+            if(email === "" || password === "") { alert("വിവരങ്ങൾ നൽകുക."); return; }
             signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    window.location.href = "dashboard.html"; 
-                })
-                .catch((error) => {
-                    alert("ലോഗിൻ പരാജയപ്പെട്ടു. വിവരങ്ങൾ പരിശോധിക്കുക.");
-                });
+                .then((userCredential) => { window.location.href = "dashboard.html"; })
+                .catch((error) => { alert("ലോഗിൻ പരാജയപ്പെട്ടു."); });
+        });
+
+        // --- 4. FORGOT PASSWORD ---
+        document.getElementById('forgotPassBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            if (email === "") { alert("ഇമെയിൽ നൽകുക."); return; }
+            if (confirm("പാസ്‌വേഡ് റീസെറ്റ് ലിങ്ക് അയക്കട്ടേ?")) {
+                sendPasswordResetEmail(auth, email)
+                    .then(() => { alert("ലിങ്ക് അയച്ചു."); })
+                    .catch((error) => { alert("Error: " + error.message); });
+            }
         });
     </script>
 </body>
