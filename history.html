@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading History | THRIPUDI LIBRARY</title>
+    <title>വായനാ ചരിത്രം | THRIPUDI LIBRARY</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* --- 1. THEME VARIABLES --- */
+        /* --- THEME VARIABLES --- */
         :root {
             --primary-orange: #00897B; /* Teal */
             --secondary-dark: #004D40; /* Dark Green */
@@ -32,7 +32,7 @@
         .container { width: 90%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; }
 
-        /* --- 2. HEADER --- */
+        /* --- HEADER --- */
         header {
             background-color: var(--secondary-dark);
             padding: 15px 0;
@@ -98,7 +98,7 @@
         }
         .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
-        /* --- 3. HISTORY SECTION --- */
+        /* --- HISTORY SECTION --- */
         .history-section { padding: 50px 0; min-height: 70vh; }
         
         .section-header {
@@ -173,7 +173,7 @@
             width: 100%;
         }
 
-        /* --- 4. FOOTER --- */
+        /* --- FOOTER --- */
         footer {
             background-color: var(--secondary-dark);
             color: var(--light-text); padding: 40px 0;
@@ -209,9 +209,9 @@
                     </div>
                     
                     <div class="profile-dropdown">
-                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
-                        <a href="history.html" style="background-color: var(--background-light); color: var(--primary-orange);"><i class="fas fa-history"></i> Reading History</a>
-                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a href="profile.html"><i class="fas fa-cog"></i> പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ</a>
+                        <a href="history.html" style="background-color: var(--background-light); color: var(--primary-orange);"><i class="fas fa-history"></i> വായനാ ചരിത്രം</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> ലോഗൗട്ട്</a>
                     </div>
                 </div>
             </div>
@@ -221,24 +221,24 @@
     <section class="history-section">
         <div class="container">
             <div class="section-header">
-                <h1>Reading History</h1>
+                <h1>വായനാ ചരിത്രം</h1>
                 <button onclick="clearHistory()" class="clear-btn" id="clearBtn" style="display: none;">
-                    <i class="fas fa-trash-alt"></i> Clear All
+                    <i class="fas fa-trash-alt"></i> എല്ലാം മായ്ക്കുക
                 </button>
             </div>
 
             <div id="historyContainer" class="history-list">
-                <p class="no-history">Loading your history...</p>
+                <p class="no-history">ചരിത്രം ലോഡ് ചെയ്യുന്നു...</p>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 THRIPUDI LIBRARY. All rights reserved.</p>
+            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
             <div class="footer-links">
-                <a href="privacy-policy.html">Privacy Policy</a> |
-                <a href="terms.html">Terms of Use</a>
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
             </div>
         </div>
     </footer>
@@ -260,23 +260,23 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Global variable to store current User ID
         window.currentUID = null;
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             const nameDisplay = document.getElementById('display-name');
             const avatarDiv = document.getElementById('userAvatar');
 
             if (user) {
-                // 1. Update Profile UI
-                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                // --- FIX: പേര് അപ്ഡേറ്റ് ആയോ എന്ന് ഉറപ്പുവരുത്താൻ Reload ചെയ്യുന്നു ---
+                try { await user.reload(); } catch(e) { console.log("Reload error"); }
+
+                const displayName = auth.currentUser.displayName ? auth.currentUser.displayName.split(' ')[0] : auth.currentUser.email.split('@')[0];
                 nameDisplay.textContent = displayName;
                 
-                if (user.photoURL && avatarDiv) {
-                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+                if (auth.currentUser.photoURL && avatarDiv) {
+                    avatarDiv.innerHTML = `<img src="${auth.currentUser.photoURL}" alt="Profile">`;
                 }
 
-                // 2. Set UID and Load History
                 window.currentUID = user.uid;
                 loadHistory(user.uid);
 
@@ -285,7 +285,6 @@
             }
         });
 
-        // Logout Logic
         document.getElementById('logout-link').addEventListener('click', (e) => {
             e.preventDefault();
             signOut(auth).then(() => { window.location.href = "index.html"; });
@@ -293,16 +292,10 @@
     </script>
 
     <script>
-        // --- HISTORY LOGIC ---
-
         function loadHistory(uid) {
             const container = document.getElementById('historyContainer');
             const clearBtn = document.getElementById('clearBtn');
-            
-            // Unique Key for this User: 'history_USERID'
             const storageKey = 'history_' + uid;
-            
-            // Get data from local storage
             const historyData = JSON.parse(localStorage.getItem(storageKey)) || [];
 
             if (historyData.length === 0) {
@@ -317,11 +310,9 @@
                 return;
             }
 
-            // Show Clear Button
             clearBtn.style.display = 'block';
             container.innerHTML = '';
 
-            // Generate Cards
             historyData.forEach(book => {
                 const card = `
                     <div class="history-card">
@@ -329,7 +320,7 @@
                         <div class="history-details">
                             <span class="history-title">${book.title}</span>
                             <span class="history-date"><i class="far fa-clock"></i> ${book.date}</span>
-                            <a href="${book.url}" target="_blank" class="read-link">Read Again <i class="fas fa-arrow-right"></i></a>
+                            <a href="${book.url}" target="_blank" class="read-link">വീണ്ടും വായിക്കുക <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 `;
@@ -339,10 +330,9 @@
 
         function clearHistory() {
             if (!window.currentUID) return;
-            
-            if(confirm("വായനാ ചരിത്രം മുഴുവൻ മായ്ക്കട്ടേ? (Clear all history?)")) {
+            if(confirm("വായനാ ചരിത്രം മുഴുവൻ മായ്ക്കട്ടേ?")) {
                 localStorage.removeItem('history_' + window.currentUID);
-                location.reload(); // പേജ് റിഫ്രഷ് ചെയ്യുന്നു
+                location.reload();
             }
         }
     </script>
