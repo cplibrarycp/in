@@ -194,146 +194,125 @@
         }
     </script>
 
+    
+    <div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center;">
+        <div style="position:relative; width:90%; height:90%; background:#fff; border-radius:8px; overflow:hidden;">
+            <button onclick="closePdfModal()" style="position:absolute; top:10px; right:15px; background:red; color:white; border:none; padding:5px 15px; cursor:pointer; font-weight:bold; z-index:10;">CLOSE</button>
+            <iframe id="pdfFrame" style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-            authDomain: "thripudilibrary.firebaseapp.com",
-            projectId: "thripudilibrary",
-            storageBucket: "thripudilibrary.firebasestorage.app",
-            messagingSenderId: "887018912750",
-            appId: "1:887018912750:web:cc05190a72b13db816acff",
-            measurementId: "G-B59RDW4KG4"
-        };
-
-        const app = initializeApp(firebaseConfig);
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); 
         const auth = getAuth(app);
 
-        // --- 1. IMAGE UPLOAD FUNCTION ---
-        // (Module അല്ലാത്തതിനാൽ ഇത് വിൻഡോ ഒബ്ജക്റ്റിലേക്ക് അസൈൻ ചെയ്യുന്നു)
-        window.uploadToDrive = function() {
-            var fileInput = document.getElementById('fileInput');
-            var status = document.getElementById('uploadStatus');
-            var preview = document.getElementById('previewImg');
-            var hiddenField = document.getElementById('uploadedImageUrl');
-            
-            if (fileInput.files.length === 0) return;
-            
-            var file = fileInput.files[0];
-            // ഫയൽ സൈസ് പരിശോധന (2MB യിൽ കൂടുതൽ വേണ്ട)
-            if(file.size > 2 * 1024 * 1024) {
-                alert("File size is too large! Please choose an image under 2MB.");
-                return;
+        onAuthStateChanged(auth, async (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+
+            if (user) {
+                // 1. User Name Fix (Reload)
+                try { await user.reload(); } catch(e) { console.log("Reload error"); }
+                const currentUser = auth.currentUser;
+                
+                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
+                if(nameDisplay) nameDisplay.textContent = displayName;
+                
+                if (currentUser.photoURL && avatarDiv) {
+                    avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
+                }
+
+                // 2. Setup History & PDF Click
+                setupInteractions(user.uid);
+            } else {
+                // Redirect only if not on index/login page
+                if (!window.location.pathname.endsWith("index.html") && !window.location.pathname.endsWith("/")) {
+                     window.location.href = "index.html";
+                }
             }
+        });
 
-            status.textContent = "Uploading... Please wait";
-            status.style.color = "yellow";
-            
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            
-            reader.onload = function(e) {
-                var rawLog = reader.result;
+        const logoutLink = document.getElementById('logout-link');
+        if(logoutLink) {
+            logoutLink.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                signOut(auth).then(() => { window.location.href = "index.html"; }); 
+            });
+        }
+
+        // --- GLOBAL FUNCTIONS ---
+        window.setupInteractions = function(uid) {
+            const buttons = document.querySelectorAll(".overlay-btn");
+            buttons.forEach(btn => {
+                // Clone to remove old listeners
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
                 
-                // നിങ്ങളുടെ ഗൂഗിൾ സ്ക്രിപ്റ്റ് URL ഇവിടെ നൽകിയിരിക്കുന്നു
-                var googleScriptUrl = "https://script.google.com/macros/s/AKfycbxEaTV09642TwTJdZBGsODqAwLVMFZomYLsUD_SkoYXdmoKyrjER-JhTSCECNk8a6bPnQ/exec";
-                
-                var data = {
-                    image: rawLog,
-                    name: file.name,
-                    mimeType: file.type
-                };
-                
-                // POST Request അയക്കുന്നു
-                fetch(googleScriptUrl, {
-                    method: "POST",
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(json => {
-                    if(json.result === "success") {
-                        status.textContent = "Upload Success!";
-                        status.style.color = "#00FF7F"; // Light Green
-                        
-                        // ചിത്രം മാറിവരുന്നു
-                        preview.src = json.url;
-                        
-                        // URL ഹിഡൻ ഫീൽഡിൽ സേവ് ചെയ്യുന്നു (രജിസ്ട്രേഷൻ സമയത്ത് ഉപയോഗിക്കാൻ)
-                        hiddenField.value = json.url;
-                    } else {
-                        status.textContent = "Failed. Try again.";
-                        status.style.color = "red";
-                        console.error("Script Error:", json.error);
-                    }
-                })
-                .catch(error => {
-                    status.textContent = "Error! Check internet.";
-                    status.style.color = "red";
-                    console.error("Fetch Error:", error);
-                });
-            };
-        };
-
-        // --- 2. REGISTER BUTTON CLICK ---
-        document.getElementById('regBtn').addEventListener('click', (e) => {
-            const username = document.getElementById('regUser').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-            // അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോയുടെ URL എടുക്കുന്നു
-            const photoURL = document.getElementById('uploadedImageUrl').value;
-
-            if(password.length < 6){ alert("പാസ്‌വേഡിന് ചുരുങ്ങിയത് 6 അക്ഷരങ്ങൾ വേണം"); return; }
-            if(username === ""){ alert("ദയവായി പേര് നൽകുക"); return; }
-
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
+                newBtn.addEventListener("click", function(e) {
+                    e.preventDefault(); // Stop opening new tab
                     
-                    // പ്രൊഫൈൽ അപ്ഡേറ്റ് ചെയ്യുന്നു (പേരും ഫോട്ടോയും)
-                    updateProfile(user, {
-                        displayName: username,
-                        photoURL: photoURL ? photoURL : "" // ഫോട്ടോ ഉണ്ടെങ്കിൽ അത്, അല്ലെങ്കിൽ കാലി
-                    }).then(() => {
-                        alert("രജിസ്ട്രേഷൻ വിജയിച്ചു! ലോഗിൻ ചെയ്യുക.");
-                        openLogin();
-                        // Reset Fields
-                        document.getElementById('regUser').value = "";
-                        document.getElementById('regEmail').value = "";
-                        document.getElementById('regPassword').value = "";
-                        document.getElementById('uploadedImageUrl').value = "";
-                        document.getElementById('previewImg').src = "https://via.placeholder.com/100?text=User";
-                        document.getElementById('uploadStatus').textContent = "";
-                    });
-                })
-                .catch((error) => { 
-                    if(error.code === 'auth/email-already-in-use') { alert("ഈ ഇമെയിൽ നിലവിലുണ്ട്."); } 
-                    else { alert("Error: " + error.message); }
+                    const card = this.closest('.book-card');
+                    const linkUrl = this.getAttribute('href');
+                    
+                    // 1. Save History
+                    if (card) {
+                        const title = card.querySelector('.book-title').innerText;
+                        const image = card.querySelector('.book-cover').src;
+                        const date = new Date().toLocaleDateString('ml-IN');
+                        
+                        const key = 'history_' + uid;
+                        let history = JSON.parse(localStorage.getItem(key)) || [];
+                        history = history.filter(item => item.title !== title);
+                        history.unshift({ title, image, url: linkUrl, date });
+                        if (history.length > 50) history.pop();
+                        localStorage.setItem(key, JSON.stringify(history));
+                    }
+
+                    // 2. Open PDF in Modal (Iframe)
+                    openPdfModal(linkUrl);
                 });
-        });
+            });
+        };
+    </script>
 
-        // --- 3. LOGIN BUTTON CLICK ---
-        document.getElementById('loginBtn').addEventListener('click', (e) => {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            if(email === "" || password === "") { alert("വിവരങ്ങൾ നൽകുക."); return; }
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => { window.location.href = "dashboard.html"; })
-                .catch((error) => { alert("ലോഗിൻ പരാജയപ്പെട്ടു."); });
-        });
-
-        // --- 4. FORGOT PASSWORD ---
-        document.getElementById('forgotPassBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            if (email === "") { alert("ഇമെയിൽ നൽകുക."); return; }
-            if (confirm("പാസ്‌വേഡ് റീസെറ്റ് ലിങ്ക് അയക്കട്ടേ?")) {
-                sendPasswordResetEmail(auth, email)
-                    .then(() => { alert("ലിങ്ക് അയച്ചു."); })
-                    .catch((error) => { alert("Error: " + error.message); });
+    <script>
+        function openPdfModal(url) {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            // Drive preview link fix for embedding
+            let embedUrl = url;
+            if(url.includes("view") || url.includes("preview")) {
+                embedUrl = url.replace("/view", "/preview");
             }
-        });
+            frame.src = embedUrl;
+            modal.style.display = "flex";
+        }
+
+        function closePdfModal() {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            modal.style.display = "none";
+            frame.src = ""; // Stop loading
+        }
+
+        function toggleProfileMenu() { var dropdown = document.querySelector(".profile-dropdown"); if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; }
+        
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-profile')) {
+                var dropdowns = document.getElementsByClassName("profile-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = "none";
+                }
+            }
+        }
+        
+        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
 </body>
 </html>
+
