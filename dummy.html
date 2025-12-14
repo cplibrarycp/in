@@ -194,7 +194,7 @@
                 <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
 
                 <div class="user-profile" id="profile-section">
-                    <div class="user-avatar" id="userAvatar">
+                    <div class="user-avatar">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="user-info">
@@ -270,141 +270,74 @@
         </div>
     </footer>
 
-    <div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; flex-direction:column;">
-        <div style="background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
-            <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> Reading Mode</span>
-            <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
-                <i class="fas fa-times"></i> Close
-            </button>
-        </div>
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig); 
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        onAuthStateChanged(auth, async (user) => {
+        // ലോഗിൻ സ്റ്റാറ്റസ് പരിശോധിക്കാൻ
+        let isUserLoggedIn = false;
+
+        // Auth Check
+        onAuthStateChanged(auth, (user) => {
             const nameDisplay = document.getElementById('display-name');
-            const avatarDiv = document.getElementById('userAvatar');
+            const avatarDiv = document.querySelector('.user-avatar');
 
             if (user) {
-                // --- 1. USER LOGGED IN ---
-                try { 
-                    await user.reload(); 
-                } catch(e) { 
-                    console.log("Auto-reload error, using cached data"); 
+                isUserLoggedIn = true;
+                const displayName = user.displayName ? user.displayName : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+                
+                if (user.photoURL) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
                 }
-                
-                const currentUser = auth.currentUser; 
-                
-                // പേര് ഡിസ്പ്ലേ ചെയ്യുന്നു
-                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
-                if(nameDisplay) nameDisplay.textContent = displayName;
-                
-                // ഫോട്ടോ ഡിസ്പ്ലേ ചെയ്യുന്നു
-                if (currentUser.photoURL && avatarDiv) {
-                    avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
-                }
-
-                // ലോഗിൻ ചെയ്തവർക്ക് ഹിസ്റ്ററി സേവിംഗ് എനേബിൾ ചെയ്യുന്നു
-                setupInteractions(user.uid);
-
             } else {
-                // --- 2. GUEST USER (ലോഗിൻ ചെയ്തിട്ടില്ല) ---
-                // Redirect ഒഴിവാക്കി.
-                // ഹിസ്റ്ററി സേവ് ചെയ്യാതെ തന്നെ പുസ്തകം വായിക്കാൻ അനുവദിക്കുന്നു.
-                // ഇവിടെ UID യ്ക്ക് പകരം null പാസ്സ് ചെയ്യുന്നു.
-                setupInteractions(null);
+                isUserLoggedIn = false;
+                // പേജ് കാണാൻ അനുവദിക്കുന്നു, പക്ഷെ ലിങ്കുകൾ ബ്ലോക്ക് ചെയ്യും
             }
         });
 
-        const logoutLink = document.getElementById('logout-link');
-        if(logoutLink) {
-            logoutLink.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "index.html"; }); 
+        // Logout
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault(); 
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => {
+                alert("Error: " + error.message);
             });
-        }
+        });
 
-        // --- GLOBAL FUNCTIONS ---
-        window.setupInteractions = function(uid) {
-            const buttons = document.querySelectorAll(".overlay-btn");
-            buttons.forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-                
-                newBtn.addEventListener("click", function(e) {
-                    e.preventDefault(); 
-                    
-                    const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href');
-                    
-                    // History Saving (ലോഗിൻ ചെയ്തവർക്ക് മാത്രം - uid ഉണ്ടെങ്കിൽ)
-                    if (card && uid) {
-                        const title = card.querySelector('.book-title').innerText;
-                        const image = card.querySelector('.book-cover').src;
-                        const date = new Date().toLocaleDateString('ml-IN');
-                        
-                        const key = 'history_' + uid;
-                        let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title); 
-                        history.unshift({ title, image, url: linkUrl, date });
-                        if (history.length > 50) history.pop();
-                        localStorage.setItem(key, JSON.stringify(history));
+        // --- ACCESS CONTROL (ലോഗിൻ ചെയ്യാത്തവരെ തടയൽ) ---
+        document.addEventListener('click', function(e) {
+            // ക്ലിക്ക് ചെയ്തത് ലിങ്ക് ആണോ എന്ന് നോക്കുന്നു
+            const targetLink = e.target.closest('a');
+            
+            if (targetLink) {
+                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ
+                if (!isUserLoggedIn) {
+                    // ലോഗിൻ പേജിലേക്കോ ഹോം പേജിലേക്കോ ഉള്ള ലിങ്കുകൾ തടയേണ്ട
+                    const href = targetLink.getAttribute('href');
+                    if (href && !href.includes('login.html') && !href.includes('index.html')) {
+                        e.preventDefault(); // പോകുന്നത് തടയുന്നു
+                        alert("മുന്നോട്ട് പോകുവാന്‍ ലോഗിന്‍ ചെയ്യുക");
+                        window.location.href = "login.html"; // ലോഗിൻ പേജിലേക്ക് വിടുന്നു
                     }
-
-                    // Open Full Page PDF (എല്ലാവർക്കും)
-                    openPdfModal(linkUrl);
-                });
-            });
-        };
-    </script>
-
-    <script>
-        // --- FULL PAGE PDF LOGIC ---
-        function openPdfModal(url) {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            let embedUrl = url;
-            if(url.includes("view") || url.includes("preview")) {
-                embedUrl = url.replace(/\/view.*/, "/preview").replace(/\/preview.*/, "/preview");
-            }
-            
-            frame.src = embedUrl;
-            modal.style.display = "flex"; 
-            document.body.style.overflow = "hidden"; 
-        }
-
-        function closePdfModal() {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            modal.style.display = "none";
-            frame.src = ""; 
-            document.body.style.overflow = "auto"; 
-        }
-
-        function toggleProfileMenu() { 
-            var dropdown = document.querySelector(".profile-dropdown"); 
-            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
-        }
-        
-        window.onclick = function(event) {
-            if (!event.target.closest('.user-profile')) {
-                var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    dropdowns[i].style.display = "none";
                 }
             }
-        }
-        
-        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+        });
     </script>
+
 </body>
 </html>
