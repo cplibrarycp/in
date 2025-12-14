@@ -42,8 +42,35 @@
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
         .nav-links { display: flex; align-items: center; }
-        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
-        .nav-links a.nav-item:hover { color: var(--outline-color); }
+       /* --- New Header Button Style --- */
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 15px;
+            font-weight: 500;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            
+            /* Button Shape */
+            padding: 8px 20px; /* ഉള്ളിൽ സ്ഥലം */
+            border-radius: 25px; /* വട്ടത്തിൽ വരാൻ */
+            transition: all 0.3s ease; /* സ്മൂത്ത് ആനിമേഷൻ */
+            border: 1px solid transparent; /* ബോർഡർ ലുക്ക് */
+        }
+
+        .nav-links a.nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.15); /* മൗസ് വെക്കുമ്പോൾ ഇളം നിറം */
+            border-color: rgba(255, 255, 255, 0.3); /* ബോർഡർ തെളിയുന്നു */
+            color: #ffffff;
+            transform: translateY(-2px); /* ബട്ടൺ അല്പം പൊങ്ങുന്നു */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* നിഴൽ വരുന്നു */
+        }
+        
+        /* Active Link Style (Optional - if you want highlight active page) */
+        .nav-links a.nav-item.active {
+            background-color: var(--primary-orange);
+            color: white;
+        }
         
         /* User Profile */
         .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
@@ -1625,4 +1652,5 @@
 
 
   
+
 
