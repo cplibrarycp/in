@@ -48,12 +48,6 @@
 
         .nav-links { display: flex; align-items: center; }
 
-        
-        /* --- Updated Header Button: Solid Box Style --- */
-        
-        /* --- Updated Header Button: Solid Box Style --- */
-        
-        /* --- Updated Header Button: Solid Box Style --- */
         .nav-links a.nav-item {
             color: var(--light-text);
             margin-left: 15px;
@@ -61,28 +55,27 @@
             font-size: 0.85em;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            
-            /* Box Shape */
             padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.3); /* തെളിഞ്ഞ ബോർഡർ */
-            border-radius: 4px; /* അറ്റം ചെറുതായി വളയാൻ */
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
             transition: all 0.3s ease;
             text-decoration: none;
         }
 
         .nav-links a.nav-item:hover {
-            background-color: #ffffff; /* ഹോവർ ചെയ്യുമ്പോൾ വെളുത്ത നിറം */
-            color: var(--secondary-dark); /* അക്ഷരം ഡാർക്ക് ഗ്രീൻ ആകുന്നു */
+            background-color: #ffffff;
+            color: var(--secondary-dark);
             border-color: #ffffff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transform: translateY(-2px); /* ബട്ടൺ പൊങ്ങുന്നു */
+            transform: translateY(-2px);
         }
 
+        .nav-links a.active { 
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--outline-color); 
+        }
 
-
-        .nav-links a.active { color: var(--outline-color); border-bottom: 2px solid var(--outline-color); }
-
-        /* --- User Profile & Dropdown Fix --- */
+        /* --- User Profile --- */
         .user-profile {
             display: flex; align-items: center;
             margin-left: 25px; padding-left: 25px;
@@ -99,29 +92,22 @@
             font-weight: bold; margin-right: 10px; font-size: 1em;
             overflow: hidden;
         }
-        .user-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
         .user-name { font-weight: 600; display: block; }
         .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
 
-        /* Dropdown Menu & Bridge Fix */
+        /* Dropdown */
         .profile-dropdown {
             display: none; position: absolute;
             top: 100%; right: 0;
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border-radius: 5px; min-width: 180px;
-            overflow: visible;
             margin-top: 10px; z-index: 1001;
         }
-
-        .profile-dropdown::before {
-            content: ""; position: absolute;
-            top: -15px; left: 0; width: 100%; height: 15px;
-            background: transparent;
-        }
-
+        .profile-dropdown::before { content: ""; position: absolute; top: -15px; left: 0; width: 100%; height: 15px; background: transparent; }
         .user-profile:hover .profile-dropdown { display: block; }
 
         .profile-dropdown a {
@@ -130,11 +116,7 @@
             transition: background 0.3s; border-bottom: 1px solid #eee;
             display: flex; align-items: center; gap: 10px;
         }
-
-        .profile-dropdown a:hover {
-            background-color: var(--background-light);
-            color: var(--primary-orange);
-        }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
         /* --- 3. Contact Section --- */
         .contact-section { padding: 60px 0; text-align: center; min-height: 70vh; }
@@ -157,7 +139,6 @@
             text-align: left;
         }
 
-        /* Left Side (Image & Info) */
         .contact-image-box { flex: 1; min-width: 300px; text-align: center; }
 
         .contact-thumb {
@@ -166,16 +147,12 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: transform 0.3s, border-color 0.3s;
         }
-
-        .contact-thumb:hover {
-            transform: scale(1.02); border-color: var(--primary-orange);
-        }
+        .contact-thumb:hover { transform: scale(1.02); border-color: var(--primary-orange); }
 
         .contact-info-text { margin-top: 20px; color: #546E7A; font-size: 0.95em; }
         .contact-info-text p { margin: 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .contact-info-text i { color: var(--primary-orange); }
 
-        /* Right Side (Form) */
         .contact-form-box { flex: 1; min-width: 300px; }
         .contact-form-box h3 { color: var(--secondary-dark); margin-top: 0; margin-bottom: 20px; font-weight: 700; }
 
@@ -189,10 +166,8 @@
             font-family: inherit; transition: 0.3s;
             box-sizing: border-box;
         }
-
         .form-control:focus { outline: none; border-color: var(--primary-orange); }
 
-        /* Button */
         .btn-submit {
             background-color: var(--primary-orange);
             color: white; padding: 12px 30px;
@@ -202,9 +177,8 @@
             width: 100%; display: flex;
             align-items: center; justify-content: center; gap: 10px;
         }
-
         .btn-submit:hover { background-color: var(--secondary-dark); transform: translateY(-2px); }
-        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; transform: none; }
+        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
 
         /* --- 4. ഫൂട്ടർ --- */
         footer {
@@ -212,9 +186,7 @@
             color: var(--light-text); padding: 40px 0;
             text-align: center; font-size: 0.9em; margin-top: 60px;
         }
-        .footer-links a {
-            color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s;
-        }
+        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
         .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 
         @media (max-width: 768px) {
@@ -235,12 +207,10 @@
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
                 <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a href="contact.html" class="nav-item active" style="color: var(--outline-color); border-bottom: 2px solid var(--outline-color);"><i class="fas fa-envelope"></i> CONTACT US</a>
+                <a href="contact.html" class="nav-item active"><i class="fas fa-envelope"></i> CONTACT US</a>
 
                 <div class="user-profile" id="profile-section">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                     <div class="user-info">
                         <span class="user-name" id="display-name">Guest</span>
                         <span class="user-role">Member</span>
@@ -258,10 +228,7 @@
 
     <section class="contact-section">
         <div class="container">
-            <h1>ഞങ്ങളെ ബന്ധപ്പെടുക 
-
-[Image of Contact Us]
-</h1>
+            <h1>ഞങ്ങളെ ബന്ധപ്പെടുക</h1>
             
             <div class="contact-card">
                 <div class="contact-image-box">
@@ -277,8 +244,9 @@
                 <div class="contact-form-box">
                     <h3>സന്ദേശങ്ങൾ അയക്കൂ</h3>
                     
-                    <form id="contactForm">
+                    <form id="contactForm" method="POST">
                         <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Library Inquiry">
                         
                         <div class="form-group">
                             <label for="name">പേര്</label>
@@ -311,13 +279,6 @@
         </div>
     </footer>
 
-    
-    
-    
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
-    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
@@ -336,8 +297,6 @@
                 const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
                 if(nameDisplay) nameDisplay.textContent = displayName;
                 if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
-
-                setupHistoryOnly(user.uid);
             }
         });
 
@@ -348,48 +307,61 @@
                 signOut(auth).then(() => { window.location.href = "index.html"; }); 
             });
         }
-
-        window.setupHistoryOnly = function(uid) {
-            const buttons = document.querySelectorAll(".overlay-btn");
-            buttons.forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-                
-                newBtn.addEventListener("click", function(e) {
-                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
-                    const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href'); // read.html link
-                    
-                    if (card) {
-                        const title = card.querySelector('.book-title').innerText;
-                        const image = card.querySelector('.book-cover').src;
-                        const date = new Date().toLocaleDateString('ml-IN');
-                        const key = 'history_' + uid;
-                        let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title);
-                        history.unshift({ title, image, url: linkUrl, date });
-                        if (history.length > 50) history.pop();
-                        localStorage.setItem(key, JSON.stringify(history));
-                    }
-                });
-            });
-        };
     </script>
+
     <script>
-        function toggleProfileMenu() { 
-            var dropdown = document.querySelector(".profile-dropdown"); 
-            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
+        // Profile Dropdown Toggle
+        const profileSection = document.getElementById('profile-section');
+        if(profileSection){
+            profileSection.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const dropdown = this.querySelector('.profile-dropdown');
+                if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            });
         }
+        
         window.onclick = function(event) {
             if (!event.target.closest('.user-profile')) {
                 var dropdowns = document.getElementsByClassName("profile-dropdown");
                 for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
             }
         }
-        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+
+        // FormSubmit Logic (with AJAX for Popup message)
+        const contactForm = document.getElementById('contactForm');
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const btn = document.getElementById('submitBtn');
+                const originalBtnText = btn.innerHTML;
+                
+                // Button Loading State
+                btn.innerHTML = 'അയക്കുന്നു... <i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+
+                const formData = new FormData(this);
+
+                // Use FormSubmit AJAX Endpoint
+                fetch("https://formsubmit.co/ajax/cplibrarycp@gmail.com", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("നന്ദി! നിങ്ങളുടെ സന്ദേശം വിജയകരമായി അയച്ചു."); 
+                    contactForm.reset(); // Clear the form
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("ക്ഷമിക്കണം, സന്ദേശം അയക്കാൻ സാധിച്ചില്ല. വീണ്ടും ശ്രമിക്കുക.");
+                })
+                .finally(() => {
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                });
+            });
+        }
     </script>
 </body>
 </html>
-
-
-
