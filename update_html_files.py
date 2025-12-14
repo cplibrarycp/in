@@ -1,122 +1,13 @@
-<!DOCTYPE html>
-<html lang="ml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>വായനശാല | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary-orange: #00897B;
-            --secondary-dark: #004D40;
-        }
+import os
+import re
 
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #202124;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-        }
+# ================= സെറ്റിംഗ്സ് =================
+# നിങ്ങളുടെ HTML ഫയലുകൾ ഉള്ള ഫോൾഡർ പാത്ത് ഇവിടെ നൽകുക
+target_folder = r"L:\test" 
+# ============================================
 
-        /* --- ടോപ്പ് ബാർ --- */
-        .top-bar {
-            height: 50px;
-            background: var(--secondary-dark);
-            color: white;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            z-index: 10;
-        }
-
-        .back-btn {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-        
-        .back-btn:hover {
-            color: #ccc;
-        }
-
-        .logo-text {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-
-        /* --- PDF കണ്ടെയ്നർ --- */
-        .pdf-container {
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            position: relative; /* ഇത് പ്രധാനം */
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
-        /* --- Pop-out ബട്ടൺ ബ്ലോക്കർ (TRICK) --- */
-        .popout-blocker {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 60px;  /* ബട്ടന്റെ ഏകദേശ വീതി */
-            height: 60px; /* ബട്ടന്റെ ഏകദേശ ഉയരം */
-            background: transparent; /* സുതാര്യം (കാണില്ല) */
-            z-index: 20; /* iframe-ന് മുകളിൽ */
-            cursor: default;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div class="top-bar">
-        <a href="javascript:history.back()" class="back-btn">
-            <i class="fas fa-arrow-left"></i> തിരികെ
-        </a>
-        <span class="logo-text">THRIPUDI READ MODE</span>
-    </div>
-
-    <div class="pdf-container">
-        <iframe id="pdf-frame" src="" allow="autoplay"></iframe>
-        
-        <div class="popout-blocker" title="Pop-out disabled"></div>
-    </div>
-
-    <script>
-        // URL-ൽ നിന്ന് ഫയൽ ID എടുക്കുന്നു
-        const urlParams = new URLSearchParams(window.location.search);
-        const fileId = urlParams.get('id');
-
-        if (!fileId) {
-            alert("പുസ്തകം കണ്ടെത്തിയില്ല!");
-            window.location.href = 'dashboard.html';
-        } else {
-            // Preview URL
-            const driveUrl = `https://drive.google.com/file/d/${fileId}/preview`;
-            document.getElementById('pdf-frame').src = driveUrl;
-        }
-    </script>
-
-
-    
+# പുതിയ ജാവാസ്ക്രിപ്റ്റ് & HTML (Full Page PDF + Name Fix)
+NEW_CONTENT = """
     <div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; flex-direction:column;">
         <div style="background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
             <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> Reading Mode</span>
@@ -259,6 +150,54 @@
     </script>
 </body>
 </html>
+"""
 
+def update_html_files():
+    print(f"Scanning folder: {target_folder}...")
+    
+    count = 0
+    for root, dirs, files in os.walk(target_folder):
+        for file in files:
+            if file.lower().endswith(".html"):
+                # ഈ ഫയലുകളെ ഒഴിവാക്കുന്നു (കാരണം ഇവയ്ക്ക് വേറെ ലോജിക് ആണ്)
+                if file.lower() in ["index.html", "history.html", "profile.html", "register.html", "dashboard.html"]:
+                    print(f"Skipping core file: {file}")
+                    continue
 
-</html>
+                file_path = os.path.join(root, file)
+                print(f"Updating: {file}")
+
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+
+                    # പഴയ സ്ക്രിപ്റ്റുകൾ കണ്ടെത്തി നീക്കം ചെയ്ത് പുതിയത് ചേർക്കുന്നു
+                    # ഇത് <footer> കഴിഞ്ഞ് വരുന്ന എല്ലാ സ്ക്രിപ്റ്റുകളെയും മാറ്റും
+                    
+                    pattern = r'(?s)<div id="pdfModal".*?</html>|(?s)<script type="module">.*?</html>'
+                    
+                    # സ്ക്രിപ്റ്റ് ഉണ്ടെങ്കിൽ അത് റീപ്ലേസ് ചെയ്യുന്നു
+                    if re.search(pattern, content):
+                        new_content = re.sub(pattern, NEW_CONTENT, content)
+                    else:
+                        # സ്ക്രിപ്റ്റ് കണ്ടില്ലെങ്കിൽ ബോഡി ക്ലോസ് ചെയ്യുന്നതിന് തൊട്ടുമുൻപ് ചേർക്കുന്നു
+                        new_content = content.replace("</body>", NEW_CONTENT.replace("</body>\n</html>", "") + "</body>")
+                        new_content = new_content + "\n</html>"
+                        
+                    with open(file_path, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                    
+                    count += 1
+                    print(f"  [Success] Updated {file}")
+
+                except Exception as e:
+                    print(f"  [Error] Failed to update {file}: {e}")
+
+    print("-" * 30)
+    print(f"Completed! Total {count} book pages updated.")
+
+if __name__ == "__main__":
+    if os.path.exists(target_folder):
+        update_html_files()
+    else:
+        print("Error: നൽകിയ ഫോൾഡർ പാത്ത് നിലവിലില്ല.")

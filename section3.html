@@ -28,8 +28,38 @@
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
         .nav-links { display: flex; align-items: center; }
-        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
-        .nav-links a.nav-item:hover { color: var(--outline-color); }
+        
+        /* --- Updated Header Button: Solid Box Style --- */
+        
+        /* --- Updated Header Button: Solid Box Style --- */
+        
+        /* --- Updated Header Button: Solid Box Style --- */
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 15px;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            
+            /* Box Shape */
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3); /* തെളിഞ്ഞ ബോർഡർ */
+            border-radius: 4px; /* അറ്റം ചെറുതായി വളയാൻ */
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-links a.nav-item:hover {
+            background-color: #ffffff; /* ഹോവർ ചെയ്യുമ്പോൾ വെളുത്ത നിറം */
+            color: var(--secondary-dark); /* അക്ഷരം ഡാർക്ക് ഗ്രീൻ ആകുന്നു */
+            border-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: translateY(-2px); /* ബട്ടൺ പൊങ്ങുന്നു */
+        }
+
+
+
         
         /* --- User Profile Section (Updated) --- */
         .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
@@ -1159,66 +1189,86 @@
         </div>
     </footer>
 
+    
+    
+    
+        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
+    </div>
+
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-        
+
         const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        
         const app = initializeApp(firebaseConfig); 
         const auth = getAuth(app);
-        
-        // Auth State & Profile Image Logic
-        onAuthStateChanged(auth, (user) => {
-            const nameDisplay = document.getElementById('display-name'); 
-            const avatarDiv = document.getElementById('userAvatar'); // avatar Div എടുക്കുന്നു
-            
+
+        onAuthStateChanged(auth, async (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+
             if (user) {
-                // പേര് സെറ്റ് ചെയ്യുന്നു
-                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
-                nameDisplay.textContent = displayName;
-                
-                // ഫോട്ടോ സെറ്റ് ചെയ്യുന്നു (ഇതാണ് പുതിയ മാറ്റം)
-                if (user.photoURL) { 
-                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`; 
-                }
-            } else {
-                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ പേജ് കാണാൻ അനുവദിക്കരുത് (Optional Security)
-                // window.location.href = "index.html";
+                try { await user.reload(); } catch(e) {}
+                const currentUser = auth.currentUser;
+                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
+                if(nameDisplay) nameDisplay.textContent = displayName;
+                if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
+
+                setupHistoryOnly(user.uid);
             }
         });
-        
-        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
-    </script>
 
-    <script>
-        // Dropdown Logic
-        function toggleProfileMenu() {
-            var dropdown = document.getElementById("profileDropdown");
-            dropdown.classList.toggle("show");
+        const logoutLink = document.getElementById('logout-link');
+        if(logoutLink) {
+            logoutLink.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                signOut(auth).then(() => { window.location.href = "index.html"; }); 
+            });
         }
-        
+
+        window.setupHistoryOnly = function(uid) {
+            const buttons = document.querySelectorAll(".overlay-btn");
+            buttons.forEach(btn => {
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                newBtn.addEventListener("click", function(e) {
+                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
+                    const card = this.closest('.book-card');
+                    const linkUrl = this.getAttribute('href'); // read.html link
+                    
+                    if (card) {
+                        const title = card.querySelector('.book-title').innerText;
+                        const image = card.querySelector('.book-cover').src;
+                        const date = new Date().toLocaleDateString('ml-IN');
+                        const key = 'history_' + uid;
+                        let history = JSON.parse(localStorage.getItem(key)) || [];
+                        history = history.filter(item => item.title !== title);
+                        history.unshift({ title, image, url: linkUrl, date });
+                        if (history.length > 50) history.pop();
+                        localStorage.setItem(key, JSON.stringify(history));
+                    }
+                });
+            });
+        };
+    </script>
+    <script>
+        function toggleProfileMenu() { 
+            var dropdown = document.querySelector(".profile-dropdown"); 
+            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
+        }
         window.onclick = function(event) {
             if (!event.target.closest('.user-profile')) {
                 var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
+                for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
             }
         }
-
-        function searchBooks() {
-            var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase();
-            var cards = document.getElementsByClassName('book-card');
-            for (var i = 0; i < cards.length; i++) {
-                var title = cards[i].getElementsByClassName("book-title")[0];
-                if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
-            }
-        }
+        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
 </body>
 </html>
+
+
+
   

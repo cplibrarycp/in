@@ -28,8 +28,35 @@
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
         .nav-links { display: flex; align-items: center; }
-        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
-        .nav-links a.nav-item:hover { color: var(--outline-color); }
+        
+        /* --- Updated Header Button: Solid Box Style --- */
+        
+        /* --- Updated Header Button: Solid Box Style --- */
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 15px;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            
+            /* Box Shape */
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3); /* തെളിഞ്ഞ ബോർഡർ */
+            border-radius: 4px; /* അറ്റം ചെറുതായി വളയാൻ */
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-links a.nav-item:hover {
+            background-color: #ffffff; /* ഹോവർ ചെയ്യുമ്പോൾ വെളുത്ത നിറം */
+            color: var(--secondary-dark); /* അക്ഷരം ഡാർക്ക് ഗ്രീൻ ആകുന്നു */
+            border-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: translateY(-2px); /* ബട്ടൺ പൊങ്ങുന്നു */
+        }
+
+
         
         /* --- User Profile Section (Updated) --- */
         .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
@@ -1490,16 +1517,11 @@
     </footer>
 
     
-    <div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; flex-direction:column;">
-        <div style="background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
-            <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> Reading Mode</span>
-            <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
-                <i class="fas fa-times"></i> Close
-            </button>
-        </div>
+    
         <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
     </div>
 
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
@@ -1513,34 +1535,13 @@
             const avatarDiv = document.getElementById('userAvatar');
 
             if (user) {
-                // --- 1. USER NAME SYNC FIX ---
-                // പേജ് ലോഡ് ആകുമ്പോൾ തന്നെ വിവരങ്ങൾ നിർബന്ധമായും പുതുക്കുന്നു
-                try { 
-                    await user.reload(); 
-                } catch(e) { 
-                    console.log("Auto-reload error, using cached data"); 
-                }
-                
-                // ഫയർബേസിൽ നിന്ന് ഏറ്റവും പുതിയ വിവരം എടുക്കുന്നു
-                const currentUser = auth.currentUser; 
-                
-                // പേര് ഡിസ്പ്ലേ ചെയ്യുന്നു
+                try { await user.reload(); } catch(e) {}
+                const currentUser = auth.currentUser;
                 const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
                 if(nameDisplay) nameDisplay.textContent = displayName;
-                
-                // ഫോട്ടോ ഡിസ്പ്ലേ ചെയ്യുന്നു
-                if (currentUser.photoURL && avatarDiv) {
-                    avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
-                }
+                if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
 
-                // --- 2. SETUP CLICKS ---
-                setupInteractions(user.uid);
-
-            } else {
-                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ ഇൻഡക്സ് പേജിലേക്ക്
-                if (!window.location.pathname.includes("index.html")) {
-                     window.location.href = "index.html";
-                }
+                setupHistoryOnly(user.uid);
             }
         });
 
@@ -1552,85 +1553,47 @@
             });
         }
 
-        // --- GLOBAL FUNCTIONS ---
-        window.setupInteractions = function(uid) {
+        window.setupHistoryOnly = function(uid) {
             const buttons = document.querySelectorAll(".overlay-btn");
             buttons.forEach(btn => {
-                // പഴയ ഇവന്റുകൾ നീക്കം ചെയ്ത് പുതിയത് ചേർക്കുന്നു
                 const newBtn = btn.cloneNode(true);
                 btn.parentNode.replaceChild(newBtn, btn);
                 
                 newBtn.addEventListener("click", function(e) {
-                    e.preventDefault(); // പുതിയ ടാബിൽ തുറക്കുന്നത് തടയുന്നു
-                    
+                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
                     const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href');
+                    const linkUrl = this.getAttribute('href'); // read.html link
                     
-                    // History Saving
                     if (card) {
                         const title = card.querySelector('.book-title').innerText;
                         const image = card.querySelector('.book-cover').src;
                         const date = new Date().toLocaleDateString('ml-IN');
-                        
                         const key = 'history_' + uid;
                         let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title); // Remove duplicate
+                        history = history.filter(item => item.title !== title);
                         history.unshift({ title, image, url: linkUrl, date });
                         if (history.length > 50) history.pop();
                         localStorage.setItem(key, JSON.stringify(history));
                     }
-
-                    // Open Full Page PDF
-                    openPdfModal(linkUrl);
                 });
             });
         };
     </script>
-
     <script>
-        // --- FULL PAGE PDF LOGIC ---
-        function openPdfModal(url) {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            // Drive Link Conversion (Preview Mode)
-            let embedUrl = url;
-            if(url.includes("view") || url.includes("preview")) {
-                embedUrl = url.replace(/\/view.*/, "/preview").replace(/\/preview.*/, "/preview");
-            }
-            
-            frame.src = embedUrl;
-            modal.style.display = "flex"; // Flex ഉപയോഗിച്ചാണ് ഫുൾ പേജ് സെറ്റ് ചെയ്യുന്നത്
-            document.body.style.overflow = "hidden"; // പിന്നിലെ പേജ് സ്ക്രോൾ ആവാതിരിക്കാൻ
-        }
-
-        function closePdfModal() {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            modal.style.display = "none";
-            frame.src = ""; 
-            document.body.style.overflow = "auto"; // സ്ക്രോൾ തിരികെ കൊണ്ടുവരുന്നു
-        }
-
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
         }
-        
-        // ക്ലിക്ക് ഔട്ട്സൈഡ് (Dropdown Close)
         window.onclick = function(event) {
             if (!event.target.closest('.user-profile')) {
                 var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    dropdowns[i].style.display = "none";
-                }
+                for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
             }
         }
-        
         function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
 </body>
 </html>
+
 
   
