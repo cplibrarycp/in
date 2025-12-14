@@ -44,27 +44,25 @@
         .nav-links { display: flex; align-items: center; }
        /* --- New Header Button Style --- */
         /* --- New Header Button Style --- */
+        /* --- Option 2: Solid Box Button --- */
         .nav-links a.nav-item {
             color: var(--light-text);
             margin-left: 15px;
-            font-weight: 500;
-            font-size: 0.9em;
+            font-weight: 600;
+            font-size: 0.85em;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            
-            /* Button Shape */
-            padding: 8px 20px; /* ഉള്ളിൽ സ്ഥലം */
-            border-radius: 25px; /* വട്ടത്തിൽ വരാൻ */
-            transition: all 0.3s ease; /* സ്മൂത്ത് ആനിമേഷൻ */
-            border: 1px solid transparent; /* ബോർഡർ ലുക്ക് */
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3); /* നേരിയ ബോർഡർ */
+            border-radius: 4px; /* അറ്റം ചെറുതായി വളയാൻ */
+            transition: all 0.3s ease;
         }
 
         .nav-links a.nav-item:hover {
-            background-color: rgba(255, 255, 255, 0.15); /* മൗസ് വെക്കുമ്പോൾ ഇളം നിറം */
-            border-color: rgba(255, 255, 255, 0.3); /* ബോർഡർ തെളിയുന്നു */
-            color: #ffffff;
-            transform: translateY(-2px); /* ബട്ടൺ അല്പം പൊങ്ങുന്നു */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* നിഴൽ വരുന്നു */
+            background-color: #ffffff; /* മൗസ് വെക്കുമ്പോൾ വെളുത്ത നിറം */
+            color: var(--secondary-dark); /* അക്ഷരം ഡാർക്ക് ആകുന്നു */
+            border-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
         }
         
         /* Active Link Style (Optional - if you want highlight active page) */
@@ -1659,6 +1657,7 @@
 
 
   
+
 
 
 
