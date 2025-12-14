@@ -1,0 +1,1264 @@
+
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Marathi Books | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- Themes --- */
+        :root {
+           --primary-orange: #00897B; /* Teal */
+           --secondary-dark: #004D40; /* Dark Green */
+           --background-light: #E0F2F1;
+           --text-color: #263238;
+           --light-text: #FFFFFF;
+           --card-bg: #FFFFFF;
+           --outline-color: #B2DFDB; 
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; }
+
+        /* --- Header --- */
+        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+        
+        /* --- User Profile Section (Updated) --- */
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        
+        /* വട്ടത്തിലുള്ള പ്രൊഫൈൽ ചിത്രം */
+        .user-avatar { 
+            width: 40px; height: 40px; 
+            background-color: #fff; 
+            color: var(--primary-orange); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: bold; margin-right: 10px; font-size: 1.2em; 
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+        
+        /* Dropdown */
+        .profile-dropdown { display: none; position: absolute; top: 120%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; overflow: hidden; z-index: 1001; }
+        .profile-dropdown.show { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee; }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+        .collection-section { padding: 40px 0; text-align: center; }
+        .collection-section h1 { font-family: 'Poppins', sans-serif; font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+        .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #searchBar { width: 100%; padding: 15px 20px; padding-left: 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
+        #searchBar:focus { border-color: var(--primary-orange); box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+
+        /* --- THICK BORDER CARD DESIGN --- */
+        .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+        .book-card { background: transparent; text-align: center; transition: transform 0.3s; position: relative; z-index: 1; }
+        
+        .image-wrapper {
+            position: relative; width: 100%; height: 320px;
+            border-radius: 10px; overflow: hidden;
+            border: 6px solid var(--outline-color); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+            background-color: white; 
+            transition: all 0.3s ease;
+        }
+
+        .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+
+        .read-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 77, 64, 0.75); opacity: 0;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+        .book-card:hover .book-cover { transform: scale(1.05); }
+        .book-card:hover .read-overlay { opacity: 1; }
+
+        .overlay-btn {
+            background-color: var(--primary-orange); color: white; padding: 12px 25px;
+            border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9em;
+            transform: translateY(20px); transition: all 0.3s ease; border: 2px solid var(--primary-orange);
+        }
+
+        .book-card:hover .overlay-btn { transform: translateY(0); }
+        .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+
+        .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; line-height: 1.4; }
+
+        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: 60px; }
+        .footer-links { margin-top: 15px; }
+        .footer-links a { color: var(--light-text); margin: 0 10px; text-decoration: none; opacity: 0.8; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+        
+        @media (max-width: 900px) { .navbar { flex-direction: column; gap: 15px; } .nav-links { flex-wrap: wrap; justify-content: center; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
+                
+                <div class="user-profile" id="profile-section" onclick="toggleProfileMenu()">
+                   <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                   <div class="user-info">
+                       <span class="user-name" id="display-name">Guest</span>
+                       <span class="user-role">Member</span>
+                   </div>
+                   <div class="profile-dropdown" id="profileDropdown">
+                       <a href="profile.html">Profile Settings</a>
+                       <a href="history.html">Reading History</a>
+                       <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                   </div>
+               </div>
+           </div>
+        </div>
+    </header>
+
+    <section class="collection-section">
+        <div class="container">
+           <h1>Marathi Books</h1>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+               <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
+           </div>
+           
+            <div class="library-container" id="bookList">
+  
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1c1um17t1HqZZ7F2asUOm3nfNcnsP00Ul' alt='wishwakatha 3 vrishali joshi.docx' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=10a0w3EPrFKq8O-Ruk6V8pn1hd67xymsg' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>wishwakatha 3 vrishali joshi.docx</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WUfBxW9BPolMexZkBd3ep8w1z01xuA5s' alt='wishwakatha vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=130IfJftsOgNQgESDA2YaA3Q-3VVhR0O5' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>wishwakatha vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1eR4LSYTCVHNNMXZ4e8E5UifIcm8So_qA' alt='wishwkatha 4 vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=14XuLNnmMfobGluTacTXZURVcpzURt_GN' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>wishwkatha 4 vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1GqhzGwRW7YJLfI7vuP4sxddbARo9M3Ty' alt='vidyarthi swarup sawant' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=15hBgJyH_lFwbYADnYcEW2K4E6aOMN_L2' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>vidyarthi swarup sawant</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1S5XeYCR2QhPRDy2z2m10tyYQq0Lvsl6D' alt='vicharanchi shrimanti rajendra shelke' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=17nPn2LygJvBvgcPY2rococ8HHWdrCfx1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>vicharanchi shrimanti rajendra shelke</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1X2vdexC4GR707rc9USTNj-bS8nJ8kgPg' alt='yashomantra mangesh koli' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1DHIfBrxzz9SG72UGASCORWLIRcegR-TE' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>yashomantra mangesh koli</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gy9KTkEyiUDENQDT20Sounf5vJrmKvVl' alt='tu rajhans ek kiran dashmukhe' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1DhIlbxw7GM9OB_ePbQfTmdZLTdtSc0_B' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>tu rajhans ek kiran dashmukhe</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-YsaGQCuVaMlf1nLVO9-BF_UBWie3pgh' alt='toch chnadrama  nitin more' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Fk9D5B8msJTjzMwKL0xJUKU27bMEyCIA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>toch chnadrama  nitin more</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1R23QL1kAPVQN3C0CBcPpDBsVwrToMREA' alt='srushti bhagyashri patil' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1HZL90FBEVbK1fpOopiDCPvOr8uXXGC7B' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>srushti bhagyashri patil</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1LNKyV0P0tZZUgCwhWANiuBRXB23U913t' alt='spardhapariksha sanjay more' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1LYvVH3NWo_fmSQidJUYrTOCAffmM1eYc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>spardhapariksha sanjay more</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MO6_z0Gyplqhr6xeJw4J6sdNbSPVlQt_' alt='vachadosh sujata chavan' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Q8mztbewejs7BrUPer1sEUst4khIBITT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>vachadosh sujata chavan</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1TrpNwpcyEkrlhe_TCQt7pTCkVeCVGMXP' alt='vyaktikatha nitin more' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1RxtTTkhQu9doxK5khq512NujNdIMOL_p' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>vyaktikatha nitin more</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1fWyixKgpflXj3sIRg6IWSmRYXdAWzDfi' alt='wishwakatha 2 vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ZgfaJtcjAyN-tcBozzgATZehOOVbseIf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>wishwakatha 2 vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1DNa_ftKT1rX22lLcpsM6ZJJZaUEzGgVb' alt='sukhachaa parimal nirmalkumar phadakule' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1eqsRVhzFtZmdJ9jemSjHY2f9BFOJhEUH' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sukhachaa parimal nirmalkumar phadakule</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=148C2KqIsjpdGkLKPutipfoSyEQlheHLF' alt='tolstoy stories vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1hOiRYolyle1Rj58lNM-VNSta3jwL4oXg' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>tolstoy stories vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1h8IHE07FmOqrb7kCH7Spoc7299YUaS1M' alt='time machine kishor bhagwat' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1idoIdmDiIBKoy4YpRI02jXJoTQdJGmxk' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>time machine kishor bhagwat</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1zH0RpMfRD9IUywbjFpY0lxNISFS-tq4X' alt='yashoyutam vande ulhas joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1khgZDLZkefiMm95uode6tlxITjzFd_Kw' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>yashoyutam vande ulhas joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1uQg3gd6Ru3-C-LiOGdKwWmTOiaH-wDjy' alt='tu ahes mhanun  bhagyashree patil' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1qLvlP8dTFaGLpjopgK5KR_xVlTHbRKCk' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>tu ahes mhanun  bhagyashree patil</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1JkTr-ZDsyw78KNxuAxKsAEg7_Ke17cs-' alt='will sujata chavan' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1vsc3_SMSaQ3ho3BWRd6CYx1WDwsJ4E32' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>will sujata chavan</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=15W0eid-dPztCIKErnUjqNf0s-6gg0Z9c' alt='yashomandir mangesh koli' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1xMiOrjN384e2w_-QOtjKEsMtRMhhjn4V' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>yashomandir mangesh koli</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1mD2OSDOfld1QdsKs4MeHI78OLmy8RceX' alt='sarv jantu rutina ratnakar mahajan' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1-PBT4OBn3Q7aCgFk0kTFPf-8DC8yGcch' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sarv jantu rutina ratnakar mahajan</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1mgI4hpoJXdB1asfFCl-wZ0upnLMiQTYu' alt='rtiact-marathi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1AyO0fkLWhUxNMOV27iAAA-CwfFUMWvX0' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>rtiact-marathi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ULu-l4bxWy-bbLJdYaP3Rn3qXBqZEXck' alt='ramayan prabhakara phadnis' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1FM7pla4RqSMNtspRNXO44J5YVfHloav0' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ramayan prabhakara phadnis</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1F8__ILB33x2cf0SS20YGq1LK7Sts7xxi' alt='sherlock holmes 6 vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Gp6avNa1jA3r9BIYd4ms2iVDZIMVfgeP' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sherlock holmes 6 vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1xjGhEn1XMJjzCbJM0S4QV7jpqB4pydND' alt='punarbhet anand deshpande' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1MCNu_dNdGWqp_FrLB-piU_m1WDPwU1oI' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>punarbhet anand deshpande</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=13uVSiyOpc5gEL40GJgsBNOy_YTlwr2XQ' alt='rang ekekache nirmalkumar phadakule' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1O_WeU6fREsw-WJB7hIxD8vQT3Y_guTzA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>rang ekekache nirmalkumar phadakule</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1NYLBEO0rGDqWxj0L91joRisbc58n2_Ww' alt='Rich-Dad-Poor-Dad-eBook' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1WYRi9izAJGbkcpGybI7nxjkOm_pniw2H' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Rich-Dad-Poor-Dad-eBook</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1g4pEL1fdAxC_yNGYTOQekDNk1NAX2NR7' alt='passport athavanicha dattatray nikam' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1WZGlPdUf_LOARBPci-j5kZK_f4r0iGA1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>passport athavanicha dattatray nikam</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FjkFveeqXWwcBBkuAPDjFzn7o_3TUrjS' alt='prajaktachi phule shubhangi paseband' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Y9QzhK_X7v3zEm-R_9HQ0fqjH7nuPP7k' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>prajaktachi phule shubhangi paseband</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14VXnrxIDbxCKmA892h0taEC_gnaqA8iB' alt='priy ani apriy nirmalkumar phadakule' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1YTYMkBHFYdewTawQcRVGydReeOvD_uvM' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>priy ani apriy nirmalkumar phadakule</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1JMs3IJ4-vkoB9euvdFQZtcLa0ZC_u3Y0' alt='sanskarmoti rajendra shelke' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1a3gtmoXwJ4O4_2T_FZ7ElF94yPbWxU3R' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sanskarmoti rajendra shelke</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1znCBKc2oO2adtzTHQT16XX1rhZjnJ6nz' alt='sahaan chandan vichare' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1cBj5LoGJjk_SuaF6FPhhVN1jWOdAHTPT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sahaan chandan vichare</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1lhMjY_yZwolePakylxIZB0pM9taCOgxL' alt='rangresha deepa miringkar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ePyiuxtbdkW524PSvBjNQsqfCzY-jsTX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>rangresha deepa miringkar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XUhXX32-gM7GANxBjXjlY-4V1Kowgcv1' alt='shoonyatun suryakade a datar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1eY7ElOCexWDBDHa_69Hq8hYXkqvXm0gj' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>shoonyatun suryakade a datar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Jx8oRSSg5kaF_ZUNypMU3Xurz1Cau1C7' alt='shetavarpg prakash karyekar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1k5Urg0muZtB2M3hVumpqx1XGL49AjwcY' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>shetavarpg prakash karyekar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1DW1vCjrzMkUd2phW6d1Hw41XYtqdvZuR' alt='sherlock 8 vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1m04dk-YrXnfMWI_beulJ3gmINcgUT9vc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>sherlock 8 vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1sD2T9MTG8xEYHL1drO-gdgiMW0LS2Zzl' alt='personal se sawaal pratik mhatre' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1v8zg6-ENpCETxjry9_X-H9OrypgXVHma' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>personal se sawaal pratik mhatre</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1T1c41UqGcJut_UQ_FZyZc0AupcvRfKZH' alt='shetkaryacha asud fule' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1wWBdLhsdVpJuJaieJUIwu9fwUYEdFn3p' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>shetkaryacha asud fule</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_-5kk3X4TkqINTSRRjGTUv-F8TLMD4UT' alt='ras sindhu bharati' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1xLWUSYTq9GkCUAZLfGtSzNyt0IDhOdZF' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ras sindhu bharati</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1IgeFmY1-PlDqB6-Bgb8uyJpb3gAs1gt5' alt='ntm aarti pasarkar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1-2R9rx00xS4paA2qOlTcg2FfXmwIZ42E' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ntm aarti pasarkar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1eg0gqW2a2gBa36jWGDdO0QiN-xtKBnVo' alt='mi kay khau nandini' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=174CLx-OcVY7qf9s2ZyrdU3799MJurNPL' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mi kay khau nandini</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1c6eYYfWXzaePPKS6e_qiEHtBiWIYpp6d' alt='neeti sampadanchi ulhas joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=178dUHrU8Jv1XzKYSl2zzDwMgp4rv4Oci' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>neeti sampadanchi ulhas joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1LrtZA9wCVTw0uqFrFTYwWJnoPNqrch1J' alt='man bolatay shubham tupe' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Acm62dwK47_5qbdGygustu6RQbSDk5RT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>man bolatay shubham tupe</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FY3gjGdyGy6c6q_DHk7RwhxwOltHYgVA' alt='man bolatay shubham tupe 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1DhVYbRsuNK2vi1-0IFiE1Wejb9nirXJH' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>man bolatay shubham tupe 2</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1oEDKEunGoMMDW4SZkBHDqvlHMXXOPjqN' alt='najariya dinanat manohar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1FCy32gJlSop63Kx2fHcxcK4Amx-sUakz' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>najariya dinanat manohar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1t82MgQfLt5vPMu_P4iJSNpdWSWsjB71n' alt='manapakharu nirmalkumar phadakule' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1FZnuN-n6vxG00oRYNinbMQjG3T9sPq2T' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>manapakharu nirmalkumar phadakule</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=156bQd9mV3M5p3PMzTRJZo1AzfeGqhL-0' alt='mission eartha saurabh wagle' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Fi5-HY6yowuVpKQIGTKC5-7gUacDKLsl' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mission eartha saurabh wagle</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_yKPmYkt-xQJ__znBRw__7xt_FqPBC3s' alt='nyay jagdish khandewale' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Jj3cy3VyHOS0RnqT8nPAG2UuSNrkjyWe' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>nyay jagdish khandewale</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1NvM1RumhIkk_HxHnK15ZIHInDTmofbso' alt='mangumfee arun kakatkar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1KMxZVXCRfXF_XyzvgIDgcI17ZoiVwfwS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mangumfee arun kakatkar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Yt3VYq996Hjm33QbT1IPvrjGnrILffSK' alt='mind of mahatma gandhi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1S17gkciFGyifkgf8WWNFQP6kkHuhY5QG' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mind of mahatma gandhi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1KN9Huspo4uyi2ATHs_gE9ahbvG4UFpjD' alt='mrsb 104 years ulhas joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1T2wwl9qJmbiR9T5Uaj68Z5rmgz72uH-J' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mrsb 104 years ulhas joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1PVT4XM2DjFh0t7Gy3wYXnuESZ1P63SdU' alt='mayurshikha chandan vichare' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Wav6yawHSmWrTaHQEx3zOTUXJ6t5Zy8u' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mayurshikha chandan vichare</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WirhQJ7vBAVLZbtIXl3NcQC-fH8n8Dl_' alt='nostalgia prashant dandekar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Y3UX_tF608lkxmXJ2Rrw9fJFOYaX6bSO' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>nostalgia prashant dandekar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=17XA4_uk6xJTFIlQE4fNd9fRnh-uP_kOL' alt='nave jagane sandip shedbale' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1YPycMIYMFbE5_mkfrP4JR6Y9irfeeulc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>nave jagane sandip shedbale</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=10pG1lQLnEdfsFKwWxzaTeeGuyc3ph_yq' alt='nilambit1 dinanath ban' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1_eQjQ0GjhIQs5Jkl573qZd1OXQYmSzry' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>nilambit1 dinanath ban</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rZC2J2jE3wCiRwJSuXMg_c6qgrZR1FCa' alt='manasparshi sangeeta godbole' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gV5FMSJsRV5ViSb0vZc2HhGqbd22pkHN' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>manasparshi sangeeta godbole</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1L0NWSAfSFfNA_aBDvZ-_oh2YozhhbEkg' alt='pali harshada tapase ashok tapase' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gV5dlOcN0v647wIrYSslR_3i_a7BfWbn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>pali harshada tapase ashok tapase</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ARfbZ4XM2G5iyYcn26tZgreQpDcjxnH9' alt='manachi mashagat datta kohinkar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1hXptBR8boPU_0hvMmo6FvPke2oW79Pan' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>manachi mashagat datta kohinkar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WDUbars9iYgus7nIQSe39s20vuRBWYzI' alt='mukti kartik hajare' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1h_ShR66p4bOgDe81Pz__eKcxSqHaN1sv' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mukti kartik hajare</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=13IEwAa0Y7Y_U2jtNifn6UffNcrS6ddip' alt='mala mot havychy e book canvert file singl pages' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1hxnHAKQC8wJOq4KHQVGk92_PGNDU9SJy' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mala mot havychy e book canvert file singl pages</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rLt8XcN1hAeJqt-TwIwtCqFTTUraU0RT' alt='paool padate pudhe ulhas joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jAPcl34UJ-ruRUjBuW1ImOWTtdf6TQcj' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>paool padate pudhe ulhas joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XvqLHES8umUtuIdBHQKZqal4RITkm2G8' alt='manat ala mhanun pankaj ghare' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1s113dv35bhuv1Xs3AbSwHNRoRvglnMgP' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>manat ala mhanun pankaj ghare</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Djg3zc3avTHv8O2aNiNP_5oj6Ix7C7_W' alt='parkinsons  shobhana tirthali' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1xEZmlXq-G4R6AwXMn9yVRZ4LI_ZCXa-_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>parkinsons  shobhana tirthali</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12RMq9SclhHDN5RD-2Y5wbWtjyh5iOTOc' alt='man unlock roshani shinde' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1zLiot3RpBDqiDDiyCzAyiaYsSLiV6j2c' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>man unlock roshani shinde</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1qJQuwPicokL31plW6dDegoyUxapD02HF' alt='manfakeera meenal sabnis' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1zcN2byQTJDwIlHZ3ZRHdMHbLQXIVZBcB' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>manfakeera meenal sabnis</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1UaY_secMKJiK-fCOmprmdofoIDxDlaDI' alt='jagayache kashasathi nirmalkumar phadakule' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=19fOqSd4CXM_U_J1LEfoL99o0Qq5eb69u' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>jagayache kashasathi nirmalkumar phadakule</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1yNBTcmis9AkpbTUZXkChGCOS67nL27ze' alt='kuldeepak nasa yeotikar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1CQvxOjA__z5BzWGgjcpCRlDtyXxG_CBD' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>kuldeepak nasa yeotikar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1eVIohIrA8q7hbUQLC0zNyahnvGM_wfT-' alt='goshti smita gj' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1DGiMyJLvfC2ThGfeE6fE-G4nK_lgiRLw' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>goshti smita gj</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Cr-1Dv6Aj_UmY8SLD6qzAmjT_-GDgzsN' alt='kate ani phule nirmalkumar phadkule' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1GB9-U4kujOp0lNeSRj-q2r_bUAKJCqmM' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>kate ani phule nirmalkumar phadkule</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1G3pLwMEjh7-VZtFebb-tF3Va_8UIZI-9' alt='japani bhasha nandini dhargalkar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Hgp-Nj72to-O893x17hR0_rpK7SOxuMa' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>japani bhasha nandini dhargalkar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=13p1jAFqENZUeUi_1jdYo_4pzOz0TZO8i' alt='lzj pawan sonawane' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Hgu8HF4BVLKrUs13bQTdl6fZBqXfkP7i' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>lzj pawan sonawane</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1cg_V2-WqlIhsHsMOg1VNLTEm4m4o0OKY' alt='himmate marda ulhas joshi ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1InnuwDWQLeagl9GcOk6NNayamm-cuSVh' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>himmate marda ulhas joshi </div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=18O2gphEUY51JnZ0TzfJj8-xgSlEEXT18' alt='mahabharat prabhakar phadnis' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ME3t4ajO4V1daQ9d4sY51EsJpKsCXwpp' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>mahabharat prabhakar phadnis</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1s9uO0B0qzfnz5Y9Ybmx86YxKfFKxvDY3' alt='human programming r' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1NZYXXcZMKZ2BOFzZhHqhEJVt9yrC0VYG' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>human programming r</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1vXXTIv54ngvdKsMG-l2cfi4r541QEQrG' alt='kshan akashkhandke' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1PtbCiNT8g4cuGsB9DS06z5kJ2sDlWMYc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>kshan akashkhandke</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1hXx6iRLxNhU_xwE-geMEQchekjzkVL0W' alt='jpn dr ambedkar' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1SQJSRKjgtRkk2_Jq51ZlQA-DzZn4flPq' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>jpn dr ambedkar</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1NxJiMTgK-UblDyh4QVvxhQWydpcgabjM' alt='kutumb nyayalay sujata chavan' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1_ex8wN4Sn3h6DiVEzeDmI7AE_lBVjYxS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>kutumb nyayalay sujata chavan</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-yQKhLaOi19hnxe-9WceKXNW02ZzBNhs' alt='gavpalan' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1csvOWWl4FiT0VQmgXSCcbWaIZVMFHyyp' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>gavpalan</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=194AriHRKKehoYUszzhkziCHxBg7CR7fO' alt='leacock bh vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1dXzhJL8KKlkfznPhO8jHDv2E-3e-M_lY' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>leacock bh vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1OdpcT5WvD8tg7naMV1b2GV5rIWGnbOZc' alt='jivanmargdarshan' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gQDi9C4Ni7JMj-R6MW_5Fg073QlbUjlO' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>jivanmargdarshan</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FHuyGGGW28TI7OtJwM-TNfHga5WTWk7i' alt='lok tilakpunam sangavi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ieYlzJPTDvzqyeNlGXtBfzWxZVqPzycE' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>lok tilakpunam sangavi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MNWvywXBwg3fWnmiPw3krVbFaYs52yQD' alt='korona chintan vilas koli' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ifQuZgHxRQM-gbZzZDe_FZdqbbYyN1by' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>korona chintan vilas koli</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=13h85wPelHUT3z9qr6OhmyReidp5L0rGB' alt='magic world d nikam' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1scbVDWb-j1qavHV-WLBQmK07dRO8L5I4' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>magic world d nikam</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_R3yDjDhEaQGIsKbBUPLqDbDJsJ43Sli' alt='knta sachin joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1xDa9LSdUNv1BIFF_G6WKroVmoilpCHsI' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>knta sachin joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1r-sGk9FWrCoUivf5qGRFs8uSXTz6ippe' alt='lzj2 pawan sonawane' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1yvhYKae4MT78CXzrWDNblCLPo7GiGfFc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>lzj2 pawan sonawane</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1C4zSVj-uBbQI2E57vKZJbMB2thpFivO6' alt='letters nitin more' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1zAtsc6qIF_4c-nsCj87NmJW2Jw5lZIQ8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>letters nitin more</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1w22XCkWzskVxE78CAj2FzXVhVwbQCC6Q' alt='eck bhagyashri patil' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=12Lxl0U1aZY92rSPa3bKNGdOe2Rxu13-Q' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>eck bhagyashri patil</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12-Xaxc-XapOEY2ViifR2KEXX9O35yGR9' alt='baipanachya goshti 1 swatee pachpande' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1851FhX_6aJ1j_VF7wqpt-hplBlJ_3m0a' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>baipanachya goshti 1 swatee pachpande</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1VPms3ZUyh6RZ8kqESDhsIaxubSlRMebU' alt='anandache dohi anand deshpande' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1IQqnv04os0Ncm4rhTmWJqTqU7MFnqiPc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>anandache dohi anand deshpande</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MfLyRIdVez8zCk2mmTkHU6RQz23h3m2V' alt='dahavi swarup sawant' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1_ipHT1JUU4slCMWnnTfzS_Q1XEatK_IT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>dahavi swarup sawant</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12jfqH0QnfC5Q2_q1cSiN7bSzccHYaJZL' alt='d2k2 ap nm' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1iqdvWkfY6OQ9UrFDtMTtlNYJSG3OCtNY' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>d2k2 ap nm</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1orrL4JAhXHFk4t2N3IwTBxfF9HRnxbgo' alt='agent x suraj gatade' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jiQJCzFPc7AXKB20YLfgZskAYl5xRUyd' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>agent x suraj gatade</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=151rIZi1WQ-OBDxZ-AEKna8ORC1s6pNaV' alt='chekhov stories vrishali joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1mIX8Z6wFqSEK4tBbUPEHA1KS3olpywbR' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>chekhov stories vrishali joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MZimCPp3ZctFXzD9L426kc8JgzTLGEcr' alt='14 02 shouryakatha bhagyashree patil' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1mO3fKcMDMpezPUPHRuXj6qnHtUuMITJi' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>14 02 shouryakatha bhagyashree patil</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1pytkDXTnk6PencCxocilhQuKqVub9bgR' alt='drushtipalyadacha jag kshama phadnis' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1npzbGgk8VFR1xoccGtTqB31wbzFHpowP' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>drushtipalyadacha jag kshama phadnis</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1PMi_oTM3wQOA1rcmQ14EpKJFNwD04o74' alt='baipanachya goshti 2 swatee pachpande' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1v9q_DTpGLSL1XGSXpzmqP6QAeottL0qc' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>baipanachya goshti 2 swatee pachpande</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1zj8YCZ3hNZ0SXoIGsy3-EslwFgln3sIm' alt='amitabh bachan yashraj parkhi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1-3KMOJRym0WO02AjHxzH6sXNF8pMB4tf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>amitabh bachan yashraj parkhi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1NiRM2UE06IoIk5fUK5v9sB-tymWNeWdJ' alt='ajachya jagaat prakash raut' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=11ehJgfUceUUr0McFrp-gv2LXtCSk8ge8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ajachya jagaat prakash raut</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1iPI1KKr6z52yB7cuTOFSVMkr6XDmgvVu' alt='ek haat madaticha' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=14YapSBq7EhxmcbdCKiH3EepkyNCHzsRy' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>ek haat madaticha</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1w2kjv0GGW0LIYrPv4-8-8xfwDJoe4eS7' alt='bhrashtachar nitin more' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=16ti5QFmbw0gBB6xcFlim1FOhvQ4pCohV' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>bhrashtachar nitin more</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1cLgJCLF-VadQi9mQ2tnkj3E0TF8c88nV' alt='arthsankalp sopya bhashet-marathi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1M1ZR0mURgszxjXPjkI4_Iz-Hv4Alb04c' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>arthsankalp sopya bhashet-marathi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1DLd1v1d9Rn3FnW6v0ygBrgvoWoaZGTfK' alt='bodhakathaa ulhas joshi' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1dDz6r0RdSbbGcTGXCXqI_DllALVs-gU3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>bodhakathaa ulhas joshi</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1q1mDi8RL2LeYpdaboJZv2JwEKEVzPrej' alt='balpan sanaha pathan' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gjpdSsNz33YxZnT7tOp1-vy7DUM-ef9h' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>balpan sanaha pathan</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1pzlO6nx2XeNDUvv-accVHFxEjZYcYySi' alt='apoorvarang vidyahs' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1n01EqT0HGsy809kj8akOufV83cj2bUFq' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>apoorvarang vidyahs</div>
+            </div>
+            
+           </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+           <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
+           </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(app);
+        
+        // Auth State & Profile Image Logic
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name'); 
+            const avatarDiv = document.getElementById('userAvatar'); // avatar Div എടുക്കുന്നു
+            
+            if (user) {
+                // പേര് സെറ്റ് ചെയ്യുന്നു
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+                
+                // ഫോട്ടോ സെറ്റ് ചെയ്യുന്നു (ഇതാണ് പുതിയ മാറ്റം)
+                if (user.photoURL) { 
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`; 
+                }
+            } else {
+                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ പേജ് കാണാൻ അനുവദിക്കരുത് (Optional Security)
+                // window.location.href = "index.html";
+            }
+        });
+        
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
+    </script>
+
+    <script>
+        // Dropdown Logic
+        function toggleProfileMenu() {
+            var dropdown = document.getElementById("profileDropdown");
+            dropdown.classList.toggle("show");
+        }
+        
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-profile')) {
+                var dropdowns = document.getElementsByClassName("profile-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function searchBooks() {
+            var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase();
+            var cards = document.getElementsByClassName('book-card');
+            for (var i = 0; i < cards.length; i++) {
+                var title = cards[i].getElementsByClassName("book-title")[0];
+                if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
+            }
+        }
+    </script>
+</body>
+</html>
+  
