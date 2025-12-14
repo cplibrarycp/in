@@ -269,7 +269,7 @@
     </footer>
 
     
-    <script type="module">
+   <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -277,21 +277,31 @@
         const app = initializeApp(firebaseConfig); 
         const auth = getAuth(app);
 
+        // ഗ്ലോബൽ വേരിയബിൾ - ലോഗിൻ ചെയ്ത യൂസറുടെ ഐഡി സൂക്ഷിക്കാൻ
+        let currentUserId = null;
+
         onAuthStateChanged(auth, async (user) => {
             const nameDisplay = document.getElementById('display-name');
             const avatarDiv = document.getElementById('userAvatar');
 
             if (user) {
+                currentUserId = user.uid; // User ID സേവ് ചെയ്യുന്നു
                 try { await user.reload(); } catch(e) {}
                 const currentUser = auth.currentUser;
                 const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
+                
                 if(nameDisplay) nameDisplay.textContent = displayName;
                 if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
 
-                setupHistoryOnly(user.uid);
+                // ലോഗിൻ ചെയ്തു കഴിഞ്ഞാൽ ഉടൻ ഹിസ്റ്ററി ലോഡ് ചെയ്യുന്നു
+                loadHistory(user.uid);
+            } else {
+                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ
+                document.getElementById('historyContainer').innerHTML = '<p class="no-history">ദയവായി ലോഗിൻ ചെയ്യുക.</p>';
             }
         });
 
+        // ലോഗൗട്ട് ചെയ്യാനുള്ള കോഡ്
         const logoutLink = document.getElementById('logout-link');
         if(logoutLink) {
             logoutLink.addEventListener('click', (e) => { 
@@ -300,33 +310,53 @@
             });
         }
 
-        window.setupHistoryOnly = function(uid) {
-            const buttons = document.querySelectorAll(".overlay-btn");
-            buttons.forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-                
-                newBtn.addEventListener("click", function(e) {
-                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
-                    const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href'); // read.html link
-                    
-                    if (card) {
-                        const title = card.querySelector('.book-title').innerText;
-                        const image = card.querySelector('.book-cover').src;
-                        const date = new Date().toLocaleDateString('ml-IN');
-                        const key = 'history_' + uid;
-                        let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title);
-                        history.unshift({ title, image, url: linkUrl, date });
-                        if (history.length > 50) history.pop();
-                        localStorage.setItem(key, JSON.stringify(history));
-                    }
-                });
+        // --- ഹിസ്റ്ററി ലോഡ് ചെയ്യാനുള്ള പുതിയ ഫങ്ക്ഷൻ ---
+        function loadHistory(uid) {
+            const container = document.getElementById('historyContainer');
+            const clearBtn = document.getElementById('clearBtn');
+            const key = 'history_' + uid;
+            
+            // ലോക്കൽ സ്റ്റോറേജിൽ നിന്ന് ഡാറ്റ എടുക്കുന്നു
+            const history = JSON.parse(localStorage.getItem(key)) || [];
+
+            container.innerHTML = ''; // "ചരിത്രം ലോഡ് ചെയ്യുന്നു" എന്നത് മായ്ക്കുന്നു
+
+            if (history.length === 0) {
+                container.innerHTML = '<p class="no-history">വായനാ ചരിത്രം ഒന്നും ലഭ്യമല്ല.</p>';
+                if(clearBtn) clearBtn.style.display = 'none';
+                return;
+            }
+
+            // ക്ലിയർ ബട്ടൺ കാണിക്കുന്നു
+            if(clearBtn) clearBtn.style.display = 'block';
+
+            // ഓരോ പുസ്തകവും കാർഡായി കാണിക്കുന്നു
+            history.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'history-card';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="history-thumb" onerror="this.src='default-book.png'">
+                    <div class="history-details">
+                        <span class="history-title">${item.title}</span>
+                        <span class="history-date"><i class="fas fa-calendar-alt"></i> ${item.date}</span>
+                        <a href="${item.url}" class="read-link">തുടർന്ന് വായിക്കുക <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                container.appendChild(card);
             });
+        }
+
+        // --- ഹിസ്റ്ററി ക്ലിയർ ചെയ്യാനുള്ള ഫങ്ക്ഷൻ ---
+        window.clearHistory = function() {
+            if (!currentUserId) return;
+            
+            if(confirm("നിങ്ങളുടെ വായനാ ചരിത്രം പൂർണ്ണമായും നീക്കം ചെയ്യട്ടെ?")) {
+                localStorage.removeItem('history_' + currentUserId);
+                loadHistory(currentUserId); // പേജ് റിഫ്രഷ് ചെയ്യാതെ ലിസ്റ്റ് ക്ലിയർ ചെയ്യുന്നു
+            }
         };
+
     </script>
-    <script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -341,4 +371,5 @@
     </script>
 </body>
 </html>
+
 
