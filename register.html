@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>അംഗമാകുക | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- തീം സെറ്റിംഗ്സ് --- */
+        :root {
+            --primary-teal: #00897B;
+            --secondary-dark: #004D40;
+            --text-light: #FFFFFF;
+            --overlay-gradient: linear-gradient(135deg, rgba(0, 77, 64, 0.85) 0%, rgba(0, 137, 123, 0.85) 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0; padding: 0; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background-image: var(--overlay-gradient), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover; background-position: center;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 100%; max-width: 400px;
+            text-align: center; color: white;
+        }
+
+        h2 { margin-bottom: 20px; font-weight: 700; letter-spacing: 1px; }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 0.9em; font-weight: 500; }
+        
+        .input-group input {
+            width: 100%; padding: 12px;
+            border: none; border-radius: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1em; box-sizing: border-box;
+            outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { box-shadow: 0 0 10px rgba(0, 137, 123, 0.5); }
+
+        .btn-register {
+            background-color: var(--primary-teal);
+            color: white; padding: 12px; width: 100%;
+            border: none; border-radius: 5px;
+            font-size: 1.1em; font-weight: 600; cursor: pointer;
+            margin-top: 10px; transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .btn-register:hover { background-color: var(--secondary-dark); transform: translateY(-2px); }
+
+        .login-link { margin-top: 20px; font-size: 0.9em; }
+        .login-link a { color: #ffeb3b; text-decoration: none; font-weight: 600; }
+        .login-link a:hover { text-decoration: underline; }
+
+        #error-msg { color: #ff5252; margin-top: 10px; display: none; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 4px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>പുതിയ അംഗമാകുക</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <label>നിങ്ങളുടെ പേര്</label>
+                <input type="text" id="fullName" required placeholder="Full Name">
+            </div>
+            <div class="input-group">
+                <label>ഇമെയിൽ</label>
+                <input type="email" id="email" required placeholder="example@gmail.com">
+            </div>
+            <div class="input-group">
+                <label>പാസ്‌വേഡ് (കുറഞ്ഞത് 6 അക്ഷരം)</label>
+                <input type="password" id="password" required placeholder="******" minlength="6">
+            </div>
+            
+            <button type="submit" class="btn-register">Register</button>
+            <p id="error-msg"></p>
+        </form>
+
+        <div class="login-link">
+            അക്കൗണ്ട് ഉണ്ടോ? <a href="login.html">ലോഗിൻ ചെയ്യുക</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        // നിങ്ങളുടെ Firebase Config (Thripudi Library)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA",
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const registerForm = document.getElementById('registerForm');
+        const errorMsg = document.getElementById('error-msg');
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            errorMsg.style.display = 'none';
+
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // 1. Create User
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    
+                    // 2. പേര് പ്രൊഫൈലിൽ അപ്ഡേറ്റ് ചെയ്യുന്നു
+                    updateProfile(user, {
+                        displayName: name
+                    }).then(() => {
+                        // 3. വിജയകരം! ഡാഷ്ബോർഡിലേക്ക് പോകുന്നു
+                        alert("രജിസ്ട്രേഷൻ വിജയകരം! സ്വാഗതം " + name);
+                        window.location.href = "dashboard.html";
+                    }).catch((error) => {
+                        console.error("Profile Update Error:", error);
+                        window.location.href = "dashboard.html"; // പേര് വന്നില്ലെങ്കിലും ലോഗിൻ ആക്കും
+                    });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    let message = "രജിസ്ട്രേഷൻ പരാജയപ്പെട്ടു.";
+                    
+                    if (errorCode === 'auth/email-already-in-use') {
+                        message = "ഈ ഇമെയിൽ നിലവിൽ ഉപയോഗത്തിലുണ്ട്.";
+                    } else if (errorCode === 'auth/weak-password') {
+                        message = "പാസ്‌വേഡ് കുറഞ്ഞത് 6 അക്ഷരമെങ്കിലും വേണം.";
+                    } else if (errorCode === 'auth/invalid-email') {
+                        message = "ഇമെയിൽ വിലാസം ശരിയല്ല.";
+                    }
+                    
+                    errorMsg.textContent = message;
+                    errorMsg.style.display = 'block';
+                });
+        });
+    </script>
+
+</body>
+</html>
