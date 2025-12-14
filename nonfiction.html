@@ -1,0 +1,1964 @@
+
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Non Fiction | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- Themes --- */
+        :root {
+           --primary-orange: #00897B; /* Teal */
+           --secondary-dark: #004D40; /* Dark Green */
+           --background-light: #E0F2F1;
+           --text-color: #263238;
+           --light-text: #FFFFFF;
+           --card-bg: #FFFFFF;
+           --outline-color: #B2DFDB; 
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; }
+
+        /* --- Header --- */
+        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
+        
+        /* --- User Profile Section (Updated) --- */
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        
+        /* വട്ടത്തിലുള്ള പ്രൊഫൈൽ ചിത്രം */
+        .user-avatar { 
+            width: 40px; height: 40px; 
+            background-color: #fff; 
+            color: var(--primary-orange); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: bold; margin-right: 10px; font-size: 1.2em; 
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+        
+        /* Dropdown */
+        .profile-dropdown { display: none; position: absolute; top: 120%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; overflow: hidden; z-index: 1001; }
+        .profile-dropdown.show { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee; }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+        .collection-section { padding: 40px 0; text-align: center; }
+        .collection-section h1 { font-family: 'Poppins', sans-serif; font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+        .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #searchBar { width: 100%; padding: 15px 20px; padding-left: 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
+        #searchBar:focus { border-color: var(--primary-orange); box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+
+        /* --- THICK BORDER CARD DESIGN --- */
+        .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+        .book-card { background: transparent; text-align: center; transition: transform 0.3s; position: relative; z-index: 1; }
+        
+        .image-wrapper {
+            position: relative; width: 100%; height: 320px;
+            border-radius: 10px; overflow: hidden;
+            border: 6px solid var(--outline-color); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+            background-color: white; 
+            transition: all 0.3s ease;
+        }
+
+        .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+
+        .read-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 77, 64, 0.75); opacity: 0;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+        .book-card:hover .book-cover { transform: scale(1.05); }
+        .book-card:hover .read-overlay { opacity: 1; }
+
+        .overlay-btn {
+            background-color: var(--primary-orange); color: white; padding: 12px 25px;
+            border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 0.9em;
+            transform: translateY(20px); transition: all 0.3s ease; border: 2px solid var(--primary-orange);
+        }
+
+        .book-card:hover .overlay-btn { transform: translateY(0); }
+        .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+
+        .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; line-height: 1.4; }
+
+        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: 60px; }
+        .footer-links { margin-top: 15px; }
+        .footer-links a { color: var(--light-text); margin: 0 10px; text-decoration: none; opacity: 0.8; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+        
+        @media (max-width: 900px) { .navbar { flex-direction: column; gap: 15px; } .nav-links { flex-wrap: wrap; justify-content: center; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
+                
+                <div class="user-profile" id="profile-section" onclick="toggleProfileMenu()">
+                   <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                   <div class="user-info">
+                       <span class="user-name" id="display-name">Guest</span>
+                       <span class="user-role">Member</span>
+                   </div>
+                   <div class="profile-dropdown" id="profileDropdown">
+                       <a href="profile.html">Profile Settings</a>
+                       <a href="history.html">Reading History</a>
+                       <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                   </div>
+               </div>
+           </div>
+        </div>
+    </header>
+
+    <section class="collection-section">
+        <div class="container">
+           <h1>Non Fiction</h1>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+               <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
+           </div>
+           
+            <div class="library-container" id="bookList">
+  
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1tz8hKbuJ_KbbC1OnOHAb0ppkgfm83Ghd' alt='Clason-RichestManInBabylon(1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=16I904HaM6BKnpOMaI3Fot4oVsH1Npjfk' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Clason-RichestManInBabylon(1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1CRoQou82aZP_PKtuu8WuVCcoNcoLpHua' alt='Think-And-Grow-Rich' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1oe9I1f8RgKr3IphqsFy4I3VMbgVxMJ1F' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Think-And-Grow-Rich</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1eEMq9FuQ3dXHQBZNOWxaeYVkHS5ytmO1' alt='The Millionaire Next Door  The Surprising Secrets of America s Wealthy-Taylor Trade Publishing (2010)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ubZlszpYGzJUyLJnYVG31AewHgA9Fn2o' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Millionaire Next Door  The Surprising Secrets of America s Wealthy-Taylor Trade Publishing (2010)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1hXLQU3agws3fhTXQZOl6RllH4VpQIhx4' alt='Rich Dad Poor Dad ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1xTga0wnFtG3BdvOpJcwttunCLKbszMtC' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Rich Dad Poor Dad ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FYiSwooVvBju1qdEgn7RncXujDyrrD2l' alt='The-Power-of-Habit-Why-We-Do-What-We-Do-and-How-to-Change' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1BSly4QhLIxiyqdmoc297SCfzRzyzWpe8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The-Power-of-Habit-Why-We-Do-What-We-Do-and-How-to-Change</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=15Y78bpHWK0__nilMJHRqVHI_wsiVb1FB' alt='Thinking, Fast and Slow ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1X_F8a_ef2GVU74_Ez-BNEjdhLivOO0oC' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Thinking, Fast and Slow ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ncm1RHtMIu0fHbHOuVf3wzMDemB9hWCs' alt='Man s Search For Meaning ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Z3FBd72PHD3SA_OunWkN6e1b8JKA7fMN' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Man s Search For Meaning ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Jo_Q_wclUgFpjHu9_1mTJO9A2Pd81I15' alt='How-to-change-things-when-change-is-hard-' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1dygf1ND9KpCDjLaI3HN9o1YKNFXHzFVh' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>How-to-change-things-when-change-is-hard-</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1CgI2r0n_OZ0QIGpFWyVc87rc_lSnZGEQ' alt='The Subtle Art of Not Giving a Fck' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1GU4GFJCOeYEDstG1-clE4YEercPXTfMO' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Subtle Art of Not Giving a Fck</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1EUWIZ5f8rPkOfxErI55ST7-eT1-r6ET-' alt='You Are a Badass  How to Stop Doubting Your Greatness and Start Living an Awesome Life ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1JAi-_I6FjUxKn5Qv0SLcLiDaDvG3FEHm' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>You Are a Badass  How to Stop Doubting Your Greatness and Start Living an Awesome Life ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=18Q02qHPwF1ICDfLq6zioXkMrirvZ9jaK' alt='PowerOfPositiveThinking (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Q_SpYupsqu7n22oem2Aia0Qgx9q8St4Y' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>PowerOfPositiveThinking (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1X6F_T-BXDWqYHLRbirI1-8oFSBP56LiD' alt='The-Secret-by-Rhonda-Byrne' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Thd0PQ_lO2Qd65SWHd8XaWeOKoJ1A4ML' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The-Secret-by-Rhonda-Byrne</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-R9Vj48Gik2G59VfXxJVN704XC91_-cU' alt='Think-And-Grow-Rich' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1uY3Q6dvrQgmTQeNAOVzTCxqkOFrEZTBU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Think-And-Grow-Rich</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=13juFoJjM1jZ--G42bsVXuSnApOLk3d36' alt='Rich Dad Poor Dad ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1VtiA4Tqs31RcwyUBK4UEsy0CgKqR05QX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Rich Dad Poor Dad ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=108ur4ZQexZy6n9XgtDWUwe4jjfO2SQ8n' alt='Think-And-Grow-Rich' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1fQITi6LEEg0LBLjNyAWsw2V63SFQ25P4' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Think-And-Grow-Rich</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1g0lQoU_f3g2112pG5EHK_J0DuVhoU0wD' alt='Zero to One  Notes on Startups, or How to Build the Future ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1iWHKGn6RJXDUIEC35ix1q0fOgxvv9V-y' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Zero to One  Notes on Startups, or How to Build the Future ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1DKtm4dn3CH0Yeazxr4zcFmthUf3DIugK' alt='Clason-RichestManInBabylon(1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=16Wv2EZ4o9EfAuTFL0RK2FnDZACErSH6F' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Clason-RichestManInBabylon(1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14caGQNX3AbUyytG8s9_1O4q190qHYc4T' alt='power-subconscious-mind' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1PpSd0DdKfSKuWERekvmfmBze7Zxm28hu' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>power-subconscious-mind</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12Sz4HwGwIqT_tr88viQZZpzFTYlqDRZu' alt='covey stephen - the seven habits of highly effective people (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Foa62f6DJBICvimpiiyK8aSC9eTCSYFl' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>covey stephen - the seven habits of highly effective people (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1stivS2tLDU2tstnF-ybJTYExJcrQemoj' alt='The Subtle Art of Not Giving a Fck' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1MXvFLnxs3SktIBT_iA5TzSctVTG72DHL' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Subtle Art of Not Giving a Fck</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1dDgJ6Ddc5mFfmOyuXIPl7n4tJDVhWAAK' alt='Atomic Habits by James Clear (PDF) ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1deXsmiB-UW-kZ9h1M37XJdOD2RAFxPbw' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Atomic Habits by James Clear (PDF) ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=18OpYG3DH_qtCIWFWYAdYOsq5GRuNwyKQ' alt='Think-And-Grow-Rich' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1p3VrPGLs_aV_2aQw_ASB1PUzLardjHFw' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Think-And-Grow-Rich</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1V0BK1lPVjdu_t7Q8LJ3Rml33ItKkjN1a' alt='The-Secret-by-Rhonda-Byrne' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1veZqSdnHnftdRiQpymHMQ0vEjxAZiEXN' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The-Secret-by-Rhonda-Byrne</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1E8dHG_Hww8diHNW24Dgaw3Ai_296_jFN' alt='you-can-win-8freebooks.net ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1yvekn4_7BOU612NqIb79bXgMnx9Z_5On' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>you-can-win-8freebooks.net </div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1F_TqDxBsJKKayFRx3l8X_cC6IK_UfKe5' alt='Sadhguru[In The Presence of the Master 2] - A Guru Always Takes You for a Ride (2012, Isha Foundation, 9788187910534) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=12Fp5X8DqCLf-NVOIee_x3wfmDc3ITYED' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sadhguru[In The Presence of the Master 2] - A Guru Always Takes You for a Ride (2012, Isha Foundation, 9788187910534) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1V5EhK1w33ulzGACedLqbo27u9nhfCdai' alt='SadhguruEncounter the Enlightened  Sadhguru, A Profound Mystic Of Our Times (2012, BookBaby) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=18O89zEC2wf0ngQ_uO0KuJhp1l74hjkql' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>SadhguruEncounter the Enlightened  Sadhguru, A Profound Mystic Of Our Times (2012, BookBaby) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gKrclZMwobvhmlSkrHAnxqhPBZ2cybBP' alt='SadhguruHimalayan Lust (2009, BookBaby, 9781624884276) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1bamdqlzKnlCWhA1EsK9HRZu12seA2LJR' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>SadhguruHimalayan Lust (2009, BookBaby, 9781624884276) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1NW9M0Qmwg26BdCRZI_2EbbjTqp44nG9J' alt='Sadhguru[In The Presence of the Master 1] - Inspire Your Child Inspire the World (2012, Isha Foundation, 978-81-87910-85-5) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gw-rhYcmqByQZSfn0DDNEexWaaYJTTXQ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sadhguru[In The Presence of the Master 1] - Inspire Your Child Inspire the World (2012, Isha Foundation, 978-81-87910-85-5) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XckZzmYKQK7EdK0gC2pZaHrw7P_G5b7F' alt='Jaggi Vasudev, Sadhguru - Inner Engineering  A Yogi’s Guide to Joy (2016, Random House Publishing Group, 9780812997798) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1hQmMStMbfux2931DygR_9xJ2ZcX-EsBY' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Jaggi Vasudev, Sadhguru - Inner Engineering  A Yogi’s Guide to Joy (2016, Random House Publishing Group, 9780812997798) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gVrEdEbjr7Ez5sq0j-sIla273Yk7Tnu-' alt='Sadguru,   Sadhguru, - Mind is your Business  - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ijuCgZEUCzmGF0EMXGIZiywBsl_CvZ-1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sadguru,   Sadhguru, - Mind is your Business  - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1aKkP0RGDnS76QnR_xGhRGWQUsmweF4vg' alt='Sadhguru[In The Presence of the Master 2] - Inner Management (2012, Isha Foundation, 978-81-87910-55-8) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1olMVaW43phv3CRfQUFbOe6Ijn6tR2sbe' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sadhguru[In The Presence of the Master 2] - Inner Management (2012, Isha Foundation, 978-81-87910-55-8) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=10L_tX03JHocxZravZk0eJNJhfidLcP6D' alt='SadhguruFlowers on the Path (2018, Penguin Ananda, 9780143444732) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1qW2fIadbO5CCoacpn-q2E4JfFqsa8jxF' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>SadhguruFlowers on the Path (2018, Penguin Ananda, 9780143444732) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZHj4w0tg_saHJs4DA6S2aQHxNPztsCNa' alt='Philip Kotler, Nancy Lee - Corporate Social Responsibility  Doing the Most Good for Your Company and.. (2004, Wiley) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=16CxrpXUfL23ltvA25vZBbDS-PqeTxWc6' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler, Nancy Lee - Corporate Social Responsibility  Doing the Most Good for Your Company and.. (2004, Wiley) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1EI5oSDyyCmkfzrM0K4ya9Ib8nicbdHcl' alt='Philip Kotler, Hermawan Kartajaya, Iwan Setiawan - Marketing 4.0  Moving from Traditional to Digital (2016, Wiley) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1AoVggtAZ07x2WjbvCqiVREAmiHtjhFnI' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler, Hermawan Kartajaya, Iwan Setiawan - Marketing 4.0  Moving from Traditional to Digital (2016, Wiley) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-lKn8LJpCgxL6sW_CbC1lWdjVTqaYlPm' alt='Philip Kotler, Nancy R. Lee - Up and Out of Poverty  The Social Marketing Solution (2009, Wharton School Publishing) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1H8WvoQo81D9tNQQ0m3mi91QgRMZr3XyM' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler, Nancy R. Lee - Up and Out of Poverty  The Social Marketing Solution (2009, Wharton School Publishing) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rMNssJPtKa0Vrza2RPluSmqFEV6KBzjA' alt='Philip Kotler, Hermawan Kartajaya, Iwan Setiawan - Marketing 3.0  From Products to Customers to the Human Spirit (2010, Wiley) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Jy4-H9foVpg3tqoZAct9RuMFJdUEMI-e' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler, Hermawan Kartajaya, Iwan Setiawan - Marketing 3.0  From Products to Customers to the Human Spirit (2010, Wiley) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZGn8BrwZv2wkPMZWTUPOcCj_idMxXeZ7' alt='Kotler, Philip  Kotler, Milton - Market Your Way to Growth   8 Ways to Win (2012, Wiley) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1MG_YUODIHEVY4WZWALFlTRvwArDBi2jX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Kotler, Philip  Kotler, Milton - Market Your Way to Growth   8 Ways to Win (2012, Wiley) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1y5t41sFXA_nMDn_lRm38oVCSpsUjwecT' alt='Al Ries, Jack Trout, Philip Kotler - Positioning  The Battle for Your Mind (2001, McGraw-Hill Education) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1UXyZ70MGQPjGKvA18o5uKncItMK9MnrF' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Al Ries, Jack Trout, Philip Kotler - Positioning  The Battle for Your Mind (2001, McGraw-Hill Education) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1HUgEyco21t4xyD4cfvzvj0I_2cjHvHAF' alt='Philip Kotler, John A. Caslione - Chaotics  The Business of Managing and Marketing in the Age of Turbulence (2009) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1aFXgQQalERU2X79tgiu7sTq5t7Ujad7x' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler, John A. Caslione - Chaotics  The Business of Managing and Marketing in the Age of Turbulence (2009) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1669GK6Fdx6sdpk70DYXx2O0SHFhEYaKD' alt='Philip Kotler - Marketing Insights from A to Z  80 Concerns Every Manager Needs to Know (2003, Wiley) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1nFCxuGOFH4fRYRpYBGEJTNY6tfQqy26l' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler - Marketing Insights from A to Z  80 Concerns Every Manager Needs to Know (2003, Wiley) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1lisoubxHM-52qZzRREfmg2eOJXmznYIp' alt='Philip Kotler, Waldemar Pfoertsch, I. Michi - B2B Brand Management (2006, Springer) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1pNnJKIayTJtPvHAx2YSxHxW_snaUqoEH' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler, Waldemar Pfoertsch, I. Michi - B2B Brand Management (2006, Springer) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1EU1b47oXou5950sgiH_XOm5k2BO6eJUY' alt='Philip Kotler, Nancy R. Lee - Marketing in the Public Sector  A Roadmap for Improved Performance (2006, Wharton School Publishing) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1r2NIEZ2uN3Vi8bXnb0-JY8lljYnfdsxM' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler, Nancy R. Lee - Marketing in the Public Sector  A Roadmap for Improved Performance (2006, Wharton School Publishing) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19Q4bCdofv_BZyhk_lxancPJiBNVGnMu8' alt='Philip Kotler - Marketing Management  Millennium Edition (1999, Prentice Hall) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1sz13kSBLMojedLlBWqt5vGn8KZC0ZCGA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler - Marketing Management  Millennium Edition (1999, Prentice Hall) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1SMH8zlckMBx3H9qNtqkbJZ2e33FqoRmr' alt='Philip Kotler - Ten Deadly Marketing Sins  Signs and Solutions (2004, Wiley) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1vX_m27E-032ldjEhYJoYgGugJ_GZiVQX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Philip Kotler - Ten Deadly Marketing Sins  Signs and Solutions (2004, Wiley) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1tWSeRX7XhyFct-4tPOFi-MgV9g7DK41f' alt='meditations' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=18_y93yvrFDpAm-M_6dDDcHML2-DuIjtg' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>meditations</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1swKr4excW_rZN_yhTig7Q1BTlajt4eEl' alt='War and Peace NT' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1DO1FZMXp4gnTP8bBcMU9bv0Ot6lsTZZv' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>War and Peace NT</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1RfyuT1xlfX8CUWD6ZpNWSRNFXdeDDwVI' alt='Cosmos ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1TFfmlO_0ezzI7e1KugmhVOwa44HDp_3D' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Cosmos ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1llQTChCPjoc9wvnieGucfBJkJ1xb0IcE' alt='Rand-Ayn-The-Fountainhead' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ZBB6vQORa3_M2p7tLvBcwqluFizxuxX1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Rand-Ayn-The-Fountainhead</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MhOnOPdn0BjAnxd3EUkrDiCta1EQ78IR' alt='the last lecture by randy pausch' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1dXPWmctI0OPXUA3SDL_K1udAChCap4A6' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>the last lecture by randy pausch</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1i-WRIXwkqIW8meAygVmmfJBgGaqT_TDr' alt='the-alchemist-paulo-coelho' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1o4DV9yk3OFJrfqrU2bbb3e0ImxiHnWCa' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>the-alchemist-paulo-coelho</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1fxHqPQ99fAHGqAJizR2SbdKGjHhRh4l3' alt='Dalal Street investment journal' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=10jzOVtIaY41Nl2X20fKV37XaM0MhwXd6' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Dalal Street investment journal</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1I0PFwu-p4eetmoBn9K4qEcAkgjV36Pd8' alt='HOW TO AVOID LOSS AND EARN CONSISTENTLY IN THE STOCK MARKET ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=13WoQzQchlWsp6plUTMJvQ5QHpBZ2qm9l' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>HOW TO AVOID LOSS AND EARN CONSISTENTLY IN THE STOCK MARKET ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Fs7U6AbhoTscjF_MYZ8uxXRYAYjr-9ZO' alt='Saurabh Mukherjea - Gurus of Chaos  Modern India s Money Masters (2015, Bloomsbury Publishing) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=16nsVJBzrR3dX5JcV4fzKtQzZdeblZAjS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Saurabh Mukherjea - Gurus of Chaos  Modern India s Money Masters (2015, Bloomsbury Publishing) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1xd8HnHhVzBCX_KWV9OYG5a7RnURAHZ65' alt='how-i-made-money-using-the-nicolas-darvas-steve-burns' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=194pFrrptl2tIIh_hiKpBVq1_rCO8TXeg' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>how-i-made-money-using-the-nicolas-darvas-steve-burns</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZfhKNvMpW0LYt6ClD9TFtMbwDdRwSI4P' alt='Santosh Nair - Bulls, Bears and Other Beasts  A Story of the Indian Stock Market (2016, Pan Macmillan India) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ABQgrlmYwlSvMYJyY5QYDLdZgNQlbqVw' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Santosh Nair - Bulls, Bears and Other Beasts  A Story of the Indian Stock Market (2016, Pan Macmillan India) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1OzeagJADBTQXjRNWE43QnwDSsqp0kOpS' alt='Sell It Like Serhant  How to Sell More, Earn More, and Become the Ultimate Sales Machine ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Bf7-jcTfXlIh6RAWq__rcA8IEhX20Nt0' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sell It Like Serhant  How to Sell More, Earn More, and Become the Ultimate Sales Machine ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1JWMPBWTyzJ5m1orLzoonO88lRwgHF6GW' alt='Raghu Palat - Fundamental Analysis for Investors  4th Edition (2016, Vision Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Bi_d_t49Ex7SdBGMMUgc4T9e-Hxj3Dwj' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Raghu Palat - Fundamental Analysis for Investors  4th Edition (2016, Vision Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12wEQhwJa2NgYP8Q-BbnBjBi3rb0IdCvP' alt='The Dhandho Investor ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1E9Iyz4f3AZ0bTAFwcw5I6M3U5BYvLWtT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Dhandho Investor ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ceKLtdaoBffE2oVuSyx8OwXtLvEfH2aU' alt='Essays-of-Warren-Buffett- -Lessons-for-Corporate-America Cunningham' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Jmm2Uo18Jpnv-5l6qHW71GC0NoYeOTXd' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Essays-of-Warren-Buffett- -Lessons-for-Corporate-America Cunningham</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1CrO1yNGGXV2Sx1bPMpcRGTFQtDCLmql1' alt='Learn to Earn  A Beginner s Guide to the Basics of Investing and Business ( PDFDrive )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1PCqhmMLcD_I4SsGe4Vg_AAFJ3Rr__6-P' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Learn to Earn  A Beginner s Guide to the Basics of Investing and Business ( PDFDrive )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZQ8iFo4P5_9KHZZgKLkJgt4X-RX6P_1I' alt='Balkrishna M Sadekar - How to make money trading the Ichimoku System (2016, Vision Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1VFtw6eq27wSg7APiEuMni-9a-ucRnlx8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Balkrishna M Sadekar - How to make money trading the Ichimoku System (2016, Vision Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1PYi0S7ZlFINhx3ngSrtdHM8q-w5E16qS' alt='Brain Hacks for Traders ' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1WsTlxnkDhiBYNY1ziPCoT0_bgb3Xc-px' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Brain Hacks for Traders </div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1n0rLrKJPiHfU6wceetGXaeF-iMWHgVeq' alt='Saurabh Mukherjea - The Unusual Billionaires (2016, Penguin Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1aTvqXYBaUFvWd32ZrBQIH4hk-u3b1aV5' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Saurabh Mukherjea - The Unusual Billionaires (2016, Penguin Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WzbEEbTWWOB2-NIXABFVoZdgJIpYeQoo' alt='Robert G. Hagstrom - The Warren Buffett Way (2013, Wiley) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1eFnjyJgzE0qLsgBl65NekztVewFDULOz' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robert G. Hagstrom - The Warren Buffett Way (2013, Wiley) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZCE91oAZ4K20qyBxVCiVYkmjzGj5_-p_' alt='John J Murphy - Technical Analysis Of The Financial Markets' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gFyvWyxg-kTJXzeRFN3NWJKolGrKBXVp' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>John J Murphy - Technical Analysis Of The Financial Markets</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=18lA1RPkPNmHZBDD_2aOopTkScyH-t0DT' alt='Common-Stocks-and-Uncommon-Profits' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1hH1FpGA9bZnkDjn2vdprwBRlr9W0nqKT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Common-Stocks-and-Uncommon-Profits</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ZdRfMoczJmK-kN3YeTfP4dv6Zi_qErfg' alt='Joel Greenblatt - The Little Book That Beats the Market.pdf ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jKf0sdYzSzUYXoxkC2UItlodthZbeLLB' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Joel Greenblatt - The Little Book That Beats the Market.pdf ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1IxLSjmSlRcGjhJTy4Breyhan7xPhyq-V' alt='One Up On Wall Street  How To Use What You Already Know To Make Money In The Market ( PDFDrive )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1kAUAX_23D9Fi1bPzZ4qe4sQ3jn2H77jK' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>One Up On Wall Street  How To Use What You Already Know To Make Money In The Market ( PDFDrive )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1tiwZ4d9-EtPaUViVFzU34Y_nQaJUFBeL' alt='trading-for-a-living-2014-study-guide' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1pCJkNh7ZR25XOBWEUL7iX_52aTgPLQnQ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>trading-for-a-living-2014-study-guide</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1JtV6JwqVWVmwYlaX1sXarE-TuR5kgyeS' alt='Dalal Street Sep 2020' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1qMdZHBq0eLFdr8_C4w0ktXVa3rzijOZ-' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Dalal Street Sep 2020</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=15VUS3yaNu8I3qE52FMerdiwVAL9DRoRL' alt=' Technical Analysis From A To Z' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1tdHsT11lamD54c3880CVGgtSngCEIG-_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'> Technical Analysis From A To Z</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MLRlniuR3-_Fz2vtmUDmCi1_estI9P5E' alt='Parag Parikh - Stocks to Riches (2005, Tata McGraw-Hill Education) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1wuKM4rFi1w2vjYRnqVLRCL91F0yzq7QE' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Parag Parikh - Stocks to Riches (2005, Tata McGraw-Hill Education) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=15SV2iOcFXnIerzMcU9JbJK5l95KMhrn6' alt='5 6273715276806619385' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=17AcuRhmeN3KgOk6KQrVA0bGQ4d8rsqFf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6273715276806619385</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1L_LUk7SWH9Zd5z5CvcWLR5_XFJh7B7CA' alt='5 6185848363418648896' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1JCdv-OmtPCnmWDusA188UKmDVnnMZ-88' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6185848363418648896</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1z9NPzg-xpTjLAqN6-Dag5KduxM0KO6PV' alt='Ashwani Gujral, Rachana a. Vaidya - How To Make Money in Intraday Trading (2018, Vision Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1SPkiDS3sk4kHOfTSC3XSIu-CzVktm0os' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Ashwani Gujral, Rachana a. Vaidya - How To Make Money in Intraday Trading (2018, Vision Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1NBa2kezGKhijog38nM6oP6XkqqbreMZD' alt='5 6208305544818590246' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1eQ6sdKuM6PWLeW84DlU80BsQk7GdVKMD' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6208305544818590246</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1w0voxVSzFyN7Vka5J2r5Y4cTd8FETv9J' alt='5 6244434109632872751' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1h0xQiOqcAGRitMJjln7nYI_lYsPRlAvZ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6244434109632872751</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1pM_79exZzt3WPiuO0pzwn-lgQu42-33C' alt='4 5922281635100755098' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jEvfSlgbdKTMnCKo8la5Kr8NapPHpy6r' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>4 5922281635100755098</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1QwFS5hHU0P46ybaX6ICAYGH0t24mjUT6' alt='0671891634' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1jYyRJClJH2Nk4987kSDyMLqDlSudSK2R' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>0671891634</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1YU200ZTxgZhRuYAXv5knAlyYwKvCzAME' alt='5 6251328352481706260' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1sf9_dFEbPF9Mb2Sx6ARMyDsugqwT-FKM' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6251328352481706260</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Bp-St0sfWYk_qFjhUZ-hZYyrmcpcqjHi' alt='5 6239862928695099753' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1v_tXopKZDO3AslUtnxh9zqiLSgQzDqJY' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6239862928695099753</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=16uFlKLghaqeAmBEaVMpYha2bdtB-QX6m' alt='1984' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1J4HnzX7f95Q2lSFhvi0zOcF4gKcBgr_e' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>1984</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rK9dVAyZ9h4QIs8LLD_6THSrBXjP9SHd' alt='The+Magic+of+Thinking+Big' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=10VEnEZAs2beFZw_sILIuowACwXgifDfD' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The+Magic+of+Thinking+Big</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1fGpEzfR8YBRMiuL3sr_C1jxAg5qET3tg' alt='The Miracle Morning  The Not-So-Obvious Secret Guaranteed to Transform Your Life ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=13vqP4L2JDUI0iEobBmkude2AJgHX3YC3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Miracle Morning  The Not-So-Obvious Secret Guaranteed to Transform Your Life ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1JB_X6i0q5EHWkIeQJnAgnRIKmRMOOg1o' alt='The Psychology of Selling  Increase Your Sales Faster and Easier Than You Ever Thought Possible ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1CDqx4RPTeTUfOLduIh8Upn3Y3UmJXqZK' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Psychology of Selling  Increase Your Sales Faster and Easier Than You Ever Thought Possible ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WJ2BQylS-00_ipofm6CaoSUB_SF-WNAt' alt='The Compound Effect - Darren hardy ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1CTre4u0JVfxW9U8F_RdmhA0bvVeQRPDB' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Compound Effect - Darren hardy ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1yvgmoAJE-GvgvDsU6NCrtqEc2H6tHIz8' alt='The-One-Thing (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Ii5ARB89tYN6UPfalOfK34W1zlfbQpdJ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The-One-Thing (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1aCFYoH3OakqrAwWZk1aO1OoBpqa5Ieap' alt='Tools of Titans ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1JK5PfvYjAIlKuaBeh5Di_P6XcCz1qYtH' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Tools of Titans ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WAqwiKWeA0oCoZewwLWmLf0bcp2dFpOn' alt='[Cathedral Classics] Sun Tzu - Art Of War (2010, Aziloth Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1U8Bae84sJDNsJiz2K2hY52IO2U2YmuoJ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>[Cathedral Classics] Sun Tzu - Art Of War (2010, Aziloth Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1fRbHZpTNXI1NBuHvK_PdCcx6amLVVfmR' alt='The Intelligent Investor' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1VDNzw2AS1hLnbUvb_Jo-tGc0S6txxc9u' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Intelligent Investor</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1GGSluOIMt3rZlDFypBuNVwYwLL_uY86o' alt='The Hard Thing About Hard Things  Building a Business When There Are No Easy Answers ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1f-d4HUvPTo12st-SERZ-FOSTy32eJoD9' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Hard Thing About Hard Things  Building a Business When There Are No Easy Answers ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-5Nw7HEWdJ4FOx8AwbKIORt_It-Dq0yi' alt='The obstacle is the way ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1kL34B6tmjEOHgOZPMz3-FPIEOKdJ4e6Q' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The obstacle is the way ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1iIJzTFCTCKdCZg8jGkEi_iMoqz9EfW88' alt='Why We Sleep  Unlocking the Power of Sleep and Dreams ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1qREZk3FJrFnohGphxz6Vm9Y-6nXDTqi1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Why We Sleep  Unlocking the Power of Sleep and Dreams ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XFQbRfnCYgrHzOjNhvQ-WDiABMUSE14x' alt='Tribe of Mentors  Short Life Advice from the Best in the World ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1zuy84yu0AGbG6F0D34HWagrvBWb1or-k' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Tribe of Mentors  Short Life Advice from the Best in the World ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19mVCO4YNNlwg2JhwL_5_em7_njjzGDu4' alt='Newport - So good they can t ignore you' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=13lpQL82Ma30dv0H0Sv7IE2N2pxd8kcZW' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Newport - So good they can t ignore you</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gyh0EJnmlrYuhaObgJF2E743d25XsCo-' alt='how to win every argument' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=164z78DCT5EcJGNbIGdqJs3IaxWBlzfpB' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>how to win every argument</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1htPTIekeMRD61na6mcPvPgqYqiofY56a' alt='Learn to Earn  A Beginner s Guide to the Basics of Investing and Business ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=16hxjbOMAWytIIf8tjWNi6RDWLO7tg3TZ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Learn to Earn  A Beginner s Guide to the Basics of Investing and Business ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Y2qUQAEKYmiWw0OE0CpB0FOf4_ekiK39' alt='Jim Kwik - Limitless    Upgrade Your Brain, Learn Anything Faster, and Unlock Your Exceptional Life (2020, Hay Houze) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=17lAt0z9rnHe318XzBbU9c-k_7J3_qJGP' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Jim Kwik - Limitless    Upgrade Your Brain, Learn Anything Faster, and Unlock Your Exceptional Life (2020, Hay Houze) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1O6b5RcHpHhsehFPQeRCSge8TiywqMf0F' alt='Tap Dancing to Work ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=19C0FFCxpG7rSTNFKR8jWRwA97az6Adih' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Tap Dancing to Work ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=18q_N4xJcvsRK013ySYx9v2CQ9LS0QI_d' alt='James Allen - As a Man Thinketh (2007) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1AZN354wcSOuEJom72c__8CbAJwDsOCpH' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>James Allen - As a Man Thinketh (2007) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1HsePE97JY6KSvKxGSIJcWoNvnxsV7v_J' alt='Mihaly-Csikszentmihalyi-Flow1' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1B4BU_TxymhPWKUdvA61C735zaI5pDep7' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Mihaly-Csikszentmihalyi-Flow1</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1LIignTO-2stP0z3N_ZpmzxZyPXSx6A55' alt='Ikigai   the Japanese secret to a long and happy life ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1CsPHg2IAes5HMlfKuYP756x4gKHvBdRS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Ikigai   the Japanese secret to a long and happy life ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=12Ld2ZYjq54GVsYGhF5Hz6ZwMXdIEF_Ta' alt='simon-sinek-start-with-why' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1CvjLn3H8E-4MP2VaaFwKrlfQ5ncymaJ_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>simon-sinek-start-with-why</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XfciwvIu6rHOdSm0zHnAEKQFdhs2PEHr' alt='Never Split the Difference  Negotiating as - Chris Voss' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1KCAUKfvarxHOCB1GdzfvDvnL8LdxrfCJ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Never Split the Difference  Negotiating as - Chris Voss</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19Ze6RJMF0_Ks7REBlKlY1QHR9ucdynW6' alt='Good Vibes, Good Life  How Self-Love Is the Key to Unlocking Your Greatness ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1KTYrg2LtmF5czM5RQ1EePtOfomPWFS1V' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Good Vibes, Good Life  How Self-Love Is the Key to Unlocking Your Greatness ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rMOtEw7VQOR5NXt8UBIGXsN3o5phz1FG' alt='greg-mckeown-essentialism-the-disciplined-pursuit' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1OstCHleqtbHvu-y35jxeXmIClWhWV0-D' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>greg-mckeown-essentialism-the-disciplined-pursuit</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1aBUmE8WhvqN5hJSqd3RT-tM3QM2p6b3O' alt='Good to Great  Why Some Companies Make the Leap...And Others Don t ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1PU-4oHoQxGL4KFc22r8Ccbh31duNsZV9' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Good to Great  Why Some Companies Make the Leap...And Others Don t ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jotJf6c5BsdE_aPAyF2tPOPiG6aa1gi-' alt='The 4-Hour Workweek' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Sm2iVv2lOBqjZWXE0Bj_djo_10td4yCa' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The 4-Hour Workweek</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1akbMIRyIAAJDlLwU3JI7yi_FBZin2do5' alt='McDermott, Bill - Winners Dream ( Simon   Schuster) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1XiWcctbu14xmhoTHvQDr_9iGLaigcsvf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>McDermott, Bill - Winners Dream ( Simon   Schuster) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1DF_MaZLLzoGJODiUcECp-4x-bd2lUEer' alt='Robbins, Anthony - Awaken the Giant Within  - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1crYuGdkSxQg9z6FfQCauTtksiHTo4SHr' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robbins, Anthony - Awaken the Giant Within  - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=11i3HauPfOt0YYuCdG0cuorkOyNiTe3mD' alt='THE BIG  LEAP Conquer  Your  Hidden  Fear  and Take Life to the Next Level GAY HENDRICKS, PH.D. ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1dZ1z6DonTp3qCm8ouClUo3HITWoMYXIy' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>THE BIG  LEAP Conquer  Your  Hidden  Fear  and Take Life to the Next Level GAY HENDRICKS, PH.D. ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1aDXdAmnMgzN7fS7ZLFEM0SeONcVYE1q_' alt='Switch  How To Change Things When Change Is Hard ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1e3US171aXS61lJi4izuA7Z4B9ZGSzN1E' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Switch  How To Change Things When Change Is Hard ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1iqcZa9rwx4jFVDpuonUMOAHcjmR8Qluz' alt='Grit  The Power of Passion and Perseverance(May 3, 2016) ( PDFDrive.com ) (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1fXDwCZ7UIRD5vqu4dGeeMw44OGgW5lvC' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Grit  The Power of Passion and Perseverance(May 3, 2016) ( PDFDrive.com ) (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1lW7YD0R3iEOAWAJFJ2vSxsQV-qed485U' alt='Psycho-Cybernetics ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1lJ4jVS9picgg9pD4M-cDYhYZSRli4ZQq' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Psycho-Cybernetics ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rLaoOHfblbiXu-Sfs4lJytrt6k_bPf2S' alt='Shawn Achor - The Happiness Advantage  The Seven Principles of Positive Psychology That Fuel Success and Performance at Work  - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1lq6Vgj5pcZ6oGq-UMgHvCJFlj87bd0DK' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Shawn Achor - The Happiness Advantage  The Seven Principles of Positive Psychology That Fuel Success and Performance at Work  - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1nKSgWUgWV4ISA62qDrvr4BkW1DcuSCgc' alt='Shoe Dog ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1oFPGDAsjCZ2eD_-EFNqHURdkMfn321cf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Shoe Dog ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Qv3lbvOlT0sjIKISPVpxaT6nk25ZuBd8' alt='Hooked  A Guide to Building Habit-Forming Products ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1qdGvWGVPbkBteDxS1qYuPAiNWfxUNZDn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Hooked  A Guide to Building Habit-Forming Products ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1SL7vB7gNpFQr2NllgHS60a_MB07EhvQ_' alt='How To Talk TO Anyone 92 Little Tricks For Big Success In Relationships' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1qvzdV7-9z1xYND-TG-skKslkMF7gJoKA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>How To Talk TO Anyone 92 Little Tricks For Big Success In Relationships</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Q_Az6m9WC48cRYp34KgfANKMyFSjYQ8U' alt='Mindset  The New Psychology of Success ( PDFDrive.com ) (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1t0zEkuwp8LFWb50sojfA78s8PqH7kDqR' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Mindset  The New Psychology of Success ( PDFDrive.com ) (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1a3wV8bc5G5P5adiZR8moYwdjSTdCeerL' alt='Lee LeFever - The Art of Explanation  Making your Ideas, Products, and Services Easier to Understand (2012, Wiley) - libgen.lc (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1cKdgBcRcPdq0GO1oAT1GFO1twzuPHPvU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Lee LeFever - The Art of Explanation  Making your Ideas, Products, and Services Easier to Understand (2012, Wiley) - libgen.lc (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1g29RX0r3g4o4PEgSme0e3qcWnlER5ZK5' alt='Secret Millionaires Club  Warren Buffett s 26 Secrets to Success in the Business of Life ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1kK3ue5aR4a-CK9OQQB3-G99jVCSNLAyx' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Secret Millionaires Club  Warren Buffett s 26 Secrets to Success in the Business of Life ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1EMTrz0uECHglHA1wvvtJ4a-476tnG3Lz' alt='The 4-Hour Body - The Secrets and Science of Rapid Body Transformation ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1oiifObDWZ3P7xgK9tYBXYVxFLA9YBMu0' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The 4-Hour Body - The Secrets and Science of Rapid Body Transformation ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1C_25i4QloYY6r2gmINOyHwI2w46idbCj' alt='Harari, Yuval Noah - Sapiens  A Brief History of Humankind (2014, Signal, 978-0-7710-3850-1,978-0-7710-3852-5) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1vxSdTK6uGkaiQ0KJyAGrm4oGM6acIojS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Harari, Yuval Noah - Sapiens  A Brief History of Humankind (2014, Signal, 978-0-7710-3850-1,978-0-7710-3852-5) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1xwYJk9u0HUjKprwHtE2D2H5FIjPLXsIt' alt='quiet-the-power-of-introverts-in-a-world-that-cant-stop-talking-susan-cain(1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1yvj_nF-1av7QKOkySRppR_H4OYZT6HOa' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>quiet-the-power-of-introverts-in-a-world-that-cant-stop-talking-susan-cain(1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1GbeVex4iQai49TUaGuxI4jWv9Gyg5KE3' alt='Awaken the Giant Within - A Success Dream ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=156SYZJZ-GRr3JhcSqYIsF784kFVwQ4t7' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Awaken the Giant Within - A Success Dream ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1sGMzgbEhgf4GPapZK3Ry6QNH9N6XrZRq' alt='Gilbert, Elizabeth - Big Magic (2015, Penguin Publishing Group) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=19poN_SNKpU0__ACQNjh_3jg19JljSeWx' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Gilbert, Elizabeth - Big Magic (2015, Penguin Publishing Group) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ffnkBA8lkRkuCD6OcQtWVJDvWSrzi-BR' alt='Everything Is Fucked - Mark Manson' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1KLZ3dOjg1DQUNeFmhGTatVgvBritw_QU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Everything Is Fucked - Mark Manson</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1H8K_IZquX1pGBim3hqBpS8RLNWvtnTzp' alt='Creativity, Inc. ( PDFDrive.com ) (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1KLyicBuSPKXQdSGl-kr8w67Wc1PTEztI' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Creativity, Inc. ( PDFDrive.com ) (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Eg1vJupLu3pCv0HZMaAG9zaKGhrSQssK' alt='Blink by Malcom Gladwell – The Power of Thinking Without Thinking ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1LEibgFKiUS356TRESxdmQQWqYkJo7VRb' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Blink by Malcom Gladwell – The Power of Thinking Without Thinking ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1a_z8bxLxEUIfABd3RD94tr3HUHRQdW1j' alt='Ben Aldrridge - How to Be Comfortable with Being Uncomfortable (2020, Watkins Media) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1M8Abz4K-HsWgTmAFdVgUzkKcPs43zESO' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Ben Aldrridge - How to Be Comfortable with Being Uncomfortable (2020, Watkins Media) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_YIVxKs3jOjPUIpCg2aI3GELefUrpUQB' alt='book-68039' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1NXyWheBHRgRXPB_915yQ2mLSAikKXaV8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>book-68039</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1K706r2xFEhBHl4mY0eTkS8gm1p7RdjxQ' alt='6584522-EckhartTolle-ThePowerOfNow' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1RmVcC2w5adv6b02iMrKaIt4sYL6sSfTU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>6584522-EckhartTolle-ThePowerOfNow</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gVaaZGe8QJtaMlUZUUBgDxZ6A22VzlKm' alt='5 6303024266778509851' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1WClz0ehOlb_urty47mebuPo2M6QsSlV2' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6303024266778509851</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1qXFCkTDMaNYzkc_PWS47J3wbIbwc0alz' alt='Can’t hurt me ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1WEMy2uePzZzE24zbnUtP2gp00xJWAW2L' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Can’t hurt me ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1nL9-O18cBfhHaaJAKKpKPQ30HGPvUM9s' alt='give-and-take' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1aOdBtuNqImJ4lpOMfu-syaUtjqcUquPL' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>give-and-take</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1c4HyLO9hEhPB7z7zBHnr_vaFAI8JiVnG' alt='Fact Fullness Hans Rosling' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gNZgUXogqxmjpmaAHHg_lledctx9g3BL' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Fact Fullness Hans Rosling</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ckz3gcSY5XjHWHKS5mDVAehbJy1DSHMq' alt='Brian Tracy - Speak to Win (pdf)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1hz-rzUZ_OqXKn9IeFMTxXPOMytCafcoT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Brian Tracy - Speak to Win (pdf)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1BVOsGHj4TCzPlsvZ1-PlQ1SSlFPW0Sdz' alt='Ego is the Enenmy ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1k_jiC9MkJhUboArZXTuqKs2Wzg6PyecA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Ego is the Enenmy ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1mHpLlLd0sB6dll4-5V4VvMBRkzaudF4e' alt='Good to Great  Why Some Companies Make the Leap... and Others Don t ( PDFDrive.com ) (1)' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1r3i8Q9VfH6ZLsNhQ_IcFdtGiJwJu_luT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Good to Great  Why Some Companies Make the Leap... and Others Don t ( PDFDrive.com ) (1)</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1UOE3uSD6u5zLVctkMFuOJw5LuZRbkk9T' alt='feel-the-fear-and-do-it-anyway 2' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1yML0fXzoHnWgYE7hlbok7O82YogkVHDT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>feel-the-fear-and-do-it-anyway 2</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Ejk1twAiWgN2RJJWStTTSJaKX8CvoliJ' alt='Download-Becoming-Michelle-Obama' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1zL62zY-aOi38CA9KT9j8TsvrgdTK_iTo' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Download-Becoming-Michelle-Obama</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1F_BNlOVR1WhF9f8G70UAwQxCKuEs03XM' alt='5 6280651769248743736' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1R5mpPX_00d92dCRbEz3eY7jq-JG_tGot' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>5 6280651769248743736</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-aUjgwK8othfGeeZ1qPACLG1-s3vTb4N' alt='1991019 Sell or Be Sold by Grant Cardone' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1isPLioIX9f7523ccbgskuWwShXT-Osti' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>1991019 Sell or Be Sold by Grant Cardone</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1xQjXLLUzMsRs78GjngoL-lsdi9yAv0hB' alt='12 Rules for Life  An Antidote to Chaos ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1lXNvwTDUYYZMmLtuwIQr7XUNyCppvP6k' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>12 Rules for Life  An Antidote to Chaos ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1qVqFbuCmIkdoM9h5ZLEvCsy6IGFmIudO' alt='Leil Lowndes - Talking the Winner s Way  92 Little Tricks for Big Success in Business and Personal Relationships (1999, McGraw-Hill) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=15YkWlG4sPAbjFL66yyMI6vpbNltmHLiN' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Leil Lowndes - Talking the Winner s Way  92 Little Tricks for Big Success in Business and Personal Relationships (1999, McGraw-Hill) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rc3rmzca6svgVyRbrZChcsq7kkRLP518' alt='Leil Lowndes - How to Create Chemistry with Anyone  75 Ways to Spark It Fast—and Make It Last (2013, Da Capo Lifelong Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1HNPrQ9X-wibeCzIIvyfDIGI8cjdxIMX_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Leil Lowndes - How to Create Chemistry with Anyone  75 Ways to Spark It Fast—and Make It Last (2013, Da Capo Lifelong Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MaaVjWpkfIX5fnLiTUH0jLrqydw9AuXx' alt='How To Talk TO Anyone 92 Little Tricks For Big Success In Relationships' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1I_AqyLfNxeEdqlY6Ah29ienQjK9Xrzjn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>How To Talk TO Anyone 92 Little Tricks For Big Success In Relationships</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1TQnw3rIKLgLJXNGqE43DuMm-5KoM4uo-' alt='Leil Lowndes - How to Be a People Magnet   Finding Friends--and Lovers--and Keeping Them for Life (2000, Contemporary Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1f_y52Ryw7BukyPvda55s8tBQI54ww_Yq' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Leil Lowndes - How to Be a People Magnet   Finding Friends--and Lovers--and Keeping Them for Life (2000, Contemporary Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rCop7gNQi-GA5fmG3afrH59FjBR5d_zz' alt='How to Instantly Connect with Anyone 96 All-New Little Tricks for Big Success in Relationships ( PDFDrive )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1g1iJbr9PXZScLCdMkUwrAq2TOayDzL0o' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>How to Instantly Connect with Anyone 96 All-New Little Tricks for Big Success in Relationships ( PDFDrive )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1kbVjDa7dTvVwjXfYDbuNk257ewtx_27I' alt='Lowndes, Leil - How to make anyone fall in love with you - 85 proven techniques for success (1997, HarperCollins Publishers) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1gWvGeVweBAJIay2I8MjnmfvzodpxK4CL' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Lowndes, Leil - How to make anyone fall in love with you - 85 proven techniques for success (1997, HarperCollins Publishers) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1syqngfSi3QtpCvBOU9VFQFaTv25w7u7S' alt='Lowndes, Leil - Goodbye to shy  85 shybusters that work! (2006, McGraw-Hill Education) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1pYQ4Z1IWp5uMPtE2pX3-1fhdos0gOZJp' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Lowndes, Leil - Goodbye to shy  85 shybusters that work! (2006, McGraw-Hill Education) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1sp3n5fiNj7E61JLeuyI2bhMKhKiDjeet' alt='How to Make Anyone Fall in Love with You' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1txTcGarbBENK3bNW-a69bQ4MR8RAU_MK' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>How to Make Anyone Fall in Love with You</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1bn1kF-J9JLfbAOauREwSvsA9qj7YiuLc' alt='[Rich dad] Robert T Kiyosaki - The business of the 21st century (2010, DreamBuilders) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=117pJ5g32-S0Jn8LS39s1hJsOnA22tWgJ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>[Rich dad] Robert T Kiyosaki - The business of the 21st century (2010, DreamBuilders) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=16o969j5sYQe7POVPczf5S8e8WYPTNZ9_' alt='Donald Trump, Robert T. Kiyosaki - Why We Want You to Be Rich  Two Men, One Message (2006, Rich Press) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=167DEby9XiREgMQMoMZmsTKkjLK7dTfDr' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Donald Trump, Robert T. Kiyosaki - Why We Want You to Be Rich  Two Men, One Message (2006, Rich Press) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1SVjgNczt8fAC3bTEF_vflI-4oaIT3dlT' alt='Robert T. Kiyosaki - Managing Your Money  Personal Finance Simplified (2013) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1I6CN2BeYmAOwu1s8_WKXrp_HKCbexx1q' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robert T. Kiyosaki - Managing Your Money  Personal Finance Simplified (2013) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1n0B3HOWL-c9aOsDuh4z9GwBpPRLXHj2U' alt='Robert T. Kiyosaki - How to Buy Your First Investment Property (2014, Plata Publishing) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1QoVn5kVDUzoXwgY5lD-BHAoD6dFBDMgD' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robert T. Kiyosaki - How to Buy Your First Investment Property (2014, Plata Publishing) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1SbbOU30Wj_CYxO4Pf93Q76UIdiFEYYYl' alt='Robert T. Kiyosaki, Sharon L. Lechter - Cashflow Quadrant  Rich Dad s Guide to Financial Freedom   (2000, Warner Books) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Yfm0dL8VGsXR3p6DtLPT-Q_6Zv-wWmpx' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robert T. Kiyosaki, Sharon L. Lechter - Cashflow Quadrant  Rich Dad s Guide to Financial Freedom   (2000, Warner Books) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1brhGuHCDU_mmjaevYWT4HruPi9Xs4TZ3' alt='Rich Dad Poor Dad ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1cIsAAdYMu-WxTt4t7836zlpmdU4KM5D5' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Rich Dad Poor Dad ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ssrZg1YV7Jn1SS9gLYxuQFP-nbNshzgv' alt='Kiyosaki, Robert T - Second chance  for your money, your life and our world (2018, Plata Publishing) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1rX_dd2_Yj7LkrVK6H5wXxvKNB7dzjQs-' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Kiyosaki, Robert T - Second chance  for your money, your life and our world (2018, Plata Publishing) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Kf47i8LeC_ZwnKXxSpE4nZyPdx7URoTS' alt='Robert T. Kiyosaki - The Real Book of Real Estate  Real Experts. Real Stories. Real Life. (2009, Vanguard Press) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1uSgrWmttrpShR9OGNE1Zd7X-gkUrcH_C' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robert T. Kiyosaki - The Real Book of Real Estate  Real Experts. Real Stories. Real Life. (2009, Vanguard Press) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1OaKVQZDQPPkJSNzueycTIHxe7WHb0lZ-' alt='Sharma, Robin S - Daily Inspiration From The Monk Who Sold His Ferrari (2007, Jaico Books, 978-81-7992-794-6) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=107LSyypUlEwctfW2qJME0h1Jnv-Vg56B' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sharma, Robin S - Daily Inspiration From The Monk Who Sold His Ferrari (2007, Jaico Books, 978-81-7992-794-6) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gfHGjWbhed1R1wS_qKocnWDLYJhnbY0v' alt='The Monk who sold his ferrari - Robin Sharma (PDF) [Qwerty80]' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=14I8i8dRtY-bvPwYzl-9Uli8C-GyN8N9D' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Monk who sold his ferrari - Robin Sharma (PDF) [Qwerty80]</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1u1ncYztVnJ6Y6IYOTAZ2AkO3ndgije38' alt='the-5-am-club' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=14ThvV3Nawh_zr3EV8-dBBpWcKH6IM19E' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>the-5-am-club</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1rm_DgfL08DPBuVczv2lBWbp4wBIMS7IS' alt='Leadership-Wisdom' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Bn45mX9ahbu1AzK_9yk4czG-w2VpSkTo' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Leadership-Wisdom</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1QV348Pg58DBxwEUBFFjz9cKcnQmTgtye' alt='Robin Sharma Pack (10 Volume Set) ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1BpP4DcoABcHhnd5udOPN2Oj5MswxYeZW' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Robin Sharma Pack (10 Volume Set) ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ei2o5H3-pbaKNE_pb-VmWSInRWMb4Xn-' alt='Sharma, Robin - Megaliving (0) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1F4-CCGB2CQqCY5fqOAsLlhg3hAN_DNGz' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sharma, Robin - Megaliving (0) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1aRtsNLIr1DX9Nb50rGomSdtqdVGgYizc' alt='Who Will Cry When You Die   Life Lessons From The Monk Who Sold His Ferrari ( PDFDrive.com )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Jh5K_WpHb2KIG4CBLWZWbDuNrD0zMIKE' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Who Will Cry When You Die   Life Lessons From The Monk Who Sold His Ferrari ( PDFDrive.com )</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19WSQ0Yqe8FI_Fglv3erR0jdjfqKVKanu' alt='Sharma, Robin S - The Secret Letters of the Monk Who Sold His Ferrari (2011, HarperCollins Publishers) - libgen.lc' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1RWYs9jTEG8SbmuyfXjMOoxiezslXmv3-' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Sharma, Robin S - The Secret Letters of the Monk Who Sold His Ferrari (2011, HarperCollins Publishers) - libgen.lc</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Zx0ggaorM_ZCJD1cCAPudMKcBArZUWeW' alt='Family Wisdom' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1RdVYczF0L_xc6IKF2b5lOWQK016NFdMS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>Family Wisdom</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Y8tSCtpB03CIVOP0j0tIl4p3tn0VmuWB' alt='the-greatness-guide' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1T6WbGsZXVVNMTUa2rhxVt7u_piY1ZI74' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>the-greatness-guide</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1y1u3oiXQb34af1ljnxowntrV-hdJpPHo' alt='1524379 THE LEADER WHO HAD NO TITLE' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1ca36XdFlMQ6Ycpsbmb45b6a-M6oionF_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>1524379 THE LEADER WHO HAD NO TITLE</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1GvoM1h-dJK1g7VxGd8rSCycSsaq7vneD' alt='saint' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1izNG8TTW4t2UgB3lmvZoejQqFhzexyzj' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>saint</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1UiqDxmtGv-DYqbX2h3VPhZpnOYrySr0e' alt='brief answers to the big questions by Stephen Hawking' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1Ks8B2O_UfY8WR1NbwzRiNjYzxFwkirop' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>brief answers to the big questions by Stephen Hawking</div>
+            </div>
+            
+            <div class='book-card'>
+                <div class='image-wrapper'>
+                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1TCRD3MrahQWQGV7y1rgX80zJygvx4FyL' alt='The Theory of Everything.pdf ( PDFDrive )' class='book-cover' loading='lazy'>
+                    <div class='read-overlay'>
+                        <a href='read.html?id=1tTMH-n4hwTSgMS7QGYFs9pms8B-ymuhn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
+                    </div>
+                </div>
+                <div class='book-title'>The Theory of Everything.pdf ( PDFDrive )</div>
+            </div>
+            
+           </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+           <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
+           </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(app);
+        
+        // Auth State & Profile Image Logic
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name'); 
+            const avatarDiv = document.getElementById('userAvatar'); // avatar Div എടുക്കുന്നു
+            
+            if (user) {
+                // പേര് സെറ്റ് ചെയ്യുന്നു
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+                
+                // ഫോട്ടോ സെറ്റ് ചെയ്യുന്നു (ഇതാണ് പുതിയ മാറ്റം)
+                if (user.photoURL) { 
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`; 
+                }
+            } else {
+                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ പേജ് കാണാൻ അനുവദിക്കരുത് (Optional Security)
+                // window.location.href = "index.html";
+            }
+        });
+        
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
+    </script>
+
+    <script>
+        // Dropdown Logic
+        function toggleProfileMenu() {
+            var dropdown = document.getElementById("profileDropdown");
+            dropdown.classList.toggle("show");
+        }
+        
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-profile')) {
+                var dropdowns = document.getElementsByClassName("profile-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function searchBooks() {
+            var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase();
+            var cards = document.getElementsByClassName('book-card');
+            for (var i = 0; i < cards.length; i++) {
+                var title = cards[i].getElementsByClassName("book-title")[0];
+                if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; }
+            }
+        }
+    </script>
+</body>
+</html>
+  
