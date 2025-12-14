@@ -8,75 +8,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- Royal Blue & Gold Theme --- */
-/* --- Classic Coffee Theme --- */
-       /* --- Royal Maroon Theme --- */
-        :root {
-            --primary-orange: #FFD700; /* Gold Color (Action) */
-            --secondary-dark: #4A1428; /* Deep Maroon (Header) */
-            --background-light: #F9F9F9; /* Off-White */
-            --text-color: #333333;
-            --light-text: #FFFFFF;
-            --card-bg: #FFFFFF;
-            --outline-color: #E0E0E0;
-            --danger-color: #C62828;
-        }
-
-        /* Hover Effects Update */
-        .category-card:hover {
-            border-color: var(--secondary-dark); 
-            box-shadow: 0 10px 25px rgba(62, 39, 35, 0.2); /* Brown Shadow */
-        }
-        
-        .icon-circle {
-            background-color: #efebe9; /* Lighter Brown */
-            color: var(--secondary-dark);
-        }
-
-        .category-card:hover .icon-circle {
-            background-color: var(--secondary-dark);
-            color: #fff; 
-        }
+        :root { --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --outline-color: #B2DFDB; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; }
         
         /* Header & Nav */
         header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
         .nav-links { display: flex; align-items: center; }
-       /* --- New Header Button Style --- */
-        /* --- New Header Button Style --- */
-        /* --- Option 2: Solid Box Button --- */
-        .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 15px;
-            font-weight: 600;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            padding: 8px 16px;
-            border: 1px solid rgba(255,255,255,0.3); /* നേരിയ ബോർഡർ */
-            border-radius: 4px; /* അറ്റം ചെറുതായി വളയാൻ */
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a.nav-item:hover {
-            background-color: #ffffff; /* മൗസ് വെക്കുമ്പോൾ വെളുത്ത നിറം */
-            color: var(--secondary-dark); /* അക്ഷരം ഡാർക്ക് ആകുന്നു */
-            border-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-        }
-        
-        /* Active Link Style (Optional - if you want highlight active page) */
-        .nav-links a.nav-item.active {
-            background-color: var(--primary-orange);
-            color: white;
-        }
-        
-        /* Active Link Style (Optional - if you want highlight active page) */
-        .nav-links a.nav-item.active {
-            background-color: var(--primary-orange);
-            color: white;
-        }
+        .nav-links a.nav-item { color: var(--light-text); margin-left: 20px; font-weight: 500; transition: color 0.3s; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a.nav-item:hover { color: var(--outline-color); }
         
         /* User Profile */
         .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
@@ -1510,156 +1453,67 @@
         </div>
     </footer>
 
-    
-    
-    <div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; flex-direction:column;">
-        <div style="background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
-            <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> Reading Mode</span>
-            <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
-                <i class="fas fa-times"></i> Close
-            </button>
-        </div>
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
         const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig); 
-        const auth = getAuth(app);
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app);
 
-        onAuthStateChanged(auth, async (user) => {
+        onAuthStateChanged(auth, (user) => {
             const nameDisplay = document.getElementById('display-name');
             const avatarDiv = document.getElementById('userAvatar');
 
             if (user) {
-                // --- 1. USER NAME SYNC FIX ---
-                // പേജ് ലോഡ് ആകുമ്പോൾ തന്നെ വിവരങ്ങൾ നിർബന്ധമായും പുതുക്കുന്നു
-                try { 
-                    await user.reload(); 
-                } catch(e) { 
-                    console.log("Auto-reload error, using cached data"); 
-                }
-                
-                // ഫയർബേസിൽ നിന്ന് ഏറ്റവും പുതിയ വിവരം എടുക്കുന്നു
-                const currentUser = auth.currentUser; 
-                
-                // പേര് ഡിസ്പ്ലേ ചെയ്യുന്നു
-                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
-                if(nameDisplay) nameDisplay.textContent = displayName;
-                
-                // ഫോട്ടോ ഡിസ്പ്ലേ ചെയ്യുന്നു
-                if (currentUser.photoURL && avatarDiv) {
-                    avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
+                // 1. Update UI
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                nameDisplay.textContent = displayName;
+                if (user.photoURL && avatarDiv) {
+                    avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
                 }
 
-                // --- 2. SETUP CLICKS ---
-                setupInteractions(user.uid);
+                // 2. Setup History Listener (User Specific)
+                setupHistorySaving(user.uid);
 
             } else {
-                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ ഇൻഡക്സ് പേജിലേക്ക്
-                if (!window.location.pathname.includes("index.html")) {
-                     window.location.href = "index.html";
-                }
+                window.location.href = "index.html"; 
             }
         });
 
-        const logoutLink = document.getElementById('logout-link');
-        if(logoutLink) {
-            logoutLink.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "index.html"; }); 
-            });
-        }
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); signOut(auth).then(() => { window.location.href = "index.html"; }); });
 
-        // --- GLOBAL FUNCTIONS ---
-        window.setupInteractions = function(uid) {
+        // --- HISTORY SAVING LOGIC ---
+        function setupHistorySaving(uid) {
             const buttons = document.querySelectorAll(".overlay-btn");
             buttons.forEach(btn => {
-                // പഴയ ഇവന്റുകൾ നീക്കം ചെയ്ത് പുതിയത് ചേർക്കുന്നു
+                // Remove old listeners to prevent duplicates
                 const newBtn = btn.cloneNode(true);
                 btn.parentNode.replaceChild(newBtn, btn);
                 
-                newBtn.addEventListener("click", function(e) {
-                    e.preventDefault(); // പുതിയ ടാബിൽ തുറക്കുന്നത് തടയുന്നു
-                    
+                newBtn.addEventListener("click", function() {
                     const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href');
-                    
-                    // History Saving
                     if (card) {
                         const title = card.querySelector('.book-title').innerText;
                         const image = card.querySelector('.book-cover').src;
-                        const date = new Date().toLocaleDateString('ml-IN');
+                        const url = this.getAttribute('href');
+                        const date = new Date().toLocaleDateString('en-IN');
                         
+                        // Key includes UID: "history_USERID"
                         const key = 'history_' + uid;
+                        
                         let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title); // Remove duplicate
-                        history.unshift({ title, image, url: linkUrl, date });
+                        history = history.filter(item => item.title !== title);
+                        history.unshift({ title, image, url, date });
                         if (history.length > 50) history.pop();
+                        
                         localStorage.setItem(key, JSON.stringify(history));
                     }
-
-                    // Open Full Page PDF
-                    openPdfModal(linkUrl);
                 });
             });
-        };
+        }
     </script>
-
     <script>
-        // --- FULL PAGE PDF LOGIC ---
-        function openPdfModal(url) {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            // Drive Link Conversion (Preview Mode)
-            let embedUrl = url;
-            if(url.includes("view") || url.includes("preview")) {
-                embedUrl = url.replace(/\/view.*/, "/preview").replace(/\/preview.*/, "/preview");
-            }
-            
-            frame.src = embedUrl;
-            modal.style.display = "flex"; // Flex ഉപയോഗിച്ചാണ് ഫുൾ പേജ് സെറ്റ് ചെയ്യുന്നത്
-            document.body.style.overflow = "hidden"; // പിന്നിലെ പേജ് സ്ക്രോൾ ആവാതിരിക്കാൻ
-        }
-
-        function closePdfModal() {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            modal.style.display = "none";
-            frame.src = ""; 
-            document.body.style.overflow = "auto"; // സ്ക്രോൾ തിരികെ കൊണ്ടുവരുന്നു
-        }
-
-        function toggleProfileMenu() { 
-            var dropdown = document.querySelector(".profile-dropdown"); 
-            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
-        }
-        
-        // ക്ലിക്ക് ഔട്ട്സൈഡ് (Dropdown Close)
-        window.onclick = function(event) {
-            if (!event.target.closest('.user-profile')) {
-                var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    dropdowns[i].style.display = "none";
-                }
-            }
-        }
-        
-        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+        function searchBooks() { var input = document.getElementById('searchBar'); var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
 </body>
 </html>
-
-
-
   
-
-
-
-
-
