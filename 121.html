@@ -9,31 +9,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* --- Royal Blue & Gold Theme --- */
-:root {
-    --primary-orange: #FF6F00; /* Amber/Gold (Action Color) */
-    --secondary-dark: #1A237E; /* Deep Royal Blue (Header) */
-    --background-light: #F5F7FA; /* Very Light Blue-Grey BG */
-    --text-color: #263238;     /* Dark Grey Text */
-    --light-text: #FFFFFF;     /* White Text */
-    --card-bg: #FFFFFF;        /* Card Background */
-    --outline-color: #C5CAE9;  /* Light Blue Border */
-    --danger-color: #D32F2F;   /* Red for Logout/Delete */
-}
+/* --- Classic Coffee Theme --- */
+        :root {
+            --primary-orange: #bf360c; /* ഇഷ്ടിക നിറം (Action Color) */
+            --secondary-dark: #3e2723; /* കടും കാപ്പി നിറം (Header) */
+            --background-light: #fff8e1; /* ഇളം ക്രീം (Background) */
+            --text-color: #3e2723;     /* Dark Brown Text */
+            --light-text: #ffffff;     /* White Text */
+            --card-bg: #ffffff;        /* Card Background */
+            --outline-color: #d7ccc8;  /* Light Brown Border */
+            --danger-color: #d32f2f;   /* Red */
+        }
 
-/* Hover Effects Update */
-.category-card:hover {
-    border-color: var(--secondary-dark); /* നീല ബോർഡർ വരും */
-    box-shadow: 0 10px 25px rgba(26, 35, 126, 0.2); /* നീല നിഴൽ */
-}
+        /* Hover Effects Update */
+        .category-card:hover {
+            border-color: var(--secondary-dark); 
+            box-shadow: 0 10px 25px rgba(62, 39, 35, 0.2); /* Brown Shadow */
+        }
+        
+        .icon-circle {
+            background-color: #efebe9; /* Lighter Brown */
+            color: var(--secondary-dark);
+        }
 
-.icon-circle {
-    color: var(--secondary-dark); /* ഐക്കൺ നീല നിറത്തിൽ */
-}
-
-.category-card:hover .icon-circle {
-    background-color: var(--secondary-dark);
-    color: var(--primary-orange); /* ഹോവർ ചെയ്യുമ്പോൾ സ്വർണ്ണ നിറം */
-}
+        .category-card:hover .icon-circle {
+            background-color: var(--secondary-dark);
+            color: #fff; 
+        }
         
         /* Header & Nav */
         header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
@@ -1623,3 +1625,4 @@
 
 
   
+
