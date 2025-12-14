@@ -8,10 +8,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root { --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --outline-color: #B2DFDB; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
-        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
-        a { text-decoration: none; }
+        /* --- Royal Blue & Gold Theme --- */
+:root {
+    --primary-orange: #FF6F00; /* Amber/Gold (Action Color) */
+    --secondary-dark: #1A237E; /* Deep Royal Blue (Header) */
+    --background-light: #F5F7FA; /* Very Light Blue-Grey BG */
+    --text-color: #263238;     /* Dark Grey Text */
+    --light-text: #FFFFFF;     /* White Text */
+    --card-bg: #FFFFFF;        /* Card Background */
+    --outline-color: #C5CAE9;  /* Light Blue Border */
+    --danger-color: #D32F2F;   /* Red for Logout/Delete */
+}
+
+/* Hover Effects Update */
+.category-card:hover {
+    border-color: var(--secondary-dark); /* നീല ബോർഡർ വരും */
+    box-shadow: 0 10px 25px rgba(26, 35, 126, 0.2); /* നീല നിഴൽ */
+}
+
+.icon-circle {
+    color: var(--secondary-dark); /* ഐക്കൺ നീല നിറത്തിൽ */
+}
+
+.category-card:hover .icon-circle {
+    background-color: var(--secondary-dark);
+    color: var(--primary-orange); /* ഹോവർ ചെയ്യുമ്പോൾ സ്വർണ്ണ നിറം */
+}
         
         /* Header & Nav */
         header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
@@ -1597,6 +1619,7 @@
     </script>
 </body>
 </html>
+
 
 
   
