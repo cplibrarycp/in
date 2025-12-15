@@ -347,7 +347,7 @@
         if(logoutLink) {
             logoutLink.addEventListener('click', (e) => { 
                 e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "index.html"; }); 
+                signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
             });
         }
 
@@ -731,7 +731,7 @@
     window.performLogout = function() {
         signOut(auth).then(() => { 
             localStorage.removeItem('libraryUser');
-            window.location.href = "index.html"; 
+            window.location.href = "logout-success.html"; 
         });
     }
 </script>

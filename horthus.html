@@ -287,7 +287,7 @@
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
             e.preventDefault();
-            signOut(auth).then(() => { localStorage.removeItem('libraryUser'); window.location.href = "index.html"; });
+            signOut(auth).then(() => { localStorage.removeItem('libraryUser'); window.location.href = "logout-success.html"; });
         });
     }
 </script>

@@ -269,10 +269,6 @@
 <div class="icon-circle"><i class="fas fa-flask"></i></div>
 <span class="label">Science</span>
 </a>
-<a class="category-card" href="horthus.html">
-<div class="icon-circle"><i class="fas fa-folder-open"></i></div>
-<span class="label">ഹോർത്തൂസ് മലബാറിക്കസ്</span>
-</a>
 <a class="category-card" href="others.html">
 <div class="icon-circle"><i class="fas fa-folder-open"></i></div>
 <span class="label">Others</span>
@@ -319,7 +315,7 @@
         if(logoutLink) {
             logoutLink.addEventListener('click', (e) => { 
                 e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "index.html"; }); 
+                signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
             });
         }
 
@@ -364,5 +360,3 @@
     </script>
 </body>
 </html>
-
-

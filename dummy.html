@@ -296,7 +296,7 @@
         document.getElementById('logout-link').addEventListener('click', (e) => {
             e.preventDefault(); 
             signOut(auth).then(() => {
-                window.location.href = "index.html";
+                window.location.href = "logout-success.html";
             }).catch((error) => {
                 alert("Error: " + error.message);
             });
@@ -662,7 +662,7 @@
     window.performLogout = function() {
         signOut(auth).then(() => { 
             localStorage.removeItem('libraryUser');
-            window.location.href = "index.html"; 
+            window.location.href = "logout-success.html"; 
         });
     }
 </script>
