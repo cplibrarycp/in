@@ -2717,7 +2717,7 @@
 
     let currentUser = null;
 
-    // ലോഗിൻ നില പരിശോധിക്കുന്നു
+    // 1. ലോഗിൻ സ്റ്റാറ്റസ് പരിശോധിക്കുന്നു
     onAuthStateChanged(auth, (user) => {
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
@@ -2728,10 +2728,19 @@
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
-            // പേരും ഫോട്ടോയും സെറ്റ് ചെയ്യുന്നു
+            // പേരും ഫോട്ടോയും കാണിക്കുന്നു
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
             if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+
+            // --- പ്രധാനപ്പെട്ട മാറ്റം: പെൻഡിംഗ് ബുക്ക് ഉണ്ടോ എന്ന് നോക്കുന്നു ---
+            const pendingUrl = sessionStorage.getItem('pendingBook');
+            if (pendingUrl) {
+                // ഉണ്ടെങ്കിൽ അത് മായ്ക്കുന്നു, എന്നിട്ട് അങ്ങോട്ട് പോകുന്നു
+                sessionStorage.removeItem('pendingBook');
+                window.location.href = pendingUrl;
+            }
+
         } else {
             currentUser = null;
             localStorage.removeItem('libraryUser');
@@ -2739,7 +2748,7 @@
         }
     });
 
-    // ലോഗൗട്ട്
+    // 2. ലോഗൗട്ട്
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
@@ -2751,23 +2760,26 @@
         });
     }
 
-    // --- പ്രധാനം: ഈ ഫംഗ്‌ഷൻ ആണ് HTML-ൽ നിന്ന് വിളിക്കുന്നത് ---
+    // 3. വായന തുടങ്ങാനുള്ള ഫംഗ്‌ഷൻ (പ്രശ്നം പരിഹരിച്ചത്)
     window.checkAccess = function(element, targetUrl) {
-        // ചിലപ്പോൾ 'this' (element) കിട്ടിയില്ലെങ്കിൽ നേരിട്ട് URL ഉപയോഗിക്കുന്നു
+        // ചിലപ്പോൾ 'this' കിട്ടിയില്ലെങ്കിൽ URL മാത്രം വെച്ച് അഡ്ജസ്റ്റ് ചെയ്യുന്നു
         if (typeof element === 'string') {
             targetUrl = element;
-            element = null;
+            element = null; // എലമെന്റ് കിട്ടിയില്ല
         }
 
         if (currentUser) {
-            // 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
-            if(element) saveToHistory(element, targetUrl);
+            // ലോഗിൻ ഉണ്ടെങ്കിൽ:
+            // A. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു (എലമെന്റ് ഉണ്ടെങ്കിൽ മാത്രം)
+            if(element) { saveToHistory(element, targetUrl); }
             
-            // 2. പേജിലേക്ക് പോകുന്നു
-            window.location.href = targetUrl;
+            // B. ബുക്ക് പേജിലേക്ക് പോകുന്നു (ഇതാണ് വർക്ക് ആവാതിരുന്നത്)
+            window.location.href = targetUrl; 
         } else {
-            // ലോഗിൻ ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ്
+            // ലോഗിൻ ഇല്ലെങ്കിൽ:
+            // ബുക്കിന്റെ ലിങ്ക് ഓർത്തു വെക്കുന്നു
             sessionStorage.setItem('pendingBook', targetUrl);
+            // പോപ്പ്-അപ്പ് കാണിക്കുന്നു
             const modal = document.getElementById('login-modal');
             if(modal) modal.style.display = 'flex';
         }
@@ -2775,7 +2787,6 @@
 
     function saveToHistory(element, url) {
         try {
-            // കാർഡ് കണ്ടുപിടിക്കുന്നു
             const card = element.closest('.book-card');
             if (!card) return;
 
@@ -2786,19 +2797,17 @@
             const key = 'history_' + currentUser.uid;
 
             let history = JSON.parse(localStorage.getItem(key)) || [];
-            // ഡ്യൂപ്ലിക്കേറ്റ് ഒഴിവാക്കുന്നു
             history = history.filter(item => item.title !== title);
-            // പുതിയത് ചേർക്കുന്നു
             history.unshift({ title: title, image: image, link: url, date: date });
             
             if (history.length > 50) history.pop();
             localStorage.setItem(key, JSON.stringify(history));
         } catch (e) {
-            console.error("History Save Error:", e);
+            console.error("History Error:", e);
         }
     }
     
-    // സെർച്ച് ഫംഗ്‌ഷൻ
+    // 4. സെർച്ച് ഫംഗ്‌ഷൻ
     window.searchBooks = function() { 
         var input = document.getElementById('searchBar'); 
         if(!input) return; 
