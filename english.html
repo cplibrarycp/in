@@ -1,197 +1,190 @@
 <!DOCTYPE html>
-<html lang="ml">
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>📚 ചങ്ങമ്പുഴ കൃതികള്‍ | THRIPUDI LIBRARY</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-<style>
-    :root {
-        --primary-orange: #00897B; 
-        --secondary-dark: #004D40; 
-        --background-light: #E0F2F1;
-        --text-color: #263238;
-        --light-text: #FFFFFF;
-        --card-bg: #FFFFFF;
-        --outline-color: #B2DFDB;
-    }
-    
-    /* --- FOOTER FIX (FLEXBOX METHOD) --- */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    body { 
-        font-family: 'Poppins', sans-serif; 
-        background-color: var(--background-light); 
-        color: var(--text-color); 
-        line-height: 1.6;
-        /* ഈ 3 വരികളാണ് ഫൂട്ടറിനെ താഴെ നിർത്തുന്നത് */
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    
-    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
-    a { text-decoration: none; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Books | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        /* --- 1. THEMES --- */
+        :root {
+            --primary-orange: #00897B; 
+            --secondary-dark: #004D40; 
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB;
+        }
 
-    /* Header */
-    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
-    .navbar { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
-    .nav-links { display: flex; align-items: center; gap: 15px; }
-    
-    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
-    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
+        /* --- 2. STICKY FOOTER FIX --- */
+        html, body { height: 100%; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    /* Profile */
-    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
-    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
-    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
-    .user-name { font-weight: 600; display: block; }
-    .user-role { font-size: 0.8em; opacity: 0.8; }
-    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
-    .user-profile:hover .profile-dropdown { display: block; }
-    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
-    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; }
 
-    /* Collection Section (ഈ ഭാഗം വികസിക്കും) */
-    .collection-section { 
-        padding: 40px 0; 
-        text-align: center; 
-        flex: 1 0 auto; /* Content കുറവാണെങ്കിൽ ഇത് വികസിച്ച് ഫൂട്ടറിനെ താഴേക്ക് തള്ളും */
-    }
-    
-    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
-    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
-    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
-    #searchBar:focus { border-color: var(--primary-orange); }
-    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+        /* --- 3. HEADER --- */
+        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
+        .nav-links { display: flex; align-items: center; gap: 15px; }
+        
+        .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+        .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
 
-    /* Card Design */
-    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
-    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
-    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
-    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
-    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
-    .book-card:hover .book-cover { transform: scale(1.05); }
-    .book-card:hover .read-overlay { opacity: 1; }
-    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
-    .book-card:hover .overlay-btn { transform: translateY(0); }
-    .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
-    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
+        /* Profile */
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
-    /* Footer */
-    footer { 
-        background-color: var(--secondary-dark); 
-        color: var(--light-text); 
-        padding: 40px 0; 
-        text-align: center; 
-        font-size: 0.9em; 
-        margin-top: auto; /* പ്രധാനപ്പെട്ട വരി */
-        flex-shrink: 0; 
-    }
-    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
-    .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
-</style>
+        /* --- 4. DASHBOARD CONTENT (Flex Grow) --- */
+        .dashboard-section { 
+            padding: 50px 0; 
+            text-align: center; 
+            flex: 1 0 auto; /* Content കുറവായാലും ഫൂട്ടർ താഴെ നിൽക്കാൻ */
+        }
+
+        .dashboard-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 10px; }
+        .dashboard-section p { color: #546E7A; margin-bottom: 40px; }
+
+        .dashboard-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 25px; margin: 0 auto; 
+        }
+
+        .category-card { 
+            background: var(--card-bg); border: 2px solid var(--outline-color); border-radius: 12px; 
+            padding: 30px 20px; text-align: center; text-decoration: none; color: var(--secondary-dark); 
+            transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        }
+        .category-card:hover { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 10px 25px rgba(0, 137, 123, 0.2); }
+        
+        .icon-circle { width: 70px; height: 70px; background-color: var(--background-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; font-size: 1.8em; color: var(--primary-orange); transition: 0.3s; }
+        .category-card:hover .icon-circle { background-color: var(--primary-orange); color: white; }
+        
+        .label { font-size: 1.1em; font-weight: 700; }
+
+        /* --- 5. FOOTER --- */
+        footer { 
+            background-color: var(--secondary-dark); 
+            color: var(--light-text); 
+            padding: 40px 0; 
+            text-align: center; 
+            font-size: 0.9em; 
+            margin-top: auto; 
+            flex-shrink: 0; 
+        }
+        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+    </style>
 </head>
 <body>
 
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-    <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-    <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-    <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-    <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
 
-    <div class="user-profile" id="profile-section">
-        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-        <div class="user-info">
-            <span class="user-name" id="display-name">Guest</span>
-            <span class="user-role">Member</span>
-        </div>
-        <div class="profile-dropdown">
-            <a href="profile.html">Profile Settings</a>
-            <a href="history.html">Reading History</a>
-            <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </header>
 
-<section class="collection-section">
-<div class="container">
-<h1>ചങ്ങമ്പുഴ കൃതികള്‍</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-
-<div class="library-container" id="bookList">
-<div class="book-card"><div class="image-wrapper"><img alt="ആരാധകൻ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lpQauDBgQ9BoGWLVtaIk9kDyjdwEjEeS"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=194PvVP0GDVNnIq4bWjL_1_plYu8gm4cs')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ആരാധകൻ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ആകാശഗംഗ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1LNy8_DRi64zTRhalNc4AhkOslwfGjCyL"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15XU5_7SoHLy7_0QFiVqjkMSGiJVDzYEE')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ആകാശഗംഗ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="അസ്ഥിയുടെ പൂക്കൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=17EqFBDg6qwENeYG4105YGd9YKpK0wMoo"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Zc9ekAxCFGkQIqnPurSzN6vqSjgB1VXR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">അസ്ഥിയുടെ പൂക്കൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ദേവഗീത" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Irbs9zvHfYb7ZrfjJYxS19IYUTSnqffv"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1pKAVyhy2qeBYqllzNCL88shvc56_kF_j')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ദേവഗീത</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ദേവയാനി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12UKKUBrNbJcXqk3SaK1IG8_VrxivqW89"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1GW2buXt3-puNbDm8KnsWl62O12xQuaG-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ദേവയാനി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ദേവത" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ykVbs1zjPHxkQtplpJPk9mly9Xbl3IGR"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EGuq6cHa93X1sULxgnf-NrrZ3GK9d5lG')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ദേവത</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="അപരാധികൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Os7Hsjhu2EWyTE_X2pyWDfVqexI8P-Cs"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1juiVf_0rNV5mvG3lCBzmYCVh1o6hSoLV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">അപരാധികൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ഹനേല" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1yCDMa4Lwva3KIT2l7091TghNttRG9jzV"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1lBK_sAI7vbCUMFxfNTgO4-MQSGEpCc_-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ഹനേല</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="കളകേളി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14RnIQiFlMWlxc8cPHeUmI3HsO0gtQ-yR"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1VAlBTK3P6_89gf1XDxcOsC50T4-BRYw6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">കളകേളി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ബാഷ്പാഞ്ജലി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11TKTLnHBMmHtTWyQlRrubooHfG47TAtZ"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1fDL2gL86SHWnQPG_jNeYqsaaMiyaslW7')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ബാഷ്പാഞ്ജലി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ഇടപ്പള്ളി കഥകൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1G3byYB5Xk1RjeB4c_4w5DgYdP4FlD6H1"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JoZXWfuwqIBloC8aOFLYUo-vnFqR-5wZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ഇടപ്പള്ളി കഥകൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="കളിത്തോഴി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1B-vJy_-yUKuKgMS_e2NinpVDmKUZy7uk"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1CLXsN8MhpJMamei3TQsfYUNHSTW1bWtb')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">കളിത്തോഴി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="മദിരോത്സവം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ed1tI376Oehgjia20P_bb_y3KA8VSnhy"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1HEokccn3s15ZvM60g14c96za-LylG-vW')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">മദിരോത്സവം</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="കഥാരത്നമാലിക" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jfoJgn8wSqn8pr1T9wE-xpWoRx2iyjQa"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vuNziotNfN-WJ3EwqrvIcaKFh3-gbBdJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">കഥാരത്നമാലിക</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="മാനസേശ്വരി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Fbbhnt_BYCP5faoONH5XSLH1A4J8hiPD"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1oCtywM4PGA62h8_M1TYV6BYkLjY63_Ft')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">മാനസേശ്വരി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="മഞ്ഞക്കിളികൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kLRhujK6M8D65qVfA3zMKf90e1rUb943"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1b9Rleu1ymUWzOWFPZLakA_ELrGAslNAV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">മഞ്ഞക്കിളികൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="മണിവീണ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QOHjnfwhb7dMn4NjoDUAq1IwGetWQ0RF"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1MBDfcoTxmTG69_b8aLpjd362_Jn0nLMt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">മണിവീണ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="മനസാന്തരം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pjgAP1du0oe5cWQkHMv8y6DzKuwXpWtH"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1HBdClpnsfQrubHCtE_viPTXHMs0fNmlL')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">മനസാന്തരം</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="നർത്തകി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1i1jmhWukKeH5ySEgbtI2lKBChT47QPkp"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1he708k4Ja4Kr9n4TLX8VH2v8Twp1zA03')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">നർത്തകി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="നീറുന്ന തീച്ചൂള" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1g8mFHJcAzd5Ec7_JQLaUKCAlY9AlXq08"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13_VyD2dJGkvL9tivzNuLcxipcv9pCQHr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">നീറുന്ന തീച്ചൂള</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="മോഹിനി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18rb5IZL6WTMkFtjQ3iqAkfrFx25dvKRZ"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=14mHFnT-W6e_HK-KKJfGyGaey0zIT6j2a')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">മോഹിനി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="മൗനഗാനം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lzDirPuno8E5bVl-dT3TlIic-KGH19v1"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QsmqU4mQRYb84goGo6J-nDsyZGX3nH__')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">മൗനഗാനം</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="നിർവൃതി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZDP1lgPNeYWroW9NHMAtyyVkYMIdNWeE"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1o4d_iUnru1ozKnlREcSWLjMqncL8K6TV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">നിർവൃതി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ഓണപ്പൂക്കൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1DgQS_KnIbCkyLPMZJMru8OUyDOWcl3Q6"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1qBwfjYd7W7wT6GEflsks_vXkmzw7P9Lt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ഓണപ്പൂക്കൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="നിർവ്വാണമണ്ഡലം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1x659_ve7tBHoF46tLDFr73ASJc37-p9U"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YLdjAoDue4zTARLc21E7FHxVcfrwwdDn')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">നിർവ്വാണമണ്ഡലം</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="പാടുന്ന പിശാച്" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1e3gnCypC3pO-WAHXEYhBRIJZ4-an-zsQ"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wfmFsl04WdjUD5gnTOdAU1G-cTOwjd61')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">പാടുന്ന പിശാച്</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="പ്രതികാരദുർഗ്ഗ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WHkyQI354PLXAI5I9bP2gHa2NmdtqFGb"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1r3AkJDl8fpm_Y6AyLkqSAsuuHVS_uTC1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">പ്രതികാരദുർഗ്ഗ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="പോലീസും മദ്യശാലയും" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1N5JIBuBr7noyoB58EZtpQQyKh4GjLw37"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1zVck-zXcEMdnqt9Gh-iXMXq1fkkABP_h')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">പോലീസും മദ്യശാലയും</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="സാഹിത്യചിന്തകൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xyuZddWNDJ-chH5rTm0mMtnodknWWZKM"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13-MgPPRXdrgIXYj4Lc6E7K2djdrJMg3w')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">സാഹിത്യചിന്തകൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="സങ്കൽപ്പകാന്തി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vaSuxOpJXLgDpeBNapuSTgMQa7AHbA9k"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-SzaESp7E_WreI512eUxS54ZAhMk7Gg9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">സങ്കൽപ്പകാന്തി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="രാഗപരാഗം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1m-sQ5Uihww9tC_hD1NOo-SU94dkve2aI"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ebdECi8A2vb16OwjntJa6O7yU5ZQZ3Yz')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">രാഗപരാഗം</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="രമണൻ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11nQgCd5qB0GhD55CmNktBQ_fMdhOuoKz"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1XULnNODLrcQadg09ZSSMKyXfugpNl7Co')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">രമണൻ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="തളിർത്തോപ്പുകൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nr-uzVhusb5TVz2MPdUWelXyZfeX4AsR"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=16yZtlGc6GjlDbOPOGe6rk3vkKi18ot_o')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">തളിർത്തോപ്പുകൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ശ്മശാനത്തിലെ തുളസി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1M6gDvEL0W-CtqQIdFy4ID-DIx_mF2Yn9"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1n9HYv62YWvsvKmHlaS56Su9Y7T98KWD6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ശ്മശാനത്തിലെ തുളസി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="സ്വരരാഗസുധ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1CsGL33ASZqit1uT7pk6fAQk2wF_ygOSF"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1iVW0Ly88x3FQK5RQexBzrJqBcpZ2nD6o')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">സ്വരരാഗസുധ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="തിലോത്തമ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZUXJCU-hUR_uWr7BJTygnhcRm9UyZ2be"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=16_P3KstCN2YDwgTBpSx9QWJ8mogD8HcB')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">തിലോത്തമ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="സുധാംഗദ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OfKEsqqpAx5-GvoaEzw5zwvx90LAjfu4"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1choDj6lCX4YtOVuyF9C_O29wS-LoEGNN')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">സുധാംഗദ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ശ്രീതിലകം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pcyd2QNnMuzTmuirrS4MEiou5G_WMtE9"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1kkB3rw4muXKyZWxVktF4O6vZbD_upUoq')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ശ്രീതിലകം</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="തുടിക്കുന്ന താളുകൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1CH6CZcl40Pc-SZCkRXdgqUPfHm7VIvzD"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1TB2AH3OdSPaDDoMrWWSGoVueztvGUFup')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">തുടിക്കുന്ന താളുകൾ</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="ഉദ്യാനലക്ഷ്മി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1O3g82q296nai3fFOeqR-qGmaxliTBW81"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vy_7RlcSZdQB8zMaXG0DV5oCgbSpGaVc')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">ഉദ്യാനലക്ഷ്മി</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="യവനിക" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Eg2vxcEHFOV_t0qwMWeliZhexa_TMnTB"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1KyFezOzKwStn-CCzoTMs0qWAOgrYq2eJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">യവനിക</div></div>
-<div class="book-card"><div class="image-wrapper"><img alt="വസന്തോത്സവം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YsFlL5PGspnns_S6KE-wtU6efNrzt2sI"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Q6fFDqKKd-xW7LYbvGnDrOsxbBVZj1Tg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a></div></div><div class="book-title">വസന്തോത്സവം</div></div>
-</div>
-</div>
+<section class="dashboard-section">
+    <div class="container">
+        <h1>English Collections</h1>
+        <p>Explore our vast collection of English literature and resources</p>
+        
+        <div class="dashboard-container">
+            <a class="category-card" href="fiction.html">
+                <div class="icon-circle"><i class="fas fa-hat-wizard"></i></div>
+                <span class="label">Fiction</span>
+            </a>
+            <a class="category-card" href="nonfiction.html">
+                <div class="icon-circle"><i class="fas fa-globe"></i></div>
+                <span class="label">Non-Fiction</span>
+            </a>
+            <a class="category-card" href="section1.html">
+                <div class="icon-circle"><i class="fas fa-folder"></i></div>
+                <span class="label">Section 1</span>
+            </a>
+            <a class="category-card" href="section2.html">
+                <div class="icon-circle"><i class="fas fa-folder"></i></div>
+                <span class="label">Section 2</span>
+            </a>
+            <a class="category-card" href="section3.html">
+                <div class="icon-circle"><i class="fas fa-folder"></i></div>
+                <span class="label">Section 3</span>
+            </a>
+            <a class="category-card" href="section4.html">
+                <div class="icon-circle"><i class="fas fa-folder"></i></div>
+                <span class="label">Section 4</span>
+            </a>
+            <a class="category-card" href="section5.html">
+                <div class="icon-circle"><i class="fas fa-folder"></i></div>
+                <span class="label">Section 5</span>
+            </a>
+            <a class="category-card" href="section6.html">
+                <div class="icon-circle"><i class="fas fa-folder"></i></div>
+                <span class="label">Section 6</span>
+            </a>
+            <a class="category-card" href="section7.html">
+                <div class="icon-circle"><i class="fas fa-folder"></i></div>
+                <span class="label">Section 7</span>
+            </a>
+            <a class="category-card" href="otherbook.html">
+                <div class="icon-circle"><i class="fas fa-box-open"></i></div>
+                <span class="label">Others</span>
+            </a>
+        </div>
+    </div>
 </section>
 
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-<a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+            <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
 
 <style>
@@ -241,7 +234,7 @@
             e.preventDefault();
             signOut(auth).then(() => { 
                 localStorage.removeItem('libraryUser'); 
-                window.location.href = "logout-success.html"; // Redirects to logout success page
+                window.location.href = "logout-success.html"; 
             });
         });
     }
@@ -258,7 +251,6 @@
         }
     }
     
-    function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     function toggleProfileMenu() { var dropdown = document.querySelector(".profile-dropdown"); if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; }
 </script>
 
