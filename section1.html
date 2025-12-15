@@ -1022,7 +1022,8 @@
 </footer>
 <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
 
-<script type="module">
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -1079,7 +1080,7 @@
             });
         };
     </script>
-<script>
+    <script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -1092,42 +1093,6 @@
         }
         function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
-
-<style>
-    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
-    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
-    .auth-box h3 { color: #004D40; margin-top: 0; }
-    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
-    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
-    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
-    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
-    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-</style>
-<div class="auth-modal" id="authModal">
-<div class="auth-box">
-<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
-<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
-<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
-</div>
-</div>
-<script id="accessScript">
-    function checkReadAccess(pdfUrl) {
-        var currentUser = localStorage.getItem('libraryUser');
-        if (currentUser) {
-            window.open(pdfUrl, '_blank');
-        } else {
-            sessionStorage.setItem('pendingBook', pdfUrl);
-            document.getElementById('authModal').style.display = 'flex';
-        }
-    }
-    function redirectToLogin() { window.location.href = 'login.html'; }
-    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-    window.onclick = function(event) {
-        var modal = document.getElementById('authModal');
-        if (event.target == modal) { closeAuthModal(); }
-    }
-</script>
 </body>
 </html>
+

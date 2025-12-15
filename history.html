@@ -259,7 +259,8 @@
 </div>
 </div>
 </footer>
-<script type="module">
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -267,31 +268,21 @@
         const app = initializeApp(firebaseConfig); 
         const auth = getAuth(app);
 
-        // ഗ്ലോബൽ വേരിയബിൾ - ലോഗിൻ ചെയ്ത യൂസറുടെ ഐഡി സൂക്ഷിക്കാൻ
-        let currentUserId = null;
-
         onAuthStateChanged(auth, async (user) => {
             const nameDisplay = document.getElementById('display-name');
             const avatarDiv = document.getElementById('userAvatar');
 
             if (user) {
-                currentUserId = user.uid; // User ID സേവ് ചെയ്യുന്നു
                 try { await user.reload(); } catch(e) {}
                 const currentUser = auth.currentUser;
                 const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
-                
                 if(nameDisplay) nameDisplay.textContent = displayName;
                 if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
 
-                // ലോഗിൻ ചെയ്തു കഴിഞ്ഞാൽ ഉടൻ ഹിസ്റ്ററി ലോഡ് ചെയ്യുന്നു
-                loadHistory(user.uid);
-            } else {
-                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ
-                document.getElementById('historyContainer').innerHTML = '<p class="no-history">ദയവായി ലോഗിൻ ചെയ്യുക.</p>';
+                setupHistoryOnly(user.uid);
             }
         });
 
-        // ലോഗൗട്ട് ചെയ്യാനുള്ള കോഡ്
         const logoutLink = document.getElementById('logout-link');
         if(logoutLink) {
             logoutLink.addEventListener('click', (e) => { 
@@ -300,53 +291,33 @@
             });
         }
 
-        // --- ഹിസ്റ്ററി ലോഡ് ചെയ്യാനുള്ള പുതിയ ഫങ്ക്ഷൻ ---
-        function loadHistory(uid) {
-            const container = document.getElementById('historyContainer');
-            const clearBtn = document.getElementById('clearBtn');
-            const key = 'history_' + uid;
-            
-            // ലോക്കൽ സ്റ്റോറേജിൽ നിന്ന് ഡാറ്റ എടുക്കുന്നു
-            const history = JSON.parse(localStorage.getItem(key)) || [];
-
-            container.innerHTML = ''; // "ചരിത്രം ലോഡ് ചെയ്യുന്നു" എന്നത് മായ്ക്കുന്നു
-
-            if (history.length === 0) {
-                container.innerHTML = '<p class="no-history">വായനാ ചരിത്രം ഒന്നും ലഭ്യമല്ല.</p>';
-                if(clearBtn) clearBtn.style.display = 'none';
-                return;
-            }
-
-            // ക്ലിയർ ബട്ടൺ കാണിക്കുന്നു
-            if(clearBtn) clearBtn.style.display = 'block';
-
-            // ഓരോ പുസ്തകവും കാർഡായി കാണിക്കുന്നു
-            history.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'history-card';
-                card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" class="history-thumb" onerror="this.src='default-book.png'">
-                    <div class="history-details">
-                        <span class="history-title">${item.title}</span>
-                        <span class="history-date"><i class="fas fa-calendar-alt"></i> ${item.date}</span>
-                        <a href="${item.url}" class="read-link">തുടർന്ന് വായിക്കുക <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                `;
-                container.appendChild(card);
+        window.setupHistoryOnly = function(uid) {
+            const buttons = document.querySelectorAll(".overlay-btn");
+            buttons.forEach(btn => {
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                newBtn.addEventListener("click", function(e) {
+                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
+                    const card = this.closest('.book-card');
+                    const linkUrl = this.getAttribute('href'); // read.html link
+                    
+                    if (card) {
+                        const title = card.querySelector('.book-title').innerText;
+                        const image = card.querySelector('.book-cover').src;
+                        const date = new Date().toLocaleDateString('ml-IN');
+                        const key = 'history_' + uid;
+                        let history = JSON.parse(localStorage.getItem(key)) || [];
+                        history = history.filter(item => item.title !== title);
+                        history.unshift({ title, image, url: linkUrl, date });
+                        if (history.length > 50) history.pop();
+                        localStorage.setItem(key, JSON.stringify(history));
+                    }
+                });
             });
-        }
-
-        // --- ഹിസ്റ്ററി ക്ലിയർ ചെയ്യാനുള്ള ഫങ്ക്ഷൻ ---
-        window.clearHistory = function() {
-            if (!currentUserId) return;
-            
-            if(confirm("നിങ്ങളുടെ വായനാ ചരിത്രം പൂർണ്ണമായും നീക്കം ചെയ്യട്ടെ?")) {
-                localStorage.removeItem('history_' + currentUserId);
-                loadHistory(currentUserId); // പേജ് റിഫ്രഷ് ചെയ്യാതെ ലിസ്റ്റ് ക്ലിയർ ചെയ്യുന്നു
-            }
         };
-
     </script>
+    <script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -354,47 +325,11 @@
         window.onclick = function(event) {
             if (!event.target.closest('.user-profile')) {
                 var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i &lt; dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
+                for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
             }
         }
-        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i &lt; cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) &gt; -1 ? "" : "none"; } } }
-    
-
-<style>
-    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
-    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
-    .auth-box h3 { color: #004D40; margin-top: 0; }
-    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
-    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
-    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
-    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
-    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-</style>
-<div class="auth-modal" id="authModal">
-<div class="auth-box">
-<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
-<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
-<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
-</div>
-</div>
-<script id="accessScript">
-    function checkReadAccess(pdfUrl) {
-        var currentUser = localStorage.getItem('libraryUser');
-        if (currentUser) {
-            window.open(pdfUrl, '_blank');
-        } else {
-            sessionStorage.setItem('pendingBook', pdfUrl);
-            document.getElementById('authModal').style.display = 'flex';
-        }
-    }
-    function redirectToLogin() { window.location.href = 'login.html'; }
-    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-    window.onclick = function(event) {
-        var modal = document.getElementById('authModal');
-        if (event.target == modal) { closeAuthModal(); }
-    }
-</script>
+        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+    </script>
 </body>
 </html>
+
