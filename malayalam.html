@@ -104,6 +104,19 @@
         .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
         .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
     </style>
+
+<style id="layout-fix">
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    .collection-section, .dashboard-section, .container { flex: 1 0 auto; }
+    footer { flex-shrink: 0; margin-top: auto; }
+    
+    /* Popup */
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
 </head>
 <body>
 <header>
@@ -215,6 +228,15 @@
 </script>
 
 
+<div class="lib-popup-overlay" id="login-modal">
+<div class="lib-popup-box">
+<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+</div>
+</div>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
@@ -225,26 +247,26 @@
 
     let currentUser = null;
 
-    // 1. ലോഗിൻ സ്റ്റാറ്റസ് പരിശോധിക്കുന്നു
+    // 1. ഓതന്റിക്കേഷൻ ചെക്കിംഗ്
     onAuthStateChanged(auth, (user) => {
+        const logoutBtn = document.getElementById('logout-link');
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
-        const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
             currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
-            // പേരും ഫോട്ടോയും കാണിക്കുന്നു
+            // പേര് മാറ്റുന്നു
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
             if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
 
-            // --- പ്രധാനപ്പെട്ട മാറ്റം: പെൻഡിംഗ് ബുക്ക് ഉണ്ടോ എന്ന് നോക്കുന്നു ---
+            // *** REDIRECT FIX ***: ലോഗിൻ ചെയ്താൽ പെൻഡിംഗ് ബുക്കിലേക്ക് പോകുന്നു
             const pendingUrl = sessionStorage.getItem('pendingBook');
             if (pendingUrl) {
-                // ഉണ്ടെങ്കിൽ അത് മായ്ക്കുന്നു, എന്നിട്ട് അങ്ങോട്ട് പോകുന്നു
+                console.log("Redirecting to:", pendingUrl);
                 sessionStorage.removeItem('pendingBook');
                 window.location.href = pendingUrl;
             }
@@ -268,26 +290,22 @@
         });
     }
 
-    // 3. വായന തുടങ്ങാനുള്ള ഫംഗ്‌ഷൻ (പ്രശ്നം പരിഹരിച്ചത്)
+    // 3. ബട്ടൺ ക്ലിക്ക് ചെയ്യുമ്പോൾ (ഇതാണ് പ്രധാനം)
     window.checkAccess = function(element, targetUrl) {
-        // ചിലപ്പോൾ 'this' കിട്ടിയില്ലെങ്കിൽ URL മാത്രം വെച്ച് അഡ്ജസ്റ്റ് ചെയ്യുന്നു
+        // പഴയ കോഡ് ആണെങ്കിൽ (element സ്ട്രിംഗ് ആയാൽ) അത് അഡ്ജസ്റ്റ് ചെയ്യുന്നു
         if (typeof element === 'string') {
             targetUrl = element;
-            element = null; // എലമെന്റ് കിട്ടിയില്ല
+            element = null;
         }
 
         if (currentUser) {
             // ലോഗിൻ ഉണ്ടെങ്കിൽ:
-            // A. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു (എലമെന്റ് ഉണ്ടെങ്കിൽ മാത്രം)
-            if(element) { saveToHistory(element, targetUrl); }
-            
-            // B. ബുക്ക് പേജിലേക്ക് പോകുന്നു (ഇതാണ് വർക്ക് ആവാതിരുന്നത്)
-            window.location.href = targetUrl; 
+            if (element) { saveToHistory(element, targetUrl); } // ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
+            window.location.href = targetUrl; // നേരിട്ട് read.html ലേക്ക് പോകുന്നു
         } else {
             // ലോഗിൻ ഇല്ലെങ്കിൽ:
-            // ബുക്കിന്റെ ലിങ്ക് ഓർത്തു വെക്കുന്നു
-            sessionStorage.setItem('pendingBook', targetUrl);
-            // പോപ്പ്-അപ്പ് കാണിക്കുന്നു
+            sessionStorage.setItem('pendingBook', targetUrl); // ലിങ്ക് ഓർത്തു വെക്കുന്നു
+            // പോപ്പ്-അപ്പ് തുറക്കുന്നു
             const modal = document.getElementById('login-modal');
             if(modal) modal.style.display = 'flex';
         }
@@ -315,7 +333,7 @@
         }
     }
     
-    // 4. സെർച്ച് ഫംഗ്‌ഷൻ
+    // Search
     window.searchBooks = function() { 
         var input = document.getElementById('searchBar'); 
         if(!input) return; 
