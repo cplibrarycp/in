@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -8,65 +7,119 @@
 <title>📚 Collection 1 | THRIPUDI LIBRARY</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-
-
-<style id="master-css-fix">
-    /* --- STICKY FOOTER & LAYOUT FIX --- */
+<style>
+    /* --- THEME --- */
+    :root {
+        --primary-orange: #00897B; 
+        --secondary-dark: #004D40; 
+        --background-light: #E0F2F1;
+        --text-color: #263238;
+        --light-text: #FFFFFF;
+        --card-bg: #FFFFFF;
+        --outline-color: #B2DFDB;
+    }
+    
+    /* --- STICKY FOOTER FIX --- */
     html, body { height: 100%; margin: 0; padding: 0; }
     body { 
         font-family: 'Poppins', sans-serif; 
-        background-color: #E0F2F1; 
-        color: #263238; 
+        background-color: var(--background-light); 
+        color: var(--text-color); 
         line-height: 1.6;
         display: flex; flex-direction: column; min-height: 100vh;
     }
-    .collection-section, .content-box, .container { flex: 1 0 auto; }
-    footer { flex-shrink: 0; margin-top: auto; }
-    
-    /* Popup Style */
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+    a { text-decoration: none; }
+
+    /* Header */
+    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
+    .nav-links { display: flex; align-items: center; gap: 15px; }
+    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
+
+    /* Profile */
+    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+    .user-name { font-weight: 600; display: block; }
+    .user-role { font-size: 0.8em; opacity: 0.8; }
+    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+    .user-profile:hover .profile-dropdown { display: block; }
+    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+    /* Collection (Flex Grow for Footer Fix) */
+    .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
+    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
+    #searchBar:focus { border-color: var(--primary-orange); }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+
+    /* Cards */
+    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
+    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
+    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+    .book-card:hover .book-cover { transform: scale(1.05); }
+    .book-card:hover .read-overlay { opacity: 1; }
+    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
+    .book-card:hover .overlay-btn { transform: translateY(0); }
+    .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
+
+    /* Footer */
+    footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
+    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+    .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 </style>
 </head>
 <body>
+
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html">Profile Settings</a>
-<a href="history.html">Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <section class="collection-section">
-<div class="container">
-<h1>Collection 1</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-<div class="library-container" id="bookList">
-<div class="book-card">
+    <div class="container">
+        <h1>Collection 1</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+        </div>
+
+        <div class="library-container" id="bookList">
+            <div class="book-card">
 <div class="image-wrapper">
 <img alt="9672393" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fQeuBr9TXBm39llSz-OMfPQ_9RLMtXbl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1BzgPjrF1myYETl6DAokMnUo87hk5vq7w')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">9672393</div>
@@ -75,7 +128,7 @@
 <div class="image-wrapper">
 <img alt="The Tiger  A True Story of Vengeance and Survival ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1z5QSQTVgY70YlqqS1-_R3rXV7iU_YV5I"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=138wWC79qs9FZCwyu2jNmo3o8sToJ6PBD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Tiger  A True Story of Vengeance and Survival ( PDFDrive )</div>
@@ -84,7 +137,7 @@
 <div class="image-wrapper">
 <img alt="The-Spy-Chronicles -RAW-ISI-and-the-illusion of peace ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14aEvSRfUHROO_StiMDgz3AiGQyk_MaRg"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=17uQdIqe2oitsJxdUP1Bq-Zchr6wh7izu')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The-Spy-Chronicles -RAW-ISI-and-the-illusion of peace ( PDFDrive )</div>
@@ -93,7 +146,7 @@
 <div class="image-wrapper">
 <img alt="What Is Not Yours Is Not Yours by Oyeyemi Helen (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kpQ_9ugkvspWZsmcpPmhe3VlFyJwR_6r"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1BAbIUJiDv-l6C-ReV2oJ_X0ZXnCI4ttV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">What Is Not Yours Is Not Yours by Oyeyemi Helen (z-lib.org).epub</div>
@@ -102,7 +155,7 @@
 <div class="image-wrapper">
 <img alt="the-life-time-calculator" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19e4edGNzbiR35g3qJ8HffHFHXCik58Yh"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Smza5Y7oKTAAnuWcCi9KcciuvZGD_eHZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">the-life-time-calculator</div>
@@ -111,7 +164,7 @@
 <div class="image-wrapper">
 <img alt="Two Can Keep a Secret by Karen M. McManus (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qrqa2pgvF5-yMXjtIedFGsdrBEPTNg63"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1UE3FCtn-cXExa6yJyy86JhnLXakJksfh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Two Can Keep a Secret by Karen M. McManus (z-lib.org).epub</div>
@@ -120,7 +173,7 @@
 <div class="image-wrapper">
 <img alt="When-the-Moon-Split" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10DxplgzklrRAXFoqQH-jsGM-7Si9azH_"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1jtw6nHqnsfdpQN96Zdw9IhS8HclIIokY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">When-the-Moon-Split</div>
@@ -129,7 +182,7 @@
 <div class="image-wrapper">
 <img alt="You Mean I m Not Lazy, Stupid or Crazy ! A Self-Help Book for Adults with Attention Deficit Disorder ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1enVdtIRZTxYzSRwXmHzz-lM4vlzUX61X"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1r1r36IxCRQh01Fse8zUDL-6CdUr6D62M')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">You Mean I m Not Lazy, Stupid or Crazy ! A Self-Help Book for Adults with Attention Deficit Disorder ( PDFDrive )</div>
@@ -138,7 +191,7 @@
 <div class="image-wrapper">
 <img alt="To Sell Is Human  The Surprising Truth About Moving Others ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1EU4WCyZOINuCeyQRuXFW7est2UnN7TZi"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=14u9nsWg602QzYtZbJQtVhQhukS4SzZhn')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">To Sell Is Human  The Surprising Truth About Moving Others ( PDFDrive )</div>
@@ -147,7 +200,7 @@
 <div class="image-wrapper">
 <img alt="This Is How You Lose the Time War by Amal El-Mohtar, Max Gladstone (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Skj7F2FdwZqxEilpfh4HBOOKtzBPJkmE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1DrIUd2AwL-voRYR_jwAfyrB-yakmbVpf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">This Is How You Lose the Time War by Amal El-Mohtar, Max Gladstone (z-lib.org).epub</div>
@@ -156,7 +209,7 @@
 <div class="image-wrapper">
 <img alt="William Shakespeare s Romeo and Juliet (Bloom s Modern Critical Interpretations) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1myIxwAfkJEhGKpgktg-iEolRpP-bGC09"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1HLIXZzCGJHBeih8zWs9iAOxZR2V2LOh6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">William Shakespeare s Romeo and Juliet (Bloom s Modern Critical Interpretations) ( PDFDrive )</div>
@@ -165,7 +218,7 @@
 <div class="image-wrapper">
 <img alt="We’re Going to Need More Wine by Gabrielle Union (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14_2L4bnEuOlbh6Eh1OYpqTMV39JNpapl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1IEFTe4qDb84XRo_VHQ8jvKWDEE2lg3mF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">We’re Going to Need More Wine by Gabrielle Union (z-lib.org).epub</div>
@@ -174,7 +227,7 @@
 <div class="image-wrapper">
 <img alt="War Storm by Aveyard Victoria (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MQ7HFG07cyVeR8DpaK_2Aq9oUJeRHICu"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Qq19pA-AO9VA-gJzbFrIh9QsptvprwLr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">War Storm by Aveyard Victoria (z-lib.org).epub</div>
@@ -183,7 +236,7 @@
 <div class="image-wrapper">
 <img alt="Why Great Leaders Don t Take Yes for an Answer Managing for  ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vPzCrCvCcZc0t7zHQexM2403cSnY5iFP"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1X8OM8Rgd_i3qKCxbj1Yjs5IKKd-IVuiX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Why Great Leaders Don t Take Yes for an Answer Managing for  ( PDFDrive )</div>
@@ -192,7 +245,7 @@
 <div class="image-wrapper">
 <img alt="They Both Die At The End by Silvera Adam (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zMZ1my7ezHpKBweOEWMxSkqEpefO9BB0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1XNuP3n4Z43jZu6QWhDEHQZnwupfrAfhb')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">They Both Die At The End by Silvera Adam (z-lib.org).epub</div>
@@ -201,7 +254,7 @@
 <div class="image-wrapper">
 <img alt="Understand Body Language (Teach Yourself) - Gordon Wainwright.pdf ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1O_cpdo1nRE18MENGYVR-bEtVGQX_tXUQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Xj9Zol3VcIX5CXn0TxWeJHkCln6XqQu_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Understand Body Language (Teach Yourself) - Gordon Wainwright.pdf ( PDFDrive )</div>
@@ -210,7 +263,7 @@
 <div class="image-wrapper">
 <img alt="The Wife Between Us. A Novel by Greer Hendricks, Sarah Pekkanen (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=135RLgP0QbUU8t-NnIchA0Iok-Wq99WCz"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1caUfJxAwmOaNqmzrcdqyDTsGAApJ6OS1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Wife Between Us. A Novel by Greer Hendricks, Sarah Pekkanen (z-lib.org).epub</div>
@@ -219,7 +272,7 @@
 <div class="image-wrapper">
 <img alt="Unravel Me by Mafi Tahereh (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1h6Y_mgzh-9gMMgvz3i0we6NTkimh7fW7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1pWCyyoF1MHFdxde1Hp1dHM_3DUF7r1dm')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Unravel Me by Mafi Tahereh (z-lib.org).epub</div>
@@ -228,7 +281,7 @@
 <div class="image-wrapper">
 <img alt="R G Hagstrom - The Warren Buffett Way  2nd Edition" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1s54mXBm-MMI9b15ibfrNoqqPv4b8D0OJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=109SODHFNVEnAfam5iDkMfdIm8TLIxPTl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">R G Hagstrom - The Warren Buffett Way  2nd Edition</div>
@@ -237,7 +290,7 @@
 <div class="image-wrapper">
 <img alt="New Power  How Power Works in Our Hyperconnected World--And How to Make It Work for You ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1-XEbFKMquoHg6niUpjTZu8O7UPkAhBR8"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=10hNuzsXLkP0Ps0f8HgcXy5V3uAIoYuV3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">New Power  How Power Works in Our Hyperconnected World--And How to Make It Work for You ( PDFDrive )</div>
@@ -246,7 +299,7 @@
 <div class="image-wrapper">
 <img alt="Spiritual Warfare by Derek Prince.pdf ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_oR4GnMC12fjIh4pA4C72TDHju4f4zsI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=13uSe35638ewzI-ln1VNuxYSmaaOh_CNv')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Spiritual Warfare by Derek Prince.pdf ( PDFDrive )</div>
@@ -255,7 +308,7 @@
 <div class="image-wrapper">
 <img alt="Soft Thorns by devoue bridgett (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gxVbtnHa4ypNLQ3bOg5ZwfcLw1gBlV5e"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=16oDXgLQFsvOJ3AcRmTtYHfZpmNrTdfHU')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Soft Thorns by devoue bridgett (z-lib.org).epub</div>
@@ -264,7 +317,7 @@
 <div class="image-wrapper">
 <img alt="The Joy of Simple Living  Over 1,500 Simple Ways to Make Your Life Easy and Content-- At Home and At Work ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1crg4as9Pl1W-vre9vao6N1Ck62T-f8P9"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=19SNXdF_GaYvO9rWSx_uXu_gD5u1n4RE8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Joy of Simple Living  Over 1,500 Simple Ways to Make Your Life Easy and Content-- At Home and At Work ( PDFDrive )</div>
@@ -273,7 +326,7 @@
 <div class="image-wrapper">
 <img alt="The Book Thief by Markus Zusak (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kTPOob-ka3_xntS2SYaKh98CTN6K0SMN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=19l2766wvVvf-Jsedwv9HEloBY3OgHpAY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Book Thief by Markus Zusak (z-lib.org).epub</div>
@@ -282,7 +335,7 @@
 <div class="image-wrapper">
 <img alt="Learning to Dance ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12TwMXJWZ7-hQ4YigS-_gR2wUriDP5V__"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1A3uQ_QR6E1prNuAZRd2MBo5-Y5P5z9PQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Learning to Dance ( PDFDrive )</div>
@@ -291,7 +344,7 @@
 <div class="image-wrapper">
 <img alt="The Gifts of Imperfection  Embrace Who You Are ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12McJT6FYnmcqlmPRDsSzl_eVA8U_8Yh3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1DOzZd_9qGFk5Ie2L38Pwe7oOTNNE5ya1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Gifts of Imperfection  Embrace Who You Are ( PDFDrive )</div>
@@ -300,7 +353,7 @@
 <div class="image-wrapper">
 <img alt="The New Birth, Kenneth Hagin, 40pg" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OHzxoQNS7NJv60k12noPF4z8cxTwOXzB"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1F6BvewsOVcOvTO48moMSQyCFG4b5Wili')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The New Birth, Kenneth Hagin, 40pg</div>
@@ -309,7 +362,7 @@
 <div class="image-wrapper">
 <img alt="Paul R Fleischman-Cultivating Inner Peace" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15Ks2nylx6aNaerDI2bZt8iBG_y1VQxOA"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1FJZSyzs2Jt1-bfeHPg8LvGz3JsKcs7Vj')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Paul R Fleischman-Cultivating Inner Peace</div>
@@ -318,7 +371,7 @@
 <div class="image-wrapper">
 <img alt="The Courage Habit  How to Accept Your Fears, Release the Past, and Live Your Courageous Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13RRfgpv-LtlccpDINdyLl7Z92XHhfHIj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1FO5uw8EE6b4gHF0oL4P0UVYAl-VbsZ4p')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Courage Habit  How to Accept Your Fears, Release the Past, and Live Your Courageous Life ( PDFDrive )</div>
@@ -327,7 +380,7 @@
 <div class="image-wrapper">
 <img alt="Rediscovering The Kingdom ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1m_jiIE1C5SUK-_yIOXxHRDI74kiJyD-9"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1H7bP7G6WKmOnVGKsfU0FpvS9SL-F6LZs')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rediscovering The Kingdom ( PDFDrive )</div>
@@ -336,7 +389,7 @@
 <div class="image-wrapper">
 <img alt="One of Us is Lying by Karen M. McManus (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hBgMu6EctxPNt8hz3jdKRS-5Y6JPMNq-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1HgPG1H3Ih6W64XPQn-zPYabaAtabjNqf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">One of Us is Lying by Karen M. McManus (z-lib.org).epub</div>
@@ -345,7 +398,7 @@
 <div class="image-wrapper">
 <img alt="mystery short stories" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tyoE4wzofALFI5cg88AAhsRrBGqLYxFI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1IILpG5sWkbXNN2nVFtfjAgKLlcZULcYK')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">mystery short stories</div>
@@ -354,7 +407,7 @@
 <div class="image-wrapper">
 <img alt="Letter to My Daughter by Maya Angelou (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1s2AXXXVzcvaTCgexBJQxeatj8YQZzQ2u"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1JgPdYUvf_z1siZ5yG1k4TRNhP6MMWICZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Letter to My Daughter by Maya Angelou (z-lib.org).epub</div>
@@ -363,7 +416,7 @@
 <div class="image-wrapper">
 <img alt="The Courage to be Disliked How to Change Your Life and Achieve Real Happiness by Ichiro Kishimi Fumitake Koga (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11aEL6lGxsfurdJVzdpz1DqjqJK7zfoOK"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1NQ0_MqR8lKmYxXwWoHjK0gXOnRZEjUdi')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Courage to be Disliked How to Change Your Life and Achieve Real Happiness by Ichiro Kishimi Fumitake Koga (z-lib.org).epub</div>
@@ -372,7 +425,7 @@
 <div class="image-wrapper">
 <img alt="The Artist’s Way  A Spiritual Path to Higher Creativity ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kRQjUE1zrOB5U46Hp1WHeA_1JHVOlGpt"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1PQPu_diGwDUKEQlliOhP9Y0xpgs7Ses-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Artist’s Way  A Spiritual Path to Higher Creativity ( PDFDrive )</div>
@@ -381,7 +434,7 @@
 <div class="image-wrapper">
 <img alt="The Complete Short Stories Of Ernest Hemingway - The Teacher s  ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1P-bjakPg5lusQq_MRiWCxhIJP_jX8qfb"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1QXg0pJ4dRIoUHBheFzqZAAOeS6JRpgn4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Complete Short Stories Of Ernest Hemingway - The Teacher s  ( PDFDrive )</div>
@@ -390,7 +443,7 @@
 <div class="image-wrapper">
 <img alt="The Energy Bus  10 Rules to Fuel Your Life, Work, and Team with Positive Energy ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1q9k-4mIVdNQzQKci6aG3fXv2md4wWiR7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1S2v9XrRJgLzVtDZ4qqMnQZsJwA2Sp8BS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Energy Bus  10 Rules to Fuel Your Life, Work, and Team with Positive Energy ( PDFDrive )</div>
@@ -399,7 +452,7 @@
 <div class="image-wrapper">
 <img alt="The Cruel Prince by Holly Black (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1-K-EDOSTygGzahNtPmDpgPUXmOqVXRU2"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1S4fkwX_39a4n685c9L47DSFvr-N3vOrz')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Cruel Prince by Holly Black (z-lib.org).epub</div>
@@ -408,7 +461,7 @@
 <div class="image-wrapper">
 <img alt="Love Never Fails By Kenneth E. Hagin ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1t68oH_0t4719VqAQksm2BCdyoFbXsOwy"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1TBn8sSSObcUW2bYIuUw-MsewfyTayLTR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Love Never Fails By Kenneth E. Hagin ( PDFDrive )</div>
@@ -417,7 +470,7 @@
 <div class="image-wrapper">
 <img alt="The Fourth Turning  An American Prophecy - What the Cycles of History Tell Us About America s Next Rendezvous with Destiny ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1TDwV41ZyAW8LtE9a6Ewdb6iyt88Vb-fi"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1XPJ-I-TTNo0QR-oImsoy78T5x0j-ymxV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Fourth Turning  An American Prophecy - What the Cycles of History Tell Us About America s Next Rendezvous with Destiny ( PDFDrive )</div>
@@ -426,7 +479,7 @@
 <div class="image-wrapper">
 <img alt="The Essential Rumi by Coleman Barks ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OW2CUqtvqC7plQjd8VRuYln7YGKVMDth"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Xl5BlVN1Z64MTFH3cKeQnvC4MnakP_4e')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Essential Rumi by Coleman Barks ( PDFDrive )</div>
@@ -435,7 +488,7 @@
 <div class="image-wrapper">
 <img alt="The Power of Creativity (Book 1)  Learning How to Build Lasting Habits, Face Your Fears and Change Your Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qHdO8U_H-5rfZJrCtct2eyRpPArqX4aO"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1YLoq3BSLMuU1niQCNmrIX-ov01ftbvN2')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Power of Creativity (Book 1)  Learning How to Build Lasting Habits, Face Your Fears and Change Your Life ( PDFDrive )</div>
@@ -444,7 +497,7 @@
 <div class="image-wrapper">
 <img alt="Maybe You Should Talk to Someone A Therapist, Her Therapist, and Our Lives Revealed by Lori Gottlieb (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wx-Y6HDUjZMmcU2VgR4p-3Zz4QRm90Ah"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1ZQvSw02n4z2Qo2vSCvTCRFvKBdr4yEMz')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Maybe You Should Talk to Someone A Therapist, Her Therapist, and Our Lives Revealed by Lori Gottlieb (z-lib.org).epub</div>
@@ -453,7 +506,7 @@
 <div class="image-wrapper">
 <img alt="The Hairdresser of Harare by Huchu Tendai (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1z9Pw7LQzEFTP7uKrqyhcubiGKMZPkOMl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1b7JWT-ZK73zlyHjYAkCO5h2b1D7ictAV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Hairdresser of Harare by Huchu Tendai (z-lib.org).epub</div>
@@ -462,7 +515,7 @@
 <div class="image-wrapper">
 <img alt="Proof of Heaven  A Neurosurgeon s Journey into the Afterlife ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jpGgEQq6KSDQCcepzx_H_kkxfmZhD8ie"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1cwJSGtm5rKgewaAI2gJoiaH7Zg5j7cJp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Proof of Heaven  A Neurosurgeon s Journey into the Afterlife ( PDFDrive )</div>
@@ -471,7 +524,7 @@
 <div class="image-wrapper">
 <img alt="Power Breathing Breathe Your Way to Inner Power (2008) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MeMVcSJIRBCBin7R6PGHQnvQHSzrRo9o"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1fNEy_wZZ2Ex-BHKz3rg9bfqNUoJJDKLp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Power Breathing Breathe Your Way to Inner Power (2008) ( PDFDrive )</div>
@@ -480,7 +533,7 @@
 <div class="image-wrapper">
 <img alt="Light on Life  The Yoga Journey to Wholeness, Inner Peace, and Ultimate Freedom ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1JzMNmPFK4LS8Lz3Hy3j3tlwJ-1OmiwYi"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1iX-1lOA26WNB78SrjA6rIznKui1q7udH')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Light on Life  The Yoga Journey to Wholeness, Inner Peace, and Ultimate Freedom ( PDFDrive )</div>
@@ -489,7 +542,7 @@
 <div class="image-wrapper">
 <img alt="The Hidden Art of Interviewing People  How to get them to tell you the truth ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=140KUN6wYblvhP8W4cx5_3xXJJIw5jbwE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1ikVNSJXEe5BlZXfQlfiaDZQUfYgj-VDQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Hidden Art of Interviewing People  How to get them to tell you the truth ( PDFDrive )</div>
@@ -498,7 +551,7 @@
 <div class="image-wrapper">
 <img alt="The Notebook by Sparks Nicholas (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1z1tukws3Nj0fDObOPLkmYMIVCR_cWP_-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1jmXkWsXiohQ3YPKLURpe7fyItdH9bviX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Notebook by Sparks Nicholas (z-lib.org).epub</div>
@@ -507,7 +560,7 @@
 <div class="image-wrapper">
 <img alt="Out of Character  Surprising Truths about the Liar, Cheat, Sinner (and Saint) Lurking in All of Us   ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1oXKE7c9h0jTJyj56r_Njhh1ktCWS6B2C"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1kkBqdgEukrpZittvDajCNf3owbi15j6f')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Out of Character  Surprising Truths about the Liar, Cheat, Sinner (and Saint) Lurking in All of Us   ( PDFDrive )</div>
@@ -516,7 +569,7 @@
 <div class="image-wrapper">
 <img alt="The Book of Awakening  Having the Life You Want by Being Present in the Life You Have ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Fq1sCPDIY5dpnbLGDGffrtsDv82aFOig"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1mh3HY9q8yxyONfJmH4e6tNp2eHycnM_V')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Book of Awakening  Having the Life You Want by Being Present in the Life You Have ( PDFDrive )</div>
@@ -525,7 +578,7 @@
 <div class="image-wrapper">
 <img alt="The End of Days  Armageddon and Prophecies of the Return (The Earth Chronicles) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19nTfxz3IZ5_gMbQnE-93f2Fvb_8yTkrr"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1mt5AQae2gCAsULve3Ql2speOantTk0QH')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The End of Days  Armageddon and Prophecies of the Return (The Earth Chronicles) ( PDFDrive )</div>
@@ -534,7 +587,7 @@
 <div class="image-wrapper">
 <img alt="Present Over Perfect  Leaving Behind Frantic for a Simpler, More Soulful Way of Living ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1AuDGvEgZwSK9exXC4woWAJC0VWZpRNJK"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1pshoVVl83_yHpk2XTm5Bp8VraEITzHcC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Present Over Perfect  Leaving Behind Frantic for a Simpler, More Soulful Way of Living ( PDFDrive )</div>
@@ -543,7 +596,7 @@
 <div class="image-wrapper">
 <img alt="Shatter Me by Tahereh Mafi (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OAhivUKG0BD14zIW5OtEOlKumATCv72B"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1sW1vivr5xF7PMFogL8BALaUkaqHyFHDD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Shatter Me by Tahereh Mafi (z-lib.org).epub</div>
@@ -552,7 +605,7 @@
 <div class="image-wrapper">
 <img alt="The Life You ve Always Wanted Spiritual Disciplines for Ordinary People ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1sLIF7Ps4RUuugz7-eEUEJzjOPlsIGikC"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1stcWg2neZxFoIc68qLnwdiWXw4ac1kU8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Life You ve Always Wanted Spiritual Disciplines for Ordinary People ( PDFDrive )</div>
@@ -561,7 +614,7 @@
 <div class="image-wrapper">
 <img alt="The Rules of Management, Expanded Edition  A Definitive Code for Managerial Success ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FwlqAvP3D7hWdSztY2nlOFt677okzpBn"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1tMpqs_8AZRMdENUO-9wqUeUACgknYxhb')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Rules of Management, Expanded Edition  A Definitive Code for Managerial Success ( PDFDrive )</div>
@@ -570,7 +623,7 @@
 <div class="image-wrapper">
 <img alt="Richard Templar-The Rules of Work-EN" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1oKpOD30OfUXsYSsYIZg7hl_18EePajyL"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1tYaLPdquT1iUTfZMA-tDAnr1toya7B6R')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Richard Templar-The Rules of Work-EN</div>
@@ -579,7 +632,7 @@
 <div class="image-wrapper">
 <img alt="The Sun and Her Flowers by Rupi Kaur (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Ay00Sih1oZgEQuGdfvWaxpxHuqzgCgCY"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1tjv9DAk0DUuRCmO1XjRM2a6hQS5UmhWc')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Sun and Her Flowers by Rupi Kaur (z-lib.org).epub</div>
@@ -588,7 +641,7 @@
 <div class="image-wrapper">
 <img alt="12 Rules for Life, An Antidote to Chaos ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1XWxMfrMJjs4Anc-Cs0_p_C1toa99Yrf8"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=10_0gm95HoiP9VT25RLoor9Iv389HSR44')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">12 Rules for Life, An Antidote to Chaos ( PDFDrive )</div>
@@ -597,7 +650,7 @@
 <div class="image-wrapper">
 <img alt="925 Ideas to Help You Save Money, Get Out of Debt and Retire A Millionaire  So You Can Leave Your Mark on the World ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1dQHmkDLHnC6kTP6UVg9UC82mXfFq-pYS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=14WAsoSOK-QIiZhuKL96YNwcUUuCcwqcl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">925 Ideas to Help You Save Money, Get Out of Debt and Retire A Millionaire  So You Can Leave Your Mark on the World ( PDFDrive )</div>
@@ -606,7 +659,7 @@
 <div class="image-wrapper">
 <img alt="Kenneth-E-Hagin-The-Glory-of-God" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pDbagTWl2DzJ51JXxVm1f7mY10ptuoMQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=17djRyM-3vmctMctVwzau3UMGmqA0jhvW')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Kenneth-E-Hagin-The-Glory-of-God</div>
@@ -615,7 +668,7 @@
 <div class="image-wrapper">
 <img alt="Educated A Memoir by Tara Westover (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=16_XOumTb2jpspcwuV_AURPLuOTZxhfeN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=181Zy8kSRyTUKeZtv6DyflU-4NLry2zrL')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Educated A Memoir by Tara Westover (z-lib.org).epub</div>
@@ -624,7 +677,7 @@
 <div class="image-wrapper">
 <img alt="I Wish You All The Best by Mason Deaver (z-lib.org)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11hLQIfR-nVgxKi2CLVcrPXEL5l6Txxh3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1CKpboqUQpRPN-ToHJ3A7LCyGbo8WUkzk')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">I Wish You All The Best by Mason Deaver (z-lib.org)</div>
@@ -633,7 +686,7 @@
 <div class="image-wrapper">
 <img alt="Everyone communicates, few connect   what the most effective people do differently. Summary ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10ISy5D5CDZOUWKR3y-Go8LP64Gwf7TQg"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1DuKkms3yJKrVdmW1vBDdg5wkP7hjTCyk')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Everyone communicates, few connect   what the most effective people do differently. Summary ( PDFDrive )</div>
@@ -642,7 +695,7 @@
 <div class="image-wrapper">
 <img alt="INSTAGRAM+LAYOUTS" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pTgtT0-LfBXL3fLybigGvVEMJ2oaUmPo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1I2-KhCR_dZSiPYGWfyZ-sojvHTM2-IUJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">INSTAGRAM+LAYOUTS</div>
@@ -651,7 +704,7 @@
 <div class="image-wrapper">
 <img alt="Destroy Me by Mafi Tahereh (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1827ZRC-kcqJZAJBuD57n8t_tPowdeaNJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1JMSkHCImwpJW6XLB-pqIOh6Uyqahxu1w')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Destroy Me by Mafi Tahereh (z-lib.org).epub</div>
@@ -660,7 +713,7 @@
 <div class="image-wrapper">
 <img alt="Killers of the Flower Moon  The Osage Murders and the Birth of the FBI ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1P8K6pY47YQ-z3vlYF22ECMCpDWa-0C4a"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1KThy_PQsvS7dPSKV6cVz5QQotIi1SUjA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Killers of the Flower Moon  The Osage Murders and the Birth of the FBI ( PDFDrive )</div>
@@ -669,7 +722,7 @@
 <div class="image-wrapper">
 <img alt="Law of Success (21st Century Edition) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1D8N2r2zslzrINug8FzDQkx2_gVrPJmtJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1KqX4_GYf8WBnfF-ii8VEvuNe77GnYkOz')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Law of Success (21st Century Edition) ( PDFDrive )</div>
@@ -678,7 +731,7 @@
 <div class="image-wrapper">
 <img alt="Call Me by Your Name by Aciman André (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1dMboIQJBsGNN2PeP31JKCTHvSnRwPHGx"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1MUARp-kVeNZdusKjzat2ua6nM3qHkU6w')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Call Me by Your Name by Aciman André (z-lib.org).epub</div>
@@ -687,7 +740,7 @@
 <div class="image-wrapper">
 <img alt="Encyclopedia of Comic Books and Graphic Novels ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18d3IlvqhpgBtXdbclcwH1RAN5kqld9Cx"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1PLaqvUcYeKzkJ3oqPWXbl_rwx9hzhOdB')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Encyclopedia of Comic Books and Graphic Novels ( PDFDrive )</div>
@@ -696,7 +749,7 @@
 <div class="image-wrapper">
 <img alt="Great Wars and Great Leaders ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wC2_xWmuabq5KDcSCpOP1uMWX1Jq5-MH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1PLyP8Do4ljfG19feOMQ9vhb0_xwaouqX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Great Wars and Great Leaders ( PDFDrive )</div>
@@ -705,7 +758,7 @@
 <div class="image-wrapper">
 <img alt="How To Deal With Difficult People  Smart Tactics for Overcoming the Problem People in Your Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1G2FLj42_vqbg7T-45nKKxKdqO8L_f4_s"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Q7Nl9ByVb2cRwo4NKmvpQpKJOYUXbyoc')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How To Deal With Difficult People  Smart Tactics for Overcoming the Problem People in Your Life ( PDFDrive )</div>
@@ -714,7 +767,7 @@
 <div class="image-wrapper">
 <img alt="Daring Greatly  How the Courage to Be Vulnerable Transforms the Way We Live, Love, Parent, and Lead ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hq6OlDmJi6TdIwCWbbTdRJBT1XMyHZoZ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1SOZickbDMKARjUCmKpr-KKQd2Ux7KxyT')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Daring Greatly  How the Courage to Be Vulnerable Transforms the Way We Live, Love, Parent, and Lead ( PDFDrive )</div>
@@ -723,7 +776,7 @@
 <div class="image-wrapper">
 <img alt="Exceedingly Growing Faith by Kenneth E. Hagin ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QmBg6uonfs0fZd-m-J98kyqfnWVAR-o4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1SQqOVH8r69YoZkjE9IVGRMOzUQnbOb5B')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Exceedingly Growing Faith by Kenneth E. Hagin ( PDFDrive )</div>
@@ -732,7 +785,7 @@
 <div class="image-wrapper">
 <img alt="INSTAGRAM+LAYOUTS (1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nWCe_mn50MQlBypo3SqinzvGTjvUv3qj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1TM4MNUCju1Jb9r4bQ96DUtDXgcaxaSkv')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">INSTAGRAM+LAYOUTS (1)</div>
@@ -741,7 +794,7 @@
 <div class="image-wrapper">
 <img alt="abraham-hicks 30 day work book" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SQVNIL2fzRtnQ1Dwy4lgTRos44RhqTwR"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1TR1YWlJVyf8lmQZ1grCmYZ0yfb6EflYB')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">abraham-hicks 30 day work book</div>
@@ -750,7 +803,7 @@
 <div class="image-wrapper">
 <img alt="108 Proven Split Test Winners. Simple Tweaks You Can Make to Your Website, so You Can Make More Money Now! ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vGWoTwRUqdYQN-SpYbdBkAvWzq4TRsu4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1TxknCo5UV3jdxq24dXz_z7Id1xcolFQM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">108 Proven Split Test Winners. Simple Tweaks You Can Make to Your Website, so You Can Make More Money Now! ( PDFDrive )</div>
@@ -759,7 +812,7 @@
 <div class="image-wrapper">
 <img alt="Hillbilly Elegy  A Memoir of a Family and Culture in Crisis ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=125l3_W9CRvj-pvmx7mgxBpZdNsjD_iAW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1UwToPP-FlGe12HnfvBdgk1JedH1X_iFs')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Hillbilly Elegy  A Memoir of a Family and Culture in Crisis ( PDFDrive )</div>
@@ -768,7 +821,7 @@
 <div class="image-wrapper">
 <img alt="Be a People Person  Effective Leadership Through Effective Relationships ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14RuONaXAVumkXlGbdQPLT1978s0TV63Q"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1VAUc32yaqCOb96G5oPACckWVJIQGG_VO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Be a People Person  Effective Leadership Through Effective Relationships ( PDFDrive )</div>
@@ -777,7 +830,7 @@
 <div class="image-wrapper">
 <img alt="Half of a Yellow Sun by Chimamanda Ngozi Adichie (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hd2BA4541H_P5xASOiLI3A1i_LRzvniW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1VAz38oc5eS9eQbWspiU-VzwVDL8P2NUS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Half of a Yellow Sun by Chimamanda Ngozi Adichie (z-lib.org).epub</div>
@@ -786,7 +839,7 @@
 <div class="image-wrapper">
 <img alt="Celebration of Discipline  The Path to Spiritual Growth ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QQStd0CCmNCGiB2yojsHjl0wnm1y2Tcv"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1aPwyc58kHa4FLR5riGJ_ZEDYuG7xy0vm')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Celebration of Discipline  The Path to Spiritual Growth ( PDFDrive )</div>
@@ -795,7 +848,7 @@
 <div class="image-wrapper">
 <img alt="How to Spot a Liar, Revised Edition  Why People Don t Tell the Truth...and How You Can Catch Them ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1eb-mCAfaF10IJIG6mNq3BGi3LIQee4FT"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1bI3uCQt5UvsH4Op2oZswWEIv1aSnwX_X')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How to Spot a Liar, Revised Edition  Why People Don t Tell the Truth...and How You Can Catch Them ( PDFDrive )</div>
@@ -804,7 +857,7 @@
 <div class="image-wrapper">
 <img alt="inspiration-to-live-your-magic" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fRzoLR2j99sSi6AhWD8O2xAtLvvER977"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1bYavo2pjM5xbf8UXC5oPgRQjgSQ76naC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">inspiration-to-live-your-magic</div>
@@ -813,7 +866,7 @@
 <div class="image-wrapper">
 <img alt="Kenneth E Hagin - Praying to Get Results" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tbn7c-eZiP9mpwWHFBkY_tji4XVNbXSz"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1cqNIss5daRFNcC4ZhfJreKOtRyhFjec5')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Kenneth E Hagin - Praying to Get Results</div>
@@ -822,7 +875,7 @@
 <div class="image-wrapper">
 <img alt="From Stress to Stillness  Tools for Inner Peace ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vh9IHgoY6cWvLWCAPVhJLZqtgzML9ZxM"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1czi5YkNpG5DJ5QBukshpW8n2iaCk9s0x')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">From Stress to Stillness  Tools for Inner Peace ( PDFDrive )</div>
@@ -831,7 +884,7 @@
 <div class="image-wrapper">
 <img alt="Agents of Babylon  What the Prophecies of Daniel Tell Us about the End of Days ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qfXOkr92CXBAllX31-trUS9UaT6w-Faz"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1hlfcJV51Y_P3PdFS2qvE-td0Wk74bdJ4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Agents of Babylon  What the Prophecies of Daniel Tell Us about the End of Days ( PDFDrive )</div>
@@ -840,7 +893,7 @@
 <div class="image-wrapper">
 <img alt="Ernest Hemingway s The Old Man and the Sea (Bloom s Modern Critical Interpretations) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ptyxh4tMHr1kxOrvTgM8oWx6JiysJrwZ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1hxplYqZcwfLaJPBgFOD3rvV_lnkLlGWO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Ernest Hemingway s The Old Man and the Sea (Bloom s Modern Critical Interpretations) ( PDFDrive )</div>
@@ -849,7 +902,7 @@
 <div class="image-wrapper">
 <img alt="Enlightenment Now  The Case for Reason Science Humanism and Progress ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hsw--JzzfCHeIP87Rm1XMfR1ATzt6XWl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1pU9LCFYj3VSS26yK4dtNqapR9HL-uthd')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Enlightenment Now  The Case for Reason Science Humanism and Progress ( PDFDrive )</div>
@@ -858,7 +911,7 @@
 <div class="image-wrapper">
 <img alt="Finish What You Start The Art of Following Through, Taking Action, Executing,  Self-Discipline by Peter Hollins (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Vj5h7tEUoSgXfa-M5wmvVxon1-zKl4UJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1rPYuNf-415Pbs2XN9SKg7XBtqb0rgP-c')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Finish What You Start The Art of Following Through, Taking Action, Executing,  Self-Discipline by Peter Hollins (z-lib.org).epub</div>
@@ -867,7 +920,7 @@
 <div class="image-wrapper">
 <img alt="Kingdom of Ash - Sarah J. Maas ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15bwFF-uCer2jqS0XQZtCHi-drt68aOFk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1vHC3_LWi7R15lqRWnmzCxqFZmn1N6GFi')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Kingdom of Ash - Sarah J. Maas ( PDFDrive )</div>
@@ -876,7 +929,7 @@
 <div class="image-wrapper">
 <img alt="Decisive  How to Make Better Choices in Life and Work ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1yzxjqttpLXWOP_NqgFzZX5zJoXLmRIg0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1wa1ZgzqeFkMDsr0NuFmvZfZntP_a7DwO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Decisive  How to Make Better Choices in Life and Work ( PDFDrive )</div>
@@ -885,7 +938,7 @@
 <div class="image-wrapper">
 <img alt="Her Royal Highness by Rachel Hawkins (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OPlffpCa3btvZeJmAazIFUDjU9cStueV"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1x-Q1MrIxW3Fjj_tWUhs7wE7jyDi5Euwm')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Her Royal Highness by Rachel Hawkins (z-lib.org).epub</div>
@@ -894,43 +947,47 @@
 <div class="image-wrapper">
 <img alt="Find Me by André Aciman (z-lib.org).epub" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1UeRHNoP3uakx0AVkEa2alLzip7zehAW6"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1xoxLLs1Ma3AgeRWv7-Vf0aG5UiMq0ZaC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Find Me by André Aciman (z-lib.org).epub</div>
 </div>
-</div>
-</div>
+
+        </div>
+    </div>
 </section>
+
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
             <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
             <a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
 
+<style>
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
 
-
-
-
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
 </div>
-</div>
 
-<script id="master-js-logic" type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -943,7 +1000,7 @@
         const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
-            currentUser = user; 
+            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
@@ -957,7 +1014,7 @@
         }
     });
 
-    // Make functions globally available
+    // Save History & Redirect
     window.checkAccess = function(linkElement, targetUrl) {
         if (currentUser) {
             saveToHistory(linkElement, targetUrl);
@@ -1001,7 +1058,7 @@
         });
     }
     
-    // Search Function
+    // Search
     window.searchBooks = function() { 
         var input = document.getElementById('searchBar'); 
         if(!input) return; 

@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -8,65 +7,119 @@
 <title>📚 ഋഗ്വേദം മലയാളം | THRIPUDI LIBRARY</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-
-
-<style id="master-css-fix">
-    /* --- STICKY FOOTER & LAYOUT FIX --- */
+<style>
+    /* --- THEME --- */
+    :root {
+        --primary-orange: #00897B; 
+        --secondary-dark: #004D40; 
+        --background-light: #E0F2F1;
+        --text-color: #263238;
+        --light-text: #FFFFFF;
+        --card-bg: #FFFFFF;
+        --outline-color: #B2DFDB;
+    }
+    
+    /* --- STICKY FOOTER FIX --- */
     html, body { height: 100%; margin: 0; padding: 0; }
     body { 
         font-family: 'Poppins', sans-serif; 
-        background-color: #E0F2F1; 
-        color: #263238; 
+        background-color: var(--background-light); 
+        color: var(--text-color); 
         line-height: 1.6;
         display: flex; flex-direction: column; min-height: 100vh;
     }
-    .collection-section, .content-box, .container { flex: 1 0 auto; }
-    footer { flex-shrink: 0; margin-top: auto; }
-    
-    /* Popup Style */
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+    a { text-decoration: none; }
+
+    /* Header */
+    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
+    .nav-links { display: flex; align-items: center; gap: 15px; }
+    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
+
+    /* Profile */
+    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+    .user-name { font-weight: 600; display: block; }
+    .user-role { font-size: 0.8em; opacity: 0.8; }
+    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+    .user-profile:hover .profile-dropdown { display: block; }
+    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+    /* Collection (Flex Grow for Footer Fix) */
+    .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
+    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
+    #searchBar:focus { border-color: var(--primary-orange); }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+
+    /* Cards */
+    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
+    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
+    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+    .book-card:hover .book-cover { transform: scale(1.05); }
+    .book-card:hover .read-overlay { opacity: 1; }
+    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
+    .book-card:hover .overlay-btn { transform: translateY(0); }
+    .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
+
+    /* Footer */
+    footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
+    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+    .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 </style>
 </head>
 <body>
+
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html">Profile Settings</a>
-<a href="history.html">Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <section class="collection-section">
-<div class="container">
-<h1>ഋഗ്വേദം മലയാളം</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-<div class="library-container" id="bookList">
-<div class="book-card">
+    <div class="container">
+        <h1>ഋഗ്വേദം മലയാളം</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+        </div>
+
+        <div class="library-container" id="bookList">
+            <div class="book-card">
 <div class="image-wrapper">
 <img alt="RgveedsNhit 1 - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FbCd9aAYP2BmmDJcSePGWbDdlw5Y6RVL"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Ly_i34E-u19eMBD2oIWmXorPH0NuYOmQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഋഗ്വേദം 1</div>
@@ -75,7 +128,7 @@
 <div class="image-wrapper">
 <img alt="RgveedsNhit 2 - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fOeAJEj6vClePZqx3IzT5O9zX7ErUPK7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1a2Ct6T3XSZ1CGjVH95pt8w1-OcSU4rPm')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഋഗ്വേദം 2</div>
@@ -84,7 +137,7 @@
 <div class="image-wrapper">
 <img alt="RgveedsNhit 3 - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qtaGkgKOUoQsWl3ojHbsmWzGLc2bWQ4Z"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1z9Y_C_jKv8aQsi2w6l3dYliJFHdc0R-u')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഋഗ്വേദം 3</div>
@@ -93,43 +146,47 @@
 <div class="image-wrapper">
 <img alt="RgveedsNhit 4 - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SVD9B_0fNr1Y1MSR1Z7hxCoRg15bv3YS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1yfJ7K70f6J_lafGbkim0NPoI75JVU6WB')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഋഗ്വേദം 4</div>
 </div>
-</div>
-</div>
+
+        </div>
+    </div>
 </section>
+
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
             <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
             <a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
 
+<style>
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
 
-
-
-
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
 </div>
-</div>
 
-<script id="master-js-logic" type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -142,7 +199,7 @@
         const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
-            currentUser = user; 
+            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
@@ -156,7 +213,7 @@
         }
     });
 
-    // Make functions globally available
+    // Save History & Redirect
     window.checkAccess = function(linkElement, targetUrl) {
         if (currentUser) {
             saveToHistory(linkElement, targetUrl);
@@ -200,7 +257,7 @@
         });
     }
     
-    // Search Function
+    // Search
     window.searchBooks = function() { 
         var input = document.getElementById('searchBar'); 
         if(!input) return; 

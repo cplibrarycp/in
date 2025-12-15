@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -8,65 +7,119 @@
 <title>📚 വള്ളത്തോൾ കൃതികൾ | THRIPUDI LIBRARY</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-
-
-<style id="master-css-fix">
-    /* --- STICKY FOOTER & LAYOUT FIX --- */
+<style>
+    /* --- THEME --- */
+    :root {
+        --primary-orange: #00897B; 
+        --secondary-dark: #004D40; 
+        --background-light: #E0F2F1;
+        --text-color: #263238;
+        --light-text: #FFFFFF;
+        --card-bg: #FFFFFF;
+        --outline-color: #B2DFDB;
+    }
+    
+    /* --- STICKY FOOTER FIX --- */
     html, body { height: 100%; margin: 0; padding: 0; }
     body { 
         font-family: 'Poppins', sans-serif; 
-        background-color: #E0F2F1; 
-        color: #263238; 
+        background-color: var(--background-light); 
+        color: var(--text-color); 
         line-height: 1.6;
         display: flex; flex-direction: column; min-height: 100vh;
     }
-    .collection-section, .content-box, .container { flex: 1 0 auto; }
-    footer { flex-shrink: 0; margin-top: auto; }
-    
-    /* Popup Style */
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+    a { text-decoration: none; }
+
+    /* Header */
+    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
+    .nav-links { display: flex; align-items: center; gap: 15px; }
+    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
+
+    /* Profile */
+    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+    .user-name { font-weight: 600; display: block; }
+    .user-role { font-size: 0.8em; opacity: 0.8; }
+    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+    .user-profile:hover .profile-dropdown { display: block; }
+    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+    /* Collection (Flex Grow for Footer Fix) */
+    .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
+    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
+    #searchBar:focus { border-color: var(--primary-orange); }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+
+    /* Cards */
+    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
+    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
+    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+    .book-card:hover .book-cover { transform: scale(1.05); }
+    .book-card:hover .read-overlay { opacity: 1; }
+    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
+    .book-card:hover .overlay-btn { transform: translateY(0); }
+    .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
+
+    /* Footer */
+    footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
+    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+    .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 </style>
 </head>
 <body>
+
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html">Profile Settings</a>
-<a href="history.html">Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <section class="collection-section">
-<div class="container">
-<h1>വള്ളത്തോൾ കൃതികൾ</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-<div class="library-container" id="bookList">
-<div class="book-card">
+    <div class="container">
+        <h1>വള്ളത്തോൾ കൃതികൾ</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+        </div>
+
+        <div class="library-container" id="bookList">
+            <div class="book-card">
 <div class="image-wrapper">
 <img alt="അഭിജ്ഞാനശാകുന്തളം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1p6mLEFZXQemxpKC5aMk6q5uJbGP6gCwI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1AmEDjCvZh7V_1VygcT8ATOol-7l1siHm')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">അഭിജ്ഞാനശാകുന്തളം</div>
@@ -75,7 +128,7 @@
 <div class="image-wrapper">
 <img alt="അഭിവാദ്യം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1rVSS1UQQNiEi9EckQtGOrCS5p6nLH70m"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1auRHAr79DAUJLwp7UueQxUcLu5J1X7xS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">അഭിവാദ്യം</div>
@@ -84,7 +137,7 @@
 <div class="image-wrapper">
 <img alt="അല്ലാഹു" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19k9Me3W8wPMHzcihgKzHeDoVnS7TEza7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=101MzraMOYj2Tikb9mkLmEzPTBilROzcC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">അല്ലാഹു</div>
@@ -93,7 +146,7 @@
 <div class="image-wrapper">
 <img alt="അച്ഛനും മകളും" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FQZIQZR1M9dc_STJf4IPEFCMmldWSRkZ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1amVfoujXRX1etJ-KRWX4cyaBHQnElkl5')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">അച്ഛനും മകളും</div>
@@ -102,7 +155,7 @@
 <div class="image-wrapper">
 <img alt="ബധിരവിലാപം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10YcxNlw2mX8S_DKPWBqN1VXx3ph2tJ7B"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1rW1690SlFbcWPsDTFOrvyWhCYSIh_4Xj')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ബധിരവിലാപം</div>
@@ -111,7 +164,7 @@
 <div class="image-wrapper">
 <img alt="ബാപ്പുജി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wzf1_vxeGeCk-fQcDB_gvlbxqXeAxAUR"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=12AFD4vo_JgaJCMQha6GsY_b3DdXBt8g3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ബാപ്പുജി</div>
@@ -120,7 +173,7 @@
 <div class="image-wrapper">
 <img alt="ബന്ധനസ്ഥനായ അനിരുദ്ധൻ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Omq673r5xN9UZv_ZrtyNE79doHPnx55L"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Oi6zqOuTw_IhnUNuj-Hrg2Ubb5qiatTM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ബന്ധനസ്ഥനായ അനിരുദ്ധൻ</div>
@@ -129,7 +182,7 @@
 <div class="image-wrapper">
 <img alt="അഭിഷേകനാടകം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_rFWG4jsKaNZARATTYePPkFgYfLeCNhk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=13T12nDUUbD2wETJGzVtEuI-S08TyPV7N')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">അഭിഷേകനാടകം</div>
@@ -138,7 +191,7 @@
 <div class="image-wrapper">
 <img alt="ഔഷധാഹരണം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vJ1arEcPi1i80tG9MYXgcw5z1kamF7PI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1HPUo82YC2kL7iXus_8UqvJU3TDNkyz5J')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഔഷധാഹരണം</div>
@@ -147,7 +200,7 @@
 <div class="image-wrapper">
 <img alt="ഭഗവൽസ്തോത്രമാല" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xjpHJIaAt-LUhmC8fi4EDzlu82FYyFuD"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1w3uqNsho3DlpbsQTdmna8xObeW4pAjI3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഭഗവൽസ്തോത്രമാല</div>
@@ -156,7 +209,7 @@
 <div class="image-wrapper">
 <img alt="ചിത്രയോഗം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1En7QzYjJThWmf807QKlImOAjqsl1a73p"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1zQBi8RHAN1rFaHjkbKkhMorekPAoZphg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ചിത്രയോഗം</div>
@@ -165,7 +218,7 @@
 <div class="image-wrapper">
 <img alt="ഗ്രാമസൗഭാഗ്യം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Sdzj9L4u8HUFFn8qspv8Bs9vHf9-O_XP"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1vK2MMW96A160VCqzHkR09_z1NRlpj3zz')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഗ്രാമസൗഭാഗ്യം</div>
@@ -174,7 +227,7 @@
 <div class="image-wrapper">
 <img alt="ഗണപതി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1sx8S16D1F3brbokfVGCxQQgQLkp0nrHo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1QbvVSCRMiYCGt7gTwmIyXi40smrdPfYe')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഗണപതി</div>
@@ -183,7 +236,7 @@
 <div class="image-wrapper">
 <img alt="കൈരളീകടാക്ഷം 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1XexJCojZdQzkq1w0jLTRFJ9gkm0r_B3W"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1-GzvXRh7CG6rpzBlYWueDZn7vSGaVZMn')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കൈരളീകടാക്ഷം 1</div>
@@ -192,7 +245,7 @@
 <div class="image-wrapper">
 <img alt="ദിവാസ്വപ്നം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YfWWg17a-RtBSi80yC1yv0x1huZieyLE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1yP0G5LNX3Lnikc4hL2mGeNOwmIL8P_-O')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ദിവാസ്വപ്നം</div>
@@ -201,7 +254,7 @@
 <div class="image-wrapper">
 <img alt="കൈരളീകടാക്ഷം 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1DpOhAiuj8zE09M5wdtpbZcS2Kl3ofuWq"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1jBmpPDCS0iZz2MQT2_33B9yRmLN2b4eX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കൈരളീകടാക്ഷം 2</div>
@@ -210,7 +263,7 @@
 <div class="image-wrapper">
 <img alt="ഗ്രന്ഥവിഹാരം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1W1yEnKdjPYXbIRkKsZYUEJ5NDcwciK55"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1jXwD0Tu6aqYsbeCedsHGmu8mBZIGMnDN')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഗ്രന്ഥവിഹാരം</div>
@@ -219,7 +272,7 @@
 <div class="image-wrapper">
 <img alt="ദണ്ഡകാരണ്യം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kD9mphrmKn91skvPlRgSbmq_2R42xroi"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1XNezRyBno5vkBoXN1s2fVSHbDmjFR_cl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ദണ്ഡകാരണ്യം</div>
@@ -228,7 +281,7 @@
 <div class="image-wrapper">
 <img alt="ഇന്ത്യയുടെ കരച്ചിൽ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zrVu8VlLhxUkFTB9dEqnb0AbfEl1Dwc0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=119VN3ek2iZkgDHcPpsS9aUmNrHKu4fSA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഇന്ത്യയുടെ കരച്ചിൽ</div>
@@ -237,7 +290,7 @@
 <div class="image-wrapper">
 <img alt="കർപ്പൂരചരിതം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kMLqoRwhPvj-lKEpgN0uuCPaG-U5lve0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1bEQokISBTfuqK4dZND5vWiI30rt3mcc8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കർപ്പൂരചരിതം</div>
@@ -246,7 +299,7 @@
 <div class="image-wrapper">
 <img alt="കൈരളീകടാക്ഷം 3" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1F_r9REbAOhB8cUCcPjDYgOZGTHMIwPOq"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1GdKRJr8BE2gBWMgWdM7T1742AsRJhTdB')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കൈരളീകടാക്ഷം 3</div>
@@ -255,7 +308,7 @@
 <div class="image-wrapper">
 <img alt="കൊച്ചുസീത" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1aOELUZGWeEqn3uI2f0-cbhJhHDmhfi3d"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1CLvOrfRMIT_jNuTGjTK5DlOHC-zX-WM_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കൊച്ചുസീത</div>
@@ -264,7 +317,7 @@
 <div class="image-wrapper">
 <img alt="കത്തുകൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lQEPE_m__J5d8ou1PiNiX8jStq6eRIFA"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1GCtqhEYROPsez_vPO34ELLDv-k_c2iI2')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കത്തുകൾ</div>
@@ -273,7 +326,7 @@
 <div class="image-wrapper">
 <img alt="കാവ്യമഞ്ജുഷ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jF6aQQcCaib9ZfY02Vw1KFmglO2IEFIN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1el3jfdevLSN_rOMh0rNs9uRbIJndpmFE')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കാവ്യമഞ്ജുഷ</div>
@@ -282,7 +335,7 @@
 <div class="image-wrapper">
 <img alt="കപടകേളി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14DsO7r7vpNAcXM_BDc9sB993h_vGaHXn"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1QwcQ2yXD64MKGmNyvGmd4xMlNfLczEKJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">കപടകേളി</div>
@@ -291,7 +344,7 @@
 <div class="image-wrapper">
 <img alt="മഗ്ദലനമറിയം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15spuY5oS6_Lh6mN3XLFI9aGyLtn-9wtk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=13565k4sjKg7x9gpNTc0knKvMr0FV2qUf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">മഗ്ദലനമറിയം</div>
@@ -300,7 +353,7 @@
 <div class="image-wrapper">
 <img alt="മധ്യമവ്യയോഗം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13M5cBdqpba6GfRgRcAMQ4RuzJELuOTtC"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1pvKOiPukkuNEaqgtMgQWjhcL5sKqxE9i')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">മധ്യമവ്യയോഗം</div>
@@ -309,7 +362,7 @@
 <div class="image-wrapper">
 <img alt="മാതംഗലീല" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1W7KmkIiBr2GSIDyo6YYMW7FwZylqDX-q"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1wbZt0SsHSWGxp6IIH6RTCjOZS1YQaycm')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">മാതംഗലീല</div>
@@ -318,7 +371,7 @@
 <div class="image-wrapper">
 <img alt="നാഗില" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wasujiy-wKH-uTZbaOHMAdVAqdaiel1i"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1pZVa7vxfzZHQuv9mRX28I7TMZECXvV-9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">നാഗില</div>
@@ -327,7 +380,7 @@
 <div class="image-wrapper">
 <img alt="നിരൂപണം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12dDYGto02l0qPqqVEZjUOMdThfCwIJxp"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1VeR7kHWtiEELkpjRk5TEmTOHR2u8uqoK')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">നിരൂപണം</div>
@@ -336,7 +389,7 @@
 <div class="image-wrapper">
 <img alt="പദ്മപുരാണം 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hOFtOHuHr6riG4gKJjWpzSV_9tzRHMxv"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1ubhPHJUW7tkZyZIn91ttcwrDloLVi52G')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">പദ്മപുരാണം 2</div>
@@ -345,7 +398,7 @@
 <div class="image-wrapper">
 <img alt="ഊരുഭംഗം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Q8_-0q-gR9GSEfQDlhecdob47B3yxS9v"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1aZ9pBc3FNZfHzJg3qslIhz26Z-UB6yFO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഊരുഭംഗം</div>
@@ -354,7 +407,7 @@
 <div class="image-wrapper">
 <img alt="പദ്മപുരാണം 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1HwkDbRBQ1wrdqZmRPspLh-44hzuUw6xS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1SoO5xqnj93bFGqaGYkQ2fKfHfuk7BClx')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">പദ്മപുരാണം 2</div>
@@ -363,7 +416,7 @@
 <div class="image-wrapper">
 <img alt="പദ്മപുരാണം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1dCE-dW9pF89oGoBAWHULcTv4-PVmkD3c"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1oDoBMcWjq_7m_ZwEsWKYAcKtRymZhsbV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">പദ്മപുരാണം</div>
@@ -372,7 +425,7 @@
 <div class="image-wrapper">
 <img alt="ഒരു കത്ത്" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gOacBQtx6-wyVyDR78pk2ILc7vWw-gkW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1sqtl3_MgFyZSOfxz_UW5QACSfPAW7oTo')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഒരു കത്ത്</div>
@@ -381,7 +434,7 @@
 <div class="image-wrapper">
 <img alt="പദ്യകൃതികൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1IMcwLk3uTw6kDYxN2FCui94mVnNgU9vJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1jmKDe2DTOVasf06SXTSesLcIs9d57hym')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">പദ്യകൃതികൾ</div>
@@ -390,7 +443,7 @@
 <div class="image-wrapper">
 <img alt="പഞ്ചരാത്രം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fSHVXwep6l6g9kz74b_cFBeWpuKk5thq"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1LdzfDKrbwYXRu9s5KvGR1oYEahYfA7zI')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">പഞ്ചരാത്രം</div>
@@ -399,7 +452,7 @@
 <div class="image-wrapper">
 <img alt="ഓണപ്പുടവ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1T3xOzQ8CDA9G_ftuCJz3dnOG9K0ljH95"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=10bf14u2T8NbcI-R8JHfgV7cAK0Hr3dfT')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഓണപ്പുടവ</div>
@@ -408,7 +461,7 @@
 <div class="image-wrapper">
 <img alt="പരലോകം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZxPRFJjcCcdiZ5IhdpfpPGsbkqv89JW2"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1OPPysGAOWUPgb0mI8HtcCBqX63CFCNYR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">പരലോകം</div>
@@ -417,7 +470,7 @@
 <div class="image-wrapper">
 <img alt="പുരാണമഞ്ജരി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_zXy3uH3YUEwpWrA-9B_luqEcYUXszMp"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1aR4sH4pZvOvulJsrpXkdaPZ1BWGvZl4W')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">പുരാണമഞ്ജരി</div>
@@ -426,7 +479,7 @@
 <div class="image-wrapper">
 <img alt="റഷ്യയിൽ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jMVT596I3-TvwkeMJFlOMZIgqc_KPDxQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1YaNDT11gfNGlSPyvtcel2P373DoCRngi')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">റഷ്യയിൽ</div>
@@ -435,7 +488,7 @@
 <div class="image-wrapper">
 <img alt="രുക്മിണീഹരണം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xVJHe43assfDRvo58iy0EsSlZPeaiWAT"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Lb0_ZvrtPHPLht7YpyL91L2MiMnRxjhb')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">രുക്മിണീഹരണം</div>
@@ -444,7 +497,7 @@
 <div class="image-wrapper">
 <img alt="ഋഗ്വേദം 3" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1AhdxjFRP6R4nWF0xqhQ1tmiJP7Wne3Ir"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=19lPkciN0_ProUnCRPiNe7ap--cTO1ouZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഋഗ്വേദം 3</div>
@@ -453,7 +506,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kaGMEKGqCCeX8OSKfNT7d97wHYmLWlzv"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1tcRAVCNzlODosmjKeOketM26sHSqJ2iY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 1</div>
@@ -462,7 +515,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1R3Kgsmn4TrvbXEFjrspjBxIVr_MKT9rX"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1fbnw0Fkrd56UYqItxbYw_t41MYnWRGAg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 2</div>
@@ -471,7 +524,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 10" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZpCTxSDDgkZ91lR9JmvCdQ0BewOKIsQ_"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1FaMM1rCknaQTzjORRcwu42xnwvU3QtA8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 10</div>
@@ -480,7 +533,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 4" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Rmlf1qhVdlcDrmQst3Y_-dxT2KGA1xOc"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1bSXL3MU-whO_JiXM-OFEn7tirRM9-5Yx')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 4</div>
@@ -489,7 +542,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 3" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nsUwTJ4g66LQ9jKajJnxDwnaaxzGsugc"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1-rmANIeid0QSvl6yF4-4nU3RSc_AmpwQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 3</div>
@@ -498,7 +551,7 @@
 <div class="image-wrapper">
 <img alt="ഋഗ്വേദം 4" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1i4UVA3wqKP4VMWOpWNKDXEA78DNj08UN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1KEUxVTLAhnr9HH3NOB2aExJnrV0fHFJG')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഋഗ്വേദം 4</div>
@@ -507,7 +560,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 5" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YodqOnK__i79KlGK522Pmg9xgsuVY67T"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1XDi619slOelV3m5FxbQyZZPTnqYR4og3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 5</div>
@@ -516,7 +569,7 @@
 <div class="image-wrapper">
 <img alt="സംസ്കൃത നാടകം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1G01_XbHdyHEFQu3SeDdtu5Jh18K4dAtu"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1CRl3VX3O0p4K6Y5R2075GnkIw0WeMLdn')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സംസ്കൃത നാടകം</div>
@@ -525,7 +578,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 6" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1sYJaRjAMosH_7yebP5ooNIVvaoYsaIye"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Juj0YxVpoJ-VIQkWe-cUuyaeu2nlSfAX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 6</div>
@@ -534,7 +587,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 8" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1oN6Yb1unnegMHb24LJEW6r644vo5DxWO"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=10CttsJEJYe8OTLU6NmHmPvrcUImWehbg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 8</div>
@@ -543,7 +596,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 9" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vL9cYHKzbeBx0zGPqUcB7VyV12XkmATx"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1WmfPW6e3rLq5zdZsGX_ltDYlP2_Algyl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 9</div>
@@ -552,7 +605,7 @@
 <div class="image-wrapper">
 <img alt="ശരണം അയ്യപ്പാ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10-rtORrjsPwlYgc9ogp-vzl8O9Z5aeKJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=15VI3ubLfY6yWpytVZDWx8oSs-gxdFsWO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ശരണം അയ്യപ്പാ</div>
@@ -561,7 +614,7 @@
 <div class="image-wrapper">
 <img alt="തിരഞ്ഞെടുത്ത കവിതകൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10UQ3bicKCuZYxwwYiGnhuZcuAod6uQIp"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1fqxfiaCjlhdAhXKf2JgUkNgNbe5zCDWo')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">തിരഞ്ഞെടുത്ത കവിതകൾ</div>
@@ -570,7 +623,7 @@
 <div class="image-wrapper">
 <img alt="ശിഷ്യനും മകനും" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15cuEm9jZi3PoVhLVoBu_ei9DSRGq4Gvb"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1COU5lmc9EJEmgsE08xRht6X4UC4sO0dr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ശിഷ്യനും മകനും</div>
@@ -579,7 +632,7 @@
 <div class="image-wrapper">
 <img alt="സാഹിത്യമഞ്ജരി 7" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=17_yssp1ZXI_9aKSqUlZIAgEm9Bs_RatG"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1k2wDrEwNtYMS7rPcoFHtCnEsOrPxnmX9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സാഹിത്യമഞ്ജരി 7</div>
@@ -588,7 +641,7 @@
 <div class="image-wrapper">
 <img alt="ശിഷ്യനും മകനും (ഖണ്ഡകാവ്യം)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nKL3ezdAQw0Jv_Ixw2wGsLaaUZmdZWKy"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1nweZInjSLwYEodygwD3VI7hgZuJbrV1O')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ശിഷ്യനും മകനും (ഖണ്ഡകാവ്യം)</div>
@@ -597,7 +650,7 @@
 <div class="image-wrapper">
 <img alt="വള്ളത്തോൾ സുധ 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GgMpKCP6Oi43sudbFfYdB9IukqA9AWZh"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1VhpdTqzdSHEBjpn1GOOv7RjAWSK2u6bq')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">വള്ളത്തോൾ സുധ 1</div>
@@ -606,7 +659,7 @@
 <div class="image-wrapper">
 <img alt="ത്രിപുരദഹനം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=145RafgO3l_5-Dyc4Me6zCOlkZbAqxum7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1DQ3PbvlJTcvTaM7kR3HlOpf8nsq0Y_kj')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ത്രിപുരദഹനം</div>
@@ -615,7 +668,7 @@
 <div class="image-wrapper">
 <img alt="വിലാസലതിക" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=16cf-JKZpaOz-5_hXz7q-oi2pZo5ae3eP"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1vlD5zdwphlo1Did4saBu3Rw1N5v3HRXC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">വിലാസലതിക</div>
@@ -624,7 +677,7 @@
 <div class="image-wrapper">
 <img alt="സ്ത്രീ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WNtWKVUDySYku-Z8Chd3lB8DRa_7Rh6J"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1Er7io6v5HaGWGLOAkYdDPwEQs6u-2JAQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സ്ത്രീ</div>
@@ -633,7 +686,7 @@
 <div class="image-wrapper">
 <img alt="ശ്രീ ബോധിസത്വ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nopT_IUWuigMMItiDN1nT5Sir5gSg-ek"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1J3VUMVa0aZIuUfP_2ka723yOL5QZs1UF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ശ്രീ ബോധിസത്വ</div>
@@ -642,7 +695,7 @@
 <div class="image-wrapper">
 <img alt="സ്വപ്നവാസവദത്തം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gHYw2KR4m8XbiJ8TpBpRaC5e0qz_vArC"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1EGrUAnViQX3obd9Xo0nqQrFDZcmd4d1J')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">സ്വപ്നവാസവദത്തം</div>
@@ -651,7 +704,7 @@
 <div class="image-wrapper">
 <img alt="വള്ളത്തോൾ സുധ 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nktl6pmmJEDlcENRXxnGzU6UEBqQ3B_3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1QUW7DDo3j42uvyqXCFveoDJ5pyySmSm-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">വള്ളത്തോൾ സുധ 2</div>
@@ -660,7 +713,7 @@
 <div class="image-wrapper">
 <img alt="ഉന്മത്തരഘവം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1E8meXUsoFj-WypjzTD5OhV-UFcAXFrxN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1yJNeDT4TCizy6t4pEXXfBU057KoFKqaa')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ഉന്മത്തരഘവം</div>
@@ -669,7 +722,7 @@
 <div class="image-wrapper">
 <img alt="വീരശൃംഖല" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=17nIWucN2w3vbTGgJHR1fteZjHcpUFbdy"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=17CKHS4NEkOE1BlNJ9ZhUFhOVcmFaVnkc')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">വീരശൃംഖല</div>
@@ -678,43 +731,47 @@
 <div class="image-wrapper">
 <img alt="വിഷുക്കണി" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1L85Rdo0XgvxMCc4tjO6u-conSqdwqOI9"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'read.html?id=1V0QJFxD7a75rlu3c489A-ASqNO3NEBEv')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">വിഷുക്കണി</div>
 </div>
-</div>
-</div>
+
+        </div>
+    </div>
 </section>
+
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
             <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
             <a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
 
+<style>
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
 
-
-
-
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
 </div>
-</div>
 
-<script id="master-js-logic" type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -727,7 +784,7 @@
         const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
-            currentUser = user; 
+            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
@@ -741,7 +798,7 @@
         }
     });
 
-    // Make functions globally available
+    // Save History & Redirect
     window.checkAccess = function(linkElement, targetUrl) {
         if (currentUser) {
             saveToHistory(linkElement, targetUrl);
@@ -785,7 +842,7 @@
         });
     }
     
-    // Search Function
+    // Search
     window.searchBooks = function() { 
         var input = document.getElementById('searchBar'); 
         if(!input) return; 
