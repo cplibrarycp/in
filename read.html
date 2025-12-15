@@ -85,8 +85,9 @@
 
     </style>
 
-<style>
-    /* --- STICKY FOOTER FIX START --- */
+
+<style id="footer-fix-style">
+    /* --- FORCE STICKY FOOTER --- */
     html, body {
         height: 100%;
         margin: 0;
@@ -94,23 +95,23 @@
     }
     
     body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh; /* സ്ക്രീനിന്റെ മുഴുവൻ ഉയരം എടുക്കുന്നു */
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 100vh !important;
     }
 
-    /* ഉള്ളടക്കമുള്ള ഭാഗം (Content) വികസിക്കാൻ അനുവദിക്കുന്നു */
+    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
     section, .collection-section, .about-hero, .container, .content-box {
         flex: 1 0 auto;
     }
 
-    /* ഫൂട്ടർ ചുരുങ്ങാതെ താഴെ നിൽക്കാൻ */
+    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
     footer {
-        flex-shrink: 0;
-        width: 100%;
-        margin-top: auto; /* ഇത് ഫൂട്ടറിനെ ഏറ്റവും താഴേക്ക് തള്ളുന്നു */
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        margin-top: auto !important; 
     }
-    /* --- STICKY FOOTER FIX END --- */
+    /* --------------------------- */
 </style>
 </head>
 <body>

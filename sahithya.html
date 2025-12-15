@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -8,223 +8,115 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
-        /* --- Themes --- */
-        :root {
-            --primary-orange: #00897B; /* Teal */
-            --secondary-dark: #004D40; /* Dark Green */
-            --background-light: #E0F2F1;
-            --text-color: #263238;
-            --light-text: #FFFFFF;
-            --card-bg: #FFFFFF;
-            --outline-color: #B2DFDB; /* Light Teal for Border */
-        }
-
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; padding: 0; line-height: 1.6; }
-        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
-        a { text-decoration: none; }
-
-        /* --- Header --- */
-        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); text-decoration: none; }
-        .nav-links { display: flex; align-items: center; }
-        
-        /* --- Updated Header Button: Solid Box Style --- */
-        
-        /* --- Updated Header Button: Solid Box Style --- */
-        
-        /* --- Updated Header Button: Solid Box Style --- */
-        .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 15px;
-            font-weight: 600;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            
-            /* Box Shape */
-            padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.3); /* തെളിഞ്ഞ ബോർഡർ */
-            border-radius: 4px; /* അറ്റം ചെറുതായി വളയാൻ */
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .nav-links a.nav-item:hover {
-            background-color: #ffffff; /* ഹോവർ ചെയ്യുമ്പോൾ വെളുത്ത നിറം */
-            color: var(--secondary-dark); /* അക്ഷരം ഡാർക്ക് ഗ്രീൻ ആകുന്നു */
-            border-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transform: translateY(-2px); /* ബട്ടൺ പൊങ്ങുന്നു */
-        }
-
-
-
-        
-        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
-        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 10px; font-size: 1em; overflow: hidden; }
-        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
-        .user-name { font-weight: 600; display: block; }
-        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
-        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; overflow: hidden; margin-top: 10px; z-index: 1001; }
-        .user-profile:hover .profile-dropdown { display: block; }
-        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; transition: background 0.3s; border-bottom: 1px solid #eee; }
-        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
-
-        .collection-section { padding: 40px 0; text-align: center; }
-        .collection-section h1 { font-family: 'Poppins', sans-serif; font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
-        .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
-        #searchBar { width: 100%; padding: 15px 20px; padding-left: 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box; }
-        #searchBar:focus { border-color: var(--primary-orange); box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2); }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
-
-        /* --- THICK BORDER CARD DESIGN --- */
-        .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
-        
-        .book-card {
-            background: transparent;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        /* 1. Image Wrapper (The Frame) */
-        .image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 320px;
-            border-radius: 10px; /* മൂലകൾ അൽപ്പം വളച്ചു */
-            overflow: hidden;
-            
-            /* --- മാറ്റം ഇവിടെയാണ്: കട്ടിയുള്ള ബോർഡർ --- */
-            border: 6px solid var(--outline-color); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* നല്ല ഷാഡോ */
-            background-color: white; /* ബോർഡറിനുള്ളിൽ വെള്ള */
-            
-            transition: all 0.3s ease;
-        }
-
-        .book-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        /* 2. Overlay */
-        .read-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 77, 64, 0.75); /* ഡാർക്ക് ഗ്രീൻ */
-            opacity: 0;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.3s ease;
-        }
-
-        /* 3. Hover Effects */
-        .book-card:hover .image-wrapper {
-            transform: translateY(-5px);
-            /* ഹോവർ ചെയ്യുമ്പോൾ ബോർഡർ കളർ മാറുന്നു */
-            border-color: var(--primary-orange); 
-            box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25);
-        }
-
-        .book-card:hover .book-cover { transform: scale(1.05); }
-        .book-card:hover .read-overlay { opacity: 1; }
-
-        /* 4. Button inside Overlay */
-        .overlay-btn {
-            background-color: var(--primary-orange);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9em;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-orange);
-        }
-
-        .book-card:hover .overlay-btn { transform: translateY(0); }
-        .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
-
-        .book-title {
-            margin-top: 15px;
-            font-weight: 700;
-            color: var(--secondary-dark);
-            font-size: 1rem;
-            line-height: 1.4;
-        }
-
-        /* Footer */
-        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: 60px; }
-        .footer-links { margin-top: 15px; }
-        .footer-links a { color: var(--light-text); margin: 0 10px; text-decoration: none; opacity: 0.8; transition: opacity 0.3s; }
-        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
-        
-        @media (max-width: 900px) { .navbar { flex-direction: column; gap: 15px; } .nav-links { flex-wrap: wrap; justify-content: center; } }
-    </style>
-
-<style>
-    /* --- STICKY FOOTER FIX START --- */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+    :root {
+        --primary-orange: #00897B; 
+        --secondary-dark: #004D40; 
+        --background-light: #E0F2F1;
+        --text-color: #263238;
+        --light-text: #FFFFFF;
+        --card-bg: #FFFFFF;
+        --outline-color: #B2DFDB;
     }
     
-    body {
+    /* --- STICKY FOOTER FIX --- */
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { 
+        font-family: 'Poppins', sans-serif; 
+        background-color: var(--background-light); 
+        color: var(--text-color); 
+        line-height: 1.6;
         display: flex;
         flex-direction: column;
-        min-height: 100vh; /* സ്ക്രീനിന്റെ മുഴുവൻ ഉയരം എടുക്കുന്നു */
+        min-height: 100vh;
     }
+    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+    a { text-decoration: none; }
 
-    /* ഉള്ളടക്കമുള്ള ഭാഗം (Content) വികസിക്കാൻ അനുവദിക്കുന്നു */
-    section, .collection-section, .about-hero, .container, .content-box {
-        flex: 1 0 auto;
-    }
+    /* Header */
+    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
+    .nav-links { display: flex; align-items: center; gap: 15px; }
+    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
 
-    /* ഫൂട്ടർ ചുരുങ്ങാതെ താഴെ നിൽക്കാൻ */
-    footer {
-        flex-shrink: 0;
-        width: 100%;
-        margin-top: auto; /* ഇത് ഫൂട്ടറിനെ ഏറ്റവും താഴേക്ക് തള്ളുന്നു */
-    }
-    /* --- STICKY FOOTER FIX END --- */
+    /* Profile */
+    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+    .user-name { font-weight: 600; display: block; }
+    .user-role { font-size: 0.8em; opacity: 0.8; }
+    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+    .user-profile:hover .profile-dropdown { display: block; }
+    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+    /* Collection (Flex Grow for Footer Fix) */
+    .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
+    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
+    #searchBar:focus { border-color: var(--primary-orange); }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+
+    /* Cards */
+    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
+    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
+    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+    .book-card:hover .book-cover { transform: scale(1.05); }
+    .book-card:hover .read-overlay { opacity: 1; }
+    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
+    .book-card:hover .overlay-btn { transform: translateY(0); }
+    .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
+    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
+
+    /* Footer */
+    footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
+    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+    .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 </style>
 </head>
 <body>
+
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> ABOUT</a><a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html">Profile Settings</a>
-<a href="history.html">Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <section class="collection-section">
-<div class="container">
-<h1>കേരളഭാഷാ സാഹിത്യചരിത്രം</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-<div class="library-container" id="bookList">
+    <div class="container">
+        <h1>കേരളഭാഷാ സാഹിത്യചരിത്രം</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+        </div>
+
+        <div class="library-container" id="bookList">
+            
 <div class="book-card">
 <div class="image-wrapper">
 <img alt="സാഹിത്യചരിത്രം 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BZmqAN6dlYXPsalzZFtxgUlJwkn2Cip9"/>
@@ -279,460 +171,90 @@
 </div>
 <div class="book-title">കേരളഭാഷാ സാഹിത്യചരിത്രം 6</div>
 </div>
-</div>
-</div>
+
+        </div>
+    </div>
 </section>
+
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
-</div>
-</div>
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+            <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
-<iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-<script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig); 
-        const auth = getAuth(app);
-
-        onAuthStateChanged(auth, async (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const avatarDiv = document.getElementById('userAvatar');
-
-            if (user) {
-                try { await user.reload(); } catch(e) {}
-                const currentUser = auth.currentUser;
-                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
-                if(nameDisplay) nameDisplay.textContent = displayName;
-                if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
-
-                setupHistoryOnly(user.uid);
-            }
-        });
-
-        const logoutLink = document.getElementById('logout-link');
-        if(logoutLink) {
-            logoutLink.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
-            });
-        }
-
-        window.setupHistoryOnly = function(uid) {
-            const buttons = document.querySelectorAll(".overlay-btn");
-            buttons.forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-                
-                newBtn.addEventListener("click", function(e) {
-                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
-                    const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href'); // read.html link
-                    
-                    if (card) {
-                        const title = card.querySelector('.book-title').innerText;
-                        const image = card.querySelector('.book-cover').src;
-                        const date = new Date().toLocaleDateString('ml-IN');
-                        const key = 'history_' + uid;
-                        let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title);
-                        history.unshift({ title, image, url: linkUrl, date });
-                        if (history.length > 50) history.pop();
-                        localStorage.setItem(key, JSON.stringify(history));
-                    }
-                });
-            });
-        };
-    </script>
-<script>
-        function toggleProfileMenu() { 
-            var dropdown = document.querySelector(".profile-dropdown"); 
-            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
-        }
-        window.onclick = function(event) {
-            if (!event.target.closest('.user-profile')) {
-                var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
-            }
-        }
-        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
-    </script>
-<style>
-    /* Popup Background */
-    .lib-modal { 
-        display: none; position: fixed; z-index: 99999; 
-        left: 0; top: 0; width: 100%; height: 100%; 
-        background-color: rgba(0, 0, 0, 0.7); 
-        backdrop-filter: blur(5px); 
-        justify-content: center; align-items: center; 
-    }
-    /* Popup Box */
-    .lib-box { 
-        background: #ffffff; padding: 30px; 
-        border-radius: 15px; width: 90%; max-width: 350px; 
-        text-align: center; 
-        border-top: 6px solid #00897B; /* Teal Color */
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
-        font-family: sans-serif; 
-        animation: slideDown 0.3s ease-out;
-    }
-    .lib-box h3 { color: #004D40; margin-top: 0; font-size: 22px; }
-    .lib-box p { color: #555; margin-bottom: 25px; font-size: 16px; }
-    
-    /* Buttons */
-    .btn-lib-login { 
-        background: #00897B; color: white; border: none; 
-        padding: 12px 25px; border-radius: 50px; 
-        font-weight: bold; cursor: pointer; width: 100%; 
-        margin-bottom: 10px; transition: 0.3s; 
-    }
-    .btn-lib-login:hover { background: #004D40; }
-    
-    .btn-lib-close { 
-        background: transparent; color: #777; border: 1px solid #ccc; 
-        padding: 10px 25px; border-radius: 50px; 
-        cursor: pointer; width: 100%; transition: 0.3s; 
-    }
-    .btn-lib-close:hover { background: #f1f1f1; color: #333; }
-
-    @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-</style>
-<script>
-    // 1. PDF വായന പരിശോധന (On Click)
-    function checkReadAccess(event, pdfUrl) {
-        // ലിങ്ക് പ്രവർത്തിക്കുന്നത് തടയുന്നു (Stop Link Jump)
-        if(event) { event.preventDefault(); }
-
-        var user = localStorage.getItem('libraryUser');
-        if (user) {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ PDF തുറക്കും
-            window.open(pdfUrl, '_blank');
-        } else {
-            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കും
-            sessionStorage.setItem('pendingBook', pdfUrl); // ബുക്ക് ഓർത്തു വെക്കുന്നു
-            document.getElementById('libraryAuthModal').style.display = 'flex';
-        }
-    }
-
-    // 2. പേജ് സുരക്ഷാ പരിശോധന (On Page Load)
-    // Protected Pages ലിസ്റ്റിലുള്ള പേജുകളിൽ ഇത് പ്രവർത്തിക്കും
-    function enforcePageSecurity() {
-        var isProtected = document.body.getAttribute('data-protected');
-        if (isProtected === 'true') {
-            var user = localStorage.getItem('libraryUser');
-            if (!user) {
-                // ലോഗിൻ ഇല്ലെങ്കിൽ നേരെ ലോഗിൻ പേജിലേക്ക്
-                window.location.href = 'login.html';
-            }
-        }
-    }
-
-    // Helper Functions
-    function goToLogin() { window.location.href = 'login.html'; }
-    function closeLibModal() { document.getElementById('libraryAuthModal').style.display = 'none'; }
-    
-    // Run Security Check automatically
-    enforcePageSecurity();
-</script>
-<style>
-    .lib-modal-overlay { 
-        display: none; position: fixed; z-index: 999999; 
-        left: 0; top: 0; width: 100%; height: 100%; 
-        background: rgba(0, 0, 0, 0.8); 
-        backdrop-filter: blur(4px);
-        justify-content: center; align-items: center; 
-    }
-    .lib-modal-box { 
-        background: #fff; padding: 30px; border-radius: 15px; 
-        width: 320px; text-align: center; 
-        border-top: 5px solid #00897B; /* Teal Theme */
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-        font-family: sans-serif;
-    }
-    .lib-btn-go { background: #00897B; color: white; border: none; padding: 10px 20px; border-radius: 5px; width: 100%; margin: 10px 0; cursor: pointer; font-weight: bold; }
-    .lib-btn-no { background: transparent; color: #555; border: 1px solid #ccc; padding: 8px 20px; border-radius: 5px; width: 100%; cursor: pointer; }
-</style>
-<script>
-    // 1. PDF വായനയ്ക്കുള്ള ഫംഗ്‌ഷൻ
-    function openBook(element) {
-        // ലിങ്കിന്റെ ഉള്ളിൽ ഒളിപ്പിച്ചു വെച്ച അഡ്രസ്സ് എടുക്കുന്നു
-        var bookUrl = element.getAttribute('data-book-url');
-        var user = localStorage.getItem('libraryUser');
-
-        if (user) {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ മാത്രം ലിങ്ക് തുറക്കുന്നു
-            window.open(bookUrl, '_blank');
-        } else {
-            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കുന്നു
-            sessionStorage.setItem('pendingBook', bookUrl);
-            document.getElementById('libPopup').style.display = 'flex';
-        }
-    }
-
-    // 2. പേജ് പ്രൊട്ടക്ഷൻ (History, Profile etc.)
-    document.addEventListener("DOMContentLoaded", function() {
-        if (document.body.getAttribute('data-secure') === 'true') {
-            var user = localStorage.getItem('libraryUser');
-            if (!user) {
-                window.location.href = 'login.html';
-            }
-        }
-    });
-</script>
-<style>
-    /* Popup Style */
-    .lib-popup-overlay {
-        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
-        justify-content: center; align-items: center; z-index: 999999;
-    }
-    .lib-popup-box {
-        background: white; padding: 30px; width: 300px;
-        border-top: 5px solid #00897B; border-radius: 10px;
-        text-align: center; font-family: sans-serif;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold;}
-    .lib-btn-login:hover { background: #004D40; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px;}
-</style>
-<script>
-    // 1. PDF ലിങ്ക് ക്ലിക്ക് ചെയ്യുമ്പോൾ
-    function checkAccess(bookUrl) {
-        var user = localStorage.getItem('libraryUser');
-        if (user) {
-            window.open(bookUrl, '_blank');
-        } else {
-            sessionStorage.setItem('pendingBook', bookUrl);
-            document.getElementById('libAuthPopup').style.display = 'flex';
-        }
-    }
-
-    // 2. പേജ് സെക്യൂരിറ്റി (ലോഗിൻ ചെയ്യാത്തവരെ പുറത്താക്കാൻ)
-    function enforceSecurity() {
-        if (document.body.getAttribute('data-secure') === 'true') {
-            var user = localStorage.getItem('libraryUser');
-            if (!user) {
-                window.location.href = 'login.html';
-            }
-        }
-    }
-    enforceSecurity(); // Run immediately
-</script>
-<style>
-    /* Popup Overlay */
-    .lib-popup-overlay {
-        display: none; 
-        position: fixed; 
-        top: 0; left: 0; 
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); 
-        backdrop-filter: blur(4px);
-        justify-content: center; 
-        align-items: center; 
-        z-index: 999999;
-    }
-    /* Popup Box */
-    .lib-popup-box {
-        background: white; 
-        padding: 30px; 
-        width: 300px;
-        border-top: 5px solid #00897B; 
-        border-radius: 10px;
-        text-align: center; 
-        font-family: 'Poppins', sans-serif;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    /* Buttons */
-    .lib-btn-login { 
-        background: #00897B; 
-        color: white; 
-        border: none; 
-        padding: 10px 20px; 
-        width: 100%; 
-        margin-top: 10px; 
-        cursor: pointer; 
-        border-radius: 5px; 
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .lib-btn-login:hover { background: #004D40; }
-    
-    .lib-btn-close { 
-        background: transparent; 
-        border: 1px solid #ccc; 
-        color: #555; 
-        padding: 8px 20px; 
-        width: 100%; 
-        margin-top: 5px; 
-        cursor: pointer; 
-        border-radius: 5px;
-        transition: 0.3s;
-    }
-    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
-</style>
-<script>
-    function checkAccess(targetUrl) {
-        // LocalStorage-ൽ libraryUser ഉണ്ടോ എന്ന് നോക്കുന്നു
-        // (Firebase ലോഗിൻ ചെയ്യുമ്പോൾ ഇത് സെറ്റ് ചെയ്യപ്പെടണം)
-        var user = localStorage.getItem('libraryUser');
-        
-        if (user) {
-            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
-            window.location.href = targetUrl;
-        } else {
-            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
-            sessionStorage.setItem('pendingBook', targetUrl); // ഏത് ബുക്കാണ് വേണ്ടതെന്ന് ഓർത്തു വെക്കുന്നു
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    }
-</script>
-<style>
-    /* 1. Popup Overlay Style */
-    .lib-popup-overlay {
-        display: none; 
-        position: fixed; 
-        top: 0; left: 0; 
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); 
-        backdrop-filter: blur(4px);
-        justify-content: center; 
-        align-items: center; 
-        z-index: 999999;
-    }
-    .lib-popup-box {
-        background: white; 
-        padding: 30px; 
-        width: 300px;
-        border-top: 5px solid #00897B; 
-        border-radius: 10px;
-        text-align: center; 
-        font-family: 'Poppins', sans-serif;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        animation: fadeIn 0.3s ease;
-    }
-    
-    /* 2. Buttons */
-    .lib-btn-login { 
-        background: #00897B; color: white; border: none; 
-        padding: 10px 20px; width: 100%; margin-top: 10px; 
-        cursor: pointer; border-radius: 5px; font-weight: bold;
-        transition: 0.3s;
-    }
-    .lib-btn-login:hover { background: #004D40; }
-    
-    .lib-btn-close { 
-        background: transparent; border: 1px solid #ccc; color: #555; 
-        padding: 8px 20px; width: 100%; margin-top: 5px; 
-        cursor: pointer; border-radius: 5px; transition: 0.3s;
-    }
-    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-</style>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // --- A. LOGOUT BUTTON VISIBILITY FIX ---
-        var user = localStorage.getItem('libraryUser');
-        var logoutBtn = document.getElementById('logout-link');
-        
-        if (logoutBtn) {
-            if (user) {
-                logoutBtn.style.display = 'block'; // ലോഗിൻ ഉണ്ടെങ്കിൽ കാണിക്കുക
-            } else {
-                logoutBtn.style.display = 'none';  // ലോഗിൻ ഇല്ലെങ്കിൽ മറയ്ക്കുക (Guest Mode)
-            }
-        }
-    });
-
-    // --- B. ACCESS CHECK FUNCTION ---
-    function checkAccess(targetUrl) {
-        var user = localStorage.getItem('libraryUser');
-        
-        if (user) {
-            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
-            window.location.href = targetUrl;
-        } else {
-            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
-            sessionStorage.setItem('pendingBook', targetUrl);
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    }
-</script>
 <style>
     .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
     .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
     .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
 </style>
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="goToLogin()">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
 </div>
-</div>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // ഉപയോക്താവിന്റെ ലോഗിൻ നില പരിശോധിക്കുന്നു
     onAuthStateChanged(auth, (user) => {
+        const nameDisplay = document.getElementById('display-name');
+        const avatarDiv = document.getElementById('userAvatar');
         const logoutBtn = document.getElementById('logout-link');
+
         if (user) {
-            // ലോഗിൻ ആണെങ്കിൽ സിസ്റ്റത്തിൽ രേഖപ്പെടുത്തുന്നു
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
+            
+            const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
+            if(nameDisplay) nameDisplay.textContent = displayName;
+            if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
         } else {
-            // ലോഗിൻ അല്ല
             localStorage.removeItem('libraryUser');
             if(logoutBtn) logoutBtn.style.display = 'none';
         }
     });
 
-    window.performLogout = function() {
-        signOut(auth).then(() => { 
-            localStorage.removeItem('libraryUser');
-            window.location.href = "logout-success.html"; 
+    const logoutLink = document.getElementById('logout-link');
+    if(logoutLink) {
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { 
+                localStorage.removeItem('libraryUser'); 
+                window.location.href = "logout-success.html"; 
+            });
         });
     }
 </script>
+
 <script>
     function checkAccess(targetUrl) {
         var user = localStorage.getItem('libraryUser');
         if (user) {
             window.location.href = targetUrl;
         } else {
-            // ഓർമ്മിച്ചു വെക്കുന്നു (Smart Redirect)
             sessionStorage.setItem('pendingBook', targetUrl);
             document.getElementById('login-modal').style.display = 'flex';
         }
     }
-
-    function goToLogin() {
-        window.location.href = 'login.html';
-    }
-
-    // Logout Button Hook
-    document.addEventListener("DOMContentLoaded", function() {
-        var logoutBtn = document.getElementById('logout-link');
-        if(logoutBtn) {
-            logoutBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if(window.performLogout) window.performLogout();
-            });
-        }
-    });
+    
+    function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+    function toggleProfileMenu() { var dropdown = document.querySelector(".profile-dropdown"); if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; }
 </script>
+
 </body>
 </html>
