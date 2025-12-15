@@ -18,13 +18,26 @@
         .container { width: 90%; max-width: 1100px; margin: 0 auto; }
         a { text-decoration: none; }
 
-        /* Header Style (Same as other pages) */
+        /* Header Style */
         header { background-color: var(--dark-teal); padding: 15px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--white); }
         .nav-links { display: flex; align-items: center; gap: 15px; }
+        
         .nav-item { color: var(--white); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
         .nav-item:hover { background: var(--white); color: var(--dark-teal); transform: translateY(-2px); }
+
+        /* Profile Section (Added) */
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-dark); font-size: 0.9em; border-bottom: 1px solid #eee; transition: 0.3s; }
+        .profile-dropdown a:hover { background-color: var(--bg-light); color: var(--primary-teal); }
 
         /* About Section */
         .about-hero {
@@ -36,7 +49,6 @@
         .about-hero p { font-size: 1.2em; max-width: 600px; margin: 20px auto 0; opacity: 0.9; }
 
         .content-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -40px; position: relative; z-index: 10; }
-        .section-title { color: var(--primary-teal); border-bottom: 3px solid var(--primary-teal); display: inline-block; margin-bottom: 20px; }
         
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
         .feature-card { text-align: center; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; }
@@ -56,6 +68,19 @@
                 <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
                 <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
                 <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <a href="profile.html">Profile Settings</a>
+                        <a href="history.html">Reading History</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -75,16 +100,22 @@
 
             <div class="features-grid">
                 <div class="feature-card">
+                    
                     <i class="fas fa-book-reader feature-icon"></i>
                     <h3>വിപുലമായ ശേഖരം</h3>
                     <p>കഥകൾ, കവിതകൾ, നോവലുകൾ തുടങ്ങി നിരവധി വിഭാഗങ്ങളിലുള്ള പുസ്തകങ്ങൾ.</p>
                 </div>
                 <div class="feature-card">
+                    
+
+[Image of mobile phone reading icon]
+
                     <i class="fas fa-mobile-alt feature-icon"></i>
                     <h3>എവിടെയും വായിക്കാം</h3>
                     <p>മൊബൈലിലോ ലാപ്ടോപ്പിലോ എളുപ്പത്തിൽ ഉപയോഗിക്കാവുന്ന ലളിതമായ ഡിസൈൻ.</p>
                 </div>
                 <div class="feature-card">
+                    
                     <i class="fas fa-history feature-icon"></i>
                     <h3>വായനാ ചരിത്രം</h3>
                     <p>നിങ്ങൾ വായിച്ച പുസ്തകങ്ങൾ ഓട്ടോമാറ്റിക് ആയി സേവ് ചെയ്യപ്പെടുന്നു.</p>
@@ -99,16 +130,43 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
         const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         
-        // This ensures the page knows if someone is logged in
         onAuthStateChanged(auth, (user) => {
-            if(user) { localStorage.setItem('libraryUser', 'true'); } 
-            else { localStorage.removeItem('libraryUser'); }
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+            const logoutBtn = document.getElementById('logout-link');
+
+            if(user) { 
+                localStorage.setItem('libraryUser', 'true'); 
+                if(logoutBtn) logoutBtn.style.display = 'block';
+
+                // പേരും ഫോട്ടോയും അപ്ഡേറ്റ് ചെയ്യുന്നു
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
+                if(nameDisplay) nameDisplay.textContent = displayName;
+                if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+
+            } else { 
+                localStorage.removeItem('libraryUser'); 
+                if(logoutBtn) logoutBtn.style.display = 'none';
+                if(nameDisplay) nameDisplay.textContent = "Guest";
+            }
         });
+
+        // Logout Functionality
+        const logoutLink = document.getElementById('logout-link');
+        if(logoutLink) {
+            logoutLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                signOut(auth).then(() => { 
+                    localStorage.removeItem('libraryUser'); 
+                    window.location.href = "logout-success.html"; // ലോഗൗട്ട് പേജിലേക്ക്
+                });
+            });
+        }
     </script>
 
 </body>
