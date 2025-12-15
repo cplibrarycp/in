@@ -64,32 +64,24 @@
     </style>
 
 
-<style id="footer-fix-style">
-    /* --- FORCE STICKY FOOTER --- */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+<style id="master-css-fix">
+    /* --- STICKY FOOTER & LAYOUT FIX --- */
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { 
+        font-family: 'Poppins', sans-serif; 
+        background-color: #E0F2F1; 
+        color: #263238; 
+        line-height: 1.6;
+        display: flex; flex-direction: column; min-height: 100vh;
     }
+    .collection-section, .content-box, .container { flex: 1 0 auto; }
+    footer { flex-shrink: 0; margin-top: auto; }
     
-    body {
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: 100vh !important;
-    }
-
-    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
-    section, .collection-section, .about-hero, .container, .content-box {
-        flex: 1 0 auto;
-    }
-
-    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
-    footer {
-        flex-shrink: 0 !important;
-        width: 100% !important;
-        margin-top: auto !important; 
-    }
-    /* --------------------------- */
+    /* Popup Style */
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
 </style>
 </head>
 <body>
@@ -161,45 +153,105 @@
 </div>
 </div>
 </footer>
-<script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        
-        onAuthStateChanged(auth, (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const avatarDiv = document.getElementById('userAvatar');
-            const logoutBtn = document.getElementById('logout-link');
 
-            if(user) { 
-                localStorage.setItem('libraryUser', 'true'); 
-                if(logoutBtn) logoutBtn.style.display = 'block';
 
-                // പേരും ഫോട്ടോയും അപ്ഡേറ്റ് ചെയ്യുന്നു
-                const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
-                if(nameDisplay) nameDisplay.textContent = displayName;
-                if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+<div class="lib-popup-overlay" id="login-modal">
+<div class="lib-popup-box">
+<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+</div>
+</div>
 
-            } else { 
-                localStorage.removeItem('libraryUser'); 
-                if(logoutBtn) logoutBtn.style.display = 'none';
-                if(nameDisplay) nameDisplay.textContent = "Guest";
-            }
-        });
+<script id="master-js-logic" type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-        // Logout Functionality
-        const logoutLink = document.getElementById('logout-link');
-        if(logoutLink) {
-            logoutLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                signOut(auth).then(() => { 
-                    localStorage.removeItem('libraryUser'); 
-                    window.location.href = "logout-success.html"; // ലോഗൗട്ട് പേജിലേക്ക്
-                });
-            });
+    let currentUser = null;
+
+    onAuthStateChanged(auth, (user) => {
+        const nameDisplay = document.getElementById('display-name');
+        const avatarDiv = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logout-link');
+
+        if (user) {
+            currentUser = user; 
+            localStorage.setItem('libraryUser', 'true');
+            if(logoutBtn) logoutBtn.style.display = 'block';
+            
+            const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
+            if(nameDisplay) nameDisplay.textContent = displayName;
+            if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+        } else {
+            currentUser = null;
+            localStorage.removeItem('libraryUser');
+            if(logoutBtn) logoutBtn.style.display = 'none';
         }
-    </script>
+    });
+
+    // Make functions globally available
+    window.checkAccess = function(linkElement, targetUrl) {
+        if (currentUser) {
+            saveToHistory(linkElement, targetUrl);
+            window.location.href = targetUrl;
+        } else {
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+    };
+
+    function saveToHistory(element, url) {
+        try {
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : '';
+            const date = new Date().toLocaleDateString('ml-IN');
+            const key = 'history_' + currentUser.uid;
+
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            history = history.filter(item => item.title !== title);
+            history.unshift({ title: title, image: image, link: url, date: date });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+        } catch (e) {
+            console.error("Error saving history:", e);
+        }
+    }
+
+    const logoutLink = document.getElementById('logout-link');
+    if(logoutLink) {
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { 
+                localStorage.removeItem('libraryUser'); 
+                window.location.href = "logout-success.html"; 
+            });
+        });
+    }
+    
+    // Search Function
+    window.searchBooks = function() { 
+        var input = document.getElementById('searchBar'); 
+        if(!input) return; 
+        var filter = input.value.toUpperCase(); 
+        var cards = document.getElementsByClassName('book-card'); 
+        for (var i = 0; i < cards.length; i++) { 
+            var title = cards[i].getElementsByClassName("book-title")[0]; 
+            if (title) { 
+                var txtValue = title.textContent || title.innerText; 
+                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; 
+            } 
+        } 
+    }
+</script>
 </body>
 </html>
