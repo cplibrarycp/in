@@ -271,3 +271,24 @@
 
 </body>
 </html>
+
+<script type="module">
+    // ലോഗിൻ ചെയ്ത ശേഷം എങ്ങോട്ട് പോകണം എന്ന് തീരുമാനിക്കുന്നു
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    const auth = getAuth();
+    
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // നേരത്തെ ഏതെങ്കിലും ബുക്ക് ക്ലിക്ക് ചെയ്തിട്ടുണ്ടോ എന്ന് നോക്കുന്നു
+            const pending = sessionStorage.getItem('pendingBook');
+            if (pending) {
+                sessionStorage.removeItem('pendingBook'); // ക്ലിയർ ചെയ്യുന്നു
+                window.location.href = pending; // ബുക്കിലേക്ക് പോകുന്നു
+            } else {
+                // ഇല്ലെങ്കിൽ ഡാഷ്ബോർഡിലേക്ക് (Default)
+                // ശ്രദ്ധിക്കുക: നിങ്ങളുടെ ലോഗിൻ പേജിൽ ഇതിനകം റീഡയറക്ട് ഉണ്ടെങ്കിൽ ഇത് മാറ്റേണ്ടി വരും.
+                // സാധാരണ നിലയിൽ ഇത് കുഴപ്പമില്ല.
+            }
+        }
+    });
+</script>
