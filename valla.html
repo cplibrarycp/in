@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -80,42 +81,38 @@
 </style>
 </head>
 <body>
-
 <header>
-    <div class="container navbar">
-        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-        <div class="nav-links">
-            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-
-            <div class="user-profile" id="profile-section">
-                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-                <div class="user-info">
-                    <span class="user-name" id="display-name">Guest</span>
-                    <span class="user-role">Member</span>
-                </div>
-                <div class="profile-dropdown">
-                    <a href="profile.html">Profile Settings</a>
-                    <a href="history.html">Reading History</a>
-                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+<div class="user-profile" id="profile-section">
+<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown">
+<a href="profile.html">Profile Settings</a>
+<a href="history.html">Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
+</div>
+</div>
 </header>
-
 <section class="collection-section">
-    <div class="container">
-        <h1>വള്ളത്തോൾ കൃതികൾ</h1>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-        </div>
-
-        <div class="library-container" id="bookList">
-            <div class="book-card">
+<div class="container">
+<h1>വള്ളത്തോൾ കൃതികൾ</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+</div>
+<div class="library-container" id="bookList">
+<div class="book-card">
 <div class="image-wrapper">
 <img alt="അഭിജ്ഞാനശാകുന്തളം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1p6mLEFZXQemxpKC5aMk6q5uJbGP6gCwI"/>
 <div class="read-overlay">
@@ -736,48 +733,47 @@
 </div>
 <div class="book-title">വിഷുക്കണി</div>
 </div>
-
-        </div>
-    </div>
+</div>
+</div>
 </section>
-
 <footer>
-    <div class="container">
-        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-        <div class="footer-links">
-            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
             <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
             <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-        </div>
-    </div>
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+</div>
+</div>
 </footer>
-
 <style>
     .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
     .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
     .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
 </style>
-
-<div id="login-modal" class="lib-popup-overlay">
-    <div class="lib-popup-box">
-        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
-    </div>
+<div class="lib-popup-overlay" id="login-modal">
+<div class="lib-popup-box">
+<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
 </div>
+</div>
+
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     let currentUser = null;
 
+    // ലോഗിൻ നില പരിശോധിക്കുന്നു
     onAuthStateChanged(auth, (user) => {
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
@@ -788,6 +784,7 @@
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
+            // പേരും ഫോട്ടോയും സെറ്റ് ചെയ്യുന്നു
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
             if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
@@ -798,39 +795,7 @@
         }
     });
 
-    // Save History & Redirect
-    window.checkAccess = function(linkElement, targetUrl) {
-        if (currentUser) {
-            saveToHistory(linkElement, targetUrl);
-            window.location.href = targetUrl;
-        } else {
-            sessionStorage.setItem('pendingBook', targetUrl);
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    };
-
-    function saveToHistory(element, url) {
-        try {
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : '';
-            const date = new Date().toLocaleDateString('ml-IN');
-            const key = 'history_' + currentUser.uid;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            history = history.filter(item => item.title !== title);
-            history.unshift({ title: title, image: image, link: url, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-        } catch (e) {
-            console.error("Error saving history:", e);
-        }
-    }
-
+    // ലോഗൗട്ട്
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
@@ -841,8 +806,55 @@
             });
         });
     }
+
+    // --- പ്രധാനം: ഈ ഫംഗ്‌ഷൻ ആണ് HTML-ൽ നിന്ന് വിളിക്കുന്നത് ---
+    window.checkAccess = function(element, targetUrl) {
+        // ചിലപ്പോൾ 'this' (element) കിട്ടിയില്ലെങ്കിൽ നേരിട്ട് URL ഉപയോഗിക്കുന്നു
+        if (typeof element === 'string') {
+            targetUrl = element;
+            element = null;
+        }
+
+        if (currentUser) {
+            // 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
+            if(element) saveToHistory(element, targetUrl);
+            
+            // 2. പേജിലേക്ക് പോകുന്നു
+            window.location.href = targetUrl;
+        } else {
+            // ലോഗിൻ ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ്
+            sessionStorage.setItem('pendingBook', targetUrl);
+            const modal = document.getElementById('login-modal');
+            if(modal) modal.style.display = 'flex';
+        }
+    };
+
+    function saveToHistory(element, url) {
+        try {
+            // കാർഡ് കണ്ടുപിടിക്കുന്നു
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : '';
+            const date = new Date().toLocaleDateString('ml-IN');
+            const key = 'history_' + currentUser.uid;
+
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            // ഡ്യൂപ്ലിക്കേറ്റ് ഒഴിവാക്കുന്നു
+            history = history.filter(item => item.title !== title);
+            // പുതിയത് ചേർക്കുന്നു
+            history.unshift({ title: title, image: image, link: url, date: date });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+        } catch (e) {
+            console.error("History Save Error:", e);
+        }
+    }
     
-    // Search
+    // സെർച്ച് ഫംഗ്‌ഷൻ
     window.searchBooks = function() { 
         var input = document.getElementById('searchBar'); 
         if(!input) return; 

@@ -7,8 +7,6 @@
 <title>📚 മലയാളം വിഭാഗം | THRIPUDI LIBRARY</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-
-
 <style id="master-css-fix">
     /* --- STICKY FOOTER & LAYOUT FIX --- */
     html, body { height: 100%; margin: 0; padding: 0; }
@@ -108,11 +106,6 @@
 </div>
 </div>
 </footer>
-
-
-
-
-
 <div class="lib-popup-overlay" id="login-modal">
 <div class="lib-popup-box">
 <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
@@ -122,7 +115,8 @@
 </div>
 </div>
 
-<script id="master-js-logic" type="module">
+
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
     
@@ -132,16 +126,18 @@
 
     let currentUser = null;
 
+    // ലോഗിൻ നില പരിശോധിക്കുന്നു
     onAuthStateChanged(auth, (user) => {
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
         const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
-            currentUser = user; 
+            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
+            // പേരും ഫോട്ടോയും സെറ്റ് ചെയ്യുന്നു
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
             if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
@@ -152,39 +148,7 @@
         }
     });
 
-    // Make functions globally available
-    window.checkAccess = function(linkElement, targetUrl) {
-        if (currentUser) {
-            saveToHistory(linkElement, targetUrl);
-            window.location.href = targetUrl;
-        } else {
-            sessionStorage.setItem('pendingBook', targetUrl);
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    };
-
-    function saveToHistory(element, url) {
-        try {
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : '';
-            const date = new Date().toLocaleDateString('ml-IN');
-            const key = 'history_' + currentUser.uid;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            history = history.filter(item => item.title !== title);
-            history.unshift({ title: title, image: image, link: url, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-        } catch (e) {
-            console.error("Error saving history:", e);
-        }
-    }
-
+    // ലോഗൗട്ട്
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
@@ -195,8 +159,55 @@
             });
         });
     }
+
+    // --- പ്രധാനം: ഈ ഫംഗ്‌ഷൻ ആണ് HTML-ൽ നിന്ന് വിളിക്കുന്നത് ---
+    window.checkAccess = function(element, targetUrl) {
+        // ചിലപ്പോൾ 'this' (element) കിട്ടിയില്ലെങ്കിൽ നേരിട്ട് URL ഉപയോഗിക്കുന്നു
+        if (typeof element === 'string') {
+            targetUrl = element;
+            element = null;
+        }
+
+        if (currentUser) {
+            // 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
+            if(element) saveToHistory(element, targetUrl);
+            
+            // 2. പേജിലേക്ക് പോകുന്നു
+            window.location.href = targetUrl;
+        } else {
+            // ലോഗിൻ ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ്
+            sessionStorage.setItem('pendingBook', targetUrl);
+            const modal = document.getElementById('login-modal');
+            if(modal) modal.style.display = 'flex';
+        }
+    };
+
+    function saveToHistory(element, url) {
+        try {
+            // കാർഡ് കണ്ടുപിടിക്കുന്നു
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : '';
+            const date = new Date().toLocaleDateString('ml-IN');
+            const key = 'history_' + currentUser.uid;
+
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            // ഡ്യൂപ്ലിക്കേറ്റ് ഒഴിവാക്കുന്നു
+            history = history.filter(item => item.title !== title);
+            // പുതിയത് ചേർക്കുന്നു
+            history.unshift({ title: title, image: image, link: url, date: date });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+        } catch (e) {
+            console.error("History Save Error:", e);
+        }
+    }
     
-    // Search Function
+    // സെർച്ച് ഫംഗ്‌ഷൻ
     window.searchBooks = function() { 
         var input = document.getElementById('searchBar'); 
         if(!input) return; 
