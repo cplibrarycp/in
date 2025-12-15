@@ -389,7 +389,6 @@
 
     @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 </style>
-
 <script>
     // 1. PDF വായന പരിശോധന (On Click)
     function checkReadAccess(event, pdfUrl) {
@@ -427,7 +426,6 @@
     // Run Security Check automatically
     enforcePageSecurity();
 </script>
-
 <style>
     .lib-modal-overlay { 
         display: none; position: fixed; z-index: 999999; 
@@ -446,14 +444,6 @@
     .lib-btn-go { background: #00897B; color: white; border: none; padding: 10px 20px; border-radius: 5px; width: 100%; margin: 10px 0; cursor: pointer; font-weight: bold; }
     .lib-btn-no { background: transparent; color: #555; border: 1px solid #ccc; padding: 8px 20px; border-radius: 5px; width: 100%; cursor: pointer; }
 </style>
-<div class="lib-modal-overlay" id="libPopup">
-<div class="lib-modal-box">
-<h3 style="color:#004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#666;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-go" onclick="location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-no" onclick="document.getElementById('libPopup').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
-</div>
-</div>
 <script>
     // 1. PDF വായനയ്ക്കുള്ള ഫംഗ്‌ഷൻ
     function openBook(element) {
@@ -480,6 +470,196 @@
             }
         }
     });
+</script>
+<style>
+    /* Popup Style */
+    .lib-popup-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+        justify-content: center; align-items: center; z-index: 999999;
+    }
+    .lib-popup-box {
+        background: white; padding: 30px; width: 300px;
+        border-top: 5px solid #00897B; border-radius: 10px;
+        text-align: center; font-family: sans-serif;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold;}
+    .lib-btn-login:hover { background: #004D40; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px;}
+</style>
+<script>
+    // 1. PDF ലിങ്ക് ക്ലിക്ക് ചെയ്യുമ്പോൾ
+    function checkAccess(bookUrl) {
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            window.open(bookUrl, '_blank');
+        } else {
+            sessionStorage.setItem('pendingBook', bookUrl);
+            document.getElementById('libAuthPopup').style.display = 'flex';
+        }
+    }
+
+    // 2. പേജ് സെക്യൂരിറ്റി (ലോഗിൻ ചെയ്യാത്തവരെ പുറത്താക്കാൻ)
+    function enforceSecurity() {
+        if (document.body.getAttribute('data-secure') === 'true') {
+            var user = localStorage.getItem('libraryUser');
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        }
+    }
+    enforceSecurity(); // Run immediately
+</script>
+<style>
+    /* Popup Overlay */
+    .lib-popup-overlay {
+        display: none; 
+        position: fixed; 
+        top: 0; left: 0; 
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); 
+        backdrop-filter: blur(4px);
+        justify-content: center; 
+        align-items: center; 
+        z-index: 999999;
+    }
+    /* Popup Box */
+    .lib-popup-box {
+        background: white; 
+        padding: 30px; 
+        width: 300px;
+        border-top: 5px solid #00897B; 
+        border-radius: 10px;
+        text-align: center; 
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    /* Buttons */
+    .lib-btn-login { 
+        background: #00897B; 
+        color: white; 
+        border: none; 
+        padding: 10px 20px; 
+        width: 100%; 
+        margin-top: 10px; 
+        cursor: pointer; 
+        border-radius: 5px; 
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .lib-btn-login:hover { background: #004D40; }
+    
+    .lib-btn-close { 
+        background: transparent; 
+        border: 1px solid #ccc; 
+        color: #555; 
+        padding: 8px 20px; 
+        width: 100%; 
+        margin-top: 5px; 
+        cursor: pointer; 
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
+</style>
+
+<script>
+    function checkAccess(targetUrl) {
+        // LocalStorage-ൽ libraryUser ഉണ്ടോ എന്ന് നോക്കുന്നു
+        // (Firebase ലോഗിൻ ചെയ്യുമ്പോൾ ഇത് സെറ്റ് ചെയ്യപ്പെടണം)
+        var user = localStorage.getItem('libraryUser');
+        
+        if (user) {
+            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
+            window.location.href = targetUrl;
+        } else {
+            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
+            sessionStorage.setItem('pendingBook', targetUrl); // ഏത് ബുക്കാണ് വേണ്ടതെന്ന് ഓർത്തു വെക്കുന്നു
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+    }
+</script>
+
+<style>
+    /* 1. Popup Overlay Style */
+    .lib-popup-overlay {
+        display: none; 
+        position: fixed; 
+        top: 0; left: 0; 
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); 
+        backdrop-filter: blur(4px);
+        justify-content: center; 
+        align-items: center; 
+        z-index: 999999;
+    }
+    .lib-popup-box {
+        background: white; 
+        padding: 30px; 
+        width: 300px;
+        border-top: 5px solid #00897B; 
+        border-radius: 10px;
+        text-align: center; 
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: fadeIn 0.3s ease;
+    }
+    
+    /* 2. Buttons */
+    .lib-btn-login { 
+        background: #00897B; color: white; border: none; 
+        padding: 10px 20px; width: 100%; margin-top: 10px; 
+        cursor: pointer; border-radius: 5px; font-weight: bold;
+        transition: 0.3s;
+    }
+    .lib-btn-login:hover { background: #004D40; }
+    
+    .lib-btn-close { 
+        background: transparent; border: 1px solid #ccc; color: #555; 
+        padding: 8px 20px; width: 100%; margin-top: 5px; 
+        cursor: pointer; border-radius: 5px; transition: 0.3s;
+    }
+    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<div class="lib-popup-overlay" id="login-modal">
+<div class="lib-popup-box">
+<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+</div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- A. LOGOUT BUTTON VISIBILITY FIX ---
+        var user = localStorage.getItem('libraryUser');
+        var logoutBtn = document.getElementById('logout-link');
+        
+        if (logoutBtn) {
+            if (user) {
+                logoutBtn.style.display = 'block'; // ലോഗിൻ ഉണ്ടെങ്കിൽ കാണിക്കുക
+            } else {
+                logoutBtn.style.display = 'none';  // ലോഗിൻ ഇല്ലെങ്കിൽ മറയ്ക്കുക (Guest Mode)
+            }
+        }
+    });
+
+    // --- B. ACCESS CHECK FUNCTION ---
+    function checkAccess(targetUrl) {
+        var user = localStorage.getItem('libraryUser');
+        
+        if (user) {
+            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
+            window.location.href = targetUrl;
+        } else {
+            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+    }
 </script>
 </body>
 </html>
