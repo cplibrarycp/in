@@ -196,6 +196,34 @@
             .profile-dropdown { left: 0; right: 0; position: relative; width: 100%; border: 1px solid #eee; box-shadow: none; }
         }
     </style>
+
+<style>
+    /* --- STICKY FOOTER FIX START --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* സ്ക്രീനിന്റെ മുഴുവൻ ഉയരം എടുക്കുന്നു */
+    }
+
+    /* ഉള്ളടക്കമുള്ള ഭാഗം (Content) വികസിക്കാൻ അനുവദിക്കുന്നു */
+    section, .collection-section, .about-hero, .container, .content-box {
+        flex: 1 0 auto;
+    }
+
+    /* ഫൂട്ടർ ചുരുങ്ങാതെ താഴെ നിൽക്കാൻ */
+    footer {
+        flex-shrink: 0;
+        width: 100%;
+        margin-top: auto; /* ഇത് ഫൂട്ടറിനെ ഏറ്റവും താഴേക്ക് തള്ളുന്നു */
+    }
+    /* --- STICKY FOOTER FIX END --- */
+</style>
 </head>
 <body data-protected="true" data-secure="true">
 <header>

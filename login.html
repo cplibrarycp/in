@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login / Register | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login / Register | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
         /* --- Theme Variables --- */
         :root {
             --primary-teal: #00897B; 
@@ -124,36 +125,59 @@
         #login { left: 50px; }
         #register { left: 450px; }
     </style>
+
+<style>
+    /* --- STICKY FOOTER FIX START --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* സ്ക്രീനിന്റെ മുഴുവൻ ഉയരം എടുക്കുന്നു */
+    }
+
+    /* ഉള്ളടക്കമുള്ള ഭാഗം (Content) വികസിക്കാൻ അനുവദിക്കുന്നു */
+    section, .collection-section, .about-hero, .container, .content-box {
+        flex: 1 0 auto;
+    }
+
+    /* ഫൂട്ടർ ചുരുങ്ങാതെ താഴെ നിൽക്കാൻ */
+    footer {
+        flex-shrink: 0;
+        width: 100%;
+        margin-top: auto; /* ഇത് ഫൂട്ടറിനെ ഏറ്റവും താഴേക്ക് തള്ളുന്നു */
+    }
+    /* --- STICKY FOOTER FIX END --- */
+</style>
 </head>
 <body>
-
-    <div class="hero">
-        <div class="form-box">
-            <div class="button-box">
-                <div id="btn"></div>
-                <button type="button" class="toggle-btn" id="loginToggle" onclick="openLogin()" style="color: var(--primary-teal);">Log In</button>
-                <button type="button" class="toggle-btn" id="regToggle" onclick="openRegister()">Register</button>
-            </div>
-
-            <form id="login" class="input-group">
-                <input type="email" id="loginEmail" class="input-field" placeholder="Email Id" required>
-                <input type="password" id="loginPassword" class="input-field" placeholder="Password" required>
-                <button type="submit" class="submit-btn" id="loginBtn">Log In</button>
-                <a onclick="forgotPassword()" class="forgot-pass">Forgot Password?</a>
-            </form>
-
-            <form id="register" class="input-group">
-                <input type="text" id="regUser" class="input-field" placeholder="Full Name" required>
-                <input type="email" id="regEmail" class="input-field" placeholder="Email Id" required>
-                <input type="password" id="regPassword" class="input-field" placeholder="Password (Min 6 chars)" required minlength="6">
-                <button type="submit" class="submit-btn" id="regBtn">Register</button>
-            </form>
-            
-            <div id="messageBox"></div>
-        </div>
-    </div>
-
-    <script>
+<div class="hero">
+<div class="form-box">
+<div class="button-box">
+<div id="btn"></div>
+<button class="toggle-btn" id="loginToggle" onclick="openLogin()" style="color: var(--primary-teal);" type="button">Log In</button>
+<button class="toggle-btn" id="regToggle" onclick="openRegister()" type="button">Register</button>
+</div>
+<form class="input-group" id="login">
+<input class="input-field" id="loginEmail" placeholder="Email Id" required="" type="email"/>
+<input class="input-field" id="loginPassword" placeholder="Password" required="" type="password"/>
+<button class="submit-btn" id="loginBtn" type="submit">Log In</button>
+<a class="forgot-pass" onclick="forgotPassword()">Forgot Password?</a>
+</form>
+<form class="input-group" id="register">
+<input class="input-field" id="regUser" placeholder="Full Name" required="" type="text"/>
+<input class="input-field" id="regEmail" placeholder="Email Id" required="" type="email"/>
+<input class="input-field" id="regPassword" minlength="6" placeholder="Password (Min 6 chars)" required="" type="password"/>
+<button class="submit-btn" id="regBtn" type="submit">Register</button>
+</form>
+<div id="messageBox"></div>
+</div>
+</div>
+<script>
         var x = document.getElementById("login");
         var y = document.getElementById("register");
         var z = document.getElementById("btn");
@@ -177,8 +201,7 @@
             document.getElementById("messageBox").textContent = "";
         }
     </script>
-
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -268,10 +291,8 @@
                 });
         }
     </script>
-
 </body>
 </html>
-
 <script type="module">
     // ലോഗിൻ ചെയ്ത ശേഷം എങ്ങോട്ട് പോകണം എന്ന് തീരുമാനിക്കുന്നു
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";

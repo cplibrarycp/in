@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>അംഗമാകുക | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>അംഗമാകുക | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
         /* --- തീം സെറ്റിംഗ്സ് --- */
         :root {
             --primary-teal: #00897B;
@@ -64,35 +65,59 @@
 
         #error-msg { color: #ff5252; margin-top: 10px; display: none; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 4px; font-size: 0.9em; }
     </style>
+
+<style>
+    /* --- STICKY FOOTER FIX START --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* സ്ക്രീനിന്റെ മുഴുവൻ ഉയരം എടുക്കുന്നു */
+    }
+
+    /* ഉള്ളടക്കമുള്ള ഭാഗം (Content) വികസിക്കാൻ അനുവദിക്കുന്നു */
+    section, .collection-section, .about-hero, .container, .content-box {
+        flex: 1 0 auto;
+    }
+
+    /* ഫൂട്ടർ ചുരുങ്ങാതെ താഴെ നിൽക്കാൻ */
+    footer {
+        flex-shrink: 0;
+        width: 100%;
+        margin-top: auto; /* ഇത് ഫൂട്ടറിനെ ഏറ്റവും താഴേക്ക് തള്ളുന്നു */
+    }
+    /* --- STICKY FOOTER FIX END --- */
+</style>
 </head>
 <body>
-
-    <div class="register-container">
-        <h2>പുതിയ അംഗമാകുക</h2>
-        <form id="registerForm">
-            <div class="input-group">
-                <label>നിങ്ങളുടെ പേര്</label>
-                <input type="text" id="fullName" required placeholder="Full Name">
-            </div>
-            <div class="input-group">
-                <label>ഇമെയിൽ</label>
-                <input type="email" id="email" required placeholder="example@gmail.com">
-            </div>
-            <div class="input-group">
-                <label>പാസ്‌വേഡ് (കുറഞ്ഞത് 6 അക്ഷരം)</label>
-                <input type="password" id="password" required placeholder="******" minlength="6">
-            </div>
-            
-            <button type="submit" class="btn-register">Register</button>
-            <p id="error-msg"></p>
-        </form>
-
-        <div class="login-link">
+<div class="register-container">
+<h2>പുതിയ അംഗമാകുക</h2>
+<form id="registerForm">
+<div class="input-group">
+<label>നിങ്ങളുടെ പേര്</label>
+<input id="fullName" placeholder="Full Name" required="" type="text"/>
+</div>
+<div class="input-group">
+<label>ഇമെയിൽ</label>
+<input id="email" placeholder="example@gmail.com" required="" type="email"/>
+</div>
+<div class="input-group">
+<label>പാസ്‌വേഡ് (കുറഞ്ഞത് 6 അക്ഷരം)</label>
+<input id="password" minlength="6" placeholder="******" required="" type="password"/>
+</div>
+<button class="btn-register" type="submit">Register</button>
+<p id="error-msg"></p>
+</form>
+<div class="login-link">
             അക്കൗണ്ട് ഉണ്ടോ? <a href="login.html">ലോഗിൻ ചെയ്യുക</a>
-        </div>
-    </div>
-
-    <script type="module">
+</div>
+</div>
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -155,6 +180,5 @@
                 });
         });
     </script>
-
 </body>
 </html>

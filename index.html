@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>സ്വാഗതം | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>സ്വാഗതം | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
         /* --- 1. കളർ പാലറ്റ് --- */
         :root {
             --primary-teal: #00897B; /* ടീൽ ഗ്രീൻ */
@@ -117,22 +118,45 @@
             .btn { width: 100%; box-sizing: border-box; } /* മൊബൈലിൽ ബട്ടൺ വലുതായി വരാൻ */
         }
     </style>
+
+<style>
+    /* --- STICKY FOOTER FIX START --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* സ്ക്രീനിന്റെ മുഴുവൻ ഉയരം എടുക്കുന്നു */
+    }
+
+    /* ഉള്ളടക്കമുള്ള ഭാഗം (Content) വികസിക്കാൻ അനുവദിക്കുന്നു */
+    section, .collection-section, .about-hero, .container, .content-box {
+        flex: 1 0 auto;
+    }
+
+    /* ഫൂട്ടർ ചുരുങ്ങാതെ താഴെ നിൽക്കാൻ */
+    footer {
+        flex-shrink: 0;
+        width: 100%;
+        margin-top: auto; /* ഇത് ഫൂട്ടറിനെ ഏറ്റവും താഴേക്ക് തള്ളുന്നു */
+    }
+    /* --- STICKY FOOTER FIX END --- */
+</style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>നമസ്കാരം! 🙏</h1>
-        <p>തൃപുടി ലൈബ്രറിയിലേക്ക് സ്വാഗതം.<br>
+<div class="container">
+<h1>നമസ്കാരം! 🙏</h1>
+<p>തൃപുടി ലൈബ്രറിയിലേക്ക് സ്വാഗതം.<br/>
         അറിവിൻ്റെ വിശാലമായ ലോകത്തേക്ക് പ്രവേശിക്കാൻ തയ്യാറാണോ?</p>
-        
-        <div class="btn-group">
-            <a href="dashboard.html" class="btn btn-outline">ലൈബ്രറി കാണുക 📚</a>
-
-            <a href="register.html" class="btn btn-primary">പുതിയ അംഗമാകുക 🚀</a>
-            
-            <a href="login.html" class="btn btn-outline">ലോഗിൻ ചെയ്യുക 🔐</a>
-        </div>
-    </div>
-
+<div class="btn-group">
+<a class="btn btn-outline" href="dashboard.html">ലൈബ്രറി കാണുക 📚</a>
+<a class="btn btn-primary" href="register.html">പുതിയ അംഗമാകുക 🚀</a>
+<a class="btn btn-outline" href="login.html">ലോഗിൻ ചെയ്യുക 🔐</a>
+</div>
+</div>
 </body>
 </html>
