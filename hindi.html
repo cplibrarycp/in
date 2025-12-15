@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -9,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
-    /* --- THEME --- */
     :root {
         --primary-orange: #00897B; 
         --secondary-dark: #004D40; 
@@ -27,7 +25,9 @@
         background-color: var(--background-light); 
         color: var(--text-color); 
         line-height: 1.6;
-        display: flex; flex-direction: column; min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
     .container { width: 90%; margin: 0 auto; max-width: 1200px; }
     a { text-decoration: none; }
@@ -79,57 +79,49 @@
     .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
     .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 </style>
-
-<style id="layout-fix">
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body { display: flex; flex-direction: column; min-height: 100vh; }
-    .collection-section, .dashboard-section, .container { flex: 1 0 auto; }
-    footer { flex-shrink: 0; margin-top: auto; }
-    
-    /* Popup */
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
-</style>
 </head>
 <body>
+
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html">Profile Settings</a>
-<a href="history.html">Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <section class="collection-section">
-<div class="container">
-<h1>Hindi Books</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-<div class="library-container" id="bookList">
+    <div class="container">
+        <h1>Hindi Books</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+        </div>
+
+        <div class="library-container" id="bookList">
+            
 <div class="book-card">
 <div class="image-wrapper">
 <img alt="द 10X रुल ग्रँट कार्डोन" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Y0hWseqX0ChDEH9M3LjvLVlOiYTs6d0y"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-GcMlYL4825jvsZhmo-Y-LhL40LOp8SZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">द 10X रुल ग्रँट कार्डोन</div>
@@ -138,7 +130,7 @@
 <div class="image-wrapper">
 <img alt="rich dad poor dad hindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1AeL5jdzkvXmOLil355MRB2KkeYIq9wx8"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=10BoWX4N5TDzxOVO_nDH90DtiWzbb8fOU')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">rich dad poor dad hindi</div>
@@ -147,7 +139,7 @@
 <div class="image-wrapper">
 <img alt="the-Power-of-your-Subconscious-Mind-Hindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14BNsBoj7CM9xly7zAzElcr-aJyi14gwk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=10beLiZvb0bfjn0pP11wDNL4G4B_FYSmU')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">the-Power-of-your-Subconscious-Mind-Hindi</div>
@@ -156,7 +148,7 @@
 <div class="image-wrapper">
 <img alt="मुट्‍ठी में तकदीर रॉबिन शर्मा THE" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_871otbVGk7tb9SrKrepTy27qe36nrOJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12uIw4pj73AWKKc_58vw_ntZG35b3xjN-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">मुट्‍ठी में तकदीर रॉबिन शर्मा THE</div>
@@ -165,7 +157,7 @@
 <div class="image-wrapper">
 <img alt="Think and grow rich in hindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14v_YvmuBFM1k1rkuvtTSn8eg_e7vmhm6"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1BKD3dReesg4uTFjbR7_cVv_rNt0mcdOZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Think and grow rich in hindi</div>
@@ -174,7 +166,7 @@
 <div class="image-wrapper">
 <img alt="The New One Minute Manager (Hindi Edition)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1mXpKr7qOaG455VKmvNeOetr7MlZs8kkH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Da_vp2SR745QyfQ6yVJOxpG95NkjRPL9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The New One Minute Manager (Hindi Edition)</div>
@@ -183,7 +175,7 @@
 <div class="image-wrapper">
 <img alt="द अलकेमिस्ट " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1JyEzRDlCvXZwj55xkLrjRrN-qlDoOP-9"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ERJFSNnMhUx2IuTeOJOsmlvWproJ5NWd')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">द अलकेमिस्ट </div>
@@ -192,7 +184,7 @@
 <div class="image-wrapper">
 <img alt="जादू रॉन्डा बर्न THE Magic by Byrne" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14oFYc8KiGR7a5OdPesZXFK2FqH8TiGxS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QdgkhrqNueOMAt92TxiwxefPgP-mLJ79')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">जादू रॉन्डा बर्न THE Magic by Byrne</div>
@@ -201,7 +193,7 @@
 <div class="image-wrapper">
 <img alt="Safalta Ka Rahasya" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1T2_yX-zz1hzyBTcm5Bh7s7X7bDuy4EwJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1VrjCde5PH2FmJehkExYctmCU047Z8A58')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Safalta Ka Rahasya</div>
@@ -210,7 +202,7 @@
 <div class="image-wrapper">
 <img alt="सकारात्मक सोच की शक्ति नॉर्मन व्हिन्सेंट" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lsWqVeolp0U5UiDKv5uDAF58EzDzOVUx"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1XkLjbgj1VBCY7DLDl45kJvB8wqY5X9pP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">सकारात्मक सोच की शक्ति नॉर्मन व्हिन्सेंट</div>
@@ -219,7 +211,7 @@
 <div class="image-wrapper">
 <img alt="कोच, रिचर्ड - The 80 - 20 Principle hindi book (Hindi Edition) (2019) - libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1bHcvR4cd0Z7v-kpBQWOATqE5rWNjnkjn"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1d17Tyf4Y1XuoIq5nIyKMc5PqtdZMMHfe')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">कोच, रिचर्ड - The 80 - 20 Principle hindi book (Hindi Edition) (2019) - libgen.lc</div>
@@ -228,7 +220,7 @@
 <div class="image-wrapper">
 <img alt="जितकाजश्न" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1AIuahmsRpjwCrD4AAIqblWXqDStbbSBv"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1e_604L9ASws2bOyNnUuLJYFNaqYU3TQG')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">जितकाजश्न</div>
@@ -237,7 +229,7 @@
 <div class="image-wrapper">
 <img alt="ग्राहम, बेंजमिन - The intelligent investor hindi book (Hindi Edition) (2019) - libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1z7EOnb4sUnnf7i9H3qGMWsJLAbe9Dgr5"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ljpq8cmNHWid3vNgLtGiHbb_v31izu5W')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ग्राहम, बेंजमिन - The intelligent investor hindi book (Hindi Edition) (2019) - libgen.lc</div>
@@ -246,7 +238,7 @@
 <div class="image-wrapper">
 <img alt="बडी सोच का बडा जादू" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GUOGn6OoagBb8404fDjO7BcBLQ-_eIaa"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1p5TiRcR_OlUyJvD18mlBawZw2G4Onjo9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">बडी सोच का बडा जादू</div>
@@ -255,7 +247,7 @@
 <div class="image-wrapper">
 <img alt="महानता का मार्गदर्शक रॉबिन शर्मा" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1su8MQCIrE-g7bcXojsJJYbINysuyrfMB"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wv7oZPrh29zXQ3yF06Rb6deOi9jeAXGf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">महानता का मार्गदर्शक रॉबिन शर्मा</div>
@@ -264,7 +256,7 @@
 <div class="image-wrapper">
 <img alt="लक्ष्य ब्रैयन ट्रेसी BEST SELLING" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kqdXAUo1Fpxq0uy7u7LmIr-hpFE0NFvR"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1y24yAatZTEFAt5GKIhNwR8bpHptnk14W')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">लक्ष्य ब्रैयन ट्रेसी BEST SELLING</div>
@@ -273,7 +265,7 @@
 <div class="image-wrapper">
 <img alt="5 6330259676604661885" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1-Skw4QdXO-6oQitY45MHo7jQDkLUgSL_"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EWfRV9pQ6Js2Ku4li1nz-2Hasg64KJY7')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">5 6330259676604661885</div>
@@ -282,7 +274,7 @@
 <div class="image-wrapper">
 <img alt="5 6330259676604661889" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tIfRTWwyi3q8ifibPYcJ414ZxV-p6CK2"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EnVOkzlRkwSOo3LQBXnY5PnISkG7cHUk')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">5 6330259676604661889</div>
@@ -291,7 +283,7 @@
 <div class="image-wrapper">
 <img alt="DaulatAurSafaltaKiRaah DrJosephM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YMppv5m7rLx0mPXaFZDeOGTRz_a5pAaz"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1S5laMItRQM-TtesMOjh2v4Bh-7m9Jv6o')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">DaulatAurSafaltaKiRaah DrJosephM</div>
@@ -300,7 +292,7 @@
 <div class="image-wrapper">
 <img alt="NelsonMandela-H-2mb" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1NfwHGv9WbH49rqbjYrkJYnnaSu9OCZHk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_dVaPAs3XOwOLP0XiDeb3wOwUEDhQnI3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">NelsonMandela-H-2mb</div>
@@ -309,7 +301,7 @@
 <div class="image-wrapper">
 <img alt="HindiBook-the-secretInHindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MPRQmrZsaXx3MkM_d3W8Rf2cmeA4b_yr"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1aYsp-u3WGYSIyHJGOxVPq1UhLmQLzeQX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">HindiBook-the-secretInHindi</div>
@@ -318,80 +310,69 @@
 <div class="image-wrapper">
 <img alt="Corporate Chanakya   (Hindi)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1mkM9u9RHN0TdGmXqjLCOfrsiox5M1mYw"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1e5A4z8wI3F2CVeabNuiJC17XjG9XpLjA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Corporate Chanakya   (Hindi)</div>
 </div>
-</div>
-</div>
+
+        </div>
+    </div>
 </section>
+
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
             <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
             <a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
 
+<style>
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
 
-
-
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
-</div>
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    let currentUser = null;
-
-    // 1. ഓതന്റിക്കേഷൻ ചെക്കിംഗ്
     onAuthStateChanged(auth, (user) => {
-        const logoutBtn = document.getElementById('logout-link');
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
-            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
-            // പേര് മാറ്റുന്നു
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
             if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
-
-            // *** REDIRECT FIX ***: ലോഗിൻ ചെയ്താൽ പെൻഡിംഗ് ബുക്കിലേക്ക് പോകുന്നു
-            const pendingUrl = sessionStorage.getItem('pendingBook');
-            if (pendingUrl) {
-                console.log("Redirecting to:", pendingUrl);
-                sessionStorage.removeItem('pendingBook');
-                window.location.href = pendingUrl;
-            }
-
         } else {
-            currentUser = null;
             localStorage.removeItem('libraryUser');
             if(logoutBtn) logoutBtn.style.display = 'none';
         }
     });
 
-    // 2. ലോഗൗട്ട്
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
@@ -402,64 +383,22 @@
             });
         });
     }
+</script>
 
-    // 3. ബട്ടൺ ക്ലിക്ക് ചെയ്യുമ്പോൾ (ഇതാണ് പ്രധാനം)
-    window.checkAccess = function(element, targetUrl) {
-        // പഴയ കോഡ് ആണെങ്കിൽ (element സ്ട്രിംഗ് ആയാൽ) അത് അഡ്ജസ്റ്റ് ചെയ്യുന്നു
-        if (typeof element === 'string') {
-            targetUrl = element;
-            element = null;
-        }
-
-        if (currentUser) {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ:
-            if (element) { saveToHistory(element, targetUrl); } // ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
-            window.location.href = targetUrl; // നേരിട്ട് read.html ലേക്ക് പോകുന്നു
+<script>
+    function checkAccess(targetUrl) {
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            window.location.href = targetUrl;
         } else {
-            // ലോഗിൻ ഇല്ലെങ്കിൽ:
-            sessionStorage.setItem('pendingBook', targetUrl); // ലിങ്ക് ഓർത്തു വെക്കുന്നു
-            // പോപ്പ്-അപ്പ് തുറക്കുന്നു
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.style.display = 'flex';
-        }
-    };
-
-    function saveToHistory(element, url) {
-        try {
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : '';
-            const date = new Date().toLocaleDateString('ml-IN');
-            const key = 'history_' + currentUser.uid;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            history = history.filter(item => item.title !== title);
-            history.unshift({ title: title, image: image, link: url, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-        } catch (e) {
-            console.error("History Error:", e);
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
         }
     }
     
-    // Search
-    window.searchBooks = function() { 
-        var input = document.getElementById('searchBar'); 
-        if(!input) return; 
-        var filter = input.value.toUpperCase(); 
-        var cards = document.getElementsByClassName('book-card'); 
-        for (var i = 0; i < cards.length; i++) { 
-            var title = cards[i].getElementsByClassName("book-title")[0]; 
-            if (title) { 
-                var txtValue = title.textContent || title.innerText; 
-                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; 
-            } 
-        } 
-    }
+    function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+    function toggleProfileMenu() { var dropdown = document.querySelector(".profile-dropdown"); if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; }
 </script>
+
 </body>
 </html>

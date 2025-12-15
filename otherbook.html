@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -9,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
-    /* --- THEME --- */
     :root {
         --primary-orange: #00897B; 
         --secondary-dark: #004D40; 
@@ -27,7 +25,9 @@
         background-color: var(--background-light); 
         color: var(--text-color); 
         line-height: 1.6;
-        display: flex; flex-direction: column; min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
     .container { width: 90%; margin: 0 auto; max-width: 1200px; }
     a { text-decoration: none; }
@@ -79,57 +79,49 @@
     .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
     .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 </style>
-
-<style id="layout-fix">
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body { display: flex; flex-direction: column; min-height: 100vh; }
-    .collection-section, .dashboard-section, .container { flex: 1 0 auto; }
-    footer { flex-shrink: 0; margin-top: auto; }
-    
-    /* Popup */
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
-</style>
 </head>
 <body>
+
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html">Profile Settings</a>
-<a href="history.html">Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <section class="collection-section">
-<div class="container">
-<h1>ENGLISH BOOKS</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-<div class="library-container" id="bookList">
+    <div class="container">
+        <h1>ENGLISH BOOKS</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+        </div>
+
+        <div class="library-container" id="bookList">
+            
 <div class="book-card">
 <div class="image-wrapper">
 <img alt="0205241794 - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1RVTC9UPGqDvnaVTI_Ql9JLTi5VmS8s8k"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1w30yvo1eagaK3QzxOgJqbCUx7c7ic4c7')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">0205241794 - Unknown</div>
@@ -138,7 +130,7 @@
 <div class="image-wrapper">
 <img alt="12 Rules for Life, An Antidote - Jordan B. Peterson" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14o6_s_JYfwh20C1FXEOr5FxcvLVUOQuE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1hZL7scE1Iu4DQNCj5vVehj0cTOm0r9eY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">12 Rules for Life, An Antidote - Jordan B. Peterson</div>
@@ -147,7 +139,7 @@
 <div class="image-wrapper">
 <img alt="21 Lessons for the 21st Century - Yuval Noah Harari" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lR_jeDCbfADvQt7RCUvfMzwvkyQkrE3z"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JWgUK7_pU0V2RfKaKlYQQgnY_V6B34h4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">21 Lessons for the 21st Century - Yuval Noah Harari</div>
@@ -156,7 +148,7 @@
 <div class="image-wrapper">
 <img alt="21 Lessons for the 21st Century - Yuval Noah Harari" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wmvoe6f6-KjwKjH7aoRrdmAA81uWPHS5"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1A_9EpJ_noo89lLWkfJWzI58-YXBhK5kp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">21 Lessons for the 21st Century - Yuval Noah Harari</div>
@@ -165,7 +157,7 @@
 <div class="image-wrapper">
 <img alt="50 Success Classics Winning Wis - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11ueaN-KRoSMuCso5-OUzdRIZyr033ulO"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1eiB5E5o2-3kYOgtXpkZk7GDjSyKqFR4t')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">50 Success Classics Winning Wis - Unknown</div>
@@ -174,7 +166,7 @@
 <div class="image-wrapper">
 <img alt="7 Mindsets for Success, Happine - Swami Mukundananda" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15HjPRsqgOPez6t9JfVAus5X2sCtPiiys"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1uOKzDZmab-1m6HYAWe3CUUbfP63sDleV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">7 Mindsets for Success, Happine - Swami Mukundananda</div>
@@ -183,7 +175,7 @@
 <div class="image-wrapper">
 <img alt="100 Great Business Ideas  From - Jeremy Kourdi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ReEl7y1JFoE05pjIOD_LPMdT10QjQ5oH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1d_5rMCpd3C_7CKw6GcKOKIuCYOp-DhCF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">100 Great Business Ideas  From - Jeremy Kourdi</div>
@@ -192,7 +184,7 @@
 <div class="image-wrapper">
 <img alt="978-0-462-09919-4-ShouldITellTr - MCIA Designer" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZuePlc_2_zO2NvJSs3TRuMDsKluVrb-X"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Q5OQFsmj5oomKhzCIrfYrun1Mdza1Whc')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">978-0-462-09919-4-ShouldITellTr - MCIA Designer</div>
@@ -201,7 +193,7 @@
 <div class="image-wrapper">
 <img alt="80 20 Sales and Marketing - Perry Marshall" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MLjvUTuMJ4ry-CH8y-TIIqMOoxQ3msTB"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ef7qufKgn45-rf0qLCpzVe-uEDvX3G6X')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">80 20 Sales and Marketing - Perry Marshall</div>
@@ -210,7 +202,7 @@
 <div class="image-wrapper">
 <img alt="80 20 Sales and Marketing. The - Perry Marshall" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1J1peSuGD0LnhcV5aWufPIJkwqNu73AIP"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1aXk2Ec85PfGwZlI3Sks_xQhqdKN84qXC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">80 20 Sales and Marketing. The - Perry Marshall</div>
@@ -219,7 +211,7 @@
 <div class="image-wrapper">
 <img alt="9781593155322 FM real estate ne - sue.caulfield" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1CPIA40cC9llbhHWQXT8ZMslggtvuOvqe"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1CjjUAu4H7F0OpzMzsX2MlRlUnUEbFT7T')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">9781593155322 FM real estate ne - sue.caulfield</div>
@@ -228,7 +220,7 @@
 <div class="image-wrapper">
 <img alt="9788131740866 - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1buhHcZInblEnh_OY67uM3Mt-qsBz5h03"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1AaOMPxpieOGOTlAeC29J090KZSzZgRzy')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">9788131740866 - Unknown</div>
@@ -237,7 +229,7 @@
 <div class="image-wrapper">
 <img alt="A Random Walk Down Wall Street  - Burton G. Malkiel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1EE3DGcPecOFmN5d_Dy9TaXAgLzPuoIIV"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ctSK1GydvS6NX9GCa4lDObIiyeDpoOXS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">A Random Walk Down Wall Street  - Burton G. Malkiel</div>
@@ -246,7 +238,7 @@
 <div class="image-wrapper">
 <img alt="Against the Gods The Remarkable - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cIiDao9Nap0RI6XaHoZIYMXSn8Ennd3-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1smfW1W_ECJoOu3bw-At91hNFJ3IB3wOA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Against the Gods The Remarkable - Unknown</div>
@@ -255,7 +247,7 @@
 <div class="image-wrapper">
 <img alt="Act Like a Leader, Think Like a - Herminia Ibarra" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1eTq3SIFDSdBKkFToVVLFGcxcLSRCiNPI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1pUQUZPaPMXMCZmxHoFKjLQ5wMmv2DNF9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Act Like a Leader, Think Like a - Herminia Ibarra</div>
@@ -264,7 +256,7 @@
 <div class="image-wrapper">
 <img alt="And I Quote  The Definitive Col - Ashton Applewhite, William R. E" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1uGOoalFujHrxKLcevIigvj_9IV7UfngE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1rDrE1_GdT4BQUj8AwATca6KEGrwSVACq')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">And I Quote  The Definitive Col - Ashton Applewhite, William R. E</div>
@@ -273,7 +265,7 @@
 <div class="image-wrapper">
 <img alt="Answering Tough Interview Quest - R.Y. Yeung" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tib-_c5AsuiihFwLG-MvVh4MOexJMaVP"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vzRcPuoFkML_56bSPwR87TyBgnhJISoU')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Answering Tough Interview Quest - R.Y. Yeung</div>
@@ -282,7 +274,7 @@
 <div class="image-wrapper">
 <img alt="Be Here Now Open Your Mind to S - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12zfylGVs9vNyPTvsn9NWmHLB05iMBeuE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1kJBXCn9H9EC0QIMsvJunHtPsLTwoNBb3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Be Here Now Open Your Mind to S - Unknown</div>
@@ -291,7 +283,7 @@
 <div class="image-wrapper">
 <img alt="Attitudebk.p65.q - Jack Parry" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jt0qffu5KJaLgIjq7-e5zJxjC6eTaov6"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1MqVxp1G0XPVumBZemtVa9RTT57JIirNA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Attitudebk.p65.q - Jack Parry</div>
@@ -300,7 +292,7 @@
 <div class="image-wrapper">
 <img alt="Beverly E Jones Think Like an E - dlavieri" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1rPMuR-rX5mdlacXkFVpbhdNjs7WtKaeV"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Mt2Xt-s2xmWWA3H8at7vtFx8hRPIdECF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Beverly E Jones Think Like an E - dlavieri</div>
@@ -309,7 +301,7 @@
 <div class="image-wrapper">
 <img alt="Atomic Habits  Tiny Changes, Re - James Clear" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Y2QTVksWh3DMasmd-__IP3rSbz77fqXr"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1dU9yV3ikRzXWkfVuF2eu0EDOsdGAjFrO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Atomic Habits  Tiny Changes, Re - James Clear</div>
@@ -318,7 +310,7 @@
 <div class="image-wrapper">
 <img alt="Cashflow Quadrant Rich Dad s Gu - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1a9qiOa-0HCLB2A1flltGJ94H0tX0awoM"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QEh6Ffl_ijQbYYw2mmuSDSlCvAN0Ofdu')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Cashflow Quadrant Rich Dad s Gu - Unknown</div>
@@ -327,7 +319,7 @@
 <div class="image-wrapper">
 <img alt="CHERNEV REINFELD Winning Chess - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xPwUc6r6zVgnAj4b4CPc8EPnJXzEBwvC"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RVsj7viqZjMAGhm-lrfFNZZdEiTIv9e0')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">CHERNEV REINFELD Winning Chess - Unknown</div>
@@ -336,7 +328,7 @@
 <div class="image-wrapper">
 <img alt="Chetan Bhagat -three mistakes o - raju" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1P9Oss5wunFpFmSncJxjkuxT0HufSRwEf"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1oJEDqBUkPfkxoIS7R52tVMVtzc7Pt-d1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Chetan Bhagat -three mistakes o - raju</div>
@@ -345,7 +337,7 @@
 <div class="image-wrapper">
 <img alt="Commercial Real Estate Investin - Conti, Peter.; Harris, Peter " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18Ah3PdPvcTmtAtKiCHYcgrl3Tbpl5Nyl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ITwJTD7G_sgjT9LLEW7hKWmynVu7LoYP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Commercial Real Estate Investin - Conti, Peter.; Harris, Peter </div>
@@ -354,7 +346,7 @@
 <div class="image-wrapper">
 <img alt="Confidence  Actionable Strategi - Andrews, Michael" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1JRjxSb5i7iwwsECt-Su_n9ezFlyPRewS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1jRHnc2XzhBMbMVNP9K6XogvmOEuhxsVH')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Confidence  Actionable Strategi - Andrews, Michael</div>
@@ -363,7 +355,7 @@
 <div class="image-wrapper">
 <img alt="Common Sense on Mutual Funds, F - Bogle, John C " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gUGgO4__xUP5AJyTLqa1MtL5nJOttjTT"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1n0mXWhgBiBA2YXdeaTA9zHdr7qUtdO5B')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Common Sense on Mutual Funds, F - Bogle, John C </div>
@@ -372,7 +364,7 @@
 <div class="image-wrapper">
 <img alt="Built to Last - Jim Collins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15Mm-0Oj5I4nSVu-dGEWr2rA2KjwfZ8I9"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1aBTxy6tPbNtrba-o6EfywWJK7g20umPa')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Built to Last - Jim Collins</div>
@@ -381,7 +373,7 @@
 <div class="image-wrapper">
 <img alt="Bhagavad-Gita As It Is - His Divine Grace AC Bhaktivedan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1s0Rh3Qwz2ROhta9kjpSQKJeYuM3lBL16"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11YtYjn_q5XYPEPMByZ1Bd_uzp3mUmy89')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Bhagavad-Gita As It Is - His Divine Grace AC Bhaktivedan</div>
@@ -390,7 +382,7 @@
 <div class="image-wrapper">
 <img alt="BUSINESS TRAVELLER India August - PDF Buddies" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lJKrRle06P1lSKnHpWX5QED0DUIB3X6s"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JzqJ7ld4pdDcjGrrvVigJYXDSxmVbMBe')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">BUSINESS TRAVELLER India August - PDF Buddies</div>
@@ -399,7 +391,7 @@
 <div class="image-wrapper">
 <img alt="Bhagavad-Gita As It Is - His Divine Grace AC Bhaktivedan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1bI4ZI4o2meu9wIxiR3FSHkXlIZPG3k_8"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1UGbYaI22kajTFhCXaPuBo3Q0PPaYrs41')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Bhagavad-Gita As It Is - His Divine Grace AC Bhaktivedan</div>
@@ -408,7 +400,7 @@
 <div class="image-wrapper">
 <img alt="Confidence  Overcoming Low Self - Chamorro-Premuzic Ph.D., Tomas" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12JOBJVTubpNsis0S6o9GqmZVMYiMrGTk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1H1ukvQOg1mqGvxklV8FlEXk9bMiklrZ1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Confidence  Overcoming Low Self - Chamorro-Premuzic Ph.D., Tomas</div>
@@ -417,7 +409,7 @@
 <div class="image-wrapper">
 <img alt="Copy of Law of Success (21st Ce - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1EQ5IJcW8XZlfCnhNMUiHbyEIE4VIC4Ms"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YAvA9hlMlOclfpQC1HAJwob2Gbm5it6J')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copy of Law of Success (21st Ce - Unknown</div>
@@ -426,7 +418,7 @@
 <div class="image-wrapper">
 <img alt="Copy of Give and Take WHY HELPI - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1h8OapPDYvNu_KBgfgLbIuAhxgzhL1SJV"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1zdm5ap6XhFEzIGM7BOU4WbdUhTmlFNA0')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copy of Give and Take WHY HELPI - Unknown</div>
@@ -435,7 +427,7 @@
 <div class="image-wrapper">
 <img alt="Copycat Marketing 101 - Burke Hedges" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xwAhNiJDo_kMyZQ9F6NnPCt2DMVjckft"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1cpufwispOpiq2NAWKiWmKufhwktSNBt-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copycat Marketing 101 - Burke Hedges</div>
@@ -444,7 +436,7 @@
 <div class="image-wrapper">
 <img alt="Copy of The history of financia - Brandon, E. Denby (Author)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=128EpvS7KhN9KTXhWswwrCC13MHBtJU9G"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Qvh-k_rJLPtd5mwYlx10-581mYihsRfk')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copy of The history of financia - Brandon, E. Denby (Author)</div>
@@ -453,7 +445,7 @@
 <div class="image-wrapper">
 <img alt="Copy of Rich Dad Poor Dad ( PDF - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GO-80381UU0dz3axE3E9gQJzpC8N_u82"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1mcvWi_v0bTaucxrufhNY083hQ5JDpn7s')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copy of Rich Dad Poor Dad ( PDF - Unknown</div>
@@ -462,7 +454,7 @@
 <div class="image-wrapper">
 <img alt="Conflict Management in the Work - McConnon, Shay.; McConnon, Marg" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1w1airHKvLm-J7YNzsdCW6AsBmBxjEifo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1FOy0uPf-N6Ozru8CoPJDOwE-9iDGIENZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Conflict Management in the Work - McConnon, Shay.; McConnon, Marg</div>
@@ -471,7 +463,7 @@
 <div class="image-wrapper">
 <img alt="Copy of The Unemployed Milliona - Morris, Matt " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BA5o1AMl11fDwYqUZtyDubVMeX8LKIl3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ic0CC-vCvrvFpxDeYKnrIBT9XEAbo0W5')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copy of The Unemployed Milliona - Morris, Matt </div>
@@ -480,7 +472,7 @@
 <div class="image-wrapper">
 <img alt="Copy of the-life-time-calculato - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZRQ_bKXYpbYDFhxVSp29a-6-nB1b71sw"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1CFPMLiIC9QaAFJj7UI44MFtszc09g96A')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copy of the-life-time-calculato - Unknown</div>
@@ -489,7 +481,7 @@
 <div class="image-wrapper">
 <img alt="Copy of men s search for meanin - PastorJoe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1PHYMk72LSCaF65KakV3o28LwS30ys41-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1s4cyhjbzgDukjcwx5CUEKxvkoxkdCamP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Copy of men s search for meanin - PastorJoe</div>
@@ -498,7 +490,7 @@
 <div class="image-wrapper">
 <img alt="Cover Image - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1a9P3-MD_YAmFJJxNY8P-_uQYLruUATOQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1TxhVPKcOdnSXOvCVJqYxDuefgMwOQaq8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Cover Image - Unknown</div>
@@ -507,7 +499,7 @@
 <div class="image-wrapper">
 <img alt="Customer Relationship Managemen - Buttle, Francis.,Maklan, Stan " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1uuJjUOe-IFIV_Fgru3X96kS9sqWHs37a"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1etROK_VhwuXw1GUI4dOsqikzS5-Johlq')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Customer Relationship Managemen - Buttle, Francis.,Maklan, Stan </div>
@@ -516,7 +508,7 @@
 <div class="image-wrapper">
 <img alt="Corey Wayne Mastering Yourself, - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wtevwg94KOg5kdD60kmlw7BxmKoUT52u"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1TX1btJLOGaSrkDdTdACuOq9-Mc1WaDgA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Corey Wayne Mastering Yourself, - Unknown</div>
@@ -525,7 +517,7 @@
 <div class="image-wrapper">
 <img alt="Dan Lok - FU Money - 2019 Edition" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Rz3lwIrDPWXqSmjQJZMzscKorEnJIw1m"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=148wHuq2BpZh729aJK557uq6R7YKL6rMD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Dan Lok - FU Money - 2019 Edition</div>
@@ -534,7 +526,7 @@
 <div class="image-wrapper">
 <img alt="Day and swing trading - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1bV8R2UzryLAwuZF7-LC5rInJo5B9BEdP"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1DjJQxYplP4QnFbWoAapQrp_pwXyTgq6I')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Day and swing trading - Unknown</div>
@@ -543,7 +535,7 @@
 <div class="image-wrapper">
 <img alt="Deep Work - Cal Newport" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1j1dhXSb99gszZZ6YE5lfW3tiTKIecuyI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1b1MNEe91Rf6B8gNcgCZcjuOYoKzQ02-K')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Deep Work - Cal Newport</div>
@@ -552,7 +544,7 @@
 <div class="image-wrapper">
 <img alt="Debt Free For Life  The Finish - David Bach" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WcPMuJNLdPLPix_AmKxP3-gxucqAAbA4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1HEkKanuLc_jEgEfpxHfkJskgdYW4PnLX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Debt Free For Life  The Finish - David Bach</div>
@@ -561,7 +553,7 @@
 <div class="image-wrapper">
 <img alt="Delivering Happiness - Tony Hsieh" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zSRpRjURUAjooWhFVObpNRZqwXZJYQOI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QW21lvjYDCYcQfqDjcrRBImzcdLfDkIM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Delivering Happiness - Tony Hsieh</div>
@@ -570,7 +562,7 @@
 <div class="image-wrapper">
 <img alt="Document from Thebarusthing   ( - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1T_n-UL31G4S-z24f58V7xdVECsPWjwAo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1zs0I5DS1jz8E-Id9SHVThaY2yiw4AC2Q')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Document from Thebarusthing   ( - Unknown</div>
@@ -579,7 +571,7 @@
 <div class="image-wrapper">
 <img alt="Document from Thebarusthing   ( - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Bu8fofzDIhK8z12VEHjXt0r9SOyc3An7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1pnWyCbDUf4ttvID_-warTRuaevgU60md')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Document from Thebarusthing   ( - Unknown</div>
@@ -588,7 +580,7 @@
 <div class="image-wrapper">
 <img alt="Document from Thebarusthing   ( - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1KYJbJQLB25jGOJGT6bI0NFUxePDyGPuW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1UpdXkIJOz5Fp0D_3300iV9yC9OypUApV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Document from Thebarusthing   ( - Unknown</div>
@@ -597,7 +589,7 @@
 <div class="image-wrapper">
 <img alt="Document from Thebarusthing   ( - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13LW_I3PRRGXkV6S4Ovp_ZNdg43d1e1iI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1r7kgxO35m_fFu5Fyfm1unUQ-5SNlK8qg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Document from Thebarusthing   ( - Unknown</div>
@@ -606,7 +598,7 @@
 <div class="image-wrapper">
 <img alt="Document from Thebarusthing   ( - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=199bwe0-4fawSPLV1DFCLcaJod1lzUiWY"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1fBw8T_BgzbyOLTuqd7bbbUnUsuZRPsh1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Document from Thebarusthing   ( - Unknown</div>
@@ -615,7 +607,7 @@
 <div class="image-wrapper">
 <img alt="Document from Thebarusthing   ( - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1sTjLDKhxPkmAZqmZ7NDp7ZEc8EAmBYIW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15fsjcUihpF1uauFHRsTIDXo9Q0hR8VAn')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Document from Thebarusthing   ( - Unknown</div>
@@ -624,7 +616,7 @@
 <div class="image-wrapper">
 <img alt="Elon Musk  Tesla, SpaceX, and t - Ashlee Vance" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fDV5QlNUiiEXyDhWGMHhuX8_Wb3w7Cyu"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1uLJ_2ZH0khnxy0cTpaoCucEozrzLO02t')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Elon Musk  Tesla, SpaceX, and t - Ashlee Vance</div>
@@ -633,7 +625,7 @@
 <div class="image-wrapper">
 <img alt="download pdf website -www.ebook - www.ebook777.com" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18OyG0uQCdzzS_XCEZG_bxnPNRJNG1lw3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=180TKFnN7_m-hh6BQj-v1M4FZdLmqpPM6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">download pdf website -www.ebook - www.ebook777.com</div>
@@ -642,7 +634,7 @@
 <div class="image-wrapper">
 <img alt="DTW Layout v12 110304.indd - saranya" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fQaZxDWKXrv2aukybdFgH4up5aUI_Ezt"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1KIESjxWIwQP94hNoJq9Wcnq_LGdZcCdM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">DTW Layout v12 110304.indd - saranya</div>
@@ -651,7 +643,7 @@
 <div class="image-wrapper">
 <img alt="Emotional Intelligence - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14GWSR0XpSRFmox1mRIQQbE3QNN5S6deC"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1TFmh09AaHHTbvzlNeaYfE4PmmjlBdjXJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Emotional Intelligence - Unknown</div>
@@ -660,7 +652,7 @@
 <div class="image-wrapper">
 <img alt="Emotional Intelligence - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wLk7H1_EFmuHawxULv0CNnZsR-R75HF_"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1gtIPNb5cK--5nrgRs_79dGa8IJuCv7q5')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Emotional Intelligence - Unknown</div>
@@ -669,7 +661,7 @@
 <div class="image-wrapper">
 <img alt="Down To Earth 1-15 Aug2019 - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=17wO5dwZsucdVTxgEdGA4W1V56GleRCDK"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1tK8bKohaVnnhRR6tkPnyd02iP_hz2A7e')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Down To Earth 1-15 Aug2019 - Unknown</div>
@@ -678,7 +670,7 @@
 <div class="image-wrapper">
 <img alt="Fanatical Prospecting  The Ulti - Jeb Blount" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=16rhh1uRLk6Ok0RL9XsF9k5VQ2dzfJSmm"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12it8C1DhgjZIGFxRJxL4k0lNG81Gam9f')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Fanatical Prospecting  The Ulti - Jeb Blount</div>
@@ -687,7 +679,7 @@
 <div class="image-wrapper">
 <img alt="FRONTLINE 02-08-2019 - PDF Buddies" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19Iyj_pp0bH7YioOMBeAk9IKtx6QqlM-_"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12heLt00WZJhru46hpz7rzq8vt93Dknzi')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">FRONTLINE 02-08-2019 - PDF Buddies</div>
@@ -696,7 +688,7 @@
 <div class="image-wrapper">
 <img alt="ffirst.indd - Administrator" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_Oi3GM5Wa3FSEY224zVIAjJBW4AKlfki"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1N-BEoZcjKLpd_kece0W8c5RlwXqKWT7g')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">ffirst.indd - Administrator</div>
@@ -705,7 +697,7 @@
 <div class="image-wrapper">
 <img alt="file     Marvin changed open c- - changed" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QvyHZVXwBavL4TWfG_MakjRqp-aDC2Lj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=14fEgNQ7sj2-tJJw6g7DM8y1cyR_jfbZG')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">file     Marvin changed open c- - changed</div>
@@ -714,7 +706,7 @@
 <div class="image-wrapper">
 <img alt="file     Marvin changed open c- - changed" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1R8l9mIQXltTfH2XKPdSaFrC2FMvf-imH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1eeQ7igW85vqQVVc44a-3AaJ4aKdylN4Z')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">file     Marvin changed open c- - changed</div>
@@ -723,7 +715,7 @@
 <div class="image-wrapper">
 <img alt="Good to Great  Why Some Compani - Jim Collins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lW6BUwlJyBDMM8ugwHqaIpQOUixj8OKR"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1xUNNpsABHhD2TFsV5cSp86acnfdbU3Dt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Good to Great  Why Some Compani - Jim Collins</div>
@@ -732,7 +724,7 @@
 <div class="image-wrapper">
 <img alt="Getting to Yes  Negotiating Agr - Roger Fisher" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lGsRog7jiPBe6tr36wNN1yQsOcC1XFeb"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1gUtt4K1HSHx9S0mxWyTMIGLYmt2NMm5u')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Getting to Yes  Negotiating Agr - Roger Fisher</div>
@@ -741,7 +733,7 @@
 <div class="image-wrapper">
 <img alt="Getting Things Done  The Art of - David Allen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12W5_lxu4SpVVaay66G0FX4EKsihfdyy-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15MJHg-ubcFZ0stVbV_kuuBjRW_UhwYuF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Getting Things Done  The Art of - David Allen</div>
@@ -750,7 +742,7 @@
 <div class="image-wrapper">
 <img alt="Good Vibes, Good Life - Vex King" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1PxhJUUtdgB2p54ZFOPweMwEpERkRLx2g"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_Qf9z5M9GRSHwE4WcW2QjFOBiOU7baPi')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Good Vibes, Good Life - Vex King</div>
@@ -759,7 +751,7 @@
 <div class="image-wrapper">
 <img alt="Harun Yahya General Knowledge f - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1marCdR0dBq-u-0QmHYdn67zrjXZrsPcQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ryWwIqM_7QMXzBHYz3-F3HRKOPK3qCcU')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Harun Yahya General Knowledge f - Unknown</div>
@@ -768,7 +760,7 @@
 <div class="image-wrapper">
 <img alt="Hero - Rhonda Byrne" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1JjR1dt6YFAPRQElyshhmG5I_cG4RuLn4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1X5hTXuhOGXggcpf_r57aM5X4yyUnM9Id')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Hero - Rhonda Byrne</div>
@@ -777,7 +769,7 @@
 <div class="image-wrapper">
 <img alt="How to make money with YouTube - Virtual Video Real Estate Tours" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Kin8D-QpOKhlkcRTdz-s68RxWf5y0Oex"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vZsVrYS3ktyflwxoseK0VJuFfqu-A_SR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How to make money with YouTube - Virtual Video Real Estate Tours</div>
@@ -786,7 +778,7 @@
 <div class="image-wrapper">
 <img alt="How Successful People Think  Ch - JOHN C. MAXWELL" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YRsmGgOv7mZTj_dPWR1wm4BfCh3s7WeZ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1mnt4QqFN-JnQIxmmbtv1N0jY1fgC-5U_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How Successful People Think  Ch - JOHN C. MAXWELL</div>
@@ -795,7 +787,7 @@
 <div class="image-wrapper">
 <img alt="How Cool Brands Stay Hot - Van den Bergh, Joeri, Behrer, M" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OQgu1G3CjH88cZ-YTTWU6dGhxeiLxCOU"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1w-W5BomYjIhwNONWg1oXfLPqlsGl1Rbj')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How Cool Brands Stay Hot - Van den Bergh, Joeri, Behrer, M</div>
@@ -804,7 +796,7 @@
 <div class="image-wrapper">
 <img alt="How to Get What You Want  Witho - Richard Templar" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13qKL5pkD4SKL4YIPlpQMridmhMKzuiYY"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1MPlYM7yHtJD2_JTX7Z4z4Crllkzg735Z')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How to Get What You Want  Witho - Richard Templar</div>
@@ -813,7 +805,7 @@
 <div class="image-wrapper">
 <img alt="How Successful People Think  Ch - JOHN C. MAXWELL" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1oxBkw_T5L6cRJny7d0OaBFXcfDaWpbeP"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1PPCLi5zHBraJGPnkISpWK9uZorYHA4T7')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How Successful People Think  Ch - JOHN C. MAXWELL</div>
@@ -822,7 +814,7 @@
 <div class="image-wrapper">
 <img alt="How They Succeeded - Orison Swett Marden" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10q7A4ysXEssIEGkfybwxQQAnU0SZmkqX"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1MqeYpdFv2cvvJykKwQ076IK0YuczAzav')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How They Succeeded - Orison Swett Marden</div>
@@ -831,7 +823,7 @@
 <div class="image-wrapper">
 <img alt="How Successful People Think  Ch - JOHN C. MAXWELL" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1N9XpJYJIk5ZRFr-EsA0S9ILwsE8MzJYw"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1aNAM6b1hUj0Pss28_6WZuIP_l1JbZbLW')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How Successful People Think  Ch - JOHN C. MAXWELL</div>
@@ -840,7 +832,7 @@
 <div class="image-wrapper">
 <img alt="How They Succeeded - Orison Swett Marden" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MvT8pnf_XUy8b3WRuFPWobcd-pEncTOU"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11Bb4Ecfi20VVXjlzIBlquuDuHcIyey8n')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How They Succeeded - Orison Swett Marden</div>
@@ -849,7 +841,7 @@
 <div class="image-wrapper">
 <img alt="How To Deal With Difficult Peop - Gill Hasson" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1KNJ3doVbG8clDfa3iwrVQBiTM9i1-Cjz"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_SMP-vNgSwC2PzNrgYZlS2_UIPeDVyQS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How To Deal With Difficult Peop - Gill Hasson</div>
@@ -858,7 +850,7 @@
 <div class="image-wrapper">
 <img alt="How to Succeed at Interviews - Yeung, Rob " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cXnwZnQCHgfbIECKGutb_oQjDxAB2T7b"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1si6SQD9CAr_-yZI0JuN58pR92WMhoOJM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How to Succeed at Interviews - Yeung, Rob </div>
@@ -867,7 +859,7 @@
 <div class="image-wrapper">
 <img alt="How To Win Friends and Influenc - Dale Carnegie" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1PQKWgglp9Uc3JRmS16SK-LWzVuXQGNOB"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RusOFlPdnhfiEf_e_zlM6zPzRQrX-Tm8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How To Win Friends and Influenc - Dale Carnegie</div>
@@ -876,7 +868,7 @@
 <div class="image-wrapper">
 <img alt="How To Win Friends and Influenc - Dale Carnegie" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1q9ODlmW-bkddPf-swfQHfWd2cjpwxzde"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ubw_5nyicvQUa8SFEx2lidjY8YW6rGtd')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How To Win Friends and Influenc - Dale Carnegie</div>
@@ -885,7 +877,7 @@
 <div class="image-wrapper">
 <img alt="How to Win Every Argument  The - Madsen Pirie" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QqR-wpan-xkjoSqgnTdSXFLFUzC9ZJN-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11GecJ4cvKwY53-vbFbBry7ijuV0JEebW')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How to Win Every Argument  The - Madsen Pirie</div>
@@ -894,7 +886,7 @@
 <div class="image-wrapper">
 <img alt="Hyperfocus - Chris Bailey" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1A0BPKmJo9O1tQ47m8tYjR1Tnafm0Ltbk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=14vusJCgDdwLMrRH2XcwVmrMHeKC7YLgL')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Hyperfocus - Chris Bailey</div>
@@ -903,7 +895,7 @@
 <div class="image-wrapper">
 <img alt="I am Malala  The Story of the G - Malala Yousafzai" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SBNPTKRPuMFhvvmJVRqfMHrsEyGkgFxr"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1oPklZXehaNTtBfUEYEAfSTzVGCE45Mk3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">I am Malala  The Story of the G - Malala Yousafzai</div>
@@ -912,7 +904,7 @@
 <div class="image-wrapper">
 <img alt="I Will Teach You To Be Rich - P - Sethi, Ramit" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1i4H9IQ5N-7wkYMxTDxMHGh6WMlu6Df1k"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1gbUjBFer594jYI-on9pWccVp6hXcN1-W')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">I Will Teach You To Be Rich - P - Sethi, Ramit</div>
@@ -921,7 +913,7 @@
 <div class="image-wrapper">
 <img alt="How To Think Like Benjamin Grah - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hgT--8-9fG7m9V2RxfsAdu_H2tPMF-20"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12XX41RFaM8C3KjyInIWDxDendc5BojZn')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How To Think Like Benjamin Grah - Unknown</div>
@@ -930,7 +922,7 @@
 <div class="image-wrapper">
 <img alt="How to Write a Business Plan - Mike McKeever (Nolo)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11lXtSX_IuAv2JLmcccNtX1_q5sxoHpRp"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1PJb9abtsrafQ5AXEoFVIMgUbiADpvwJQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">How to Write a Business Plan - Mike McKeever (Nolo)</div>
@@ -939,7 +931,7 @@
 <div class="image-wrapper">
 <img alt="I Ell pq - DeltaCPE LLC" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=16__R6kqrG_Q1Pq_MNIcpWLGztsKqcytE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1tkKF3tuBKx5b1_gybO7wbPHzFM679-r8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">I Ell pq - DeltaCPE LLC</div>
@@ -948,7 +940,7 @@
 <div class="image-wrapper">
 <img alt="Indistractable - Nir Eyal;" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=17AnVgJaYoFly29LmllGwCIVoPXBOJhau"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Fzl16cDk5pxhRov1muvxhnh4y301CmQM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Indistractable - Nir Eyal;</div>
@@ -957,7 +949,7 @@
 <div class="image-wrapper">
 <img alt="Ikigai   the Japanese secret to - Hector Garcia" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zE38Jf-5A62v54P0MxELmEScuXhGH-lT"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1rk7iUCxZ1tAFp4tWyG9iJ7HXnHvxHp6g')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Ikigai   the Japanese secret to - Hector Garcia</div>
@@ -966,7 +958,7 @@
 <div class="image-wrapper">
 <img alt="Innovation in Construction   A - Michael" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13gMEabzriEtVFXaOH-v9A8cJIuCMdOTd"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RHfvYOwsbcBuPmYch5sVaY5P-m4JzLTj')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Innovation in Construction   A - Michael</div>
@@ -975,7 +967,7 @@
 <div class="image-wrapper">
 <img alt="Introduction - Vic Johnson" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BPk_tzu4tHIRa5Gpo5dSh6Z-gz1OZzOH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1zQ8-3Zhb5oPeCp-3XRD7gbrlKCm7WMbX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Introduction - Vic Johnson</div>
@@ -984,7 +976,7 @@
 <div class="image-wrapper">
 <img alt="Inspiration to Live Your Magic  - Larry Anderson" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_qUuE62GbScWGSvfzGMqLMpN9CGNR9Bi"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1J-2tsBo3v3nHS0eSLMehw4yKbX7N1VwQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Inspiration to Live Your Magic  - Larry Anderson</div>
@@ -993,7 +985,7 @@
 <div class="image-wrapper">
 <img alt="Ikigai   the Japanese secret to - Hector Garcia" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1axiv08zY1XJ3JxuDixGiTP-yMDQKcgyz"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1PskGUZMnjfOXCkYab57ldorB-cuNZQsf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Ikigai   the Japanese secret to - Hector Garcia</div>
@@ -1002,7 +994,7 @@
 <div class="image-wrapper">
 <img -="" alt="India" aroor,="" class="book-cover" fearless="" loading="lazy" most="" s="" shiv'="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1z98SaIXMkSINnVxXoK7t7-vqjcUDCQSZ" sto="" true=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1KYSD5uIYl9rVsbOwAI-CrcFWlN2E2zvh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">India's Most Fearless  True Sto - Aroor, Shiv</div>
@@ -1011,7 +1003,7 @@
 <div class="image-wrapper">
 <img alt="Josh Kaufman - The Personal MBA - Zamzar" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pIcEaC-lc9d8M4RJuqpvMaGdZhnIxnqD"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1aAKekcfaRdx6leNDYARtwUNum2hzk3NO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Josh Kaufman - The Personal MBA - Zamzar</div>
@@ -1020,7 +1012,7 @@
 <div class="image-wrapper">
 <img alt="Joseph Murphy The Power of Your - ESiti Forum" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zgsNMaYMEHdYTljeakqOzbZlJsd0CtFH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=14k2W8tzEDl8GLY86w12ZFPvUUm4CEenv')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Joseph Murphy The Power of Your - ESiti Forum</div>
@@ -1029,7 +1021,7 @@
 <div class="image-wrapper">
 <img alt="Ikigai   the Japanese secret to - Hector Garcia" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BjPa2LswDN4QvwTfKEwjpAzDAxc7zQF5"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YqqifXUD4OlyPZLNoI-rJ0qi-oSyzqg4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Ikigai   the Japanese secret to - Hector Garcia</div>
@@ -1038,7 +1030,7 @@
 <div class="image-wrapper">
 <img alt="Let Your Life Speak  Listening - Parker J. Palmer" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ePDsMi9_x8LzGqvh8-bfD7WNjZhK4Z1q"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1gS2JEVi-dRHcViski1emEUQnN70x1AkT')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Let Your Life Speak  Listening - Parker J. Palmer</div>
@@ -1047,7 +1039,7 @@
 <div class="image-wrapper">
 <img alt="Joshua Kahr, Michael Thomsett - Real Estate Market Valuation" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1s6pgnJdPInxpOEeoS1rwFWik0yd_QDZC"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=14jgxU4RPvVY2--kjCxHYdKJhKjKl0vY0')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Joshua Kahr, Michael Thomsett - Real Estate Market Valuation</div>
@@ -1056,7 +1048,7 @@
 <div class="image-wrapper">
 <img alt="Law of Success (21st Century Ed - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cWEKnEt-ExO7wfZpCvlm_EdaML-eNLO7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vDsiCT17mTKfqk-OA_5tHtp98YBI8RQW')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Law of Success (21st Century Ed - Unknown</div>
@@ -1065,7 +1057,7 @@
 <div class="image-wrapper">
 <img alt="Living Rich by Spending Smart  - Gregory Karp" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15snoz6GLpL2bhgFv0CXRM8ygy75_LBmx"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1mprw-kWYT0G9f1Zl1xjO0gp01Qcz6mgf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Living Rich by Spending Smart  - Gregory Karp</div>
@@ -1074,7 +1066,7 @@
 <div class="image-wrapper">
 <img alt="merge - Sergio Focardi, Frank J. Fabozz" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15hlJj9aYmIa1RbHltBEBw6Kl4oIxR1Dj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1AO9xN15l3QD-BK9K2ks09WVjsXustWWj')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">merge - Sergio Focardi, Frank J. Fabozz</div>
@@ -1083,7 +1075,7 @@
 <div class="image-wrapper">
 <img alt="Learned optimism how to change - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1bqRaaLm-btmaodmYk5YQFbJ8zVtKuICB"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Tv6jVg8ztdWUSRvDQ_NdkWu3SMhEalR1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Learned optimism how to change - Unknown</div>
@@ -1092,7 +1084,7 @@
 <div class="image-wrapper">
 <img alt="Jugaad Innovation - Navi Radjou, Jaideep Prabhu" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cha_T9JlkXwppUsnVCU3FJEJeKgwSyAg"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1I8JhJ1w0GTwBonV-skXgMaq0JjuD4ayt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Jugaad Innovation - Navi Radjou, Jaideep Prabhu</div>
@@ -1101,7 +1093,7 @@
 <div class="image-wrapper">
 <img alt="Law of Success (21st Century Ed - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qH3gBpZiAGEB-heED6nYFm9ZNoGwLrf-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1XNDkDIQkrEpiopnJNcmMJvJsMsmIhnA0')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Law of Success (21st Century Ed - Unknown</div>
@@ -1110,7 +1102,7 @@
 <div class="image-wrapper">
 <img alt="Mastering the Art of Public Spe - Michael J. Gelb" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1m2uoVBsBqbT7mfUPHwBJwzyKvChRVAy3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QEdqES4sQI2cziKskqRx3pakVqH7A_Hl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Mastering the Art of Public Spe - Michael J. Gelb</div>
@@ -1119,7 +1111,7 @@
 <div class="image-wrapper">
 <img alt="Lead or Bleed - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1n7Xc5wiyfoHzhAsp1HwTZf86v6CqTHkf"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Qid6UDnw8QtrpSDaNwUuZDiW9uKkoU2C')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Lead or Bleed - Unknown</div>
@@ -1128,7 +1120,7 @@
 <div class="image-wrapper">
 <img alt="Michael E Gerber The E Myth Rev - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WdJN00lmL86rvKNq8vQC5tGJrZEQmfH0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=10LIFmhtb0C_yR21ap3D6DUoi7eRof5KV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Michael E Gerber The E Myth Rev - Unknown</div>
@@ -1137,7 +1129,7 @@
 <div class="image-wrapper">
 <img alt="Microsoft Word - The 4-Hour Wor - Luzy van Pelt" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xJivL3-SzCwCob7sfBnfTdPrpyM7lktU"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wfH8sAbWP7J0oTYts8lCxNOSleSh4IyQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Microsoft Word - The 4-Hour Wor - Luzy van Pelt</div>
@@ -1146,7 +1138,7 @@
 <div class="image-wrapper">
 <img alt="Microsoft Word - Goals! ebook t - CamilleW" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MuPcicUpaQDPdu9mE3zKQ7YFSG0gfyEf"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wpcVVGYFMpXUYsNKZQJi3VJc3GgBAwOO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Microsoft Word - Goals! ebook t - CamilleW</div>
@@ -1155,7 +1147,7 @@
 <div class="image-wrapper">
 <img alt="Microsoft Word - 50 Tips CH I-I - Jayne" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13F-PlU6SBAogPny_nmiiua8ZGHMrp-f1"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1FjfXZJzmCDDHlBeVRoil2q5YjKigaHmS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Microsoft Word - 50 Tips CH I-I - Jayne</div>
@@ -1164,7 +1156,7 @@
 <div class="image-wrapper">
 <img alt="Microsoft Word - ROAD TO WEALTH - marindab" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1e3IiDdhTwiEuxlnR19yRX9bNKAKf8Xus"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_5qR1z9ig8qoxOqPbZNnXUbhtA8P8M6C')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Microsoft Word - ROAD TO WEALTH - marindab</div>
@@ -1173,7 +1165,7 @@
 <div class="image-wrapper">
 <img alt="Midas Touch  Why Some Entrepren - Kiyosaki, Robert T " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1VufprCd0BWCYW-7Dr0LfnY2Qw2YirCzE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1U7ASajClTF30gDIcvNngvqIHbarmaIll')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Midas Touch  Why Some Entrepren - Kiyosaki, Robert T </div>
@@ -1182,7 +1174,7 @@
 <div class="image-wrapper">
 <img alt="Millionaire Real Estate Agent   - Keller, Gary.; Jenks, Dave.; Pa" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1r7HL3pS9swB9GR_Dvkffr2G6ehdyGmPW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1XzvwLqIUJz66r8QHAZkbLnVrrR_GeRrf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Millionaire Real Estate Agent   - Keller, Gary.; Jenks, Dave.; Pa</div>
@@ -1191,7 +1183,7 @@
 <div class="image-wrapper">
 <img alt="Midas Touch - Kiyosaki, Robert T " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1yLrWseUaIvXs4iHlrPbltsH9bMFhyfYk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1NH2uy3B6zjmU9A5FwjaUZgK0QhNENOri')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Midas Touch - Kiyosaki, Robert T </div>
@@ -1200,7 +1192,7 @@
 <div class="image-wrapper">
 <img alt="MILLION DOLLAR HABITS - Briyan Tracy" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1aNC1Ut17WvInbhsCTSj4GjYCixdgCCGK"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1BkEOijmzGEhqewmQVK78wtRCKo-VCKbg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">MILLION DOLLAR HABITS - Briyan Tracy</div>
@@ -1209,7 +1201,7 @@
 <div class="image-wrapper">
 <img alt="Microsoft Word - The Richest Ma - Armoreska" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MsazCHRWm-8g2H1Glrxg8S2gx2BJAR2m"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Q_JdXZ94XHNpL8lmUOfYgIq4WRnFs_GE')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Microsoft Word - The Richest Ma - Armoreska</div>
@@ -1218,7 +1210,7 @@
 <div class="image-wrapper">
 <img alt="Nicholas C Zakas The Principles - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15BZwiLUMIrOfmDiV2KuTWeyVvQXx3BGD"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1hmvkRBRPo7medp6qAo7jKG1H6JhDPhg6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Nicholas C Zakas The Principles - Unknown</div>
@@ -1227,7 +1219,7 @@
 <div class="image-wrapper">
 <img alt="MONEY Master the Game  7 Simple - Tony Robbins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1trOsP1PgO9ZqI2G0raX3jcDWu0bJ8mDF"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1CZX3QnQjPYJrnWHgiYErIIMhupCd6u43')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">MONEY Master the Game  7 Simple - Tony Robbins</div>
@@ -1236,7 +1228,7 @@
 <div class="image-wrapper">
 <img -="" adelaja,sunday'="" alt="Money Won" class="book-cover" god'="" loading="lazy" make="" rich="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1X9jc98bXu1bgJFy4_kOe_DiE89CL67od" t="" you=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1I8qY03KLsowd43CmRy9LirCNczaq3JnK')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Money Won't Make You Rich  God' - Adelaja,Sunday</div>
@@ -1245,7 +1237,7 @@
 <div class="image-wrapper">
 <img alt="Money Changes Everything  Get R - Azizi Ali" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1-TgKoPDN7oEehiRVjZnR_btMpY_57M19"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1DCKpnTytfpr4751ghwrsPc5WrNyCe9zT')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Money Changes Everything  Get R - Azizi Ali</div>
@@ -1254,7 +1246,7 @@
 <div class="image-wrapper">
 <img alt="New on the Job  A School Librar - Ruth Toor, Hilda K. Weisburg" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1g3aa9bS0TyamHKLiv4trViynP_2HUa1k"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1cJh1DSQ2MG1EYRD33NMQKj4csbQW_TfE')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">New on the Job  A School Librar - Ruth Toor, Hilda K. Weisburg</div>
@@ -1263,7 +1255,7 @@
 <div class="image-wrapper">
 <img alt="No-Drama Discipline - Daniel J. Siegel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15Lx9eGrEzenkFHtSzq1EIHwOP1TsPeAY"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1SzXM75dL2qXPO6itAPv1AN_ybuS2S7Ri')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">No-Drama Discipline - Daniel J. Siegel</div>
@@ -1272,7 +1264,7 @@
 <div class="image-wrapper">
 <img alt="Mindset Mastery - Think Your Wa - Sean Rasmussen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Pt7_rMcdNnG7VYHThq4BMgdnzhh3QjTX"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-i2hIZ08pq9DeReHF206NSl7H02Caie4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Mindset Mastery - Think Your Wa - Sean Rasmussen</div>
@@ -1281,7 +1273,7 @@
 <div class="image-wrapper">
 <img alt="Millionaire Real Estate Mentor - Whitney, Russ " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19DxxXKb4f5qlCCPajoSwJFXiEItwf6DJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1im_JIg8JF-LXnJsbkTf0p1brGynuUlRA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Millionaire Real Estate Mentor - Whitney, Russ </div>
@@ -1290,7 +1282,7 @@
 <div class="image-wrapper">
 <img alt="One Simple Idea Turn Your Dream - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QXHt9WYa3Yd90PQs6F-g9bVBeZWt_1-B"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1nBKy4MYmS032YMJaFwutwx3fKxhvo3qg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">One Simple Idea Turn Your Dream - Unknown</div>
@@ -1299,7 +1291,7 @@
 <div class="image-wrapper">
 <img alt="No-Drama Discipline - Daniel J. Siegel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cwA9-94P6fRP6cek92CqF-hWuPCM5SZZ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1yIo1NqZm8ijvo8im1o2_529cWcsYnchS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">No-Drama Discipline - Daniel J. Siegel</div>
@@ -1308,7 +1300,7 @@
 <div class="image-wrapper">
 <img alt="One Up On Wall Street  How To U - Peter Lynch" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hPBw591I-PDYVFVvce8N5nwLOCoXTfSb"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1fxjeUWEV_vBGxgQNv1IA_K3m-zD1rkCt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">One Up On Wall Street  How To U - Peter Lynch</div>
@@ -1317,7 +1309,7 @@
 <div class="image-wrapper">
 <img alt="Outwitting the Devil - Napoleon Hill" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OM_4pcG7yZWmdBdmGHYT-28dy5mqJuuW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=17-RCF38fL34ZrfGxLDceSouQT-CIBgFQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Outwitting the Devil - Napoleon Hill</div>
@@ -1326,7 +1318,7 @@
 <div class="image-wrapper">
 <img alt="Open 05-08-2019 - PDF Buddies" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SXM1otscjunDJQG5BO1PagYTKV9Ik-T6"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1mfj6kWF7XVCcLMie8csTlg5HDb4l9btm')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Open 05-08-2019 - PDF Buddies</div>
@@ -1335,7 +1327,7 @@
 <div class="image-wrapper">
 <img -="" alt="PRAISE FOR ADAM GRANT" an="" class="book-cover" give="" loading="lazy" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1R2uXYWAQtoIicw5uYWzXfKoIbfFEeQR3" unknown'=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EPsuwFXO0HGHgCx9LD1m9VuhSG7XjSCt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">PRAISE FOR ADAM GRANT'S Give an - Unknown</div>
@@ -1344,7 +1336,7 @@
 <div class="image-wrapper">
 <img alt="Predictably Irrational, Revised - Dan Ariely" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ebLp2aDN17YY1d0BAJiXtaN_aSx87TKY"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=16X4odW_5R0ymZ2__WKbyMevZ6pvbKHmY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Predictably Irrational, Revised - Dan Ariely</div>
@@ -1353,7 +1345,7 @@
 <div class="image-wrapper">
 <img alt="Permanent Record - Edward Snowden" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GnCoVckD7uvi3e2Ad_tYN90jl2v6UsLD"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1bdVVcIMRd3e9NPxd-TGq-_2A3VHUUJHF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Permanent Record - Edward Snowden</div>
@@ -1362,7 +1354,7 @@
 <div class="image-wrapper">
 <img alt="Persuasion Tactics  Covert Psyc - Patrick King" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1JfOtxB5HqykN5lCId2tkfKQ8MpwQBX18"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1quYAKKhE5bTzVMUUpr6r3CFywGmHW1vV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Persuasion Tactics  Covert Psyc - Patrick King</div>
@@ -1371,7 +1363,7 @@
 <div class="image-wrapper">
 <img alt="POLYESTER PRINCE - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hNtjA_nawwi5UJ8P19zFPgTRaTpdfrjS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1rIFucEA5NaR8rOeo3JuYeOyQ5hL61Xa8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">POLYESTER PRINCE - Unknown</div>
@@ -1380,7 +1372,7 @@
 <div class="image-wrapper">
 <img alt="parable-of-the-pipeline - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Py0fJsUpzbgGJECYRz9TshcgY8D9_Mrm"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=19k7KIwX56410HL0_CavHX-5rvjFowAN2')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">parable-of-the-pipeline - Unknown</div>
@@ -1389,7 +1381,7 @@
 <div class="image-wrapper">
 <img alt="Power of The Subconscious Mind - Tuan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BD1XWTrVwo11A0sjGwBS2PJJJF6NHWhe"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JeFbN1M5Db7aO8CML5KOdn4GprF62P0H')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Power of The Subconscious Mind - Tuan</div>
@@ -1398,7 +1390,7 @@
 <div class="image-wrapper">
 <img alt="Project Management for Business - John M. Nicholas, Herman Steyn" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_SF3-ETlPWa1jX3tc6CY3XIgzHl3fAdm"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ZXbre1eZn6_ElfkfO6jwXztVILa4NWZN')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Project Management for Business - John M. Nicholas, Herman Steyn</div>
@@ -1407,7 +1399,7 @@
 <div class="image-wrapper">
 <img alt="Real Estate  Learn to Succeed t - Joseph Allen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1afbGUqm35WqAg3bltVjZqOeIx5Qgtdx1"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wpURIWdBeD8fEcyD9ktl1AS89mCy_cWz')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Real Estate  Learn to Succeed t - Joseph Allen</div>
@@ -1416,7 +1408,7 @@
 <div class="image-wrapper">
 <img alt="Rich Dad Poor Dad for Teens  Th - Robert T. Kiyosaki" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YsRilgqJJCE7Vw0KYkS33qbtUFY6LHx2"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1FnQFklAcvay7EbrquQ_jOA1OlJsboWlV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad Poor Dad for Teens  Th - Robert T. Kiyosaki</div>
@@ -1425,7 +1417,7 @@
 <div class="image-wrapper">
 <img alt="Rich Dad s Guide to Investing W - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1v8wHMKMf2HRpBz9D2Y5G94uvhZLSJB73"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11dKx5oJeTzkOpsryzuRajSqbDcbxuUts')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad s Guide to Investing W - Unknown</div>
@@ -1434,7 +1426,7 @@
 <div class="image-wrapper">
 <img alt="Rework - PDFDrive.com - Jason Fried" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qzRGhHRcNiOcCCvNttPiNppzmI6N--X3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1iv3QKrTiOVjJ1sd1CI9SMKe8TFY1Y1YF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rework - PDFDrive.com - Jason Fried</div>
@@ -1443,7 +1435,7 @@
 <div class="image-wrapper">
 <img alt="Rich Dad Poor Dad for Teens  Th - Robert T. Kiyosaki; Sharon L. L" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1IakQq5k8BVc2Ha6S8EPJLtA775wBov_4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-UP-68gAd6eSGOJOp8PNVz8kxz3P5tBU')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad Poor Dad for Teens  Th - Robert T. Kiyosaki; Sharon L. L</div>
@@ -1452,7 +1444,7 @@
 <div class="image-wrapper">
 <img -="" alt="RICH DAD" class="book-cover" guide="" investing="" loading="lazy" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1sgcjOP-tLA-0G7rTZUHIEoNl5qi29wM6" to="" www.read.forumsplace.com'=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1KzcYG03GyQITmX1sfPOCvz0LZ_SbKnFO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">RICH DAD'S GUIDE TO INVESTING - www.read.forumsplace.com</div>
@@ -1461,7 +1453,7 @@
 <div class="image-wrapper">
 <img alt="Principles  Life and Work - Ray Dalio" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14e0yfgI6nNgFbLD61KOAK9KOkzNlibvU"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1D9qbRly1iS3SmbwhqH1wtr0hmPsRLbEH')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Principles  Life and Work - Ray Dalio</div>
@@ -1470,7 +1462,7 @@
 <div class="image-wrapper">
 <img -="" alt="Rich Dad" becoming="" class="book-cover" guide="" kiyosaki'="" loading="lazy" ri="" robert="" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1NADsGZLcmYNEFKh1zPmhaAFo5I0wlWYf" t.="" to=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1MlbFCKm6iW-ho-t0A2SVIvgMAJ1Dvl81')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad's Guide to Becoming Ri - Robert T. Kiyosaki</div>
@@ -1479,7 +1471,7 @@
 <div class="image-wrapper">
 <img -="" alt="Rich Dad" class="book-cover" financ="" increase="" kiyosaki'="" loading="lazy" robert="" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1txgHY_77Sv7sB-saEvHOyxxHe2dQljz4" t.="" your=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1H-Y4j-oYmB7lKb4BPSlQz52ZHTUyFysK')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad's Increase Your Financ - Robert T. Kiyosaki</div>
@@ -1488,7 +1480,7 @@
 <div class="image-wrapper">
 <img alt="Rich Dads Guide to Investing Wh - Acampo GmbH" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1LDROzFHxK1MDdioLxJRV8BXIlFRLJVAL"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1o9W1de-2yfBbHhW4WOIV0DXr0jLfwpM_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dads Guide to Investing Wh - Acampo GmbH</div>
@@ -1497,7 +1489,7 @@
 <div class="image-wrapper">
 <img -="" alt="Rich Dad" class="book-cover" kiyosaki'="" loading="lazy" prophecy="" robert="" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hdYco6sEQRNDf6wetGochUv0Dw8NhayG" t.=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1g-KOa27tq_oYZ_9ZkzjHxzy6EDW-KWux')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad's Prophecy - Robert T. Kiyosaki</div>
@@ -1506,7 +1498,7 @@
 <div class="image-wrapper">
 <img -="" alt="Rich Dad" class="book-cover" kiyosaki'="" loading="lazy" rea="" robert="" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MhNL5Z-Yp_vAcIfPWMxHcauxxYk9D9d3" stories="" success="" t.=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=18NREoKEgquyGK4Eeoo00yK2rffoHf-lt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad's Success Stories  Rea - Robert T. Kiyosaki</div>
@@ -1515,7 +1507,7 @@
 <div class="image-wrapper">
 <img -="" alt="Rich Dad" class="book-cover" kiyosaki'="" loading="lazy" prophecy="" robert="" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1TaEjsgCynwiPWm3ZU0Yihcc6lY2H1q_m" t.=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1I7oFtfRqBdF_Dua_kYOSK39ZlYg2HC9H')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad's Prophecy - Robert T. Kiyosaki</div>
@@ -1524,7 +1516,7 @@
 <div class="image-wrapper">
 <img -="" alt="Rich Dad " class="book-cover" conspiracy="" kiyosaki'="" loading="lazy" of="" r="" robert="" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pboI_xiTclrWFvjuUS8pMwGavyffJLF_" t.="" the=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1p7IoKU1bMvyULCj5uqthf4453zeEmrza')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad 's Conspiracy of the R - Robert T. Kiyosaki</div>
@@ -1533,7 +1525,7 @@
 <div class="image-wrapper">
 <img -="" alt="Rich Dad " class="book-cover" kid="" kid,="" kiyosaki'="" loading="lazy" rich="" robert="" s="" smart="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qJiZm_WH9oXB2Xltqt2XeRhWHTDW83SL" t.=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1rmY2uTq0OfQNQgIcUEByWiR-by4QM1v8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Rich Dad 's Rich Kid, Smart Kid - Robert T. Kiyosaki</div>
@@ -1542,7 +1534,7 @@
 <div class="image-wrapper">
 <img alt="Robert T. Kiyosaki- Cashflow Qu - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1rDjetNVaN7Yw0__WQGr00n0p-nmbjaaq"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1PWsIV3HUpSZB5f_GOmyYAyLIW_juuFov')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Robert T. Kiyosaki- Cashflow Qu - Unknown</div>
@@ -1551,7 +1543,7 @@
 <div class="image-wrapper">
 <img alt="Robert T. Kiyosaki- You can Cho - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1S-c4b7eye5F9qSmcKlxe6WfSIG9mvWTf"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1sRfKBhIiGTPdhKf5X1Oer9AF1pSUMKya')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Robert T. Kiyosaki- You can Cho - Unknown</div>
@@ -1560,7 +1552,7 @@
 <div class="image-wrapper">
 <img alt="Sant T. -The Language of Succes - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vu4QfodYnRjQF0xVtd5LiM2WbJajm8pc"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Uq6a-tchhOeSVCAWo2ob-myqb5hCDDJG')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Sant T. -The Language of Succes - Unknown</div>
@@ -1569,7 +1561,7 @@
 <div class="image-wrapper">
 <img alt="Robert Kiyosaki The Real Book O - Kiyosaki, Robert T " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1X4uhuoJPZqQM959KganWsuA44UAMECh4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Jj1MxXYWWQN5hSD59964mBZvQNlyyKV5')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Robert Kiyosaki The Real Book O - Kiyosaki, Robert T </div>
@@ -1578,7 +1570,7 @@
 <div class="image-wrapper">
 <img alt="Sapiens  A Brief History of Hum - Yuval Noah Harari" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18fr8jIlzGv0zt5h3cGleMeyUs5MDSZxv"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vesy_dq-COgq6XWWx6QdHcmI9oD5uMOQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Sapiens  A Brief History of Hum - Yuval Noah Harari</div>
@@ -1587,7 +1579,7 @@
 <div class="image-wrapper">
 <img alt="Secrets of the Millionaire Mind - T. Harv Eker" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zqDZDUzbodrSrNd2Dspj6fzfrejhVUjF"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1gAgTPEdVFzocQOo_RRpTVzqPGMYOBg3I')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Secrets of the Millionaire Mind - T. Harv Eker</div>
@@ -1596,7 +1588,7 @@
 <div class="image-wrapper">
 <img alt="Secrets of the Millionaire Mind - T. Harv Eker" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lBBSyDyA0rToWyQzq0HZYufEigkv5DXs"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EoBvAOjpyiIMolg9xDQuduVkrUlqQ0b1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Secrets of the Millionaire Mind - T. Harv Eker</div>
@@ -1605,7 +1597,7 @@
 <div class="image-wrapper">
 <img alt="Selling the Invisible  A Field - Beckwith, Harry" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1miUhbMQTMVRw_8rsmQvaiOXBOq2PBNv0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1O5zmTpBQNkEvN8mN4Ycl9YqLkWXoDXTr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Selling the Invisible  A Field - Beckwith, Harry</div>
@@ -1614,7 +1606,7 @@
 <div class="image-wrapper">
 <img alt="Second chance   for your money, - Robert T. Kiyosaki" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1d7VfDJ7uihT9TOsu0SGdzhRYhix5aU2_"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13zaTRGKDZIH_sB86mMi0YNcERoNXkwzZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Second chance   for your money, - Robert T. Kiyosaki</div>
@@ -1623,7 +1615,7 @@
 <div class="image-wrapper">
 <img alt="Sapiens  A Brief History of Hum - Yuval Noah Harari" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qhh2w6MCzAHQxHMwxJcsx5YX_zOVzkM4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1sSjP1LCYMbZhdkVcUxnJnv4HtkIpoAz4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Sapiens  A Brief History of Hum - Yuval Noah Harari</div>
@@ -1632,7 +1624,7 @@
 <div class="image-wrapper">
 <img alt="Slide 1 - Sompong Yusoontorn (Sales)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1DJWy9ZNfsbZKqPM0A962olYziQYROSYZ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=19XO0c0c4ZgHSemp2LlbQ3MrOu9t2ldKJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Slide 1 - Sompong Yusoontorn (Sales)</div>
@@ -1641,7 +1633,7 @@
 <div class="image-wrapper">
 <img alt="Selling to Win - Richard Denny" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tYh50qK1TB9lFcYVo3XZxMkRTT_zXrdi"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YRDVEuROqmXH3JM2OE_aMwV1e6gB89IW')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Selling to Win - Richard Denny</div>
@@ -1650,7 +1642,7 @@
 <div class="image-wrapper">
 <img alt="Shoe Dog - Phil Knight" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1skDtQ-V0okOpoZi5iprlcrXo1ml90JYk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=16_Vrce5c83Ic0hAS4yNJrsQlxE6Y-r7S')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Shoe Dog - Phil Knight</div>
@@ -1659,7 +1651,7 @@
 <div class="image-wrapper">
 <img alt="Seven habits of highly effectiv - Stephen R2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YM-2FS4pnWMsccyh8BoJGRXh9_QHBQYl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Z0Hz2-dUcIBgOzOM7BN03V8mNFQJDaYw')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Seven habits of highly effectiv - Stephen R2</div>
@@ -1668,7 +1660,7 @@
 <div class="image-wrapper">
 <img alt="Speak toWin How to Present with - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GUURjVY4yvq7C2r5cXSgjiP67o_8JoMq"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=18WsgRFm13Ge96vYu_jnJxuGSXaQyVsPe')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Speak toWin How to Present with - Unknown</div>
@@ -1677,7 +1669,7 @@
 <div class="image-wrapper">
 <img alt="Smart Thinking  Skills for Crit - Matthew Allen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18N-CT0qsFjD4uRzlI69qj_v9hLfhQ2J9"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1suqyheiMjUsfRGFFFv3F9J118CoE-4VB')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Smart Thinking  Skills for Crit - Matthew Allen</div>
@@ -1686,7 +1678,7 @@
 <div class="image-wrapper">
 <img alt="Spoken English  Flourish Your L - Robert Carmen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wLApqrxSskw1-FNvMmlLGWyvipUlNk8m"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1LsDaYaKgMB0hFypWy-7LBH9laSR9nwhN')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Spoken English  Flourish Your L - Robert Carmen</div>
@@ -1695,7 +1687,7 @@
 <div class="image-wrapper">
 <img alt="Start Where You Are - Pema Chodron" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10zKDGzkBUkOLWVYRdHqTyhpepKX_sz-T"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1qCZzIR8QggW4QF7gsWGLYRBQJmpZDxIO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Start Where You Are - Pema Chodron</div>
@@ -1704,7 +1696,7 @@
 <div class="image-wrapper">
 <img alt="Start With Why - Simon Sinek" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Gaf1rVjH4nnjNNzrE5MVq6OqLHMrzTGe"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1qhB_twmfk-na5xM0zRdDbNkbDIXAKQQP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Start With Why - Simon Sinek</div>
@@ -1713,7 +1705,7 @@
 <div class="image-wrapper">
 <img alt="Startups Grow With People  How - Dagdeviren, Ozan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FibD80xmG0Gksk8kqQK1jPNyUtLuOHwo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1W_ar1L8P0GxzulxIe0Fy05nDJ46K5fky')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Startups Grow With People  How - Dagdeviren, Ozan</div>
@@ -1722,7 +1714,7 @@
 <div class="image-wrapper">
 <img alt="success - Turbo Coach, achieve - Brian Tracy" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1yYF5fIbt_96xwTCNYIotyyYoLcjuaMgk"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=16AgNRa0pGl2YEbJzo6IBvSkNONM-WegY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">success - Turbo Coach, achieve - Brian Tracy</div>
@@ -1731,7 +1723,7 @@
 <div class="image-wrapper">
 <img alt="Smart Thinking  Skills for Crit - Matthew Allen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qG5BV7CBKQh7BuKX0J-2F6rV4IhOpM-h"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1qVAGrTtRASOTjBQIZ6Mi0OduG6d7Yo0S')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Smart Thinking  Skills for Crit - Matthew Allen</div>
@@ -1740,7 +1732,7 @@
 <div class="image-wrapper">
 <img alt="Success Habits For Dummies - Zeller" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10uVS11do6oVD27XNOFMo3XHB-xD8sHgq"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13fXqUDPg_1c-beXXn2HpWwahyRVB-RXC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Success Habits For Dummies - Zeller</div>
@@ -1749,7 +1741,7 @@
 <div class="image-wrapper">
 <img alt="Steve Jobs (by Walter Isaacson) - Naser  Nima  Dadgostar" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Up47yfUKmBYOUhs213WtWoHhFHBEWJ66"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1xJ0cSGrUVP8jmH7ep_7ubCdvyS_exTl6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Steve Jobs (by Walter Isaacson) - Naser  Nima  Dadgostar</div>
@@ -1758,7 +1750,7 @@
 <div class="image-wrapper">
 <img alt="Successful Interviewing and Rec - Jean" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_TH5aXtJQjjY2sTARpvlmmQmwEZuvNbM"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1afgi5kYw5ITItQAjvaBHyP4W-MZlzZYO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Successful Interviewing and Rec - Jean</div>
@@ -1767,7 +1759,7 @@
 <div class="image-wrapper">
 <img alt="Successful interviews every tim - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jOZJmYnN8U3IHJ-kF-xpdNGEgzCh---o"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1AdMgpX6uKf3Ir-vE1aOmSBxq_aiKU-So')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Successful interviews every tim - Unknown</div>
@@ -1776,7 +1768,7 @@
 <div class="image-wrapper">
 <img alt="that v.indd - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gLQTK0kzMGZbrgbndObfR-YZRMqwVqCE"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=18bjNY89FOgfEZwLOqz37Yo3upPjfBc0y')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">that v.indd - Unknown</div>
@@ -1785,7 +1777,7 @@
 <div class="image-wrapper">
 <img alt="The 1-Page Marketing Plan  Get - Allan Dib" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1sipepaXKt3Gy7fjGsufOV8qg0Kwi718g"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ryNjnF6x1U5kfbUHEHnFsGCSTWokk05T')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The 1-Page Marketing Plan  Get - Allan Dib</div>
@@ -1794,7 +1786,7 @@
 <div class="image-wrapper">
 <img alt="The 4-Hour Workweek, Expanded a - Timothy Ferriss" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=146CmQIGn9_o1R4BuSnmSZ1gNR1mXLifR"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1gQtVEIOsAE92Q6AIOckKnuRgyE2gmm_b')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The 4-Hour Workweek, Expanded a - Timothy Ferriss</div>
@@ -1803,7 +1795,7 @@
 <div class="image-wrapper">
 <img alt="The $100 Startup - Chris Guillebeau" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YwrgycAKJSynygHP1Pj-qUzz89Jhko_F"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RUeK4GbzpozpdEKceyvVzcTjXFOid5Oh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The $100 Startup - Chris Guillebeau</div>
@@ -1812,7 +1804,7 @@
 <div class="image-wrapper">
 <img alt="The Alchemist - Paulo Coelho" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1UQzZL-q3u9oxg0oAwnoeJITRxJGsxy0G"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1rSdIuwAc3U7CkOY4kEdvUpmz4WPRZZ4N')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Alchemist - Paulo Coelho</div>
@@ -1821,7 +1813,7 @@
 <div class="image-wrapper">
 <img alt="Tax-Free Wealth  How to Build M - Tom Wheelwright" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1aJQnx1i55uiwbTbFCq9hxFG8m8S-gChs"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ns9kQYbqz69qeZLWm2tO-S5CLsYimnuu')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Tax-Free Wealth  How to Build M - Tom Wheelwright</div>
@@ -1830,7 +1822,7 @@
 <div class="image-wrapper">
 <img alt="The Art of Happiness - Dalai Lama" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ybO_001rPuyaS9Dz9QOR96RG_4Zp4YWR"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vojLvh6BlzXOl_0OF1F9lJNa5Jdx1WXp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Art of Happiness - Dalai Lama</div>
@@ -1839,7 +1831,7 @@
 <div class="image-wrapper">
 <img alt="The 5 Second Rule  Transform Yo - Mel Robbins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15HEH-M2LFZVF9yZHG5Xh2z9MULzyD_8V"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wZCuS1jz8IVYcPGGq_AxrQhakKhQNJk_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The 5 Second Rule  Transform Yo - Mel Robbins</div>
@@ -1848,7 +1840,7 @@
 <div class="image-wrapper">
 <img alt="The Art of Value Investing  How - John Heins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vlOKHW-z1ZJkYvtc8MSdaSeoFyP8W13T"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=10YYq4EPXsIw7kzvPR4yvtAB1G2Lc4z0h')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Art of Value Investing  How - John Heins</div>
@@ -1857,7 +1849,7 @@
 <div class="image-wrapper">
 <img -="" alt="The Artist" cameron'="" class="book-cover" julia="" loading="lazy" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1-9-8ngymR0MsH-0OM_0alySKchp_vGIN" way=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1bF455GY577kH0bO1bT46QEaekZVrJDZp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Artist's Way - Julia Cameron</div>
@@ -1866,7 +1858,7 @@
 <div class="image-wrapper">
 <img alt="The code of the extraordinary m - Vishen Lakhiani" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18PqfaOOFrjytw8Bb0ikfOYbmgoIxxwYJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QwKNgD6RQyPLs6ved40CGQZFFmulo_I6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The code of the extraordinary m - Vishen Lakhiani</div>
@@ -1875,7 +1867,7 @@
 <div class="image-wrapper">
 <img -="" alred'="" alt="The Business Writer" class="book-cover" gerald="" handbook="" j.="" loading="lazy" s="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1oZkqxc3suif93AyDks63-SeiHhj-ZHX0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13fFHTh20j9fwuhnnQzK4NL2Mgubeokxz')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Business Writer's Handbook - Gerald J. Alred</div>
@@ -1884,7 +1876,7 @@
 <div class="image-wrapper">
 <img alt="The Compound Effect - Darren hardy" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1iAabjZAzum9E_FYWlfbdkTuDr7jafTpj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1lWIq7UsJ-F_aLb9WLwsOzeAdANz0mvxd')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Compound Effect - Darren hardy</div>
@@ -1893,7 +1885,7 @@
 <div class="image-wrapper">
 <img alt="The Art of Work  A Proven Path - Jeff Goins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1uihgsOMAh1w2ggrjmQaXsVMIVI0RtTZS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15t9VZxor7km6YE_LtAj-9nxfapOYLqlJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Art of Work  A Proven Path - Jeff Goins</div>
@@ -1902,7 +1894,7 @@
 <div class="image-wrapper">
 <img alt="The business of the 21st centur - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1On-qKnGMospiCWN6XR_Pm5XSZUBZOrcW"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1iec1lU8Rno3rS6HT9Ly-sQvWMAF2-fnr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The business of the 21st centur - Unknown</div>
@@ -1911,7 +1903,7 @@
 <div class="image-wrapper">
 <img alt="The Behavior Gap  Simple Ways t - Carl Richards" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cSbaBcABRO1cvBqNwPzXDaJeHfGzy5v1"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11RWdfve6-5n3CBhhztJEi3FIaE9nUXS8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Behavior Gap  Simple Ways t - Carl Richards</div>
@@ -1920,7 +1912,7 @@
 <div class="image-wrapper">
 <img alt="The Courage Habit - Kate Swoboda" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GVFmx5ARj0yZWecxOCk5rM94K71gQ509"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1fxQCt2WBuYAK2ffBErBTgnbyLqMCqOv1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Courage Habit - Kate Swoboda</div>
@@ -1929,7 +1921,7 @@
 <div class="image-wrapper">
 <img alt="The Failure List - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BnB7Vg-QwUNiDgOqbQOnSAUwcZOpOuVj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15KY4LfOE5nNrR7kdx6K30SGvdT4bT7zQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Failure List - Unknown</div>
@@ -1938,7 +1930,7 @@
 <div class="image-wrapper">
 <img alt="The Journey of Self-Discovery - AC Bhaktivedanta Swami Prabhupa" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_ZPiI8N7CVMOvUh7As5JW6mYGmDbHPQ-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1FPDbPOPdyNALQEH1CNlj7_41kK5RiIIs')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Journey of Self-Discovery - AC Bhaktivedanta Swami Prabhupa</div>
@@ -1947,7 +1939,7 @@
 <div class="image-wrapper">
 <img alt="The Infinite Game - Simon Sinek" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12Tv6MdDDUxmRo8D6CwoGrjM8avNKN6nA"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1D2kI7SQiXvk-lXxiWa0PVTfirWlJTPU-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Infinite Game - Simon Sinek</div>
@@ -1956,7 +1948,7 @@
 <div class="image-wrapper">
 <img alt="The Greatest Salesman in the Wo - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ys1RT2luUM-r9n-fsTraO5_-tGUXCn01"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1xFJvzdebzqN75jwNpsiXQ9K05WPfMZce')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Greatest Salesman in the Wo - Unknown</div>
@@ -1965,7 +1957,7 @@
 <div class="image-wrapper">
 <img alt="The Intelligent Investor The De - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BycA86mrrUGLHARC3wDh-RwqJhvagoVT"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15IB7mMyLsKVrbQMbZ72D-m6xpATxpXxV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Intelligent Investor The De - Unknown</div>
@@ -1974,7 +1966,7 @@
 <div class="image-wrapper">
 <img alt="The Leader in You - Dale Carnegie" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tSLwYOvA5eTqx5GFYzRi0je-LsEVMTy1"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1LFhR9d4p0qQeHR5KopQtIaJmmVcOJJO1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Leader in You - Dale Carnegie</div>
@@ -1983,7 +1975,7 @@
 <div class="image-wrapper">
 <img alt="The Last Black Unicorn - Tiffany Haddish" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Mm9OVKgjYQi4SAoTmZ8u8r_wocrU6y9U"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=150aJzP7xzlaZV8E2638qTM3RVaIBGFSb')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Last Black Unicorn - Tiffany Haddish</div>
@@ -1992,7 +1984,7 @@
 <div class="image-wrapper">
 <img alt="The intelligent negotiator  wha - Charles Craver" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fqOgihyguKZzTy8FlzBgfSQm_jjbwKew"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1GrWn_clFWQRy60glEF1BeKlJe7PivV-A')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The intelligent negotiator  wha - Charles Craver</div>
@@ -2001,7 +1993,7 @@
 <div class="image-wrapper">
 <img alt="The Lean Startup How Today s En - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1R9TG6y9pv2IQx0OdRjtshoDBswr6jp3P"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_F327EK5_d4F_JeR0omsIfUl-A6ucx0o')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Lean Startup How Today s En - Unknown</div>
@@ -2010,7 +2002,7 @@
 <div class="image-wrapper">
 <img alt="The Investment Answer - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11Jug38fXcQyH4lslmbCl1DOwib1aaVMg"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=17K_UCje0_SfSPR3a7iMlrA_klCQ_Bnnd')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Investment Answer - Unknown</div>
@@ -2019,7 +2011,7 @@
 <div class="image-wrapper">
 <img alt="The Little Book of Safe Money  - Zweig, Jason" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qLII5eBBvzMXvCbFqi6TBKabPqu3Jh4h"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1uY2F0wMzylTsM0nhRs7M07jTCBYcE1Q6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Little Book of Safe Money  - Zweig, Jason</div>
@@ -2028,7 +2020,7 @@
 <div class="image-wrapper">
 <img alt="THE MARKET WIZARDS - AnToni" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QczeyrK-yOTG3TfKaM7hIjn_3I2P9PX8"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1rrLf4medwVNeYR4V5_rTo_hUY_EJ3xVv')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">THE MARKET WIZARDS - AnToni</div>
@@ -2037,7 +2029,7 @@
 <div class="image-wrapper">
 <img alt="The Millionaire Next Door [Book - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_NC4dMIJugmlSVGxg3DTvZJHC3b1HiE1"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1M_NvX_rrxLnpOXP72OEikiLuSRFU8muD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Millionaire Next Door [Book - Unknown</div>
@@ -2046,7 +2038,7 @@
 <div class="image-wrapper">
 <img alt="The Miracle Morning  The Not-So - Hal Elrod" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12Kk6IRugo3R2U-oK0MIpTuHUZCxlYEnN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11RRUPebSjU5VyjH5rdCbO7pHQKzAaNBL')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Miracle Morning  The Not-So - Hal Elrod</div>
@@ -2055,7 +2047,7 @@
 <div class="image-wrapper">
 <img alt="The Mother of All Booklists  Th - Martin, William Patrick" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1c0dFaA6fvC1nXdhdrZ2p_1oK4aDUoclQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1GQxe7_fM6kYpMlgXMSaAzZLU1-m-dhi4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Mother of All Booklists  Th - Martin, William Patrick</div>
@@ -2064,7 +2056,7 @@
 <div class="image-wrapper">
 <img alt="The New Workforce Challenge How - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1D-Q6CpZHHJwnB9-JreFfoH5Mr54JRfTX"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=121PxZGi5wvf3Z8UzQQO6Yl-udIPtCrhl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The New Workforce Challenge How - Unknown</div>
@@ -2073,7 +2065,7 @@
 <div class="image-wrapper">
 <img alt="The Millionaire Fastlane  Crack - MJ DeMarco" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1T2daC4IZYld63IGMY_eJn2PCcdm8oMSJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12bd-sAYndwkNvNwTcmvXYtZFj-H5Spjr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Millionaire Fastlane  Crack - MJ DeMarco</div>
@@ -2082,7 +2074,7 @@
 <div class="image-wrapper">
 <img alt="The Next 100 Years - George Friedman" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1DsnAtkXz-NpSC8VXYR9E-E5OvhbYosJu"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1q4UVOQLiiT-wV_cv968Y0zAnsG-vbAlw')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Next 100 Years - George Friedman</div>
@@ -2091,7 +2083,7 @@
 <div class="image-wrapper">
 <img alt="The Millionaire Real Estate Inv - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QC2qV65Nt6-TVK9FS_jpv4QVRSWFxDPo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ce4mDyCrRGcjwZdc6lt9heDR7MPQ22zO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Millionaire Real Estate Inv - Unknown</div>
@@ -2100,7 +2092,7 @@
 <div class="image-wrapper">
 <img alt="The Portable MBA in Finance and - John Leslie Livingstone, Theodo" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1b1ky1g7CeDkt47SgKA3WVRZxLP1FMroN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wmUju-onyHuL-Tn7zI-MgNapmsT4-xMv')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Portable MBA in Finance and - John Leslie Livingstone, Theodo</div>
@@ -2109,7 +2101,7 @@
 <div class="image-wrapper">
 <img alt="The Monk Who Sold His Ferrari - www.read.forumsplace.com" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MWTPmp5R0_-fQwazlorlh02j5bc5Uchj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ciRLL9fmDtuwaaI2NVkOpETMPJ0_xjDA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Monk Who Sold His Ferrari - www.read.forumsplace.com</div>
@@ -2118,7 +2110,7 @@
 <div class="image-wrapper">
 <img alt="The Power of Creativity  (Book - Bryan Collins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1RKkt0cpMAgHlnzrFWJqhNGqcoL6bl_v-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1px_Uga6fCIwZaX6b3EmASdYRtTyl2IcP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Power of Creativity  (Book - Bryan Collins</div>
@@ -2127,7 +2119,7 @@
 <div class="image-wrapper">
 <img alt="The Power of Now A Guide to Spi - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1rQ2OMqoleoPR8AjMqYo2i_3uZfISdPBj"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1w2L0zlN8qwwI58zWNj2gmVn2keA_OUws')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Power of Now A Guide to Spi - Unknown</div>
@@ -2136,7 +2128,7 @@
 <div class="image-wrapper">
 <img alt="The Psychology of Money  Timele - Morgan Housel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1CDaM_NDFXQacRECkWm7CQXm_Ma-SV5Kg"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=16BBhoY7Tw0pGbyeJEQkVX3IxJ01HC7Ug')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Psychology of Money  Timele - Morgan Housel</div>
@@ -2145,7 +2137,7 @@
 <div class="image-wrapper">
 <img alt="The Real Estate Fast Track   Ho - Scanner" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pECsyQZJDXrIDuVjEahUlUlEYzJci2p9"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1O6wynExc00C0OwRgzoyn9-7pNdw76PBK')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Real Estate Fast Track   Ho - Scanner</div>
@@ -2154,7 +2146,7 @@
 <div class="image-wrapper">
 <img alt="The rules of wealth   a persona - Templar, Richard " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19oKoszfd1sr79_3ptEqC-rutgGnV21Xi"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ICcvf_sohWIwxW2LENpyPgphScSZYDy_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The rules of wealth   a persona - Templar, Richard </div>
@@ -2163,7 +2155,7 @@
 <div class="image-wrapper">
 <img alt="The Rules of Work - Richard Templar" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zrigeetidsFwu6BmBGxkVsvISqr-mZ1b"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1DCC9-J5Ji33lXFdl-SeOP-s9hq18JMaO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Rules of Work - Richard Templar</div>
@@ -2172,7 +2164,7 @@
 <div class="image-wrapper">
 <img alt="The Rules of Work - Richard Templar" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZHa0FvrNtny7h8ThnW9ugYlzmI0D7uKJ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Z1mCgjrK-vKgPLU7IZfgBnpDOSwTmhLZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Rules of Work - Richard Templar</div>
@@ -2181,7 +2173,7 @@
 <div class="image-wrapper">
 <img alt="The Power of Self-Esteem ( PDFD - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wFpn8oUTNnfnBpUokBVeQWnk9QGkZSpo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1BnJ2ooc8XNKTjOTT0cM0HKyNyXTKMUTD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Power of Self-Esteem ( PDFD - Unknown</div>
@@ -2190,7 +2182,7 @@
 <div class="image-wrapper">
 <img alt="The Rules of People - Richard Templar" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1izl7KFqZRFIebEZg_tfoIEJnC6W66MCf"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=14RYfP6ji4jsvb9dzh77neNSAH9tw3RI9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Rules of People - Richard Templar</div>
@@ -2199,7 +2191,7 @@
 <div class="image-wrapper">
 <img alt="The Rules of Management  A Defi - Richard Templar" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1EEv93m6HBX5V_OhsVPVdspWCWrJYbJWY"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1GFCMAP65MDUdjjqNFcS31Xww13UNcuxR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Rules of Management  A Defi - Richard Templar</div>
@@ -2208,7 +2200,7 @@
 <div class="image-wrapper">
 <img alt="The Science of Getting Rich (19 - Wallace D. Wattles" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1As1LKnsfwGRUXDFHMMbtncXLkDwCJVFb"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_5f8V_9dXkg6p8kBASDl4ZzAAUCu2Oov')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Science of Getting Rich (19 - Wallace D. Wattles</div>
@@ -2217,7 +2209,7 @@
 <div class="image-wrapper">
 <img alt="The Strategy Book - Max Mckeown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hGPHDH7HfNwhbt2fP7JdZx5ywZRC991u"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1sH47YE_sJO2NIJ7o6WHJJ7yao7ri6Ws6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Strategy Book - Max Mckeown</div>
@@ -2226,7 +2218,7 @@
 <div class="image-wrapper">
 <img alt="The Total Money Makeover  A Pro - Dave Ramsey" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12k34R7CYnRfLqyjbbS9oDlnuJIJ_T-AL"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Ev4OADxoizZelV4PomXp1LgWZrBlJ2yi')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Total Money Makeover  A Pro - Dave Ramsey</div>
@@ -2235,7 +2227,7 @@
 <div class="image-wrapper">
 <img alt="The Warren Buffett Way 2nd Edit - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19__CL5L9SDFHckfTQzaEPtLC5wG2kIFl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Yyeg4K-WSE3kOjgyI-If05Jm0BLkhcMc')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Warren Buffett Way 2nd Edit - Unknown</div>
@@ -2244,7 +2236,7 @@
 <div class="image-wrapper">
 <img alt="the-life-time-calculator - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1iZ2G4PUF9e7zA1Fu37BSvUmfMMj8lx5W"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1MhRGi2y4kjp0Mgg9uWnIkBMX1WwLKqlo')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">the-life-time-calculator - Unknown</div>
@@ -2253,7 +2245,7 @@
 <div class="image-wrapper">
 <img alt="The history of financial planni - Brandon, E. Denby (Author)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12YEeFEMSNF_qqwZLsQ1HqkPbbbtpqVvp"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13ifb3YYckbcYLTtdMG94EVtMqjfYUuIr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The history of financial planni - Brandon, E. Denby (Author)</div>
@@ -2262,7 +2254,7 @@
 <div class="image-wrapper">
 <img alt="The Side Hustle Path - Book Con - Nick" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1RwWD1IUCarPQVOByWuMSj3lCT6zGrUCb"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=173-KFkVonhb7XSu-CpbE3FYEVekf54oF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Side Hustle Path - Book Con - Nick</div>
@@ -2271,7 +2263,7 @@
 <div class="image-wrapper">
 <img alt="The Unemployed Millionaire by M - Morris, Matt " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MqF3FG5d1_dgxLyk_rGfUcnIcqQNSl6M"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1t1SHOVtnfJBUnPAnYz0VaRIBHTtrC6RD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Unemployed Millionaire by M - Morris, Matt </div>
@@ -2280,7 +2272,7 @@
 <div class="image-wrapper">
 <img alt="The Warren Buffett Way The Worl - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=16tWSfqwJDDZ4-kbVmEH4aUVq1nOTDvCH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RWGHzu_Cs6nTQ9H83BuaOX4TvcZcD9eM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The Warren Buffett Way The Worl - Unknown</div>
@@ -2289,7 +2281,7 @@
 <div class="image-wrapper">
 <img alt="The-Midas-Touch-PDF - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FDJv9qI-4RMaIG5g0pm95EIf87wmA5g2"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-Md85w0g6DsUp4Lul596l9sEbLtdbNOp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">The-Midas-Touch-PDF - Unknown</div>
@@ -2298,7 +2290,7 @@
 <div class="image-wrapper">
 <img alt="Think And Grow Rich - Napoloeon Hill. Edited by Adria" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1na1XWOazcpW57AhdvTSISyvBn-wSY3ZZ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1pjdeLNw95iZtbGtft_axo6UoDSYRo9MW')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Think And Grow Rich - Napoloeon Hill. Edited by Adria</div>
@@ -2307,7 +2299,7 @@
 <div class="image-wrapper">
 <img alt="Think and Grow Rich by Napoleon - Brod" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1llQbUEk5IDBEztw3e55E3VtPkP5aw7sS"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ukCWeFGxfbcXiGUrhCrhLowQgTrc4KSJ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Think and Grow Rich by Napoleon - Brod</div>
@@ -2316,7 +2308,7 @@
 <div class="image-wrapper">
 <img alt="Thinking, Fast and Slow - Kahneman, Daniel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1emMA9tF16YX5v2ewp6Kg0lm1GDJBcwyB"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1juW7NLQ1FyXQV6RN_0pFM_J-bvhcQezh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Thinking, Fast and Slow - Kahneman, Daniel</div>
@@ -2325,7 +2317,7 @@
 <div class="image-wrapper">
 <img alt="Tools of Titans - Timothy Ferriss" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1CuyvG3ppWWoMmc4LY0XipXSuTf-gtK6V"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1NU4_YVklNfRGlkBuV4EQ11lEySsiitn-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Tools of Titans - Timothy Ferriss</div>
@@ -2334,7 +2326,7 @@
 <div class="image-wrapper">
 <img alt="trmib - William Cole" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nSAjq1TpQgNoxoC4z1LsYZRi-stkfi-0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1c7BeDUfKyEBW94Groe14uRo00DfMk1EY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">trmib - William Cole</div>
@@ -2343,7 +2335,7 @@
 <div class="image-wrapper">
 <img alt="Understand Body Language (Teach - Gordon Wainwright ( PDFDriv" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FIpltbkyVlB9u5HL7uJl1AJzkixfM6KN"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12fdlCySK3bQKkqu7gfEYB_DXkS0avyjg')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Understand Body Language (Teach - Gordon Wainwright ( PDFDriv</div>
@@ -2352,7 +2344,7 @@
 <div class="image-wrapper">
 <img alt="Unshakeable  Your Financial Fre - Tony Robbins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wm_ItWwuiGPoKWLGDnjYP5KRLmbEoeNp"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1VhapO2ZB3nC9UoCcpGs9NCZhlShBlBSD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Unshakeable  Your Financial Fre - Tony Robbins</div>
@@ -2361,7 +2353,7 @@
 <div class="image-wrapper">
 <img alt="Time Management Proven Techniqu - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Vgd8a17PuEpYmgoVFDnrVHd7viLvvNUo"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1FobtMtIhlunFqfVWIFcp2PQE5hmepxOp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Time Management Proven Techniqu - Unknown</div>
@@ -2370,7 +2362,7 @@
 <div class="image-wrapper">
 <img alt="Unfair Advantage  The Power of - Kiyosaki, Robert T " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13BTO6Hf6jdjVTyV2xpnkuCfp2dngAmni"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1pbt0cvxlaabOQMRMZufgQbUjaMIIjEhv')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Unfair Advantage  The Power of - Kiyosaki, Robert T </div>
@@ -2379,7 +2371,7 @@
 <div class="image-wrapper">
 <img alt="Trump Strategies For Real Estat - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18TQsGDg5ereMRfmEBJHKC9XcVMHcfa3Q"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YWopiWs8rJdwR6Ta17YsrwqYTO50CZoj')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Trump Strategies For Real Estat - Unknown</div>
@@ -2388,7 +2380,7 @@
 <div class="image-wrapper">
 <img alt="Unshakeable  Your Financial Fre - Tony Robbins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1d9MJfkqRnYzYuOHGKSGu2ICKBYyfvzh-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1o4nQFQ_5AX3-YOsDsIEF1HZxyCz4ZX-p')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Unshakeable  Your Financial Fre - Tony Robbins</div>
@@ -2397,7 +2389,7 @@
 <div class="image-wrapper">
 <img alt="Untitled - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1HB-L2QQ-GccUTQVrMKnaRTQ7mw50bOYF"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1WvkhB7e6owhR4kmc_63cqCNS_3PDrRf4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Untitled - Unknown</div>
@@ -2406,7 +2398,7 @@
 <div class="image-wrapper">
 <img alt="Way of the Wolf  Straight Line - Jordan Belfort" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hIxi5u3R3XZ1nxs1t6sF0L61iqjTBr1C"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1NwNvqrFqYXr6mS4rcyW_DFxxlFy1AUzI')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Way of the Wolf  Straight Line - Jordan Belfort</div>
@@ -2415,7 +2407,7 @@
 <div class="image-wrapper">
 <img alt="What Is Your WHAT  Discover The - Steve Olsher" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1q6YeT3Xsjza3XZruGlCDbiyZ9bFVrnm4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vTY4ske4gYzho4McUz-F8s0IMTk9I_zM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">What Is Your WHAT  Discover The - Steve Olsher</div>
@@ -2424,7 +2416,7 @@
 <div class="image-wrapper">
 <img alt="Who do you think you are ( PDFD - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1I3Y7SPjcQ1h5uQcS0s5ryusieLe7uaD0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JM3D28JluWkRkvHgtWuxqI3x5lRrZTm8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Who do you think you are ( PDFD - Unknown</div>
@@ -2433,7 +2425,7 @@
 <div class="image-wrapper">
 <img alt="Why Great Leaders Don t Take Ye - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FOZ2q2dobrJuymuzGMq4wSfqBGrR0umu"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1FZK-wGhibkmDm37-2l6ReBDgGrUqtJ4T')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Why Great Leaders Don t Take Ye - Unknown</div>
@@ -2442,7 +2434,7 @@
 <div class="image-wrapper">
 <img alt="Who Moved My Cheese An Amazing - Wealth Management" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1wffzsxu2_cGbNJDEYscsGp7ADsXqBb1g"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15dNy8xsldMaYWCMyTtt33KNkpS64KBd8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Who Moved My Cheese An Amazing - Wealth Management</div>
@@ -2451,7 +2443,7 @@
 <div class="image-wrapper">
 <img alt="untitled - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ZZ6d_Xr9iBRfJ3OqP1QuaYlgIrYH92ID"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ISFLTayQ6Q3p8tIsYbEai-a_8gxHQXvP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">untitled - Unknown</div>
@@ -2460,7 +2452,7 @@
 <div class="image-wrapper">
 <img -="" alt="What got you here won " class="book-cover" get="" goldsmith'="" loading="lazy" marshall="" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ethIwr6u1GDZPXiM4PkMT7y_ObZ9q7D8" t="" yo=""/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1tgMU3-X68xdSFgc4Lp-LwRCRPkQE8399')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">What got you here won 't get yo - Marshall Goldsmith</div>
@@ -2469,7 +2461,7 @@
 <div class="image-wrapper">
 <img alt="Why We Want You To Be Rich - Do - Mehdi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vdDdcNmhH0wEX1k2KbtCUZmHsH5I077F"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YfQXne8G40JvWR37nPfNwY3WVYvJUHC8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Why We Want You To Be Rich - Do - Mehdi</div>
@@ -2478,7 +2470,7 @@
 <div class="image-wrapper">
 <img alt="Why  A  Students Work for  C  S - Kiyosaki, Robert T " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cTAs30OQ4CQxs_JTg_gK2yavgEqwc4HD"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vB6NOpgRNQtHpEGt-G4jOOoeS53sI_Fa')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Why  A  Students Work for  C  S - Kiyosaki, Robert T </div>
@@ -2487,7 +2479,7 @@
 <div class="image-wrapper">
 <img alt="WI - Customized for (meqazi2020 - Value Research India Pvt. Ltd " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ouJeanDJnBYaHXzMF-PllgdV6_odVTDH"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-dGqaP1zgxri0IUS20AhzHRoZU5WyRzP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">WI - Customized for (meqazi2020 - Value Research India Pvt. Ltd </div>
@@ -2496,7 +2488,7 @@
 <div class="image-wrapper">
 <img alt="You Are a Badass - Jen Sincero" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11SA8QjVPHmhik0t2bNLOIILJ4ZB_rU8d"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-Q6i4SRXZSWE7QPhHuCnHqOMS_Kb2zKP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">You Are a Badass - Jen Sincero</div>
@@ -2505,7 +2497,7 @@
 <div class="image-wrapper">
 <img alt="Yes! 50 Scientifically Proven W - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1KSGRd-oUmOwqJBJqFJSnRlkecHZpY8VK"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1V__y7JoiPknYr8lq29GZTnOs8Tgqwpfl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Yes! 50 Scientifically Proven W - Unknown</div>
@@ -2514,7 +2506,7 @@
 <div class="image-wrapper">
 <img alt="Zero to One  Notes on Startups, - Peter Thiel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1joDhHjWqRnwL4jiS6qdVtMDcxXn_9q3-"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JUHfgnMsZsVA5v25wBYvJ1GeSJqhW79L')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Zero to One  Notes on Startups, - Peter Thiel</div>
@@ -2523,7 +2515,7 @@
 <div class="image-wrapper">
 <img alt="Your Strategy Needs a Strategy  - Martin Reeves" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1riAoVDlE-VrFF8lMIbE1MrmVCOu0i1c0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1BiAoVuMryPvwRPK0tjgTqblNeoXEtNbC')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Your Strategy Needs a Strategy  - Martin Reeves</div>
@@ -2532,7 +2524,7 @@
 <div class="image-wrapper">
 <img alt="your-money-or-your-life - Unknown" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Wf5SzLKcpLnJL1ebxeGTN19y3WqG9qR7"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15rjmgcjUrbHu7UqsJBuACg7krOnmSLCE')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">your-money-or-your-life - Unknown</div>
@@ -2541,7 +2533,7 @@
 <div class="image-wrapper">
 <img alt="Writing Features and Interviews - Hall, Christine" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YPTOrmWyWOcQjvjyr2lc88V9JWHcp6FI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1KFqnXVYwGg5npqxsFZabhSJt2L4mvP-4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Writing Features and Interviews - Hall, Christine</div>
@@ -2550,7 +2542,7 @@
 <div class="image-wrapper">
 <img alt="wingoffine intro.pmd - Printers1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1z9oQwQUiA8fBqlsNTVS-TyzAphhvpjJ3"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=15uFda0tuOCGr5NcStqC_ydvB8x7yoBnn')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">wingoffine intro.pmd - Printers1</div>
@@ -2559,80 +2551,69 @@
 <div class="image-wrapper">
 <img alt="Winning new business essential - Acampo GmbH" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1k-oAYDKxMtMOvMsdbRDNTwPfbPl_2XnQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1hCz0U-Gi_oZ0OQI_SRFn6uNU3Pu6wY9M')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Winning new business essential - Acampo GmbH</div>
 </div>
-</div>
-</div>
+
+        </div>
+    </div>
 </section>
+
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
             <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
             <a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
 
+<style>
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
 
-
-
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
-</div>
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    let currentUser = null;
-
-    // 1. ഓതന്റിക്കേഷൻ ചെക്കിംഗ്
     onAuthStateChanged(auth, (user) => {
-        const logoutBtn = document.getElementById('logout-link');
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
-            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
-            // പേര് മാറ്റുന്നു
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
             if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
-
-            // *** REDIRECT FIX ***: ലോഗിൻ ചെയ്താൽ പെൻഡിംഗ് ബുക്കിലേക്ക് പോകുന്നു
-            const pendingUrl = sessionStorage.getItem('pendingBook');
-            if (pendingUrl) {
-                console.log("Redirecting to:", pendingUrl);
-                sessionStorage.removeItem('pendingBook');
-                window.location.href = pendingUrl;
-            }
-
         } else {
-            currentUser = null;
             localStorage.removeItem('libraryUser');
             if(logoutBtn) logoutBtn.style.display = 'none';
         }
     });
 
-    // 2. ലോഗൗട്ട്
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
@@ -2643,64 +2624,22 @@
             });
         });
     }
+</script>
 
-    // 3. ബട്ടൺ ക്ലിക്ക് ചെയ്യുമ്പോൾ (ഇതാണ് പ്രധാനം)
-    window.checkAccess = function(element, targetUrl) {
-        // പഴയ കോഡ് ആണെങ്കിൽ (element സ്ട്രിംഗ് ആയാൽ) അത് അഡ്ജസ്റ്റ് ചെയ്യുന്നു
-        if (typeof element === 'string') {
-            targetUrl = element;
-            element = null;
-        }
-
-        if (currentUser) {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ:
-            if (element) { saveToHistory(element, targetUrl); } // ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
-            window.location.href = targetUrl; // നേരിട്ട് read.html ലേക്ക് പോകുന്നു
+<script>
+    function checkAccess(targetUrl) {
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            window.location.href = targetUrl;
         } else {
-            // ലോഗിൻ ഇല്ലെങ്കിൽ:
-            sessionStorage.setItem('pendingBook', targetUrl); // ലിങ്ക് ഓർത്തു വെക്കുന്നു
-            // പോപ്പ്-അപ്പ് തുറക്കുന്നു
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.style.display = 'flex';
-        }
-    };
-
-    function saveToHistory(element, url) {
-        try {
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : '';
-            const date = new Date().toLocaleDateString('ml-IN');
-            const key = 'history_' + currentUser.uid;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            history = history.filter(item => item.title !== title);
-            history.unshift({ title: title, image: image, link: url, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-        } catch (e) {
-            console.error("History Error:", e);
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
         }
     }
     
-    // Search
-    window.searchBooks = function() { 
-        var input = document.getElementById('searchBar'); 
-        if(!input) return; 
-        var filter = input.value.toUpperCase(); 
-        var cards = document.getElementsByClassName('book-card'); 
-        for (var i = 0; i < cards.length; i++) { 
-            var title = cards[i].getElementsByClassName("book-title")[0]; 
-            if (title) { 
-                var txtValue = title.textContent || title.innerText; 
-                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; 
-            } 
-        } 
-    }
+    function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+    function toggleProfileMenu() { var dropdown = document.querySelector(".profile-dropdown"); if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; }
 </script>
+
 </body>
 </html>

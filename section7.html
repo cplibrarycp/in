@@ -1,6 +1,5 @@
 
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -9,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
-    /* --- THEME --- */
     :root {
         --primary-orange: #00897B; 
         --secondary-dark: #004D40; 
@@ -27,7 +25,9 @@
         background-color: var(--background-light); 
         color: var(--text-color); 
         line-height: 1.6;
-        display: flex; flex-direction: column; min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
     .container { width: 90%; margin: 0 auto; max-width: 1200px; }
     a { text-decoration: none; }
@@ -79,57 +79,49 @@
     .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
     .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 </style>
-
-<style id="layout-fix">
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body { display: flex; flex-direction: column; min-height: 100vh; }
-    .collection-section, .dashboard-section, .container { flex: 1 0 auto; }
-    footer { flex-shrink: 0; margin-top: auto; }
-    
-    /* Popup */
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
-</style>
 </head>
 <body>
+
 <header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html">Profile Settings</a>
-<a href="history.html">Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
+    <div class="container navbar">
+        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="user-info">
+                    <span class="user-name" id="display-name">Guest</span>
+                    <span class="user-role">Member</span>
+                </div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">Reading History</a>
+                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
 <section class="collection-section">
-<div class="container">
-<h1>Collection 7</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-<div class="library-container" id="bookList">
+    <div class="container">
+        <h1>Collection 7</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+        </div>
+
+        <div class="library-container" id="bookList">
+            
 <div class="book-card">
 <div class="image-wrapper">
 <img alt="Sir Arthur Conan Doyle - Complete Sherlock Holmes (1960)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11QWg4Mlur3zavtHoY359xyXO8Zs9mCbg"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11x5d-w_DCSHOdc8SCYJ_eBDd91aze_Ta')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Sir Arthur Conan Doyle - Complete Sherlock Holmes (1960)</div>
@@ -138,7 +130,7 @@
 <div class="image-wrapper">
 <img alt="Haddish, Tiffany The Last Black Unicorn Gallery Books Cela, Cnib" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14Q6aJLkh2ZLhyQ747Kp6F-tqoCOMKsVl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12rJXZQ_al2n-TeacviV4_UECt75a-_Te')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Haddish, Tiffany The Last Black Unicorn Gallery Books Cela, Cnib</div>
@@ -147,7 +139,7 @@
 <div class="image-wrapper">
 <img alt="Richard Dawkins Outgrowing God A Beginner s Guide Bantam Press 2019" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SC0hSMttLv0OG95hP9476SnPW7qckdKA"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1BK8-UKEh30phUcC4qXijRfbiYjc3tVD1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Richard Dawkins Outgrowing God A Beginner s Guide Bantam Press 2019</div>
@@ -156,7 +148,7 @@
 <div class="image-wrapper">
 <img alt="Brené Brown Dare to Lead Brave Work Tough Conversations Whole Hearts" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1PHGr4y_2jSBof9_fYSKSGuCC9-z4kOUl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1DMb8Zu1zfBeZSMoM0H9hqNLxsXKxbGxI')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Brené Brown Dare to Lead Brave Work Tough Conversations Whole Hearts</div>
@@ -165,7 +157,7 @@
 <div class="image-wrapper">
 <img alt="Emotional Intelligence" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BqjICjsExVnBW2Q2Ra8RJuXGe9RI-0TF"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EIug5H9VDDpOFfayUgqol08sDuxwlh3C')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Emotional Intelligence</div>
@@ -174,7 +166,7 @@
 <div class="image-wrapper">
 <img alt="Max Tegmark Life 3 0 Being Human in the Age of Artificial Intelligence" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11xMzcdkYNpI4_SnQCkIr67Ratii4Qlc1"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1G7MJABEB2fK4nAcgZ7mF0sOLjQDpr8SX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Max Tegmark Life 3 0 Being Human in the Age of Artificial Intelligence</div>
@@ -183,7 +175,7 @@
 <div class="image-wrapper">
 <img alt="Ajay K Pandey Her Last Wish Srishti Publishers   Distributors 2016" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gWxE3MPnO3PntieLvW-tAJEpvszpgusQ"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1HAcLOAEDV5hAzKTdxKrIjG317-aBbMH6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Ajay K Pandey Her Last Wish Srishti Publishers   Distributors 2016</div>
@@ -192,7 +184,7 @@
 <div class="image-wrapper">
 <img alt="Harun Yahya General Knowledge fron the Qur an 2003 libgen lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vRi8V_FKHAnPHuJir8wXFsy-PspL2Inq"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Lw5hVppr4pZ9FhiMbA8APwbB4IFCumHf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Harun Yahya General Knowledge fron the Qur an 2003 libgen lc</div>
@@ -201,7 +193,7 @@
 <div class="image-wrapper">
 <img alt="Edward Snowden Permanent Record Metropolitan Books 2019 0" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1w3rKt0uYOqIxvNUL47ReShUIVOAYLPyG"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QmNCoDU2erK00tx3JcABHsuXat3WJ6d4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Edward Snowden Permanent Record Metropolitan Books 2019 0</div>
@@ -210,7 +202,7 @@
 <div class="image-wrapper">
 <img alt="Corey Wayne Mastering Yourself, How To Align Your Life With Your" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Dren8-T9y7v-bhXeTHhPn21Xyhd9EqVh"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1TNXq6gRYzFf3QGvAK52i_4DxhyIh7COo')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Corey Wayne Mastering Yourself, How To Align Your Life With Your</div>
@@ -219,7 +211,7 @@
 <div class="image-wrapper">
 <img alt="APJ Abdul Kalam with Arun Tiwari Wings of Fire An Autobiography" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1XNynqbi0S60sBham8wR2IW_pCnabFItK"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Uft3Hlu5UGpiX-aMe-0uwZYCNKrcSfSu')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">APJ Abdul Kalam with Arun Tiwari Wings of Fire An Autobiography</div>
@@ -228,7 +220,7 @@
 <div class="image-wrapper">
 <img alt="Bill Bryson A Short History of Nearly Everything Broadway Books" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FokhpHp2pkrnM72Wm4UTYXj_Hrlo2BoU"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_y8D5_bxPOZq81yhMpBiDwQh-gmAKUc5')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Bill Bryson A Short History of Nearly Everything Broadway Books</div>
@@ -237,7 +229,7 @@
 <div class="image-wrapper">
 <img alt="Robert Greenfield A Day in the Life One Family, the Beautiful People" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19UxS8ZBVH9_X6f5IXtiOyWkVEyxmMr85"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ck5qUTklv_GmbXpJafau-Mx1IALTPw_n')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Robert Greenfield A Day in the Life One Family, the Beautiful People</div>
@@ -246,7 +238,7 @@
 <div class="image-wrapper">
 <img alt="John Medina Brain Rules 12 Principles for Surviving and Thriving" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ajMVynxxvLdVfHpz3FrOxLBwI4jN_1Ji"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1jf7U0gUlvZXIS37R32zP6vNyvm-2_OSl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">John Medina Brain Rules 12 Principles for Surviving and Thriving</div>
@@ -255,7 +247,7 @@
 <div class="image-wrapper">
 <img alt="Who will bell the cat" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jyHGKbt2p3t0Iz9GMXdkf98gKy30rbF4"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1kGD0-ASD1UOPSBtSo_H2qhp1MyNiFxxr')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Who will bell the cat</div>
@@ -264,7 +256,7 @@
 <div class="image-wrapper">
 <img alt="William L Shirer The Rise and Fall of the Third Reich 1998 libgen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1leMhbh15WgPPlJ1Xj6GZPjcYtyBOlgeI"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1pwLW2ClmH7GdGdOs0k7yiNZW3T2XXNaQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">William L Shirer The Rise and Fall of the Third Reich 1998 libgen</div>
@@ -273,7 +265,7 @@
 <div class="image-wrapper">
 <img alt="Tony Robbins Unshakeable Your Financial Freedom Playbook Simon  " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qzi0VKwo-WrLkvfWjLnlVmR2Bql8-s0j"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1q3eoeM7g6YLQ6sMtBIsEzmvgRVon-imR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Tony Robbins Unshakeable Your Financial Freedom Playbook Simon  </div>
@@ -282,7 +274,7 @@
 <div class="image-wrapper">
 <img alt="Nate Silver The Signal and the Noise Why So Many Predictions Fail" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1IfvFlZCchR6y6A0wgXo40j0cy1KaIB_e"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1qvMOVgeaEd01uwgvZ7f8AbZIQAZ_Lffw')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Nate Silver The Signal and the Noise Why So Many Predictions Fail</div>
@@ -291,7 +283,7 @@
 <div class="image-wrapper">
 <img alt="Gottman John The Seven Principles for Making Marriage Work A Practical" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1brlrN1anta5_wtoB7dMTWjXaXxXVcyN0"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1rNMu7KKxosPz5Kxx0sHa9E6I-cK_UT6l')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Gottman John The Seven Principles for Making Marriage Work A Practical</div>
@@ -300,7 +292,7 @@
 <div class="image-wrapper">
 <img alt="5 6338926856183480390" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vojT4wX33UmdYkiiNKGx3v6EBkhLfMtF"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1s3rlBd1y3MiKaVSRodjkiD41Q_cOlln0')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">5 6338926856183480390</div>
@@ -309,7 +301,7 @@
 <div class="image-wrapper">
 <img alt="Stephen W Hawking The theory of everything 2006, Phoenix Books libgen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WyMixAWceeQVo_kUCxF40wau5GVTAcSG"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1tSQS2-KAK5hliTFJpHB5mQh0YqJlE-ar')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Stephen W Hawking The theory of everything 2006, Phoenix Books libgen</div>
@@ -318,7 +310,7 @@
 <div class="image-wrapper">
 <img alt="Day and swing trading" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1PhzlZ5FIVSmzj3EASSwzt-NeZJusm25y"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1xKiYHql9y8LwDr95U17cOYJmwraf0tNo')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">Day and swing trading</div>
@@ -327,80 +319,69 @@
 <div class="image-wrapper">
 <img alt="365 Games   Puzzles to Keep Your Mind Sharp" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1c4GagR0UGDV3Y2pmir20yxbLyHGc8qfl"/>
 <div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, 'javascript:void(0)')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1mF6bDGiI34FsgfUR9UnOy6w092g6CW1m')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
 </div>
 </div>
 <div class="book-title">365 Games   Puzzles to Keep Your Mind Sharp</div>
 </div>
-</div>
-</div>
+
+        </div>
+    </div>
 </section>
+
 <footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-links">
+            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
             <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
             <a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
 </footer>
 
+<style>
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
 
-
-
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
-</div>
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    let currentUser = null;
-
-    // 1. ഓതന്റിക്കേഷൻ ചെക്കിംഗ്
     onAuthStateChanged(auth, (user) => {
-        const logoutBtn = document.getElementById('logout-link');
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
-            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
-            // പേര് മാറ്റുന്നു
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
             if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
-
-            // *** REDIRECT FIX ***: ലോഗിൻ ചെയ്താൽ പെൻഡിംഗ് ബുക്കിലേക്ക് പോകുന്നു
-            const pendingUrl = sessionStorage.getItem('pendingBook');
-            if (pendingUrl) {
-                console.log("Redirecting to:", pendingUrl);
-                sessionStorage.removeItem('pendingBook');
-                window.location.href = pendingUrl;
-            }
-
         } else {
-            currentUser = null;
             localStorage.removeItem('libraryUser');
             if(logoutBtn) logoutBtn.style.display = 'none';
         }
     });
 
-    // 2. ലോഗൗട്ട്
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
@@ -411,64 +392,22 @@
             });
         });
     }
+</script>
 
-    // 3. ബട്ടൺ ക്ലിക്ക് ചെയ്യുമ്പോൾ (ഇതാണ് പ്രധാനം)
-    window.checkAccess = function(element, targetUrl) {
-        // പഴയ കോഡ് ആണെങ്കിൽ (element സ്ട്രിംഗ് ആയാൽ) അത് അഡ്ജസ്റ്റ് ചെയ്യുന്നു
-        if (typeof element === 'string') {
-            targetUrl = element;
-            element = null;
-        }
-
-        if (currentUser) {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ:
-            if (element) { saveToHistory(element, targetUrl); } // ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
-            window.location.href = targetUrl; // നേരിട്ട് read.html ലേക്ക് പോകുന്നു
+<script>
+    function checkAccess(targetUrl) {
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            window.location.href = targetUrl;
         } else {
-            // ലോഗിൻ ഇല്ലെങ്കിൽ:
-            sessionStorage.setItem('pendingBook', targetUrl); // ലിങ്ക് ഓർത്തു വെക്കുന്നു
-            // പോപ്പ്-അപ്പ് തുറക്കുന്നു
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.style.display = 'flex';
-        }
-    };
-
-    function saveToHistory(element, url) {
-        try {
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : '';
-            const date = new Date().toLocaleDateString('ml-IN');
-            const key = 'history_' + currentUser.uid;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            history = history.filter(item => item.title !== title);
-            history.unshift({ title: title, image: image, link: url, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-        } catch (e) {
-            console.error("History Error:", e);
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
         }
     }
     
-    // Search
-    window.searchBooks = function() { 
-        var input = document.getElementById('searchBar'); 
-        if(!input) return; 
-        var filter = input.value.toUpperCase(); 
-        var cards = document.getElementsByClassName('book-card'); 
-        for (var i = 0; i < cards.length; i++) { 
-            var title = cards[i].getElementsByClassName("book-title")[0]; 
-            if (title) { 
-                var txtValue = title.textContent || title.innerText; 
-                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; 
-            } 
-        } 
-    }
+    function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+    function toggleProfileMenu() { var dropdown = document.querySelector(".profile-dropdown"); if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; }
 </script>
+
 </body>
 </html>
