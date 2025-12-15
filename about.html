@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ഞങ്ങളെക്കുറിച്ച് | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-teal: #00897B;
+            --dark-teal: #004D40;
+            --bg-light: #E0F2F1;
+            --text-dark: #263238;
+            --white: #ffffff;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-light); color: var(--text-dark); margin: 0; padding: 0; }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; }
+        a { text-decoration: none; }
+
+        /* Header Style (Same as other pages) */
+        header { background-color: var(--dark-teal); padding: 15px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--white); }
+        .nav-links { display: flex; align-items: center; gap: 15px; }
+        .nav-item { color: var(--white); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+        .nav-item:hover { background: var(--white); color: var(--dark-teal); transform: translateY(-2px); }
+
+        /* About Section */
+        .about-hero {
+            background: linear-gradient(rgba(0, 77, 64, 0.8), rgba(0, 137, 123, 0.8)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center;
+            color: white; text-align: center; padding: 80px 20px; border-radius: 0 0 50% 50% / 20px;
+        }
+        .about-hero h1 { font-size: 3em; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .about-hero p { font-size: 1.2em; max-width: 600px; margin: 20px auto 0; opacity: 0.9; }
+
+        .content-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -40px; position: relative; z-index: 10; }
+        .section-title { color: var(--primary-teal); border-bottom: 3px solid var(--primary-teal); display: inline-block; margin-bottom: 20px; }
+        
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+        .feature-card { text-align: center; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--primary-teal); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .feature-icon { font-size: 2.5em; color: var(--primary-teal); margin-bottom: 15px; }
+
+        footer { background: var(--dark-teal); color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+            <div class="nav-links">
+                <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="about-hero">
+        <div class="container">
+            <h1>ഞങ്ങളെക്കുറിച്ച്</h1>
+            <p>അറിവിന്റെയും വായനയുടെയും പുതിയ ലോകത്തേക്ക് സ്വാഗതം.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-box">
+            <h2>📚 തൃപുടി ഡിജിറ്റൽ ലൈബ്രറി</h2>
+            <p>മലയാള സാഹിത്യത്തെ സ്നേഹിക്കുന്നവർക്കായി ഒരുക്കിയ ഡിജിറ്റൽ ഇടമാണ് തൃപുടി ലൈബ്രറി. കാലഹരണപ്പെട്ടുപോകുന്ന പുസ്തകങ്ങളെ ഡിജിറ്റൽ രൂപത്തിൽ സംരക്ഷിക്കുക, വായന എല്ലാവരിലേക്കും എത്തിക്കുക എന്നിവയാണ് ഞങ്ങളുടെ ലക്ഷ്യം.</p>
+            <p>നന്ദകുമാർ എന്ന വ്യക്തിയുടെ സ്വപ്നസാക്ഷാത്കാരമാണ് ഈ സംരംഭം. ലോകത്തെവിടെയിരുന്നും മലയാള കൃതികൾ വായിക്കാനും ആസ്വദിക്കാനും ഈ പ്ലാറ്റ്‌ഫോം അവസരമൊരുക്കുന്നു.</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-book-reader feature-icon"></i>
+                    <h3>വിപുലമായ ശേഖരം</h3>
+                    <p>കഥകൾ, കവിതകൾ, നോവലുകൾ തുടങ്ങി നിരവധി വിഭാഗങ്ങളിലുള്ള പുസ്തകങ്ങൾ.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3>എവിടെയും വായിക്കാം</h3>
+                    <p>മൊബൈലിലോ ലാപ്ടോപ്പിലോ എളുപ്പത്തിൽ ഉപയോഗിക്കാവുന്ന ലളിതമായ ഡിസൈൻ.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-history feature-icon"></i>
+                    <h3>വായനാ ചരിത്രം</h3>
+                    <p>നിങ്ങൾ വായിച്ച പുസ്തകങ്ങൾ ഓട്ടോമാറ്റിക് ആയി സേവ് ചെയ്യപ്പെടുന്നു.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 THRIPUDI LIBRARY. Created by Nandakumar.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        // This ensures the page knows if someone is logged in
+        onAuthStateChanged(auth, (user) => {
+            if(user) { localStorage.setItem('libraryUser', 'true'); } 
+            else { localStorage.removeItem('libraryUser'); }
+        });
+    </script>
+
+</body>
+</html>
