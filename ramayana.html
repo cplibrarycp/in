@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 വാത്മീകീ രാമായണം | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>📚 വാത്മീകീ രാമായണം | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
         /* --- Themes --- */
         :root {
             --primary-orange: #00897B; /* Teal */
@@ -166,132 +167,114 @@
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="container navbar">
-            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            <div class="nav-links">
-                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
-                <div class="user-profile" id="profile-section">
-                    <div class="user-avatar"><i class="fas fa-user"></i></div>
-                    <div class="user-info">
-                        <span class="user-name" id="display-name">Guest</span>
-                        <span class="user-role">Member</span>
-                    </div>
-                    <div class="profile-dropdown">
-                        <a href="profile.html">Profile Settings</a>
-                        <a href="history.html">Reading History</a>
-                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="collection-section">
-        <div class="container">
-            <h1>വാത്മീകീ രാമായണം</h1>
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
-            </div>
-            
-            <div class="library-container" id="bookList">
-  
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1RIFMh5vXLbeqR_nZ9gn2Q5jV_SLz0WsU' alt='ബാലകാണ്ഡം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1jNcP__359_SFzriM9U_vgKcQSRX09zB4' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ബാലകാണ്ഡം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1EV9aeZzCyqL0ZCPZZ_hD1Qi726kEFIh8' alt='അയോധ്യാകാണ്ഡം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1bbO47x_jjnWG_h4vgzc-A1ATdvXM9CQ-' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>അയോധ്യാകാണ്ഡം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jyJ96lY83MfttWU86Zq6UvOhKGY71Gwj' alt='ആരണ്യകാണ്ഡം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1LcjvSNzwAs9FtrrMLDaXVb8QRcuaBnci' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ആരണ്യകാണ്ഡം</div>
-            </div>
-
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1I1C8yfEbHiP2qX8U_i8Cd4bT0XAB6exT' alt='കിഷ്കിന്ധാകാണ്ഡം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1ZhFXeKwifrdYe_9K4SIfHb0rfc9gkgDJ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കിഷ്കിന്ധാകാണ്ഡം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19G_qTQj04uONZE1C3QnhqJLIKjxCdIiT' alt='സുന്ദരകാണ്ഡം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1UtiGHERrXgrv2E39lBPBbyykJSnlGZXa' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>സുന്ദരകാണ്ഡം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1dmVhcPsIc0lsaQYytDam9oV84ENXn5sh' alt='യുദ്ധകാണ്ഡം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1US9FxN_n4Cr1c7gmBmNrQ60mVpvDk8B4' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>യുദ്ധകാണ്ഡം</div>
-            </div>
-
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jwbv5NQ7yST7dDQkXHP5jC9IXCFS5RIC' alt='ഉത്തരകാണ്ഡം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1dizEBFyKc8g_uuuJUGkOYsMBdtW0pKG1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഉത്തരകാണ്ഡം</div>
-            </div>
-        
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-            <div class="footer-links">
-                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<header>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
+<div class="user-profile" id="profile-section">
+<div class="user-avatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown">
+<a href="profile.html">Profile Settings</a>
+<a href="history.html">Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="collection-section">
+<div class="container">
+<h1>വാത്മീകീ രാമായണം</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+</div>
+<div class="library-container" id="bookList">
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ബാലകാണ്ഡം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1RIFMh5vXLbeqR_nZ9gn2Q5jV_SLz0WsU"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1jNcP__359_SFzriM9U_vgKcQSRX09zB4">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ബാലകാണ്ഡം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="അയോധ്യാകാണ്ഡം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1EV9aeZzCyqL0ZCPZZ_hD1Qi726kEFIh8"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1bbO47x_jjnWG_h4vgzc-A1ATdvXM9CQ-">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">അയോധ്യാകാണ്ഡം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ആരണ്യകാണ്ഡം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jyJ96lY83MfttWU86Zq6UvOhKGY71Gwj"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1LcjvSNzwAs9FtrrMLDaXVb8QRcuaBnci">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ആരണ്യകാണ്ഡം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="കിഷ്കിന്ധാകാണ്ഡം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1I1C8yfEbHiP2qX8U_i8Cd4bT0XAB6exT"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1ZhFXeKwifrdYe_9K4SIfHb0rfc9gkgDJ">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കിഷ്കിന്ധാകാണ്ഡം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="സുന്ദരകാണ്ഡം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19G_qTQj04uONZE1C3QnhqJLIKjxCdIiT"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1UtiGHERrXgrv2E39lBPBbyykJSnlGZXa">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">സുന്ദരകാണ്ഡം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="യുദ്ധകാണ്ഡം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1dmVhcPsIc0lsaQYytDam9oV84ENXn5sh"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1US9FxN_n4Cr1c7gmBmNrQ60mVpvDk8B4">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">യുദ്ധകാണ്ഡം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ഉത്തരകാണ്ഡം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jwbv5NQ7yST7dDQkXHP5jC9IXCFS5RIC"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1dizEBFyKc8g_uuuJUGkOYsMBdtW0pKG1">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഉത്തരകാണ്ഡം</div>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
                 <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
-            </div>
-        </div>
-    </footer>
+</div>
+</div>
+</footer>
+<iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
 
-    
-    
-    
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
-    
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -348,7 +331,7 @@
             });
         };
     </script>
-    <script>
+<script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -361,8 +344,42 @@
         }
         function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
+
+<style>
+    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
+    .auth-box h3 { color: #004D40; margin-top: 0; }
+    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
+    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
+    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<div class="auth-modal" id="authModal">
+<div class="auth-box">
+<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
+<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
+<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
+</div>
+</div>
+<script id="accessScript">
+    function checkReadAccess(pdfUrl) {
+        var currentUser = localStorage.getItem('libraryUser');
+        if (currentUser) {
+            window.open(pdfUrl, '_blank');
+        } else {
+            sessionStorage.setItem('pendingBook', pdfUrl);
+            document.getElementById('authModal').style.display = 'flex';
+        }
+    }
+    function redirectToLogin() { window.location.href = 'login.html'; }
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+    window.onclick = function(event) {
+        var modal = document.getElementById('authModal');
+        if (event.target == modal) { closeAuthModal(); }
+    }
+</script>
 </body>
 </html>
-
-
-

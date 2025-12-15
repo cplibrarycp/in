@@ -1,13 +1,14 @@
 
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Hindi Books | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>📚 Hindi Books | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
         /* --- Themes --- */
         :root {
            --primary-orange: #00897B; /* Teal */
@@ -140,283 +141,249 @@
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="container navbar">
-            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            <div class="nav-links">
-                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
-                
-                <div class="user-profile" id="profile-section" onclick="toggleProfileMenu()">
-                   <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-                   <div class="user-info">
-                       <span class="user-name" id="display-name">Guest</span>
-                       <span class="user-role">Member</span>
-                   </div>
-                   <div class="profile-dropdown" id="profileDropdown">
-                       <a href="profile.html">Profile Settings</a>
-                       <a href="history.html">Reading History</a>
-                       <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                   </div>
-               </div>
-           </div>
-        </div>
-    </header>
-
-    <section class="collection-section">
-        <div class="container">
-           <h1>Hindi Books</h1>
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-               <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
-           </div>
-           
-            <div class="library-container" id="bookList">
-  
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Y0hWseqX0ChDEH9M3LjvLVlOiYTs6d0y' alt='द 10X रुल ग्रँट कार्डोन' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1-GcMlYL4825jvsZhmo-Y-LhL40LOp8SZ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>द 10X रुल ग्रँट कार्डोन</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1AeL5jdzkvXmOLil355MRB2KkeYIq9wx8' alt='rich dad poor dad hindi' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=10BoWX4N5TDzxOVO_nDH90DtiWzbb8fOU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>rich dad poor dad hindi</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14BNsBoj7CM9xly7zAzElcr-aJyi14gwk' alt='the-Power-of-your-Subconscious-Mind-Hindi' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=10beLiZvb0bfjn0pP11wDNL4G4B_FYSmU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>the-Power-of-your-Subconscious-Mind-Hindi</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_871otbVGk7tb9SrKrepTy27qe36nrOJ' alt='मुट्‍ठी में तकदीर रॉबिन शर्मा THE' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=12uIw4pj73AWKKc_58vw_ntZG35b3xjN-' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>मुट्‍ठी में तकदीर रॉबिन शर्मा THE</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14v_YvmuBFM1k1rkuvtTSn8eg_e7vmhm6' alt='Think and grow rich in hindi' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1BKD3dReesg4uTFjbR7_cVv_rNt0mcdOZ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Think and grow rich in hindi</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1mXpKr7qOaG455VKmvNeOetr7MlZs8kkH' alt='The New One Minute Manager (Hindi Edition)' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Da_vp2SR745QyfQ6yVJOxpG95NkjRPL9' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>The New One Minute Manager (Hindi Edition)</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1JyEzRDlCvXZwj55xkLrjRrN-qlDoOP-9' alt='द अलकेमिस्ट ' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1ERJFSNnMhUx2IuTeOJOsmlvWproJ5NWd' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>द अलकेमिस्ट </div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14oFYc8KiGR7a5OdPesZXFK2FqH8TiGxS' alt='जादू रॉन्डा बर्न THE Magic by Byrne' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1QdgkhrqNueOMAt92TxiwxefPgP-mLJ79' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>जादू रॉन्डा बर्न THE Magic by Byrne</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1T2_yX-zz1hzyBTcm5Bh7s7X7bDuy4EwJ' alt='Safalta Ka Rahasya' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1VrjCde5PH2FmJehkExYctmCU047Z8A58' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Safalta Ka Rahasya</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1lsWqVeolp0U5UiDKv5uDAF58EzDzOVUx' alt='सकारात्मक सोच की शक्ति नॉर्मन व्हिन्सेंट' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1XkLjbgj1VBCY7DLDl45kJvB8wqY5X9pP' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>सकारात्मक सोच की शक्ति नॉर्मन व्हिन्सेंट</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1bHcvR4cd0Z7v-kpBQWOATqE5rWNjnkjn' alt='कोच, रिचर्ड - The 80 - 20 Principle hindi book (Hindi Edition) (2019) - libgen.lc' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1d17Tyf4Y1XuoIq5nIyKMc5PqtdZMMHfe' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>कोच, रिचर्ड - The 80 - 20 Principle hindi book (Hindi Edition) (2019) - libgen.lc</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1AIuahmsRpjwCrD4AAIqblWXqDStbbSBv' alt='जितकाजश्न' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1e_604L9ASws2bOyNnUuLJYFNaqYU3TQG' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>जितकाजश्न</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1z7EOnb4sUnnf7i9H3qGMWsJLAbe9Dgr5' alt='ग्राहम, बेंजमिन - The intelligent investor hindi book (Hindi Edition) (2019) - libgen.lc' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1ljpq8cmNHWid3vNgLtGiHbb_v31izu5W' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ग्राहम, बेंजमिन - The intelligent investor hindi book (Hindi Edition) (2019) - libgen.lc</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1GUOGn6OoagBb8404fDjO7BcBLQ-_eIaa' alt='बडी सोच का बडा जादू' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1p5TiRcR_OlUyJvD18mlBawZw2G4Onjo9' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>बडी सोच का बडा जादू</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1su8MQCIrE-g7bcXojsJJYbINysuyrfMB' alt='महानता का मार्गदर्शक रॉबिन शर्मा' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1wv7oZPrh29zXQ3yF06Rb6deOi9jeAXGf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>महानता का मार्गदर्शक रॉबिन शर्मा</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1kqdXAUo1Fpxq0uy7u7LmIr-hpFE0NFvR' alt='लक्ष्य ब्रैयन ट्रेसी BEST SELLING' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1y24yAatZTEFAt5GKIhNwR8bpHptnk14W' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>लक्ष्य ब्रैयन ट्रेसी BEST SELLING</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-Skw4QdXO-6oQitY45MHo7jQDkLUgSL_' alt='5 6330259676604661885' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1EWfRV9pQ6Js2Ku4li1nz-2Hasg64KJY7' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>5 6330259676604661885</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1tIfRTWwyi3q8ifibPYcJ414ZxV-p6CK2' alt='5 6330259676604661889' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1EnVOkzlRkwSOo3LQBXnY5PnISkG7cHUk' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>5 6330259676604661889</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1YMppv5m7rLx0mPXaFZDeOGTRz_a5pAaz' alt='DaulatAurSafaltaKiRaah DrJosephM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1S5laMItRQM-TtesMOjh2v4Bh-7m9Jv6o' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>DaulatAurSafaltaKiRaah DrJosephM</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1NfwHGv9WbH49rqbjYrkJYnnaSu9OCZHk' alt='NelsonMandela-H-2mb' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1_dVaPAs3XOwOLP0XiDeb3wOwUEDhQnI3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>NelsonMandela-H-2mb</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MPRQmrZsaXx3MkM_d3W8Rf2cmeA4b_yr' alt='HindiBook-the-secretInHindi' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1aYsp-u3WGYSIyHJGOxVPq1UhLmQLzeQX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>HindiBook-the-secretInHindi</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1mkM9u9RHN0TdGmXqjLCOfrsiox5M1mYw' alt='Corporate Chanakya   (Hindi)' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1e5A4z8wI3F2CVeabNuiJC17XjG9XpLjA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Corporate Chanakya   (Hindi)</div>
-            </div>
-            
-           </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-           <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-            <div class="footer-links">
-                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<header>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
+<div class="user-profile" id="profile-section" onclick="toggleProfileMenu()">
+<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown" id="profileDropdown">
+<a href="profile.html">Profile Settings</a>
+<a href="history.html">Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="collection-section">
+<div class="container">
+<h1>Hindi Books</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+</div>
+<div class="library-container" id="bookList">
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="द 10X रुल ग्रँट कार्डोन" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Y0hWseqX0ChDEH9M3LjvLVlOiYTs6d0y"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1-GcMlYL4825jvsZhmo-Y-LhL40LOp8SZ">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">द 10X रुल ग्रँट कार्डोन</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="rich dad poor dad hindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1AeL5jdzkvXmOLil355MRB2KkeYIq9wx8"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=10BoWX4N5TDzxOVO_nDH90DtiWzbb8fOU">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">rich dad poor dad hindi</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="the-Power-of-your-Subconscious-Mind-Hindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14BNsBoj7CM9xly7zAzElcr-aJyi14gwk"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=10beLiZvb0bfjn0pP11wDNL4G4B_FYSmU">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">the-Power-of-your-Subconscious-Mind-Hindi</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="मुट्‍ठी में तकदीर रॉबिन शर्मा THE" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_871otbVGk7tb9SrKrepTy27qe36nrOJ"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=12uIw4pj73AWKKc_58vw_ntZG35b3xjN-">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">मुट्‍ठी में तकदीर रॉबिन शर्मा THE</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Think and grow rich in hindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14v_YvmuBFM1k1rkuvtTSn8eg_e7vmhm6"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1BKD3dReesg4uTFjbR7_cVv_rNt0mcdOZ">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Think and grow rich in hindi</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="The New One Minute Manager (Hindi Edition)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1mXpKr7qOaG455VKmvNeOetr7MlZs8kkH"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Da_vp2SR745QyfQ6yVJOxpG95NkjRPL9">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">The New One Minute Manager (Hindi Edition)</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="द अलकेमिस्ट " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1JyEzRDlCvXZwj55xkLrjRrN-qlDoOP-9"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1ERJFSNnMhUx2IuTeOJOsmlvWproJ5NWd">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">द अलकेमिस्ट </div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="जादू रॉन्डा बर्न THE Magic by Byrne" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14oFYc8KiGR7a5OdPesZXFK2FqH8TiGxS"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1QdgkhrqNueOMAt92TxiwxefPgP-mLJ79">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">जादू रॉन्डा बर्न THE Magic by Byrne</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Safalta Ka Rahasya" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1T2_yX-zz1hzyBTcm5Bh7s7X7bDuy4EwJ"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1VrjCde5PH2FmJehkExYctmCU047Z8A58">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Safalta Ka Rahasya</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="सकारात्मक सोच की शक्ति नॉर्मन व्हिन्सेंट" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1lsWqVeolp0U5UiDKv5uDAF58EzDzOVUx"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1XkLjbgj1VBCY7DLDl45kJvB8wqY5X9pP">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">सकारात्मक सोच की शक्ति नॉर्मन व्हिन्सेंट</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="कोच, रिचर्ड - The 80 - 20 Principle hindi book (Hindi Edition) (2019) - libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1bHcvR4cd0Z7v-kpBQWOATqE5rWNjnkjn"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1d17Tyf4Y1XuoIq5nIyKMc5PqtdZMMHfe">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">कोच, रिचर्ड - The 80 - 20 Principle hindi book (Hindi Edition) (2019) - libgen.lc</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="जितकाजश्न" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1AIuahmsRpjwCrD4AAIqblWXqDStbbSBv"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1e_604L9ASws2bOyNnUuLJYFNaqYU3TQG">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">जितकाजश्न</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ग्राहम, बेंजमिन - The intelligent investor hindi book (Hindi Edition) (2019) - libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1z7EOnb4sUnnf7i9H3qGMWsJLAbe9Dgr5"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1ljpq8cmNHWid3vNgLtGiHbb_v31izu5W">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ग्राहम, बेंजमिन - The intelligent investor hindi book (Hindi Edition) (2019) - libgen.lc</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="बडी सोच का बडा जादू" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GUOGn6OoagBb8404fDjO7BcBLQ-_eIaa"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1p5TiRcR_OlUyJvD18mlBawZw2G4Onjo9">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">बडी सोच का बडा जादू</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="महानता का मार्गदर्शक रॉबिन शर्मा" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1su8MQCIrE-g7bcXojsJJYbINysuyrfMB"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1wv7oZPrh29zXQ3yF06Rb6deOi9jeAXGf">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">महानता का मार्गदर्शक रॉबिन शर्मा</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="लक्ष्य ब्रैयन ट्रेसी BEST SELLING" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kqdXAUo1Fpxq0uy7u7LmIr-hpFE0NFvR"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1y24yAatZTEFAt5GKIhNwR8bpHptnk14W">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">लक्ष्य ब्रैयन ट्रेसी BEST SELLING</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="5 6330259676604661885" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1-Skw4QdXO-6oQitY45MHo7jQDkLUgSL_"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1EWfRV9pQ6Js2Ku4li1nz-2Hasg64KJY7">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">5 6330259676604661885</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="5 6330259676604661889" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tIfRTWwyi3q8ifibPYcJ414ZxV-p6CK2"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1EnVOkzlRkwSOo3LQBXnY5PnISkG7cHUk">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">5 6330259676604661889</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="DaulatAurSafaltaKiRaah DrJosephM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YMppv5m7rLx0mPXaFZDeOGTRz_a5pAaz"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1S5laMItRQM-TtesMOjh2v4Bh-7m9Jv6o">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">DaulatAurSafaltaKiRaah DrJosephM</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="NelsonMandela-H-2mb" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1NfwHGv9WbH49rqbjYrkJYnnaSu9OCZHk"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1_dVaPAs3XOwOLP0XiDeb3wOwUEDhQnI3">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">NelsonMandela-H-2mb</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="HindiBook-the-secretInHindi" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MPRQmrZsaXx3MkM_d3W8Rf2cmeA4b_yr"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1aYsp-u3WGYSIyHJGOxVPq1UhLmQLzeQX">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">HindiBook-the-secretInHindi</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Corporate Chanakya   (Hindi)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1mkM9u9RHN0TdGmXqjLCOfrsiox5M1mYw"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1e5A4z8wI3F2CVeabNuiJC17XjG9XpLjA">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Corporate Chanakya   (Hindi)</div>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
                 <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
-           </div>
-        </div>
-    </footer>
+</div>
+</div>
+</footer>
+<iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
 
-    
-    
-    
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
-    
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -473,7 +440,7 @@
             });
         };
     </script>
-    <script>
+<script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -486,9 +453,42 @@
         }
         function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
+
+<style>
+    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
+    .auth-box h3 { color: #004D40; margin-top: 0; }
+    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
+    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
+    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<div class="auth-modal" id="authModal">
+<div class="auth-box">
+<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
+<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
+<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
+</div>
+</div>
+<script id="accessScript">
+    function checkReadAccess(pdfUrl) {
+        var currentUser = localStorage.getItem('libraryUser');
+        if (currentUser) {
+            window.open(pdfUrl, '_blank');
+        } else {
+            sessionStorage.setItem('pendingBook', pdfUrl);
+            document.getElementById('authModal').style.display = 'flex';
+        }
+    }
+    function redirectToLogin() { window.location.href = 'login.html'; }
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+    window.onclick = function(event) {
+        var modal = document.getElementById('authModal');
+        if (event.target == modal) { closeAuthModal(); }
+    }
+</script>
 </body>
 </html>
-
-
-
-  

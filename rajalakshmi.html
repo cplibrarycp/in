@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 രാജലക്ഷ്മിയുടെ കൃതികൾ | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>📚 രാജലക്ഷ്മിയുടെ കൃതികൾ | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
         /* --- Themes --- */
         :root {
             --primary-orange: #00897B; /* Teal */
@@ -166,202 +167,177 @@
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="container navbar">
-            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            <div class="nav-links">
-                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
-                <div class="user-profile" id="profile-section">
-                    <div class="user-avatar"><i class="fas fa-user"></i></div>
-                    <div class="user-info">
-                        <span class="user-name" id="display-name">Guest</span>
-                        <span class="user-role">Member</span>
-                    </div>
-                    <div class="profile-dropdown">
-                        <a href="profile.html">Profile Settings</a>
-                        <a href="history.html">Reading History</a>
-                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="collection-section">
-        <div class="container">
-            <h1>രാജലക്ഷ്മിയുടെ കൃതികൾ</h1>
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
-            </div>
-            
-            <div class="library-container" id="bookList">
-  
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1MbiUaeyteFSbz-XKNAc902GVvq_E0XdT' alt='ഒരു വഴിയും കുറെ നിഴലുകളും' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1INMcHLDpN6oRiBAngqwldhhSQWFuQmui' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഒരു വഴിയും കുറെ നിഴലുകളും</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1fXdUNv41tivnlrCwAN0C2rqzN3sHrE6c' alt='ശാപം' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=15kM1bxtCMSXBVcxbnflELtwpHp5a6CJJ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ശാപം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1HOJ3_X43_07zW0jf6IrYEfzF8IpvUpfO' alt='ആത്മഹത്യ' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1N8Jy15lEbBr8GS1oC3TOdlcgQWxH3p0C' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ആത്മഹത്യ</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1aLOZwxXLVsEvKNYSovU9f19idGnhuAku' alt='പരാജിത' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1ZsRxj0vz177CD2WioJ4pPeZXiD3ohPZA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>പരാജിത</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=197JhDPumLz4fPqYlbgkaE0xa7cst_VJy' alt='ചങ്ങലകള്‍ പൊട്ടിക്കാന്‍ ഇനിയും' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1sShVq2vQjZjTiFnyPwkh2PbEKFZD84-e' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ചങ്ങലകള്‍ പൊട്ടിക്കാന്‍ ഇനിയും</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1M8Dg5BIz24TEnCP5OgfZcmC6GRtG3Mpb' alt='ചരിത്രം ആവർത്തിച്ചില്ല' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1CbbN8Mlgq7wgC0CVuRykpg13wOx6PsfT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ചരിത്രം ആവർത്തിച്ചില്ല</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Rdl-Ols5xbtkpMiI-uCbAVKRkg9nSOJc' alt='തെറ്റുകൾ' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=15j-QD4Dm7fR7BpDGaWZRQS-zfCcRbYjv' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>തെറ്റുകൾ</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1GoBYAX6pKxxve4-XiB9RxldGvkBqN5_F' alt='മാപ്പ്' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1LnM36SYl2JF_oMTgmSQJ57U_-RgXWC3N' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>മാപ്പ്</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=13X1LSnKjoG4BYzyrf8-dlcY3OAqjsLym' alt='മകള്‍' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1bgY569uBDmWo_C5IVUPH7qxTyK6Lrzq-' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>മകള്‍</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XuISuotJqeIlvzLmrtAApS_aBLcOR_mZ' alt='കുമിള' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1GLDlProG7bev1CVUCQHdpyvRLDcew7ks' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കുമിള</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1EecH6arVQ2ZozCOY0VRtommTODKXrCcc' alt='സുന്ദരിയും കൂട്ടുകാരും' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=17VWT1cL_moYy5IfJUwySkpUYjjLKoWCX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>സുന്ദരിയും കൂട്ടുകാരും</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1yyBqZlz8wCi5QfVlCF4wIieatkvxcQWK' alt='ഒരാധ്യാപിക ജനിക്കുന്നു' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=15nage9Vj-7sEX8GlOH9JB5FSQDvqV9z_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഒരാധ്യാപിക ജനിക്കുന്നു</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1thtv1-kWGK43Yzagd_N61OQbgZD3g3tm' alt='നിന്നെ ഞാന്‍ സ്നേഹിക്കുന്നു' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1JHJzyQOUHpPADJnuXozIwrYpKS5EXkgK' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>നിന്നെ ഞാന്‍ സ്നേഹിക്കുന്നു</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1X84mCPZlAW33JrtH0yza36edUPVYnchf' alt='ഹാന്‍ഡ്കര്‍ചീഫ്' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Y92sw23ZHlmBfU7cXEgkcfGfmFRsfrTE' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഹാന്‍ഡ്കര്‍ചീഫ്</div>
-            </div>
-        
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-            <div class="footer-links">
-                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<header>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
+<div class="user-profile" id="profile-section">
+<div class="user-avatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown">
+<a href="profile.html">Profile Settings</a>
+<a href="history.html">Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="collection-section">
+<div class="container">
+<h1>രാജലക്ഷ്മിയുടെ കൃതികൾ</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+</div>
+<div class="library-container" id="bookList">
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ഒരു വഴിയും കുറെ നിഴലുകളും" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1MbiUaeyteFSbz-XKNAc902GVvq_E0XdT"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1INMcHLDpN6oRiBAngqwldhhSQWFuQmui">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഒരു വഴിയും കുറെ നിഴലുകളും</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ശാപം" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fXdUNv41tivnlrCwAN0C2rqzN3sHrE6c"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=15kM1bxtCMSXBVcxbnflELtwpHp5a6CJJ">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ശാപം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ആത്മഹത്യ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1HOJ3_X43_07zW0jf6IrYEfzF8IpvUpfO"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1N8Jy15lEbBr8GS1oC3TOdlcgQWxH3p0C">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ആത്മഹത്യ</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="പരാജിത" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1aLOZwxXLVsEvKNYSovU9f19idGnhuAku"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1ZsRxj0vz177CD2WioJ4pPeZXiD3ohPZA">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">പരാജിത</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ചങ്ങലകള്‍ പൊട്ടിക്കാന്‍ ഇനിയും" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=197JhDPumLz4fPqYlbgkaE0xa7cst_VJy"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1sShVq2vQjZjTiFnyPwkh2PbEKFZD84-e">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ചങ്ങലകള്‍ പൊട്ടിക്കാന്‍ ഇനിയും</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ചരിത്രം ആവർത്തിച്ചില്ല" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1M8Dg5BIz24TEnCP5OgfZcmC6GRtG3Mpb"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1CbbN8Mlgq7wgC0CVuRykpg13wOx6PsfT">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ചരിത്രം ആവർത്തിച്ചില്ല</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="തെറ്റുകൾ" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Rdl-Ols5xbtkpMiI-uCbAVKRkg9nSOJc"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=15j-QD4Dm7fR7BpDGaWZRQS-zfCcRbYjv">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">തെറ്റുകൾ</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="മാപ്പ്" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GoBYAX6pKxxve4-XiB9RxldGvkBqN5_F"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1LnM36SYl2JF_oMTgmSQJ57U_-RgXWC3N">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">മാപ്പ്</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="മകള്‍" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=13X1LSnKjoG4BYzyrf8-dlcY3OAqjsLym"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1bgY569uBDmWo_C5IVUPH7qxTyK6Lrzq-">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">മകള്‍</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="കുമിള" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1XuISuotJqeIlvzLmrtAApS_aBLcOR_mZ"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1GLDlProG7bev1CVUCQHdpyvRLDcew7ks">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കുമിള</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="സുന്ദരിയും കൂട്ടുകാരും" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1EecH6arVQ2ZozCOY0VRtommTODKXrCcc"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=17VWT1cL_moYy5IfJUwySkpUYjjLKoWCX">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">സുന്ദരിയും കൂട്ടുകാരും</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ഒരാധ്യാപിക ജനിക്കുന്നു" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1yyBqZlz8wCi5QfVlCF4wIieatkvxcQWK"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=15nage9Vj-7sEX8GlOH9JB5FSQDvqV9z_">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഒരാധ്യാപിക ജനിക്കുന്നു</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="നിന്നെ ഞാന്‍ സ്നേഹിക്കുന്നു" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1thtv1-kWGK43Yzagd_N61OQbgZD3g3tm"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1JHJzyQOUHpPADJnuXozIwrYpKS5EXkgK">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">നിന്നെ ഞാന്‍ സ്നേഹിക്കുന്നു</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ഹാന്‍ഡ്കര്‍ചീഫ്" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1X84mCPZlAW33JrtH0yza36edUPVYnchf"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Y92sw23ZHlmBfU7cXEgkcfGfmFRsfrTE">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഹാന്‍ഡ്കര്‍ചീഫ്</div>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
                 <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
-            </div>
-        </div>
-    </footer>
+</div>
+</div>
+</footer>
+<iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
 
-    
-    
-    
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
-    
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -418,7 +394,7 @@
             });
         };
     </script>
-    <script>
+<script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -431,8 +407,42 @@
         }
         function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
+
+<style>
+    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
+    .auth-box h3 { color: #004D40; margin-top: 0; }
+    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
+    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
+    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<div class="auth-modal" id="authModal">
+<div class="auth-box">
+<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
+<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
+<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
+</div>
+</div>
+<script id="accessScript">
+    function checkReadAccess(pdfUrl) {
+        var currentUser = localStorage.getItem('libraryUser');
+        if (currentUser) {
+            window.open(pdfUrl, '_blank');
+        } else {
+            sessionStorage.setItem('pendingBook', pdfUrl);
+            document.getElementById('authModal').style.display = 'flex';
+        }
+    }
+    function redirectToLogin() { window.location.href = 'login.html'; }
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+    window.onclick = function(event) {
+        var modal = document.getElementById('authModal');
+        if (event.target == modal) { closeAuthModal(); }
+    }
+</script>
 </body>
 </html>
-
-
-

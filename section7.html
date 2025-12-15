@@ -1,13 +1,14 @@
 
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Collection 7 | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>📚 Collection 7 | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
         /* --- Themes --- */
         :root {
            --primary-orange: #00897B; /* Teal */
@@ -140,293 +141,258 @@
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="container navbar">
-            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            <div class="nav-links">
-                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
-                
-                <div class="user-profile" id="profile-section" onclick="toggleProfileMenu()">
-                   <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-                   <div class="user-info">
-                       <span class="user-name" id="display-name">Guest</span>
-                       <span class="user-role">Member</span>
-                   </div>
-                   <div class="profile-dropdown" id="profileDropdown">
-                       <a href="profile.html">Profile Settings</a>
-                       <a href="history.html">Reading History</a>
-                       <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                   </div>
-               </div>
-           </div>
-        </div>
-    </header>
-
-    <section class="collection-section">
-        <div class="container">
-           <h1>Collection 7</h1>
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-               <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
-           </div>
-           
-            <div class="library-container" id="bookList">
-  
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=11QWg4Mlur3zavtHoY359xyXO8Zs9mCbg' alt='Sir Arthur Conan Doyle - Complete Sherlock Holmes (1960)' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=11x5d-w_DCSHOdc8SCYJ_eBDd91aze_Ta' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Sir Arthur Conan Doyle - Complete Sherlock Holmes (1960)</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14Q6aJLkh2ZLhyQ747Kp6F-tqoCOMKsVl' alt='Haddish, Tiffany The Last Black Unicorn Gallery Books Cela, Cnib' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=12rJXZQ_al2n-TeacviV4_UECt75a-_Te' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Haddish, Tiffany The Last Black Unicorn Gallery Books Cela, Cnib</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1SC0hSMttLv0OG95hP9476SnPW7qckdKA' alt='Richard Dawkins Outgrowing God A Beginner s Guide Bantam Press 2019' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1BK8-UKEh30phUcC4qXijRfbiYjc3tVD1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Richard Dawkins Outgrowing God A Beginner s Guide Bantam Press 2019</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1PHGr4y_2jSBof9_fYSKSGuCC9-z4kOUl' alt='Brené Brown Dare to Lead Brave Work Tough Conversations Whole Hearts' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1DMb8Zu1zfBeZSMoM0H9hqNLxsXKxbGxI' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Brené Brown Dare to Lead Brave Work Tough Conversations Whole Hearts</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1BqjICjsExVnBW2Q2Ra8RJuXGe9RI-0TF' alt='Emotional Intelligence' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1EIug5H9VDDpOFfayUgqol08sDuxwlh3C' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Emotional Intelligence</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=11xMzcdkYNpI4_SnQCkIr67Ratii4Qlc1' alt='Max Tegmark Life 3 0 Being Human in the Age of Artificial Intelligence' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1G7MJABEB2fK4nAcgZ7mF0sOLjQDpr8SX' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Max Tegmark Life 3 0 Being Human in the Age of Artificial Intelligence</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1gWxE3MPnO3PntieLvW-tAJEpvszpgusQ' alt='Ajay K Pandey Her Last Wish Srishti Publishers   Distributors 2016' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1HAcLOAEDV5hAzKTdxKrIjG317-aBbMH6' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Ajay K Pandey Her Last Wish Srishti Publishers   Distributors 2016</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1vRi8V_FKHAnPHuJir8wXFsy-PspL2Inq' alt='Harun Yahya General Knowledge fron the Qur an 2003 libgen lc' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Lw5hVppr4pZ9FhiMbA8APwbB4IFCumHf' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Harun Yahya General Knowledge fron the Qur an 2003 libgen lc</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1w3rKt0uYOqIxvNUL47ReShUIVOAYLPyG' alt='Edward Snowden Permanent Record Metropolitan Books 2019 0' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1QmNCoDU2erK00tx3JcABHsuXat3WJ6d4' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Edward Snowden Permanent Record Metropolitan Books 2019 0</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Dren8-T9y7v-bhXeTHhPn21Xyhd9EqVh' alt='Corey Wayne Mastering Yourself, How To Align Your Life With Your' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1TNXq6gRYzFf3QGvAK52i_4DxhyIh7COo' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Corey Wayne Mastering Yourself, How To Align Your Life With Your</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1XNynqbi0S60sBham8wR2IW_pCnabFItK' alt='APJ Abdul Kalam with Arun Tiwari Wings of Fire An Autobiography' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Uft3Hlu5UGpiX-aMe-0uwZYCNKrcSfSu' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>APJ Abdul Kalam with Arun Tiwari Wings of Fire An Autobiography</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FokhpHp2pkrnM72Wm4UTYXj_Hrlo2BoU' alt='Bill Bryson A Short History of Nearly Everything Broadway Books' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1_y8D5_bxPOZq81yhMpBiDwQh-gmAKUc5' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Bill Bryson A Short History of Nearly Everything Broadway Books</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19UxS8ZBVH9_X6f5IXtiOyWkVEyxmMr85' alt='Robert Greenfield A Day in the Life One Family, the Beautiful People' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1ck5qUTklv_GmbXpJafau-Mx1IALTPw_n' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Robert Greenfield A Day in the Life One Family, the Beautiful People</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1ajMVynxxvLdVfHpz3FrOxLBwI4jN_1Ji' alt='John Medina Brain Rules 12 Principles for Surviving and Thriving' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1jf7U0gUlvZXIS37R32zP6vNyvm-2_OSl' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>John Medina Brain Rules 12 Principles for Surviving and Thriving</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jyHGKbt2p3t0Iz9GMXdkf98gKy30rbF4' alt='Who will bell the cat' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1kGD0-ASD1UOPSBtSo_H2qhp1MyNiFxxr' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Who will bell the cat</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1leMhbh15WgPPlJ1Xj6GZPjcYtyBOlgeI' alt='William L Shirer The Rise and Fall of the Third Reich 1998 libgen' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1pwLW2ClmH7GdGdOs0k7yiNZW3T2XXNaQ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>William L Shirer The Rise and Fall of the Third Reich 1998 libgen</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1qzi0VKwo-WrLkvfWjLnlVmR2Bql8-s0j' alt='Tony Robbins Unshakeable Your Financial Freedom Playbook Simon  ' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1q3eoeM7g6YLQ6sMtBIsEzmvgRVon-imR' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Tony Robbins Unshakeable Your Financial Freedom Playbook Simon  </div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1IfvFlZCchR6y6A0wgXo40j0cy1KaIB_e' alt='Nate Silver The Signal and the Noise Why So Many Predictions Fail' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1qvMOVgeaEd01uwgvZ7f8AbZIQAZ_Lffw' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Nate Silver The Signal and the Noise Why So Many Predictions Fail</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1brlrN1anta5_wtoB7dMTWjXaXxXVcyN0' alt='Gottman John The Seven Principles for Making Marriage Work A Practical' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1rNMu7KKxosPz5Kxx0sHa9E6I-cK_UT6l' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Gottman John The Seven Principles for Making Marriage Work A Practical</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1vojT4wX33UmdYkiiNKGx3v6EBkhLfMtF' alt='5 6338926856183480390' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1s3rlBd1y3MiKaVSRodjkiD41Q_cOlln0' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>5 6338926856183480390</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1WyMixAWceeQVo_kUCxF40wau5GVTAcSG' alt='Stephen W Hawking The theory of everything 2006, Phoenix Books libgen' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1tSQS2-KAK5hliTFJpHB5mQh0YqJlE-ar' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Stephen W Hawking The theory of everything 2006, Phoenix Books libgen</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1PhzlZ5FIVSmzj3EASSwzt-NeZJusm25y' alt='Day and swing trading' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1xKiYHql9y8LwDr95U17cOYJmwraf0tNo' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>Day and swing trading</div>
-            </div>
-            
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1c4GagR0UGDV3Y2pmir20yxbLyHGc8qfl' alt='365 Games   Puzzles to Keep Your Mind Sharp' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1mF6bDGiI34FsgfUR9UnOy6w092g6CW1m' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>365 Games   Puzzles to Keep Your Mind Sharp</div>
-            </div>
-            
-           </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-           <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-            <div class="footer-links">
-                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<header>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
+<div class="user-profile" id="profile-section" onclick="toggleProfileMenu()">
+<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown" id="profileDropdown">
+<a href="profile.html">Profile Settings</a>
+<a href="history.html">Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="collection-section">
+<div class="container">
+<h1>Collection 7</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+</div>
+<div class="library-container" id="bookList">
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Sir Arthur Conan Doyle - Complete Sherlock Holmes (1960)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11QWg4Mlur3zavtHoY359xyXO8Zs9mCbg"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=11x5d-w_DCSHOdc8SCYJ_eBDd91aze_Ta">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Sir Arthur Conan Doyle - Complete Sherlock Holmes (1960)</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Haddish, Tiffany The Last Black Unicorn Gallery Books Cela, Cnib" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14Q6aJLkh2ZLhyQ747Kp6F-tqoCOMKsVl"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=12rJXZQ_al2n-TeacviV4_UECt75a-_Te">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Haddish, Tiffany The Last Black Unicorn Gallery Books Cela, Cnib</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Richard Dawkins Outgrowing God A Beginner s Guide Bantam Press 2019" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SC0hSMttLv0OG95hP9476SnPW7qckdKA"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1BK8-UKEh30phUcC4qXijRfbiYjc3tVD1">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Richard Dawkins Outgrowing God A Beginner s Guide Bantam Press 2019</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Brené Brown Dare to Lead Brave Work Tough Conversations Whole Hearts" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1PHGr4y_2jSBof9_fYSKSGuCC9-z4kOUl"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1DMb8Zu1zfBeZSMoM0H9hqNLxsXKxbGxI">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Brené Brown Dare to Lead Brave Work Tough Conversations Whole Hearts</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Emotional Intelligence" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BqjICjsExVnBW2Q2Ra8RJuXGe9RI-0TF"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1EIug5H9VDDpOFfayUgqol08sDuxwlh3C">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Emotional Intelligence</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Max Tegmark Life 3 0 Being Human in the Age of Artificial Intelligence" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11xMzcdkYNpI4_SnQCkIr67Ratii4Qlc1"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1G7MJABEB2fK4nAcgZ7mF0sOLjQDpr8SX">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Max Tegmark Life 3 0 Being Human in the Age of Artificial Intelligence</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Ajay K Pandey Her Last Wish Srishti Publishers   Distributors 2016" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gWxE3MPnO3PntieLvW-tAJEpvszpgusQ"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1HAcLOAEDV5hAzKTdxKrIjG317-aBbMH6">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Ajay K Pandey Her Last Wish Srishti Publishers   Distributors 2016</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Harun Yahya General Knowledge fron the Qur an 2003 libgen lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vRi8V_FKHAnPHuJir8wXFsy-PspL2Inq"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Lw5hVppr4pZ9FhiMbA8APwbB4IFCumHf">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Harun Yahya General Knowledge fron the Qur an 2003 libgen lc</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Edward Snowden Permanent Record Metropolitan Books 2019 0" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1w3rKt0uYOqIxvNUL47ReShUIVOAYLPyG"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1QmNCoDU2erK00tx3JcABHsuXat3WJ6d4">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Edward Snowden Permanent Record Metropolitan Books 2019 0</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Corey Wayne Mastering Yourself, How To Align Your Life With Your" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Dren8-T9y7v-bhXeTHhPn21Xyhd9EqVh"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1TNXq6gRYzFf3QGvAK52i_4DxhyIh7COo">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Corey Wayne Mastering Yourself, How To Align Your Life With Your</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="APJ Abdul Kalam with Arun Tiwari Wings of Fire An Autobiography" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1XNynqbi0S60sBham8wR2IW_pCnabFItK"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Uft3Hlu5UGpiX-aMe-0uwZYCNKrcSfSu">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">APJ Abdul Kalam with Arun Tiwari Wings of Fire An Autobiography</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Bill Bryson A Short History of Nearly Everything Broadway Books" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FokhpHp2pkrnM72Wm4UTYXj_Hrlo2BoU"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1_y8D5_bxPOZq81yhMpBiDwQh-gmAKUc5">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Bill Bryson A Short History of Nearly Everything Broadway Books</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Robert Greenfield A Day in the Life One Family, the Beautiful People" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19UxS8ZBVH9_X6f5IXtiOyWkVEyxmMr85"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1ck5qUTklv_GmbXpJafau-Mx1IALTPw_n">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Robert Greenfield A Day in the Life One Family, the Beautiful People</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="John Medina Brain Rules 12 Principles for Surviving and Thriving" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ajMVynxxvLdVfHpz3FrOxLBwI4jN_1Ji"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1jf7U0gUlvZXIS37R32zP6vNyvm-2_OSl">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">John Medina Brain Rules 12 Principles for Surviving and Thriving</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Who will bell the cat" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jyHGKbt2p3t0Iz9GMXdkf98gKy30rbF4"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1kGD0-ASD1UOPSBtSo_H2qhp1MyNiFxxr">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Who will bell the cat</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="William L Shirer The Rise and Fall of the Third Reich 1998 libgen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1leMhbh15WgPPlJ1Xj6GZPjcYtyBOlgeI"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1pwLW2ClmH7GdGdOs0k7yiNZW3T2XXNaQ">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">William L Shirer The Rise and Fall of the Third Reich 1998 libgen</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Tony Robbins Unshakeable Your Financial Freedom Playbook Simon  " class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qzi0VKwo-WrLkvfWjLnlVmR2Bql8-s0j"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1q3eoeM7g6YLQ6sMtBIsEzmvgRVon-imR">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Tony Robbins Unshakeable Your Financial Freedom Playbook Simon  </div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Nate Silver The Signal and the Noise Why So Many Predictions Fail" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1IfvFlZCchR6y6A0wgXo40j0cy1KaIB_e"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1qvMOVgeaEd01uwgvZ7f8AbZIQAZ_Lffw">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Nate Silver The Signal and the Noise Why So Many Predictions Fail</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Gottman John The Seven Principles for Making Marriage Work A Practical" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1brlrN1anta5_wtoB7dMTWjXaXxXVcyN0"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1rNMu7KKxosPz5Kxx0sHa9E6I-cK_UT6l">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Gottman John The Seven Principles for Making Marriage Work A Practical</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="5 6338926856183480390" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1vojT4wX33UmdYkiiNKGx3v6EBkhLfMtF"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1s3rlBd1y3MiKaVSRodjkiD41Q_cOlln0">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">5 6338926856183480390</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Stephen W Hawking The theory of everything 2006, Phoenix Books libgen" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WyMixAWceeQVo_kUCxF40wau5GVTAcSG"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1tSQS2-KAK5hliTFJpHB5mQh0YqJlE-ar">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Stephen W Hawking The theory of everything 2006, Phoenix Books libgen</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="Day and swing trading" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1PhzlZ5FIVSmzj3EASSwzt-NeZJusm25y"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1xKiYHql9y8LwDr95U17cOYJmwraf0tNo">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">Day and swing trading</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="365 Games   Puzzles to Keep Your Mind Sharp" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1c4GagR0UGDV3Y2pmir20yxbLyHGc8qfl"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1mF6bDGiI34FsgfUR9UnOy6w092g6CW1m">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">365 Games   Puzzles to Keep Your Mind Sharp</div>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
                 <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
-           </div>
-        </div>
-    </footer>
+</div>
+</div>
+</footer>
+<iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
 
-    
-    
-    
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
-    
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -483,7 +449,7 @@
             });
         };
     </script>
-    <script>
+<script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -496,9 +462,42 @@
         }
         function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
+
+<style>
+    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
+    .auth-box h3 { color: #004D40; margin-top: 0; }
+    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
+    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
+    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<div class="auth-modal" id="authModal">
+<div class="auth-box">
+<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
+<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
+<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
+</div>
+</div>
+<script id="accessScript">
+    function checkReadAccess(pdfUrl) {
+        var currentUser = localStorage.getItem('libraryUser');
+        if (currentUser) {
+            window.open(pdfUrl, '_blank');
+        } else {
+            sessionStorage.setItem('pendingBook', pdfUrl);
+            document.getElementById('authModal').style.display = 'flex';
+        }
+    }
+    function redirectToLogin() { window.location.href = 'login.html'; }
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+    window.onclick = function(event) {
+        var modal = document.getElementById('authModal');
+        if (event.target == modal) { closeAuthModal(); }
+    }
+</script>
 </body>
 </html>
-
-
-
-  

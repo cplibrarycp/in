@@ -1,13 +1,14 @@
 
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 ഉള്ളൂര്‍ കൃതികൾ | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>📚 ഉള്ളൂര്‍ കൃതികൾ | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
         /* --- Themes --- */
         :root {
             --primary-orange: #00897B; /* Teal */
@@ -167,451 +168,401 @@
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="container navbar">
-            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            <div class="nav-links">
-                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> CONTACT US</a>
-                <div class="user-profile" id="profile-section">
-                    <div class="user-avatar"><i class="fas fa-user"></i></div>
-                    <div class="user-info">
-                        <span class="user-name" id="display-name">Guest</span>
-                        <span class="user-role">Member</span>
-                    </div>
-                    <div class="profile-dropdown">
-                        <a href="profile.html">Profile Settings</a>
-                        <a href="history.html">Reading History</a>
-                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="collection-section">
-        <div class="container">
-            <h1>ഉള്ളൂര്‍ കൃതികൾ</h1>
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക...">
-            </div>
-            
-            <div class="library-container" id="bookList">
-  
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1OABOJdJHJPWOva1O1OZqJgZX8qdQlwY2' alt='AMBA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1fAPYm8CNjZuWriTrhce0aU-OVgK8qOYn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>അംബ</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1HHEc-2apcxVMfILoEBs1P_-RArixc0WT' alt='CHAITHRAPRABHAVAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=17jJ9d409VSpXWvj6IKq-jTOpT5qy7K2G' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ചൈത്രപ്രഭാവം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1TZNmlD055eTukBEBdoUtwLV-1wSndIX_' alt='AMRUTHA DHARA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1AvlnuJJgQVlxwvJgyMg0GuR5x8Xi78VE' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>അമൃതധാര</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1pYc7TCiEGEHJPDFURPyf7D3SsGG_gh6A' alt='CHITHRODHAYAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Zle6DcZiwtQHTqchd6yijL9YRBjvhx6E' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ചിത്രോദയം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1soaGwSLHUcLPq9UEPsKzhZA71ATMepXu' alt='CHITHRASALA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1BIsNa_wW_sLWoIgozDUoYOime8Yuv1oP' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ചിത്രശാല</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1iSJxYN9nHeACYxi1Ky-xuDW9luM8IQ_v' alt='BHASHACHAMBU' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1JeCI0nDva-lONa5_DDh3kg3dLDWYV56i' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഭാഷാ ചമ്പു</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=18mNqneKR2Ok6n30NLdWyqTXySbDIvA0k' alt='HRIDAYA KAUMUDHI' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1-Ots2x0Zc-Czdsa6XLCkitK09OEmc5W4' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഹൃദയകൌമുദി</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1BGrlvcZyPTae2u-ozG8TkxmYALpszYcD' alt='DEEPAVALI' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=18pKAa1ziuBaxu0Xl-I5cEoXXfMgrAyVL' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ദീപാവലി</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=14Ovp9y5NjzhA18wcRrID6l76dExqCZNO' alt='KALPASAKHI' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=13ndss8R4mS-w197KT9pVf-c2BBNHI6R3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കല്പശാഖി</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1s9MfT-jJ9EXz0XtZ63SmTVyoAPutTtKw' alt='KERALA SAHITHYA CHARITHRAM 1' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Rx1JZa1Fgij9LLATSv3I1m7PinTh40g0' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കേരള സാഹിത്യചരിത്രം 1</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1mIo0i1Sy1ePG-M6vGK0h43E9yJlCRXE6' alt='KARNABHOOSHANAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1NzM-4eoAIKDwYJAm7KvsqYPdtCHjxIiA' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കര്‍ണഭൂഷണം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_RYCxYnrNUY743Eely3L2BKlIQzW0QUq' alt='KERALA SAHITHYA CHARITHRAM 3' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Z8JrwG_TyKOEk7Vx6wTjChrPuinUzf_Q' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കേരള സാഹിത്യചരിത്രം 3</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1c7J6ldFEvm1maeJzZAUWEzy0MNWvFp2I' alt='KERALA SAHITHYA CHARITHRAM 2' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1bY5WSvs4ZWY7xhc7qkFbgwHarKgYBmVb' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കേരള സാഹിത്യചരിത്രം 2</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=11GJ6FW1wNLjoqgP1FYvRN93CMRxUwOpJ' alt='KERALA SAHITHYA CHARITHRAM 4 6' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=19vVDmcrgQMnJBvMaKcEeP1wIDlJRBOs7' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കേരള സാഹിത്യചരിത്രം 4</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1k77RJ6lWIfgxt9D2Y8UiCRke-mR2UUBc' alt='KESAGRAHANA SAMGRAHAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1acRVZOOFwShCnH_FnezZ881c6qJfFUaU' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കേശഗ്രഹണം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=18ugzq7yAGydM6_wz8Xsvu-13Dg3SKh26' alt='KIRANAVALI' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1J9xMarkfjai0l24a_WRkENhJVTynFjk_' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കിരണാവലി</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1W1IvQcDiCK7KG6udPNESfNABNJ4GjlB-' alt='KERALA SAHITHYA CHARITHRAM 5' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1WZij25Qo0_Yqo1x9PDiRGw5B9XFFcjV1' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>കേരള സാഹിത്യചരിത്രം 5</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1O3-SdMlNdk0J8DH1SKop7ObyaQl0Y37y' alt='MADHYA KALA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1Tp79SP4CLpVw3Y4HBp3NLGwwRsj1mt62' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>മധ്യകല</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_fKhr1vwc09mR9TgN7k89sHSaej4WFef' alt='MANGALA MANJARI' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1oxp1Xv4e8yI53SxJBgvUIflozGaNLesC' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>മംഗല മഞ്ജരി</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1SyIXh5Vkxz2kLug0TR4WdrlynudeaIo5' alt='MANI MANJUSHA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1s23V2YPC6amfM5EnR11keCLSX5OapvMS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>മണി മഞ്ജുഷ</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1hQgZL7Dip7FVu32zCCMJoZcW4JExY8rg' alt='MITHYAPAVADAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1lVSD0Nfz2u9Cf2ZsbfkjvZtGt4j5lEpL' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>മിഥ്യാപവാദം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1jHgEGVlCswzukwoosFDm-0PNW39d-22g' alt='ORU NERCHA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1z9yZQdUsz_eYMOo_SswRPK0eDUyA6UCn' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഒരു നേര്‍ച്ച</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1-MvhhPvUKQoAt3dzysGpzmCBAMejEDKb' alt='PADYA MANJARI 2' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1r0wxXhiOnPzSJx_sIvguJVZzDGdZH3uS' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>പദ്യ മഞ്ജരി 2</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1pY0ebOeMTcf1Ii3mKS_KUcvjx-vmrty-' alt='PADYA MANJARI 6' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1tNANMgM2NBVkQpmplEB4vK6_nFsG7adb' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>പദ്യ മഞ്ജരി 6</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1LSGGxfYPShDSg3ZjbS1Fny8Ta2obt1zT' alt='PADYA MANJARI 7' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1u8I-ujhpZk5il9inRAT1uPzjCzznV8gR' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>പദ്യ മഞ്ജരി 7</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=101Vs5h-6nqZnVy7lTXablImNevPGep0B' alt='PARVATHI PARINAYAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1sXLzvZeX_pbDsqjmePl_ZmI5uFpqGrsV' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>പാര്‍വ്വതി പരിണയം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FA_G6ZMPXTHeTck7gEbF_ZyFJ9aJYDzX' alt='RANDU THARANGAL' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1F6h4eTVECItova8x8siFIEeVnKQLEWvT' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>രണ്ടു താരങ്ങള്‍</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1IrPJn8oYWqiu9t_jq3ECKs31Pq2P3DHP' alt='PADYA MANJARI 1' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1SWZjVF4R9J1Nf791cZbLDs__9YzUpSO8' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>പദ്യ മഞ്ജരി 1</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1a2xc0Y24skgdbG-iOusDy0GTkKOOXgdg' alt='PADYA MANJARI 4' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1ssa5tPnEkBm1Mxvkw_RJf4D7l-Kr2fde' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>പദ്യ മഞ്ജരി 4</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1pCEtAV27TkrFutbUFdXb9u0DFBf3Ua5S' alt='SUJATHODHWAHAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1bCX7dLtKrEyVFE_pZ3Vhv9FP5WgtvOvQ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>സുജാദാദ്ദോഹം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1Ab00TTIJ4EB3lrXaq2QYo0Z3zpwOUGAl' alt='RATHNAMALA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=13kdI2Ulhj0zSDOffc0B64JppwDVuH_TI' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>രത്നമാല</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1VtOnhjf4v7FglLkyq6YIJmXgoblx2zXZ' alt='SARANOPAHARAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1vGayBrxexqFh-Xxlj2Rt87pAJTA_ToVP' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ശരണോപഹാരം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1HxAdQ8PryaEc4J2M76MoNgBsnUzTA6dM' alt='VINJJANA DEEPIKA' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1OH59b3iWK_LEa5TfkcUvWPWuuCRMv0JQ' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>വിജ്ഞാനദീപിക </div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1FDphOOc67dQI1pq6NLICoy3zy6kmklHD' alt='VINJJANA DEEPIKA 4' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=185D1lRoSkNYBtyOBjaL8hzLSdfCanMdN' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>വിജ്ഞാനദീപിക 4</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1OZiXgLl7DjuTj2TQBIj6tRNS6bzJC1qf' alt='THAPTHA HRIDAYAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1ZYXxXwtD-Q54oyy7bJHTHZdqYbD2632V' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>തപ്തഹൃദയം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1nqmqxJf4K17o9qn7LE7BwUlCoOggmE68' alt='THARAMGINI' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1TkRiP0H4j6yqkjy65cwVRuAIU-QuepCW' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>തരംഗിണി</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=19rEVTVcGbTvbPWovLsWME-s5imXbToNM' alt='UMAKERALAM' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1QKGyH8cjaK5stsxAs5Z4FH1RTnZ5FJey' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>ഉമാകേരളം</div>
-            </div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1khQG4XpOvLca576JT4ZF2Q3qvT-04AWr' alt='VANCHEESA GEETHI' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=1vB1a-UKWEnXEZu7svuajP8mALYEA9bhG' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>വഞ്ചീശഗീതി</div>
-        
-            <div class='book-card'>
-                <div class='image-wrapper'>
-                    <img src='https://drive.google.com/thumbnail?sz=w600&id=1_NPchPS79HEAAYB3wFm8kP2oB0rshJPT' alt='THARAMGINI 3' class='book-cover' loading='lazy'>
-                    <div class='read-overlay'>
-                        <a href='read.html?id=141hbU4fganCbXD8rydU0t0goNkY-KGC3' class='overlay-btn'>വായന തുടങ്ങൂ <i class='fas fa-book-open'></i></a>
-                    </div>
-                </div>
-                <div class='book-title'>തരംഗിണി 3</div>
-            </div>
-        
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-            <div class="footer-links">
-                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<header>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
+<div class="user-profile" id="profile-section">
+<div class="user-avatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown">
+<a href="profile.html">Profile Settings</a>
+<a href="history.html">Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="collection-section">
+<div class="container">
+<h1>ഉള്ളൂര്‍ കൃതികൾ</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+</div>
+<div class="library-container" id="bookList">
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="AMBA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OABOJdJHJPWOva1O1OZqJgZX8qdQlwY2"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1fAPYm8CNjZuWriTrhce0aU-OVgK8qOYn">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">അംബ</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="CHAITHRAPRABHAVAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1HHEc-2apcxVMfILoEBs1P_-RArixc0WT"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=17jJ9d409VSpXWvj6IKq-jTOpT5qy7K2G">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ചൈത്രപ്രഭാവം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="AMRUTHA DHARA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1TZNmlD055eTukBEBdoUtwLV-1wSndIX_"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1AvlnuJJgQVlxwvJgyMg0GuR5x8Xi78VE">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">അമൃതധാര</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="CHITHRODHAYAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pYc7TCiEGEHJPDFURPyf7D3SsGG_gh6A"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Zle6DcZiwtQHTqchd6yijL9YRBjvhx6E">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ചിത്രോദയം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="CHITHRASALA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1soaGwSLHUcLPq9UEPsKzhZA71ATMepXu"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1BIsNa_wW_sLWoIgozDUoYOime8Yuv1oP">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ചിത്രശാല</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="BHASHACHAMBU" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1iSJxYN9nHeACYxi1Ky-xuDW9luM8IQ_v"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1JeCI0nDva-lONa5_DDh3kg3dLDWYV56i">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഭാഷാ ചമ്പു</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="HRIDAYA KAUMUDHI" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18mNqneKR2Ok6n30NLdWyqTXySbDIvA0k"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1-Ots2x0Zc-Czdsa6XLCkitK09OEmc5W4">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഹൃദയകൌമുദി</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="DEEPAVALI" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1BGrlvcZyPTae2u-ozG8TkxmYALpszYcD"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=18pKAa1ziuBaxu0Xl-I5cEoXXfMgrAyVL">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ദീപാവലി</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KALPASAKHI" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14Ovp9y5NjzhA18wcRrID6l76dExqCZNO"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=13ndss8R4mS-w197KT9pVf-c2BBNHI6R3">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കല്പശാഖി</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KERALA SAHITHYA CHARITHRAM 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1s9MfT-jJ9EXz0XtZ63SmTVyoAPutTtKw"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Rx1JZa1Fgij9LLATSv3I1m7PinTh40g0">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കേരള സാഹിത്യചരിത്രം 1</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KARNABHOOSHANAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1mIo0i1Sy1ePG-M6vGK0h43E9yJlCRXE6"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1NzM-4eoAIKDwYJAm7KvsqYPdtCHjxIiA">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കര്‍ണഭൂഷണം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KERALA SAHITHYA CHARITHRAM 3" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_RYCxYnrNUY743Eely3L2BKlIQzW0QUq"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Z8JrwG_TyKOEk7Vx6wTjChrPuinUzf_Q">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കേരള സാഹിത്യചരിത്രം 3</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KERALA SAHITHYA CHARITHRAM 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1c7J6ldFEvm1maeJzZAUWEzy0MNWvFp2I"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1bY5WSvs4ZWY7xhc7qkFbgwHarKgYBmVb">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കേരള സാഹിത്യചരിത്രം 2</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KERALA SAHITHYA CHARITHRAM 4 6" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11GJ6FW1wNLjoqgP1FYvRN93CMRxUwOpJ"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=19vVDmcrgQMnJBvMaKcEeP1wIDlJRBOs7">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കേരള സാഹിത്യചരിത്രം 4</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KESAGRAHANA SAMGRAHAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1k77RJ6lWIfgxt9D2Y8UiCRke-mR2UUBc"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1acRVZOOFwShCnH_FnezZ881c6qJfFUaU">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കേശഗ്രഹണം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KIRANAVALI" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18ugzq7yAGydM6_wz8Xsvu-13Dg3SKh26"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1J9xMarkfjai0l24a_WRkENhJVTynFjk_">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കിരണാവലി</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="KERALA SAHITHYA CHARITHRAM 5" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1W1IvQcDiCK7KG6udPNESfNABNJ4GjlB-"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1WZij25Qo0_Yqo1x9PDiRGw5B9XFFcjV1">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">കേരള സാഹിത്യചരിത്രം 5</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="MADHYA KALA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1O3-SdMlNdk0J8DH1SKop7ObyaQl0Y37y"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1Tp79SP4CLpVw3Y4HBp3NLGwwRsj1mt62">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">മധ്യകല</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="MANGALA MANJARI" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_fKhr1vwc09mR9TgN7k89sHSaej4WFef"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1oxp1Xv4e8yI53SxJBgvUIflozGaNLesC">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">മംഗല മഞ്ജരി</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="MANI MANJUSHA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SyIXh5Vkxz2kLug0TR4WdrlynudeaIo5"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1s23V2YPC6amfM5EnR11keCLSX5OapvMS">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">മണി മഞ്ജുഷ</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="MITHYAPAVADAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1hQgZL7Dip7FVu32zCCMJoZcW4JExY8rg"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1lVSD0Nfz2u9Cf2ZsbfkjvZtGt4j5lEpL">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">മിഥ്യാപവാദം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="ORU NERCHA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jHgEGVlCswzukwoosFDm-0PNW39d-22g"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1z9yZQdUsz_eYMOo_SswRPK0eDUyA6UCn">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഒരു നേര്‍ച്ച</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="PADYA MANJARI 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1-MvhhPvUKQoAt3dzysGpzmCBAMejEDKb"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1r0wxXhiOnPzSJx_sIvguJVZzDGdZH3uS">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">പദ്യ മഞ്ജരി 2</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="PADYA MANJARI 6" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pY0ebOeMTcf1Ii3mKS_KUcvjx-vmrty-"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1tNANMgM2NBVkQpmplEB4vK6_nFsG7adb">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">പദ്യ മഞ്ജരി 6</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="PADYA MANJARI 7" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1LSGGxfYPShDSg3ZjbS1Fny8Ta2obt1zT"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1u8I-ujhpZk5il9inRAT1uPzjCzznV8gR">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">പദ്യ മഞ്ജരി 7</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="PARVATHI PARINAYAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=101Vs5h-6nqZnVy7lTXablImNevPGep0B"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1sXLzvZeX_pbDsqjmePl_ZmI5uFpqGrsV">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">പാര്‍വ്വതി പരിണയം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="RANDU THARANGAL" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FA_G6ZMPXTHeTck7gEbF_ZyFJ9aJYDzX"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1F6h4eTVECItova8x8siFIEeVnKQLEWvT">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">രണ്ടു താരങ്ങള്‍</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="PADYA MANJARI 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1IrPJn8oYWqiu9t_jq3ECKs31Pq2P3DHP"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1SWZjVF4R9J1Nf791cZbLDs__9YzUpSO8">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">പദ്യ മഞ്ജരി 1</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="PADYA MANJARI 4" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1a2xc0Y24skgdbG-iOusDy0GTkKOOXgdg"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1ssa5tPnEkBm1Mxvkw_RJf4D7l-Kr2fde">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">പദ്യ മഞ്ജരി 4</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="SUJATHODHWAHAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pCEtAV27TkrFutbUFdXb9u0DFBf3Ua5S"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1bCX7dLtKrEyVFE_pZ3Vhv9FP5WgtvOvQ">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">സുജാദാദ്ദോഹം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="RATHNAMALA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Ab00TTIJ4EB3lrXaq2QYo0Z3zpwOUGAl"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=13kdI2Ulhj0zSDOffc0B64JppwDVuH_TI">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">രത്നമാല</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="SARANOPAHARAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1VtOnhjf4v7FglLkyq6YIJmXgoblx2zXZ"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1vGayBrxexqFh-Xxlj2Rt87pAJTA_ToVP">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ശരണോപഹാരം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="VINJJANA DEEPIKA" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1HxAdQ8PryaEc4J2M76MoNgBsnUzTA6dM"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1OH59b3iWK_LEa5TfkcUvWPWuuCRMv0JQ">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">വിജ്ഞാനദീപിക </div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="VINJJANA DEEPIKA 4" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FDphOOc67dQI1pq6NLICoy3zy6kmklHD"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=185D1lRoSkNYBtyOBjaL8hzLSdfCanMdN">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">വിജ്ഞാനദീപിക 4</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="THAPTHA HRIDAYAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1OZiXgLl7DjuTj2TQBIj6tRNS6bzJC1qf"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1ZYXxXwtD-Q54oyy7bJHTHZdqYbD2632V">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">തപ്തഹൃദയം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="THARAMGINI" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nqmqxJf4K17o9qn7LE7BwUlCoOggmE68"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1TkRiP0H4j6yqkjy65cwVRuAIU-QuepCW">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">തരംഗിണി</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="UMAKERALAM" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19rEVTVcGbTvbPWovLsWME-s5imXbToNM"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1QKGyH8cjaK5stsxAs5Z4FH1RTnZ5FJey">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">ഉമാകേരളം</div>
+</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="VANCHEESA GEETHI" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1khQG4XpOvLca576JT4ZF2Q3qvT-04AWr"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=1vB1a-UKWEnXEZu7svuajP8mALYEA9bhG">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">വഞ്ചീശഗീതി</div>
+<div class="book-card">
+<div class="image-wrapper">
+<img alt="THARAMGINI 3" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_NPchPS79HEAAYB3wFm8kP2oB0rshJPT"/>
+<div class="read-overlay">
+<a class="overlay-btn" href="read.html?id=141hbU4fganCbXD8rydU0t0goNkY-KGC3">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+</div>
+</div>
+<div class="book-title">തരംഗിണി 3</div>
+</div>
+</div>
+</div>
+</div></section>
+<footer>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
                 <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
-            </div>
-        </div>
-    </footer>
+</div>
+</div>
+</footer>
+<iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
 
-    
-    
-    
-        <iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
-    </div>
-
-    
-    <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -668,7 +619,7 @@
             });
         };
     </script>
-    <script>
+<script>
         function toggleProfileMenu() { 
             var dropdown = document.querySelector(".profile-dropdown"); 
             if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
@@ -681,9 +632,42 @@
         }
         function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
+
+<style>
+    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
+    .auth-box h3 { color: #004D40; margin-top: 0; }
+    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
+    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
+    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
+    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<div class="auth-modal" id="authModal">
+<div class="auth-box">
+<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
+<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
+<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
+</div>
+</div>
+<script id="accessScript">
+    function checkReadAccess(pdfUrl) {
+        var currentUser = localStorage.getItem('libraryUser');
+        if (currentUser) {
+            window.open(pdfUrl, '_blank');
+        } else {
+            sessionStorage.setItem('pendingBook', pdfUrl);
+            document.getElementById('authModal').style.display = 'flex';
+        }
+    }
+    function redirectToLogin() { window.location.href = 'login.html'; }
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+    window.onclick = function(event) {
+        var modal = document.getElementById('authModal');
+        if (event.target == modal) { closeAuthModal(); }
+    }
+</script>
 </body>
 </html>
-
-
-
-  
