@@ -250,40 +250,89 @@
     </script>
 
 <style>
-    .auth-modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
-    .auth-box { background: #ffffff; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border-top: 6px solid #00897B; font-family: 'Poppins', sans-serif; animation: fadeIn 0.3s ease-in-out; }
-    .auth-box h3 { color: #004D40; margin-top: 0; }
-    .auth-box p { color: #555; font-size: 16px; margin-bottom: 25px; }
-    .auth-btn-login { background-color: #00897B; color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
-    .auth-btn-login:hover { background-color: #004D40; transform: translateY(-2px); }
-    .auth-btn-cancel { background-color: transparent; color: #777; border: 1px solid #ccc; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.3s; margin: 5px; }
-    .auth-btn-cancel:hover { background-color: #f1f1f1; color: #333; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    /* Popup Background */
+    .lib-modal { 
+        display: none; position: fixed; z-index: 99999; 
+        left: 0; top: 0; width: 100%; height: 100%; 
+        background-color: rgba(0, 0, 0, 0.7); 
+        backdrop-filter: blur(5px); 
+        justify-content: center; align-items: center; 
+    }
+    /* Popup Box */
+    .lib-box { 
+        background: #ffffff; padding: 30px; 
+        border-radius: 15px; width: 90%; max-width: 350px; 
+        text-align: center; 
+        border-top: 6px solid #00897B; /* Teal Color */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+        font-family: sans-serif; 
+        animation: slideDown 0.3s ease-out;
+    }
+    .lib-box h3 { color: #004D40; margin-top: 0; font-size: 22px; }
+    .lib-box p { color: #555; margin-bottom: 25px; font-size: 16px; }
+    
+    /* Buttons */
+    .btn-lib-login { 
+        background: #00897B; color: white; border: none; 
+        padding: 12px 25px; border-radius: 50px; 
+        font-weight: bold; cursor: pointer; width: 100%; 
+        margin-bottom: 10px; transition: 0.3s; 
+    }
+    .btn-lib-login:hover { background: #004D40; }
+    
+    .btn-lib-close { 
+        background: transparent; color: #777; border: 1px solid #ccc; 
+        padding: 10px 25px; border-radius: 50px; 
+        cursor: pointer; width: 100%; transition: 0.3s; 
+    }
+    .btn-lib-close:hover { background: #f1f1f1; color: #333; }
+
+    @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 </style>
-<div class="auth-modal" id="authModal">
-<div class="auth-box">
-<h3>ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p>ഈ പുസ്തകം വായിക്കുന്നതിനായി താങ്കൾ ലോഗിൻ ചെയ്യേണ്ടതുണ്ട്. ലോഗിൻ പേജിലേക്ക് പോകട്ടേ?</p>
-<button class="auth-btn-login" onclick="redirectToLogin()">ലോഗിൻ ചെയ്യുക</button>
-<button class="auth-btn-cancel" onclick="closeAuthModal()">പിന്നീടാവാം</button>
+<div class="lib-modal" id="libraryAuthModal">
+<div class="lib-box">
+<h3>🔒 ലോഗിൻ ആവശ്യമാണ്</h3>
+<p>ഈ ഭാഗം ആക്സസ് ചെയ്യുന്നതിന് ദയവായി ലോഗിൻ ചെയ്യുക.</p>
+<button class="btn-lib-login" onclick="goToLogin()">ലോഗിൻ ചെയ്യുക</button>
+<button class="btn-lib-close" onclick="closeLibModal()">പിന്നീടാവാം</button>
 </div>
 </div>
-<script id="accessScript">
-    function checkReadAccess(pdfUrl) {
-        var currentUser = localStorage.getItem('libraryUser');
-        if (currentUser) {
+<script>
+    // 1. PDF വായന പരിശോധന (On Click)
+    function checkReadAccess(event, pdfUrl) {
+        // ലിങ്ക് പ്രവർത്തിക്കുന്നത് തടയുന്നു (Stop Link Jump)
+        if(event) { event.preventDefault(); }
+
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            // ലോഗിൻ ഉണ്ടെങ്കിൽ PDF തുറക്കും
             window.open(pdfUrl, '_blank');
         } else {
-            sessionStorage.setItem('pendingBook', pdfUrl);
-            document.getElementById('authModal').style.display = 'flex';
+            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കും
+            sessionStorage.setItem('pendingBook', pdfUrl); // ബുക്ക് ഓർത്തു വെക്കുന്നു
+            document.getElementById('libraryAuthModal').style.display = 'flex';
         }
     }
-    function redirectToLogin() { window.location.href = 'login.html'; }
-    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-    window.onclick = function(event) {
-        var modal = document.getElementById('authModal');
-        if (event.target == modal) { closeAuthModal(); }
+
+    // 2. പേജ് സുരക്ഷാ പരിശോധന (On Page Load)
+    // Protected Pages ലിസ്റ്റിലുള്ള പേജുകളിൽ ഇത് പ്രവർത്തിക്കും
+    function enforcePageSecurity() {
+        var isProtected = document.body.getAttribute('data-protected');
+        if (isProtected === 'true') {
+            var user = localStorage.getItem('libraryUser');
+            if (!user) {
+                // ലോഗിൻ ഇല്ലെങ്കിൽ നേരെ ലോഗിൻ പേജിലേക്ക്
+                window.location.href = 'login.html';
+            }
+        }
     }
+
+    // Helper Functions
+    function goToLogin() { window.location.href = 'login.html'; }
+    function closeLibModal() { document.getElementById('libraryAuthModal').style.display = 'none'; }
+    
+    // Run Security Check automatically
+    enforcePageSecurity();
 </script>
 </body>
 </html>

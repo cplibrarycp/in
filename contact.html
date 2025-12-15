@@ -1,14 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 ബന്ധപ്പെടുക | THRIPUDI LIBRARY</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>📚 ബന്ധപ്പെടുക | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
         /* --- 1. തീം (Teal & Green) --- */
         :root {
             --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
@@ -198,89 +197,76 @@
         }
     </style>
 </head>
-<body>
-
-    <header>
-        <div class="container navbar">
-            <a href="dashboard.html" class="logo">THRIPUDI LIBRARY</a>
-            
-            <div class="nav-links">
-                <a href="dashboard.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="collection.html" class="nav-item"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a href="contact.html" class="nav-item active"><i class="fas fa-envelope"></i> CONTACT US</a>
-
-                <div class="user-profile" id="profile-section">
-                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-                    <div class="user-info">
-                        <span class="user-name" id="display-name">Guest</span>
-                        <span class="user-role">Member</span>
-                    </div>
-                    
-                    <div class="profile-dropdown">
-                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
-                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
-                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section class="contact-section">
-        <div class="container">
-            <h1>ഞങ്ങളെ ബന്ധപ്പെടുക</h1>
-            
-            <div class="contact-card">
-                <div class="contact-image-box">
-                    <img src="https://drive.google.com/thumbnail?sz=w600&id=1kR0sfXVA3JMj464R-cQSVTO3LB4p9nZC" alt="Contact Us" class="contact-thumb">
-                    
-                    <div class="contact-info-text">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Thripudi Library</strong></p>
-                        <p>Near Main Road, Kerala, India</p>
-                        <p><i class="fas fa-envelope"></i> cplibrarycp@gmail.com</p>
-                    </div>
-                </div>
-
-                <div class="contact-form-box">
-                    <h3>സന്ദേശങ്ങൾ അയക്കൂ</h3>
-                    
-                    <form id="contactForm" method="POST">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_subject" value="New Library Inquiry">
-                        
-                        <div class="form-group">
-                            <label for="name">പേര്</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="നിങ്ങളുടെ പേര്" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">ഇമെയിൽ</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="example@gmail.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">സന്ദേശം</label>
-                            <textarea name="message" id="message" rows="5" class="form-control" placeholder="നിങ്ങളുടെ അഭിപ്രായങ്ങൾ ഇവിടെ എഴുതുക..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit" id="submitBtn">അയക്കുക <i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-            <div class="footer-links">
-                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<body data-protected="true">
+<header>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item active" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
+<div class="user-profile" id="profile-section">
+<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown">
+<a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+<a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="contact-section">
+<div class="container">
+<h1>ഞങ്ങളെ ബന്ധപ്പെടുക</h1>
+<div class="contact-card">
+<div class="contact-image-box">
+<img alt="Contact Us" class="contact-thumb" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kR0sfXVA3JMj464R-cQSVTO3LB4p9nZC"/>
+<div class="contact-info-text">
+<p><i class="fas fa-map-marker-alt"></i> <strong>Thripudi Library</strong></p>
+<p>Near Main Road, Kerala, India</p>
+<p><i class="fas fa-envelope"></i> cplibrarycp@gmail.com</p>
+</div>
+</div>
+<div class="contact-form-box">
+<h3>സന്ദേശങ്ങൾ അയക്കൂ</h3>
+<form id="contactForm" method="POST">
+<input name="_captcha" type="hidden" value="false"/>
+<input name="_subject" type="hidden" value="New Library Inquiry"/>
+<div class="form-group">
+<label for="name">പേര്</label>
+<input class="form-control" id="name" name="name" placeholder="നിങ്ങളുടെ പേര്" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">ഇമെയിൽ</label>
+<input class="form-control" id="email" name="email" placeholder="example@gmail.com" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="message">സന്ദേശം</label>
+<textarea class="form-control" id="message" name="message" placeholder="നിങ്ങളുടെ അഭിപ്രായങ്ങൾ ഇവിടെ എഴുതുക..." required="" rows="5"></textarea>
+</div>
+<button class="btn-submit" id="submitBtn" type="submit">അയക്കുക <i class="fas fa-paper-plane"></i></button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
                 <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
                 <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    
-    <script type="module">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+</div>
+</div>
+</footer>
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
@@ -298,8 +284,6 @@
                 const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
                 if(nameDisplay) nameDisplay.textContent = displayName;
                 if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
-
-                setupHistoryOnly(user.uid);
             }
         });
 
@@ -310,46 +294,146 @@
                 signOut(auth).then(() => { window.location.href = "index.html"; }); 
             });
         }
-
-        window.setupHistoryOnly = function(uid) {
-            const buttons = document.querySelectorAll(".overlay-btn");
-            buttons.forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-                
-                newBtn.addEventListener("click", function(e) {
-                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
-                    const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href'); // read.html link
-                    
-                    if (card) {
-                        const title = card.querySelector('.book-title').innerText;
-                        const image = card.querySelector('.book-cover').src;
-                        const date = new Date().toLocaleDateString('ml-IN');
-                        const key = 'history_' + uid;
-                        let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title);
-                        history.unshift({ title, image, url: linkUrl, date });
-                        if (history.length > 50) history.pop();
-                        localStorage.setItem(key, JSON.stringify(history));
-                    }
-                });
-            });
-        };
     </script>
-    <script>
-        function toggleProfileMenu() { 
-            var dropdown = document.querySelector(".profile-dropdown"); 
-            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
+<script>
+        // Profile Dropdown Toggle
+        const profileSection = document.getElementById('profile-section');
+        if(profileSection){
+            profileSection.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const dropdown = this.querySelector('.profile-dropdown');
+                if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            });
         }
+        
         window.onclick = function(event) {
             if (!event.target.closest('.user-profile')) {
                 var dropdowns = document.getElementsByClassName("profile-dropdown");
                 for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
             }
         }
-        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
+
+        // FormSubmit Logic (with AJAX for Popup message)
+        const contactForm = document.getElementById('contactForm');
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const btn = document.getElementById('submitBtn');
+                const originalBtnText = btn.innerHTML;
+                
+                // Button Loading State
+                btn.innerHTML = 'അയക്കുന്നു... <i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+
+                const formData = new FormData(this);
+
+                // Use FormSubmit AJAX Endpoint
+                fetch("https://formsubmit.co/ajax/cplibrarycp@gmail.com", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("നന്ദി! നിങ്ങളുടെ സന്ദേശം വിജയകരമായി അയച്ചു."); 
+                    contactForm.reset(); // Clear the form
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("ക്ഷമിക്കണം, സന്ദേശം അയക്കാൻ സാധിച്ചില്ല. വീണ്ടും ശ്രമിക്കുക.");
+                })
+                .finally(() => {
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                });
+            });
+        }
     </script>
+
+<style>
+    /* Popup Background */
+    .lib-modal { 
+        display: none; position: fixed; z-index: 99999; 
+        left: 0; top: 0; width: 100%; height: 100%; 
+        background-color: rgba(0, 0, 0, 0.7); 
+        backdrop-filter: blur(5px); 
+        justify-content: center; align-items: center; 
+    }
+    /* Popup Box */
+    .lib-box { 
+        background: #ffffff; padding: 30px; 
+        border-radius: 15px; width: 90%; max-width: 350px; 
+        text-align: center; 
+        border-top: 6px solid #00897B; /* Teal Color */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+        font-family: sans-serif; 
+        animation: slideDown 0.3s ease-out;
+    }
+    .lib-box h3 { color: #004D40; margin-top: 0; font-size: 22px; }
+    .lib-box p { color: #555; margin-bottom: 25px; font-size: 16px; }
+    
+    /* Buttons */
+    .btn-lib-login { 
+        background: #00897B; color: white; border: none; 
+        padding: 12px 25px; border-radius: 50px; 
+        font-weight: bold; cursor: pointer; width: 100%; 
+        margin-bottom: 10px; transition: 0.3s; 
+    }
+    .btn-lib-login:hover { background: #004D40; }
+    
+    .btn-lib-close { 
+        background: transparent; color: #777; border: 1px solid #ccc; 
+        padding: 10px 25px; border-radius: 50px; 
+        cursor: pointer; width: 100%; transition: 0.3s; 
+    }
+    .btn-lib-close:hover { background: #f1f1f1; color: #333; }
+
+    @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+</style>
+<div class="lib-modal" id="libraryAuthModal">
+<div class="lib-box">
+<h3>🔒 ലോഗിൻ ആവശ്യമാണ്</h3>
+<p>ഈ ഭാഗം ആക്സസ് ചെയ്യുന്നതിന് ദയവായി ലോഗിൻ ചെയ്യുക.</p>
+<button class="btn-lib-login" onclick="goToLogin()">ലോഗിൻ ചെയ്യുക</button>
+<button class="btn-lib-close" onclick="closeLibModal()">പിന്നീടാവാം</button>
+</div>
+</div>
+<script>
+    // 1. PDF വായന പരിശോധന (On Click)
+    function checkReadAccess(event, pdfUrl) {
+        // ലിങ്ക് പ്രവർത്തിക്കുന്നത് തടയുന്നു (Stop Link Jump)
+        if(event) { event.preventDefault(); }
+
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            // ലോഗിൻ ഉണ്ടെങ്കിൽ PDF തുറക്കും
+            window.open(pdfUrl, '_blank');
+        } else {
+            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കും
+            sessionStorage.setItem('pendingBook', pdfUrl); // ബുക്ക് ഓർത്തു വെക്കുന്നു
+            document.getElementById('libraryAuthModal').style.display = 'flex';
+        }
+    }
+
+    // 2. പേജ് സുരക്ഷാ പരിശോധന (On Page Load)
+    // Protected Pages ലിസ്റ്റിലുള്ള പേജുകളിൽ ഇത് പ്രവർത്തിക്കും
+    function enforcePageSecurity() {
+        var isProtected = document.body.getAttribute('data-protected');
+        if (isProtected === 'true') {
+            var user = localStorage.getItem('libraryUser');
+            if (!user) {
+                // ലോഗിൻ ഇല്ലെങ്കിൽ നേരെ ലോഗിൻ പേജിലേക്ക്
+                window.location.href = 'login.html';
+            }
+        }
+    }
+
+    // Helper Functions
+    function goToLogin() { window.location.href = 'login.html'; }
+    function closeLibModal() { document.getElementById('libraryAuthModal').style.display = 'none'; }
+    
+    // Run Security Check automatically
+    enforcePageSecurity();
+</script>
 </body>
 </html>
-

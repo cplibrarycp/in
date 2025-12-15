@@ -92,76 +92,69 @@
         </div>
     </div>
 
-    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig); 
+        // നിങ്ങളുടെ Firebase Config (Thripudi Library)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA",
+            authDomain: "thripudilibrary.firebaseapp.com",
+            projectId: "thripudilibrary",
+            storageBucket: "thripudilibrary.firebasestorage.app",
+            messagingSenderId: "887018912750",
+            appId: "1:887018912750:web:cc05190a72b13db816acff",
+            measurementId: "G-B59RDW4KG4"
+        };
+
+        const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        onAuthStateChanged(auth, async (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const avatarDiv = document.getElementById('userAvatar');
+        const registerForm = document.getElementById('registerForm');
+        const errorMsg = document.getElementById('error-msg');
 
-            if (user) {
-                try { await user.reload(); } catch(e) {}
-                const currentUser = auth.currentUser;
-                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
-                if(nameDisplay) nameDisplay.textContent = displayName;
-                if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            errorMsg.style.display = 'none';
 
-                setupHistoryOnly(user.uid);
-            }
-        });
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-        const logoutLink = document.getElementById('logout-link');
-        if(logoutLink) {
-            logoutLink.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "index.html"; }); 
-            });
-        }
-
-        window.setupHistoryOnly = function(uid) {
-            const buttons = document.querySelectorAll(".overlay-btn");
-            buttons.forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-                
-                newBtn.addEventListener("click", function(e) {
-                    // ഇവിടെ preventDefault ഇല്ല, കാരണം read.html ലേക്ക് പോകണം
-                    const card = this.closest('.book-card');
-                    const linkUrl = this.getAttribute('href'); // read.html link
+            // 1. Create User
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
                     
-                    if (card) {
-                        const title = card.querySelector('.book-title').innerText;
-                        const image = card.querySelector('.book-cover').src;
-                        const date = new Date().toLocaleDateString('ml-IN');
-                        const key = 'history_' + uid;
-                        let history = JSON.parse(localStorage.getItem(key)) || [];
-                        history = history.filter(item => item.title !== title);
-                        history.unshift({ title, image, url: linkUrl, date });
-                        if (history.length > 50) history.pop();
-                        localStorage.setItem(key, JSON.stringify(history));
+                    // 2. പേര് പ്രൊഫൈലിൽ അപ്ഡേറ്റ് ചെയ്യുന്നു
+                    updateProfile(user, {
+                        displayName: name
+                    }).then(() => {
+                        // 3. വിജയകരം! ഡാഷ്ബോർഡിലേക്ക് പോകുന്നു
+                        alert("രജിസ്ട്രേഷൻ വിജയകരം! സ്വാഗതം " + name);
+                        window.location.href = "dashboard.html";
+                    }).catch((error) => {
+                        console.error("Profile Update Error:", error);
+                        window.location.href = "dashboard.html"; // പേര് വന്നില്ലെങ്കിലും ലോഗിൻ ആക്കും
+                    });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    let message = "രജിസ്ട്രേഷൻ പരാജയപ്പെട്ടു.";
+                    
+                    if (errorCode === 'auth/email-already-in-use') {
+                        message = "ഈ ഇമെയിൽ നിലവിൽ ഉപയോഗത്തിലുണ്ട്.";
+                    } else if (errorCode === 'auth/weak-password') {
+                        message = "പാസ്‌വേഡ് കുറഞ്ഞത് 6 അക്ഷരമെങ്കിലും വേണം.";
+                    } else if (errorCode === 'auth/invalid-email') {
+                        message = "ഇമെയിൽ വിലാസം ശരിയല്ല.";
                     }
+                    
+                    errorMsg.textContent = message;
+                    errorMsg.style.display = 'block';
                 });
-            });
-        };
+        });
     </script>
-    <script>
-        function toggleProfileMenu() { 
-            var dropdown = document.querySelector(".profile-dropdown"); 
-            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
-        }
-        window.onclick = function(event) {
-            if (!event.target.closest('.user-profile')) {
-                var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
-            }
-        }
-        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
-    </script>
+
 </body>
 </html>
