@@ -55,7 +55,7 @@
             color: white; border: none; 
             padding: 12px 30px; border-radius: 50px; 
             font-size: 1em; font-weight: 700; 
-            cursor: default; /* Changed cursor to default when disabled */
+            cursor: default;
             width: 100%; 
             transition: 0.3s; margin-top: 15px; 
             opacity: 0.5; /* Initial disabled style */
@@ -144,6 +144,7 @@
                 window.currentUserUid = user.uid;
                 document.getElementById('display-name').textContent = user.displayName || "User";
                 
+                // Get stored photo URL (either from local storage or Firebase profile)
                 const savedPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
                 if(savedPhoto) {
                     document.getElementById('headerAvatar').innerHTML = `<img src="${savedPhoto}">`;
@@ -161,8 +162,7 @@
 
     <script>
         // ⭐⭐⭐ URL ഇവിടെ നിങ്ങളുടെ Apps Script URL ചേർക്കുക ⭐⭐⭐
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywNTrW5NxuXjI0Vl0c8LwO8uYCB45XIYDT8BI-y6L8cf1qH2NkjNAWQ5go3AhUB3OfQg/exec
-"; 
+        const APPS_SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE"; 
 
         // 1. Image Selection & Preview Logic
         const fileInput = document.getElementById('fileInput');
@@ -172,20 +172,20 @@
         fileInput.addEventListener('change', function() {
             const file = this.files[0];
             
-            // Check if a file is actually selected
+            // ⭐ ഫിക്സ്: ഫയൽ തിരഞ്ഞെടുത്താൽ ബട്ടൺ ഉടൻ എനേബിൾ ചെയ്യുക
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     // Update Preview
                     previewImg.src = e.target.result;
                     
-                    // ⭐⭐⭐ ഫിക്സ്: ബട്ടൺ എനേബിൾ ചെയ്യുന്നു ⭐⭐⭐
+                    // Button Enable Logic
                     uploadBtn.classList.add('active');
                     uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക (റെഡി)';
                 }
                 reader.readAsDataURL(file);
             } else {
-                // If selection is cancelled or no file is chosen
+                // If selection is cancelled or no file is chosen, disable button
                 uploadBtn.classList.remove('active');
                 uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക';
             }
@@ -196,7 +196,7 @@
             e.preventDefault();
             
             const file = fileInput.files[0];
-            if (!file || !window.currentUserUid) {
+            if (!file || !window.currentUserUid || !uploadBtn.classList.contains('active')) {
                 alert("ദയവായി ഒരു ചിത്രം തിരഞ്ഞെടുക്കുക.");
                 return;
             }
@@ -214,6 +214,7 @@
                 formData.append("action", "upload"); 
                 formData.append("fileData", base64Data);
                 formData.append("mimeType", file.type);
+                // Use a unique name based on UID for the file in Drive
                 formData.append("fileName", window.currentUserUid + "_profile_pic"); 
                 
                 fetch(APPS_SCRIPT_URL, {
@@ -223,15 +224,16 @@
                 .then(res => res.json())
                 .then(result => {
                     if (result.result === "Success") {
-                        // ⭐ ഫിക്സ്: വിജയകരമായ ശേഷം പേജ് റീലോഡ് ചെയ്യുന്നു ⭐
                         alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി! (പേജ് അപ്ഡേറ്റ് ചെയ്യുന്നു)");
                         
+                        // Save new URL locally
                         localStorage.setItem('userPhoto_' + window.currentUserUid, result.photoUrl);
                         
-                        window.location.reload(); // Hard reload for immediate UI update
+                        // ⭐ ഫിക്സ്: വിജയകരമായ ശേഷം പേജ് റീലോഡ് ചെയ്ത് അപ്ഡേറ്റ് ഉറപ്പാക്കുന്നു ⭐
+                        window.location.reload(); 
                         
                     } else {
-                        alert("❌ പരാജയപ്പെട്ടു: " + result.message);
+                        alert("❌ പരാജയപ്പെട്ടു: " + (result.message || "Unknown error from server."));
                         uploadBtn.classList.add('active');
                         uploadBtn.innerHTML = 'വീണ്ടും ശ്രമിക്കുക';
                     }
@@ -256,4 +258,3 @@
     </script>
 </body>
 </html>
-
