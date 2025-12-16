@@ -1,102 +1,231 @@
 <!DOCTYPE html>
 <html lang="ml">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>വായന | THRIPUDI LIBRARY</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>വായനശാല | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
+
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #f0f0f0; }
-        .reader-container { width: 100%; height: 100%; display: flex; flex-direction: column; }
-        .error-message { 
-            text-align: center; 
-            padding: 50px; 
-            font-family: Arial, sans-serif; 
-            color: #d32f2f; 
-            font-size: 1.2em; 
+        :root {
+            --primary-orange: #00897B;
+            --secondary-dark: #004D40;
+            --background-light: #E0F2F1;
+            --text-color: #263238;
         }
-        iframe { 
-            border: none; 
-            width: 100%; 
-            height: 100%; 
-            /* പ്രധാന മാറ്റം: iframe സ്റ്റൈലിൽ ലോഡിംഗ് കാണുന്നില്ലെങ്കിൽ ഓട്ടോമാറ്റിക് സ്ക്രോൾ ഉണ്ടാവാതിരിക്കാൻ */
-            overflow: auto; 
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #333; /* വായനയ്ക്ക് അനുയോജ്യമായ ഡാർക്ക് ബാക്ക്ഗ്രൗണ്ട് */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-        .loading { 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            font-size: 2em; 
-            color: #00897B; 
-            font-family: Arial, sans-serif;
+
+        /* --- ടോപ്പ് ബാർ (Close Button) --- */
+        .top-bar {
+            width: 100%;
+            background: var(--secondary-dark);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             z-index: 10;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .page-info {
+            font-size: 0.9em;
+        }
+
+        /* --- PDF കണ്ടെയ്നർ --- */
+        #pdf-render-container {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            width: 100%;
+            background-color: #525659;
+        }
+
+        canvas {
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- താഴെയുള്ള കൺട്രോൾ ബാർ --- */
+        .controls {
+            width: 100%;
+            background: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .btn {
+            background-color: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* ലോഡിംഗ് സ്പിന്നർ */
+        #loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
 
-<div class="reader-container">
-    <div id="content">
-        <div class="loading" id="loadingSpinner">
-            <i class="fas fa-spinner fa-spin"></i> പുസ്തകം ലോഡ് ചെയ്യുന്നു...
-        </div>
+    <div class="top-bar">
+        <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> തിരികെ പോവുക</a>
+        <span class="page-info">പേജ്: <span id="page-num">--</span> / <span id="page-count">--</span></span>
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const bookId = sessionStorage.getItem('currentBookId');
-        const contentDiv = document.getElementById('content');
-        const spinner = document.getElementById('loadingSpinner');
+    <div id="loader">പുസ്തകം തുറക്കുന്നു... <i class="fas fa-spinner fa-spin"></i></div>
 
-        if (!bookId) {
-            spinner.style.display = 'none';
-            contentDiv.innerHTML = `
-                <div class="error-message">
-                    <h1>📚 പുസ്തകം കണ്ടെത്തിയില്ല!</h1>
-                    <p>വായന തുടങ്ങാൻ കഴിഞ്ഞില്ല. ദയവായി ഗ്രന്ഥശേഖരത്തിലേക്ക് <a href="collection.html">തിരികെ പോകുക</a>.</p>
-                </div>
-            `;
-            return;
+    <div id="pdf-render-container">
+        <canvas id="the-canvas"></canvas>
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="prev"><i class="fas fa-chevron-left"></i> Previous</button>
+        <button class="btn" id="next">Next <i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <script>
+        // URL-ൽ നിന്ന് ഫയൽ ID എടുക്കുന്നു (ഉദാ: read.html?id=YOUR_FILE_ID)
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileId = urlParams.get('id');
+
+        if (!fileId) {
+            alert("പുസ്തകം കണ്ടെത്തിയില്ല!");
+            window.location.href = 'dashboard.html';
         }
 
-        // ⭐ അന്തിമ പരിഹാരം: /embed ലിങ്ക് രീതി
-        // ഇത് iFrame-ൽ PDF ലോഡ് ചെയ്യാൻ ഏറ്റവും കൂടുതൽ സാധ്യതയുള്ള ലിങ്കാണ്.
-        const embedUrl = \`https://drive.google.com/file/d/\${bookId}/embed\`;
+        // ഗൂഗിൾ ഡ്രൈവ് ഫയൽ ലിങ്ക് (CORS പ്രശ്നം ഒഴിവാക്കാൻ Proxy ഉപയോഗിക്കേണ്ടി വന്നേക്കാം)
+        // ശ്രദ്ധിക്കുക: ഫയൽ പബ്ലിക് ആയിരിക്കണം (Anyone with the link)
+        const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
 
-        // Iframe-ൽ പുസ്തകം തുറക്കുന്നു
-        const iframeHtml = \`<iframe id="pdfFrame" src="\${embedUrl}" allowfullscreen></iframe>\`;
-        
-        // iframe ചേർത്ത ശേഷം സ്പിന്നർ മറയ്ക്കുന്നതിനു പകരം, സ്പിന്നറിനെ iframe-ൻ്റെ മുകളിൽ വെക്കുന്നു.
-        contentDiv.innerHTML = iframeHtml + spinner.outerHTML; 
-        
-        // iframe ലോഡ് ചെയ്ത ശേഷം സ്പിന്നർ മറയ്ക്കുന്നു
-        const frame = document.getElementById('pdfFrame');
-        if (frame) {
-            frame.onload = function() {
-                // iframe പൂർണ്ണമായി ലോഡ് ചെയ്യുമ്പോൾ സ്പിന്നർ മറയ്ക്കുക.
-                const currentSpinner = document.getElementById('loadingSpinner');
-                if(currentSpinner) currentSpinner.style.display = 'none';
-            };
+        let pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null,
+            scale = 1.5, // സൂം ലെവൽ
+            canvas = document.getElementById('the-canvas'),
+            ctx = canvas.getContext('2d');
+
+        // പേജ് റെൻഡർ ചെയ്യുന്ന ഫംഗ്‌ഷൻ
+        function renderPage(num) {
+            pageRendering = true;
+            
+            // പേജ് എടുക്കുന്നു
+            pdfDoc.getPage(num).then(function(page) {
+                var viewport = page.getViewport({scale: scale});
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+
+                // റെൻഡറിംഗ് കഴിഞ്ഞാൽ
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    document.getElementById('loader').style.display = 'none'; // ലോഡർ മാറ്റുന്നു
+                    
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+
+            // പേജ് നമ്പറുകൾ അപ്ഡേറ്റ് ചെയ്യുന്നു
+            document.getElementById('page-num').textContent = num;
         }
 
-        // ലോഡിംഗ് പരാജയപ്പെട്ടാൽ (Error Handler)
-        setTimeout(() => {
-            const currentSpinner = document.getElementById('loadingSpinner');
-            if (currentSpinner && currentSpinner.style.display !== 'none') {
-                currentSpinner.style.display = 'none';
-                contentDiv.innerHTML = `
-                <div class="error-message">
-                    <h1>⚠️ ലോഡിംഗ് പരാജയം</h1>
-                    <p>ഫയൽ ലോഡ് ചെയ്യുന്നതിൽ ഗുരുതരമായ തടസ്സം നേരിട്ടു. ഈ PDF ഫയലിന് Google Drive-ൽ <b>'Anyone with the link (Viewer)'</b> പെർമിഷൻ ഉണ്ടോ എന്ന് ഉറപ്പുവരുത്തുക.</p>
-                    <p><i>(പബ്ലിക് ആക്സസ് പ്രശ്നങ്ങൾ Google-ൻ്റെ ഭാഗത്തുനിന്നും ഉണ്ടാകാം.)</i></p>
-                </div>
-                `;
+        // അടുത്ത പേജ് കാത്തിരിക്കുന്നുണ്ടെങ്കിൽ അത് ലോഡ് ചെയ്യുക
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
             }
-        }, 15000); // 15 സെക്കൻഡ്
-    });
-</script>
+        }
+
+        // Previous Button Click
+        document.getElementById('prev').addEventListener('click', function() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        });
+
+        // Next Button Click
+        document.getElementById('next').addEventListener('click', function() {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        });
+
+        // PDF ലോഡ് ചെയ്യുന്നു
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            document.getElementById('page-count').textContent = pdfDoc.numPages;
+            renderPage(pageNum);
+        }).catch(function(error) {
+            console.error('Error loading PDF:', error);
+            // ചിലപ്പോൾ CORS പ്രശ്നം കാരണം ലോഡ് ആയില്ലെങ്കിൽ അറിയിക്കാൻ
+            alert("ക്ഷമിക്കണം, ഈ പുസ്തകം നേരിട്ട് ലോഡ് ചെയ്യാൻ സാധിക്കുന്നില്ല. ദയവായി ഡ്രൈവ് ലിങ്ക് 'Public' ആണെന്ന് ഉറപ്പുവരുത്തുക.");
+            document.getElementById('loader').innerHTML = "Error loading PDF.";
+        });
+    </script>
 
 </body>
 </html>
