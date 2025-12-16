@@ -60,7 +60,7 @@
         .user-info { color: #fff; font-size: 0.85em; text-align: left; }
         .user-name { font-weight: 600; display: block; }
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
-        /* Removed :hover CSS for dropdown, now controlled by JS click */
+        /* Drodown is controlled by JS click */
         .profile-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
         .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
@@ -102,7 +102,7 @@
         
         #emptyMessage, #loadingStatus { text-align: center; padding: 40px; font-size: 1.2em; color: #555; }
 
-        /* --- PDF MODAL (bhagavad.html-ൽ ഉള്ളത്) --- */
+        /* --- PDF MODAL --- */
         .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
         .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
         .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
@@ -211,26 +211,32 @@
                 const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
                 if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}" alt="${displayName}">`;
                 
-                // ഹിസ്റ്ററി ലോഡ് ചെയ്യുന്നു
+                // ⭐ ഹിസ്റ്ററി ലോഡ് ചെയ്യാനുള്ള ഫങ്ഷൻ യൂസർ ID ഉപയോഗിച്ച് വിളിക്കുന്നു
                 loadUserHistory(user.uid); 
                 
             } else {
-                // ലോഗിൻ ഇല്ലെങ്കിൽ, login.html-ലേക്ക് റീഡയറക്ട് ചെയ്യുന്നു (data-secure="true" ഉള്ളതുകൊണ്ട്)
+                // ലോഗിൻ ഇല്ലെങ്കിൽ, login.html-ലേക്ക് റീഡയറക്ട് ചെയ്യുന്നു
                 window.location.href = 'login.html'; 
             }
             loadingStatus.style.display = 'none';
         });
 
-        // --- HISTORY LOADING FUNCTION ---
+        // --- HISTORY LOADING FUNCTION (FIXED) ---
         function loadUserHistory(actualUserId) {
-            // ലോക്കൽ സ്റ്റോറേജിലെ ഡാറ്റാ കീ: ഉപയോക്താവിൻ്റെ UID ഉപയോഗിച്ച് ഉണ്ടാക്കുന്നു
             const key = 'history_' + actualUserId; 
-            // Fallback key: മുമ്പ് ലോഗിൻ ഇല്ലാതെ വായിച്ചവ
             const fallbackKey = 'history_default_user'; 
 
             let history = JSON.parse(localStorage.getItem(key)) || JSON.parse(localStorage.getItem(fallbackKey)) || [];
             const container = document.getElementById('historyList');
             const emptyMessage = document.getElementById('emptyMessage');
+            
+            // ⭐ Migration Logic (Default user-ൽ നിന്ന് യഥാർത്ഥ UID-യിലേക്ക് മാറ്റുന്നു) ⭐
+            if (localStorage.getItem(fallbackKey) && localStorage.getItem(key) === null) {
+                localStorage.setItem(key, JSON.stringify(history));
+                localStorage.removeItem(fallbackKey);
+            }
+            
+            container.innerHTML = '';
 
             if (history.length === 0) {
                 emptyMessage.style.display = 'block';
