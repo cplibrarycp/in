@@ -9,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     
     <style>
-        /* --- പൊതുവായ തീം സ്റ്റൈലുകൾ (ഭഗവദ്.html-ൽ നിന്നുള്ളവ) --- */
+        /* --- പൊതുവായ തീം സ്റ്റൈലുകൾ --- */
         :root { 
             --primary-orange: #00897B; /* ടീൽ നിറം */
             --secondary-dark: #004D40; /* കടും ടീൽ */
@@ -18,52 +18,67 @@
             --light-text: #FFFFFF;
         }
         
-        /* Layout Fixes */
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; margin: 0; }
-        .container { width: 90%; margin: 0 auto; max-width: 1200px; flex: 1; }
-        a { text-decoration: none; }
+        * { box-sizing: border-box; }
+        
+        /* Layout Fixes: Sticky Footer & Full Height */
+        html, body { height: 100%; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Poppins', sans-serif; background-color: var(--background-light); 
+            color: var(--text-color); min-height: 100vh; display: flex; 
+            flex-direction: column; margin: 0; line-height: 1.6;
+        }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; transition: 0.3s; }
 
         /* --- HEADER & NAVIGATION --- */
-        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
+        header { 
+            background-color: var(--secondary-dark); padding: 15px 0; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; 
+            top: 0; z-index: 1000; flex-shrink: 0; 
+        }
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
         .nav-links { display: flex; align-items: center; gap: 15px; }
         .nav-item { 
-            color: var(--light-text); 
-            font-weight: 600; 
-            font-size: 0.85em; 
-            text-transform: uppercase; 
-            padding: 8px 18px; 
-            border: 1px solid rgba(255,255,255,0.3); 
-            border-radius: 4px; 
-            transition: 0.3s; 
+            color: var(--light-text); font-weight: 600; font-size: 0.85em; 
+            text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); 
+            border-radius: 4px; transition: 0.3s; 
         }
         
-        /* ⭐⭐⭐ ഹെഡർ ബട്ടൺ ഹോവർ എഫക്റ്റ് (പുതിയത്) ⭐⭐⭐ */
         .nav-item:hover {
-            background-color: var(--primary-orange); /* നേരിയ ടീൽ നിറം */
-            border-color: var(--primary-orange); /* ബോർഡർ നിറം മാറ്റുന്നു */
+            background-color: var(--primary-orange);
+            border-color: var(--primary-orange); 
         }
-        /* ⭐⭐⭐ END of NEW CSS ⭐⭐⭐ */
 
         /* User Profile Styles */
-        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
-        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+        .user-profile { 
+            display: flex; align-items: center; margin-left: 25px; padding-left: 25px; 
+            border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; 
+        }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
         .user-info { color: #fff; font-size: 0.85em; text-align: left; }
         .user-name { font-weight: 600; display: block; }
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
-        .user-profile:hover .profile-dropdown { display: block; }
-        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+        /* Removed :hover CSS for dropdown, now controlled by JS click */
+        .profile-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
         .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
         /* --- FOOTER --- */
-        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
+        footer { 
+            background-color: var(--secondary-dark); color: var(--light-text); 
+            padding: 40px 0; text-align: center; font-size: 0.9em; 
+            margin-top: auto; flex-shrink: 0; 
+        }
         .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
 
         /* --- HISTORY CONTENT --- */
-        .history-section { padding: 50px 0; flex: 1; }
-        .history-section h1 { color: var(--secondary-dark); margin-bottom: 30px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+        .history-section { padding: 50px 0; flex-grow: 1; }
+        .history-section h1 { 
+            color: var(--secondary-dark); margin-bottom: 30px; 
+            border-bottom: 3px solid var(--primary-orange); display: inline-block; 
+            padding-bottom: 5px; 
+        }
         
         .history-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .history-card { 
@@ -87,7 +102,7 @@
         
         #emptyMessage, #loadingStatus { text-align: center; padding: 40px; font-size: 1.2em; color: #555; }
 
-        /* --- PDF MODAL (ഭഗവദ്.html-ൽ ഉള്ളത്) --- */
+        /* --- PDF MODAL (bhagavad.html-ൽ ഉള്ളത്) --- */
         .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
         .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
         .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
@@ -112,10 +127,10 @@
                         <span class="user-role">Member</span>
                     </div>
                     <div class="profile-dropdown">
-                        <a href="profile.html">Profile Settings</a>
-                        <a href="history.html">Reading History</a>
-                        <a href="profile-photo-upload.html">പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
-                        <a href="forgot-password.html">പാസ്‌വേർഡ് മറന്നു</a>
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                        <a href="profile-photo-upload.html"><i class="fas fa-camera"></i> പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
+                        <a href="forgot-password.html"><i class="fas fa-key"></i> പാസ്‌വേർഡ് മറന്നു</a>
                         <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
@@ -132,7 +147,7 @@
             </div>
             
             <div id="historyList" class="history-list">
-                </div>
+            </div>
             
             <div id="emptyMessage" style="display:none;">
                 <i class="fas fa-exclamation-circle"></i> നിങ്ങൾ ഇതുവരെ പുസ്തകങ്ങളൊന്നും വായിച്ചിട്ടില്ല.
@@ -171,7 +186,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
         
-        // ⭐ നിങ്ങളുടെ Firebase Config ഇവിടെ ചേർക്കുക ⭐
         const firebaseConfig = { 
             apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
             authDomain: "thripudilibrary.firebaseapp.com", 
@@ -183,7 +197,7 @@
         };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-
+        
         // --- AUTH & HISTORY LOAD ---
         onAuthStateChanged(auth, (user) => {
             const loadingStatus = document.getElementById('loadingStatus');
@@ -209,8 +223,9 @@
 
         // --- HISTORY LOADING FUNCTION ---
         function loadUserHistory(actualUserId) {
-            // Local Storage-ൽ നിന്ന് ഡാറ്റ എടുക്കുന്നു
+            // ലോക്കൽ സ്റ്റോറേജിലെ ഡാറ്റാ കീ: ഉപയോക്താവിൻ്റെ UID ഉപയോഗിച്ച് ഉണ്ടാക്കുന്നു
             const key = 'history_' + actualUserId; 
+            // Fallback key: മുമ്പ് ലോഗിൻ ഇല്ലാതെ വായിച്ചവ
             const fallbackKey = 'history_default_user'; 
 
             let history = JSON.parse(localStorage.getItem(key)) || JSON.parse(localStorage.getItem(fallbackKey)) || [];
@@ -224,6 +239,7 @@
 
             // കാർഡുകൾ ഉണ്ടാക്കുന്നു
             history.forEach(item => {
+                // Read Link-ൽ നിന്ന് Book ID വേർതിരിച്ചെടുക്കുന്നു
                 const bookId = item.link.split('bookId=')[1]; 
                 
                 const card = `
@@ -244,21 +260,20 @@
         
         // --- LOGOUT FUNCTION (Globalized) ---
         window.performLogout = function() {
-            signOut(auth).then(() => { 
+            signOut(auth).then(() => { 
                 localStorage.removeItem('libraryUser');
-                window.location.href = "logout-success.html"; 
+                window.location.href = "logout-success.html"; 
             });
         }
         document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); window.performLogout(); });
     </script>
     
     <script>
-        // --- MODAL OPEN/CLOSE LOGIC (bhagavad.html-ൽ ഉള്ളത്) ---
+        // --- MODAL OPEN/CLOSE LOGIC ---
         window.openPdfModal = function(bookId) {
             const modal = document.getElementById('pdfModal');
             const frame = document.getElementById('pdfFrame');
             
-            // Google Drive Link Conversion (ID ഉപയോഗിച്ച് Preview URL ഉണ്ടാക്കുന്നു)
             const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
 
             frame.src = embedUrl;
@@ -275,20 +290,24 @@
             document.body.style.overflow = "auto";
         }
 
-        // Profile Dropdown Close Logic
-        window.onclick = function(event) {
+        // Profile Dropdown Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
             const profileSection = document.getElementById('profile-section');
-            if (profileSection && !event.target.closest('.user-profile')) {
-                var dropdowns = document.querySelectorAll(".profile-dropdown");
-                dropdowns.forEach(d => d.style.display = "none");
+            if (profileSection) {
+                profileSection.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const dropdown = this.querySelector('.profile-dropdown');
+                    if (dropdown) dropdown.style.display = (dropdown.style.display === 'block' ? 'none' : 'block');
+                });
             }
-        }
-        
-        // Profile Dropdown Toggle
-        document.getElementById('profile-section').addEventListener('click', function(e) {
-            e.stopPropagation(); // തുള്ളിത്തെറിച്ചു പോകാതിരിക്കാൻ
-            const dropdown = this.querySelector('.profile-dropdown');
-            dropdown.style.display = (dropdown.style.display === 'block' ? 'none' : 'block');
+
+            // Close dropdown when clicking outside
+            window.onclick = function(event) {
+                if (!event.target.closest('.user-profile')) {
+                    var dropdowns = document.querySelectorAll(".profile-dropdown");
+                    dropdowns.forEach(d => d.style.display = "none");
+                }
+            }
         });
     </script>
 </body>
