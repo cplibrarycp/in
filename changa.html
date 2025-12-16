@@ -202,13 +202,13 @@
 </script>
 <script>
     // ==========================================
-    // മാറ്റം വരുത്തേണ്ടത് ഇവിടെ മാത്രം
+    // പുതിയ സെറ്റിംഗ്സ് (ഇതിൽ മാറ്റം വരുത്തണ്ട)
     // ==========================================
     
-    // 1. നിങ്ങളുടെ പുതിയ സ്ക്രിപ്റ്റ് ലിങ്ക് (ഞാൻ ഇത് സെറ്റ് ചെയ്തിട്ടുണ്ട്)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywNTrW5NxuXjI0Vl0c8LwO8uYCB45XIYDT8BI-y6L8cf1qH2NkjNAWQ5go3AhUB3OfQg/exec"; 
+    // 1. നിങ്ങളുടെ പുതിയ സ്ക്രിപ്റ്റ് ലിങ്ക്
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1HQFsE-ylV7OwVUR1hYI2T-_88-r5uwq64Ji0KH2a38gbbsiEM0cFoZ5lipMjSvQ-AA/exec"; 
     
-    // 2. ചങ്ങമ്പുഴ പുസ്തകങ്ങൾ ഉള്ള ഫോൾഡറിന്റെ ID ഇവിടെ പേസ്റ്റ് ചെയ്യുക
+    // 2. ചങ്ങമ്പുഴ ഫോൾഡർ ഐഡി
     const FOLDER_ID  = "1imAmPjHMcGovKm60vgewIW0L1Wn3H9vy";   
     
     // ==========================================
@@ -219,31 +219,31 @@
 
     function fetchBooks() {
         const container = document.getElementById('bookList');
-        container.innerHTML = '<p style="text-align:center; width:100%; color:#00897B; margin-top:20px;">പുസ്തകങ്ങൾ ലോഡ് ചെയ്യുന്നു... ദയവായി കാത്തിരിക്കൂ.</p>';
+        // ലോഡിംഗ് മെസ്സേജ്
+        container.innerHTML = '<div style="text-align:center; width:100%; padding:20px; color:#00897B;"><i class="fas fa-spinner fa-spin"></i> പുസ്തകങ്ങൾ ലോഡ് ചെയ്യുന്നു...</div>';
 
-        // സ്ക്രിപ്റ്റിലേക്ക് ഐഡി അയക്കുന്നു
         fetch(`${SCRIPT_URL}?folderId=${FOLDER_ID}`)
             .then(response => response.json())
             .then(books => {
-                container.innerHTML = ""; // ലോഡിംഗ് മെസ്സേജ് മാറ്റുന്നു
+                container.innerHTML = ""; 
                 
-                // എറർ മെസ്സേജ് വന്നാൽ (ഉദാ: ഐഡി തെറ്റാണെങ്കിൽ)
+                // എറർ ചെക്കിംഗ്
                 if (books.toString().startsWith("Error")) {
                     container.innerHTML = `<p style="color:red; text-align:center;">തകരാർ: ${books}</p>`;
                     return;
                 }
 
                 if (!books || books.length === 0) {
-                    container.innerHTML = '<p style="text-align:center;">ഈ ഫോൾഡറിൽ പുസ്തകങ്ങൾ ലഭ്യമല്ല.</p>';
+                    container.innerHTML = '<p style="text-align:center;">പുസ്തകങ്ങൾ ലഭ്യമല്ല.</p>';
                     return;
                 }
 
-                // പുസ്തകങ്ങൾ കാർഡുകളായി നിരത്തുന്നു
+                // കാർഡുകൾ ഉണ്ടാക്കുന്നു
                 books.forEach(book => {
                     const card = `
                     <div class="book-card">
                         <div class="image-wrapper">
-                            <img src="${book.image}" alt="${book.name}" class="book-cover" loading="lazy">
+                            <img src="${book.image}" alt="${book.name}" class="book-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
                             <div class="read-overlay">
                                 <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(this, '${book.url}')">
                                     വായന തുടങ്ങൂ <i class="fas fa-book-open"></i>
@@ -258,10 +258,11 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                container.innerHTML = '<p style="text-align:center; color:red;">കണക്ഷൻ തകരാർ. ദയവായി വീണ്ടും ശ്രമിക്കുക.</p>';
+                container.innerHTML = '<p style="text-align:center; color:red;">കണക്ഷൻ കിട്ടുന്നില്ല. ദയവായി റീഫ്രഷ് ചെയ്യൂ.</p>';
             });
     }
 </script>
 </body>
 </html>
+
 
