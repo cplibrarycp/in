@@ -144,7 +144,6 @@
                 window.currentUserUid = user.uid;
                 document.getElementById('display-name').textContent = user.displayName || "User";
                 
-                // Get stored photo URL (either from local storage or Firebase profile)
                 const savedPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
                 if(savedPhoto) {
                     document.getElementById('headerAvatar').innerHTML = `<img src="${savedPhoto}">`;
@@ -161,25 +160,24 @@
     </script>
 
     <script>
-        // ⭐⭐⭐ URL ഇവിടെ നിങ്ങളുടെ Apps Script URL ചേർക്കുക ⭐⭐⭐
+        // ⭐⭐⭐ URL: നിങ്ങൾ നൽകിയ ലിങ്ക് ഞാൻ ഇവിടെ ചേർക്കുന്നു ⭐⭐⭐
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywNTrW5NxuXjI0Vl0c8LwO8uYCB45XIYDT8BI-y6L8cf1qH2NkjNAWQ5go3AhUB3OfQg/exec"; 
 
-        // 1. Image Selection & Preview Logic
+        // 1. Get Elements
         const fileInput = document.getElementById('fileInput');
         const previewImg = document.getElementById('previewImg');
         const uploadBtn = document.getElementById('uploadBtn');
 
+        // 2. Button Enable/Preview Logic
         fileInput.addEventListener('change', function() {
             const file = this.files[0];
             
-            // ⭐ ഫിക്സ്: ഫയൽ തിരഞ്ഞെടുത്താൽ ബട്ടൺ ഉടൻ എനേബിൾ ചെയ്യുക
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Update Preview
                     previewImg.src = e.target.result;
                     
-                    // Button Enable Logic
+                    // ⭐ ബട്ടൺ എനേബിൾ ചെയ്യാനുള്ള പ്രധാന ലോജിക് (Fix)
                     uploadBtn.classList.add('active');
                     uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക (റെഡി)';
                 }
@@ -191,7 +189,7 @@
             }
         });
 
-        // 2. Upload Logic
+        // 3. Upload Logic
         document.getElementById('uploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -214,14 +212,19 @@
                 formData.append("action", "upload"); 
                 formData.append("fileData", base64Data);
                 formData.append("mimeType", file.type);
-                // Use a unique name based on UID for the file in Drive
                 formData.append("fileName", window.currentUserUid + "_profile_pic"); 
                 
                 fetch(APPS_SCRIPT_URL, {
                     method: "POST",
                     body: formData
                 })
-                .then(res => res.json())
+                .then(res => {
+                    // CORS Error ആണെങ്കിൽ (Fetch പരാജയപ്പെട്ടാൽ) .json() വരെ എത്തില്ല.
+                    if (!res.ok) {
+                        throw new Error('HTTP status ' + res.status);
+                    }
+                    return res.json();
+                })
                 .then(result => {
                     if (result.result === "Success") {
                         alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി! (പേജ് അപ്ഡേറ്റ് ചെയ്യുന്നു)");
@@ -233,13 +236,15 @@
                         window.location.reload(); 
                         
                     } else {
-                        alert("❌ പരാജയപ്പെട്ടു: " + (result.message || "Unknown error from server."));
+                        // കണക്ഷൻ കിട്ടി, പക്ഷെ Apps Script കോഡിൽ എറർ (ഫോട്ടോ വലുപ്പം/ഡ്രൈവ് പ്രശ്നം)
+                        alert("❌ സെർവർ എറർ: " + (result.message || "Unknown error from server."));
                         uploadBtn.classList.add('active');
                         uploadBtn.innerHTML = 'വീണ്ടും ശ്രമിക്കുക';
                     }
                 })
                 .catch(err => { 
-                    console.error("Fetch Error:", err); 
+                    // കണക്ഷൻ തകരാർ (CORS/URL പ്രശ്നം) അല്ലെങ്കിൽ 404/403 എറർ
+                    console.error("Fetch/Network Error:", err); 
                     alert("❌ കണക്ഷൻ തകരാർ. Apps Script URL, Deployment എന്നിവ പരിശോധിക്കുക."); 
                     // Re-enable button on failure
                     uploadBtn.classList.add('active');
@@ -258,5 +263,3 @@
     </script>
 </body>
 </html>
-
-
