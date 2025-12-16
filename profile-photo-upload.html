@@ -55,7 +55,8 @@
             color: white; border: none; 
             padding: 12px 30px; border-radius: 50px; 
             font-size: 1em; font-weight: 700; 
-            cursor: pointer; width: 100%; 
+            cursor: default; /* Changed cursor to default when disabled */
+            width: 100%; 
             transition: 0.3s; margin-top: 15px; 
             opacity: 0.5; /* Initial disabled style */
             pointer-events: none; /* Block clicks when disabled */
@@ -65,7 +66,7 @@
         .btn-upload.active { 
             opacity: 1; 
             pointer-events: auto; 
-            background: var(--secondary-dark); /* Color when active */
+            background: var(--secondary-dark); 
             cursor: pointer;
         }
         .btn-upload.active:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
@@ -160,8 +161,7 @@
 
     <script>
         // ⭐⭐⭐ URL ഇവിടെ നിങ്ങളുടെ Apps Script URL ചേർക്കുക ⭐⭐⭐
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywNTrW5NxuXjI0Vl0c8LwO8uYCB45XIYDT8BI-y6L8cf1qH2NkjNAWQ5go3AhUB3OfQg/exec
-"; 
+        const APPS_SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE"; 
 
         // 1. Image Selection & Preview Logic
         const fileInput = document.getElementById('fileInput');
@@ -171,6 +171,7 @@
         fileInput.addEventListener('change', function() {
             const file = this.files[0];
             
+            // Check if a file is actually selected
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -179,11 +180,11 @@
                     
                     // ⭐⭐⭐ ഫിക്സ്: ബട്ടൺ എനേബിൾ ചെയ്യുന്നു ⭐⭐⭐
                     uploadBtn.classList.add('active');
-                    uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക';
+                    uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക (റെഡി)';
                 }
                 reader.readAsDataURL(file);
             } else {
-                // If selection is cancelled, disable button
+                // If selection is cancelled or no file is chosen
                 uploadBtn.classList.remove('active');
                 uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക';
             }
@@ -221,7 +222,7 @@
                 .then(res => res.json())
                 .then(result => {
                     if (result.result === "Success") {
-                        // ⭐⭐⭐ ഫിക്സ്: പേജ് റീലോഡ് ചെയ്യുമ്പോൾ അപ്ഡേറ്റ് ഉറപ്പാക്കുന്നു ⭐⭐⭐
+                        // ⭐ ഫിക്സ്: വിജയകരമായ ശേഷം പേജ് റീലോഡ് ചെയ്യുന്നു ⭐
                         alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി! (പേജ് അപ്ഡേറ്റ് ചെയ്യുന്നു)");
                         
                         localStorage.setItem('userPhoto_' + window.currentUserUid, result.photoUrl);
@@ -235,8 +236,9 @@
                     }
                 })
                 .catch(err => { 
-                    console.error(err); 
-                    alert("❌ കണക്ഷൻ തകരാർ."); 
+                    console.error("Fetch Error:", err); 
+                    alert("❌ കണക്ഷൻ തകരാർ. Apps Script URL, Deployment എന്നിവ പരിശോധിക്കുക."); 
+                    // Re-enable button on failure
                     uploadBtn.classList.add('active');
                     uploadBtn.innerHTML = 'വീണ്ടും ശ്രമിക്കുക';
                 });
