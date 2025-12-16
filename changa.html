@@ -178,7 +178,7 @@
         
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        let currentUser = null; // ലോഗിൻ ചെയ്ത ആളെ ഓർത്തു വെക്കാൻ
+        let currentUser = null; 
 
         // ലോഗിൻ സ്റ്റാറ്റസ് പരിശോധിക്കുന്നു
         onAuthStateChanged(auth, (user) => {
@@ -195,11 +195,12 @@
                 if(nameDisplay) nameDisplay.textContent = displayName;
                 if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
 
-                // ലോഗിൻ ചെയ്ത ശേഷം പെൻഡിംഗ് ബുക്കിലേക്ക് പോകാൻ
+                // **REDIRECT LOGIC**: പെൻഡിംഗ് ബുക്ക് ഉണ്ടെങ്കിൽ read.html-ലേക്ക് വിടുന്നു
                 const pendingUrl = sessionStorage.getItem('pendingBook');
                 if (pendingUrl && pendingUrl !== 'javascript:void(0)') {
                     sessionStorage.removeItem('pendingBook');
-                    window.location.href = pendingUrl;
+                    sessionStorage.setItem('currentBook', pendingUrl); // വായനയ്ക്കായി സേവ് ചെയ്യുന്നു
+                    window.location.href = "read.html"; // റീഡർ പേജിലേക്ക് പോകുന്നു
                 }
             } else {
                 currentUser = null;
@@ -272,17 +273,22 @@
         }
 
         // -----------------------------------------------------------
-        // PART 3: READ ACCESS & HISTORY
+        // PART 3: READ ACCESS & HISTORY (CORRECTED)
         // -----------------------------------------------------------
 
-        // ബട്ടൺ ക്ലിക്ക് ചെയ്യുമ്പോൾ ഇത് പ്രവർത്തിക്കും (Globally accessible)
+        // ബട്ടൺ ക്ലിക്ക് ചെയ്യുമ്പോൾ ഇത് പ്രവർത്തിക്കും
         window.checkAccess = function(element, targetUrl) {
             if (!targetUrl || targetUrl === 'javascript:void(0)') return;
 
             if (currentUser) {
-                // ലോഗിൻ ഉണ്ടെങ്കിൽ ഹിസ്റ്ററി സേവ് ചെയ്ത് വായിക്കാൻ വിടുന്നു
+                // 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
                 saveToHistory(element, targetUrl);
-                window.location.href = targetUrl;
+
+                // 2. വായിക്കാനുള്ള ബുക്ക് ലിങ്ക് സേവ് ചെയ്യുന്നു
+                sessionStorage.setItem('currentBook', targetUrl);
+
+                // 3. read.html പേജിലേക്ക് പോകുന്നു (ഇതാണ് തിരുത്തിയത്)
+                window.location.href = "read.html";
             } else {
                 // ലോഗിൻ ഇല്ലെങ്കിൽ തടയുന്നു -> പോപ്പ്അപ്പ് കാണിക്കുന്നു
                 sessionStorage.setItem('pendingBook', targetUrl);
