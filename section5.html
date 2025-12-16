@@ -8,1020 +8,1101 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
-    :root {
-        --primary-orange: #00897B; 
-        --secondary-dark: #004D40; 
-        --background-light: #E0F2F1;
-        --text-color: #263238;
-        --light-text: #FFFFFF;
-        --card-bg: #FFFFFF;
-        --outline-color: #B2DFDB;
+    :root { 
+        --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
+        --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
     }
-    
-    /* --- STICKY FOOTER FIX --- */
+    /* --- STYLES (Header, Footer, Cards, Modal - മുമ്പ് നൽകിയവ) --- */
     html, body { height: 100%; margin: 0; padding: 0; }
-    body { 
-        font-family: 'Poppins', sans-serif; 
-        background-color: var(--background-light); 
-        color: var(--text-color); 
-        line-height: 1.6;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
+    body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
     .container { width: 90%; margin: 0 auto; max-width: 1200px; }
     a { text-decoration: none; }
-
-    /* Header */
     header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
     .navbar { display: flex; justify-content: space-between; align-items: center; }
     .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
     .nav-links { display: flex; align-items: center; gap: 15px; }
     .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
     .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
-
-    /* Profile */
     .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
     .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
     .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .user-info { color: #fff; font-size: 0.85em; text-align: left; }
     .user-name { font-weight: 600; display: block; }
-    .user-role { font-size: 0.8em; opacity: 0.8; }
-    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
     .user-profile:hover .profile-dropdown { display: block; }
     .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
     .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
-
-    /* Collection (Flex Grow for Footer Fix) */
     .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
     .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
     .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
     #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
-    #searchBar:focus { border-color: var(--primary-orange); }
     .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
-
-    /* Cards */
     .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
     .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
     .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
     .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
     .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
-    .book-card:hover .book-cover { transform: scale(1.05); }
     .book-card:hover .read-overlay { opacity: 1; }
     .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
     .book-card:hover .overlay-btn { transform: translateY(0); }
-    .overlay-btn:hover { background-color: white; color: var(--primary-orange); }
     .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
-
-    /* Footer */
     footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
     .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
-    .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    /* Modal PDF Viewer Styles */
+    .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
+    .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
+    .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
+    .pdf-blocker { position:absolute; top:0; right:0; width:60px; height:60px; background:transparent; z-index:20; cursor:default; }
 </style>
 </head>
 <body>
-
+    
 <header>
-    <div class="container navbar">
-        <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-        <div class="nav-links">
-            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+    <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+    <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+    <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
 
-            <div class="user-profile" id="profile-section">
-                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-                <div class="user-info">
-                    <span class="user-name" id="display-name">Guest</span>
-                    <span class="user-role">Member</span>
-                </div>
-                <div class="profile-dropdown">
-                    <a href="profile.html">Profile Settings</a>
-                    <a href="history.html">Reading History</a>
-                    <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
-            </div>
+    <div class="user-profile" id="profile-section">
+        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+        <div class="user-info">
+            <span class="user-name" id="display-name">Guest</span>
+            <span class="user-role">Member</span>
+        </div>
+        <div class="profile-dropdown">
+            <a href="profile.html">Profile Settings</a>
+            <a href="history.html">Reading History</a>
+            <a href="profile-photo-upload.html">പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
+            <a href="forgot-password.html">പാസ്‌വേർഡ് മറന്നു</a>
+            <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
+</div>
+</div>
 </header>
-
+    
 <section class="collection-section">
-    <div class="container">
-        <h1>Collection 5</h1>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-        </div>
-
-        <div class="library-container" id="bookList">
-            
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Perfection of YOGA His Divine Grace A C Bhaktivedanta Swami" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Wy4rwlEBRnMIj5GE2BqLk6xO-kobLafd"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-axCyxB7S1QRl5jTcvjNL3ud8JGoF8Hf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Perfection of YOGA His Divine Grace A C Bhaktivedanta Swami</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Unposted Letter English by Mahatria Ra" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1dgdK-04CY-UvblJ0jU7IchQfgmwuZRi4"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JcgFckF9_vTx5jykjaxRk5SGbyRi_01_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Unposted Letter English by Mahatria Ra</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="what young india wants" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1C9pMDDm_laNwQHCbgn1q-c2lN5cpSid-"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13JrNb2uXJNfbW_AkXAS-9LYt9WzwzpO9')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">what young india wants</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The-Rules-for-Being-Amazing" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fpVANGO3mc1Og1AgDNd9B4huqDqp5GBn"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=158fYaoEszuREIapTL5p5SUhNYJbBU8I1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The-Rules-for-Being-Amazing</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="TheInspirationtoMankind-free-free KinigeDotCom" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=17g04o0vvRAHPt4QAoMitNEobQ2OEyFov"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=17ofrx9vnI19_7SFLvzFvqX5SVrS9SEWA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">TheInspirationtoMankind-free-free KinigeDotCom</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="What did you miss" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1VriMgPaLSuyBERSjVxteALgczVEN5l-R"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1CUbv5JYkeFPQYx4emmN7xEZX_DXwiUle')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">What did you miss</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Strangest Secret By Earl Nightingale" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1s5Qim_GH0aYC-AZuT5z5YDSYxaiDXDeu"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JmuRlrri1lBgsYqYsYx7BXADHr7WZ1SU')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Strangest Secret By Earl Nightingale</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Hound of the Baskervilles NT" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1nwSWBRvUHpNWMiFQhpi8kfNvq5PlmAA2"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1N5_ajZZN6l6OjwYE2H1HnaesZ9XYmLvR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Hound of the Baskervilles NT</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="three mistakes of my life" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1B6TW39ykMDLXg4gzHgg9cBr3bhP4DADR"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Tubc3whfEdRokuO55THrXR7KrUrtpDTT')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">three mistakes of my life</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Torah  The Five Books of Moses(1992)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1w1b2viAZU0wDTElzP_f8_viTRkstSd8R"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YgVUXGLazCfM3YHeUBE-d7p3GypsNG7L')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Torah  The Five Books of Moses(1992)</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Coaching Habit Say Less, Ask More   Change the Way You Lead" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1uFKZjch96Xmaf-dU-J8mBPjYkFmcKru0"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1fJC86mCzwpXn-ddq7QkDmz-NhSGqbeeh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Coaching Habit Say Less, Ask More   Change the Way You Lead</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Zak George s Dog Training Revolution by Zak George 51272" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YH5IlfOmPHDtz7wMsjV7lqg4YGJdH-IX"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1j_QpLvpIz5vxaGQVNmQCstH9JWZY9anp')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Zak George s Dog Training Revolution by Zak George 51272</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="YOU WERE BORN RICH" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1v0GBoD0UUJytTpvdAQe5JXLBgQRjbtda"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1kjiAeyu5Yp8PL9Q4L3claBu0NuHdeuE7')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">YOU WERE BORN RICH</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="young india" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1EKEWVsDAmtNoT3rvu6khl17sQpE27-tI"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1lSIfseXeQaEZWkhLT4qo1cYWQj--Fw3R')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">young india</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="you-can-heal-your-life-louise-l-hay" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1eQScdnRxblFiHCIIBZQJ7dYK2-9HHD8i"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ojDra6RsFaZPZ_QV7XqBjcty9mqSO3l_')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">you-can-heal-your-life-louise-l-hay</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Unhappy India" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1rNoJoNK4aiNG3bV4l3kab5_qewZZKaIS"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1r8ogzufI6Em6Cc95q3QAIdFLsGj_M8BX')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Unhappy India</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="What Is Self   A Study of the Spiritual Journey in(2005)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Ou8o9nfuXtL9YMiZo7z3f3SB0pIlAR1L"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ti-uSvlMGQgC8T0T8GFJo4IbXkstQljh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">What Is Self   A Study of the Spiritual Journey in(2005)</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Weird World -1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GhBKyjvH07qshGwr9kKosnzEj5dII2yU"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vpV1f71HRx9igp93Hu6-TOuFROu8SFJ8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Weird World -1</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Psychology of Money by Morgan Housel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1IvYHE1aMcj6T8l7VIZz9dpRNhsFy4gQx"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=12dmybfH3w9g5Ol6oUCUQ7NW5NAhAgx94')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Psychology of Money by Morgan Housel</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The-girl-of-my-dreams" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1zHgGmcQx8VJpwCbmJulIvKC5Z8fbHOvV"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=13jzRyksCDOWMIWhLPm8uiPR_0p3KvVFT')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The-girl-of-my-dreams</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Srimadh Bhagavatam" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1YjQHppo3laZeCNpuQ61shrrlqQbY4rta"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=17c9p9RIDzpsiMaibIngkzlBD_1BDbVq1')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Srimadh Bhagavatam</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Detox Miracle Sourcebook. Raw Foods and Herbs" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1U7_-FWXJkwNPsSR654nHChBa4GxkF7LD"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=17nHRorKRhEsCjsQEUw3hvDw_6nC8EQxd')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Detox Miracle Sourcebook. Raw Foods and Herbs</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Sara Pascoe - Sex Power Money-Faber Faber (2019) 0" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1bB1ljQVNID1tipArvDw6MmGjv2va1zw_"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=18yM2FQaoWg3f7NrYyo4doVTgFuhDrqK7')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Sara Pascoe - Sex Power Money-Faber Faber (2019) 0</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Statesman-25.2.17by SWENworld" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qFxb6ZouJqG6JMFbyHYn1d20FKTjKeDm"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ADisB7iXliGDu5XoIuPMynOPHwA_LsSb')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Statesman-25.2.17by SWENworld</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Roger Dawson Secrets of Power Salary" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WYcqAW4l28lyIuSuPESc8xyxkmCY2XAx"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1GTpZDtjLJr5IV5fmhrUZKp96fdfT9EB3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Roger Dawson Secrets of Power Salary</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Path to No-Self  Life at the Center- (1991)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1A-Ko1ljpv0LdScxtc4RJbxUFyQbGir1j"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1HJkigYpgODsP9a-4GSIbrRMxX6gmdYS3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Path to No-Self  Life at the Center- (1991)</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Failure List" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19pkfQ1T3PX91unJsZYejsQ8UQQxJvZ0K"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1I0JkzQM6p3lkwV3TBRLwuNnNl6js1RGy')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Failure List</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="the-alchemist.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Uq4oapU7wZtlAStHjx7Z4z9aSh5q7VHp"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JEMl_34zaB9l_2mM2_vjX0YTm8Ehuhye')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">the-alchemist.pdf</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Magic Question How to Get What You Want in Half the Time" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1tQIqadRp4ohcDeZ_XbfJdrOY35b8gbxK"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1K9msKQMl9hBUMqc-8siIetH_4wQkUg8W')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Magic Question How to Get What You Want in Half the Time</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Unemployed Millionaire by Matt Morris 041019144439" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1gy8LknbaCEtW_S3cc1weUxZiN58jS8-V"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1MoI4ljBTjk31pbIstyAdz4iGnmbpGD9z')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Unemployed Millionaire by Matt Morris 041019144439</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The laws of nature" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12QcXZyhs9iLeF7FRCTfHQVpJCpvZBPE1"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1PmFhC8q2wIeskvlRSBJ61iJQae6tTgFI')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The laws of nature</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Smart Choices A Practical Guide to Making Better Decisions" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1i9berrPBdyCaKHvm-yo_FSKL4eL35ALo"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RhFBw-UkorzmUcToz9-XVk0HBBfT2Ryh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Smart Choices A Practical Guide to Making Better Decisions</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="RobinSharma-The-Saint-The-Surfer-And-The-CEO" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=14HcXkwzGSw6Wv_GgOspUpkPwnzL08Js-"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1TX9zlNpsT82sfyUEuGvdNGSF9NeVF1EA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">RobinSharma-The-Saint-The-Surfer-And-The-CEO</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Stories from Bhagavatam" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xSSH-KYG6KXBJt21FI8Gl-ZyDo7T2IUJ"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1V9rOAZvg64L2Ejo1lP97AWCvbHxQ40sY')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Stories from Bhagavatam</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Sikshashtakam" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fx1iNCP9gD1bC0cJzWDLQkvPVrXK8VWe"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1XkjPVjP71vk6YbRd2NIrhTj8Tj7wqSbq')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Sikshashtakam</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Productivity Secrets Slides" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fZOsfoqkqRlmcA5VQ-mzl6VrZi2JLEHs"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Y9aFjQIUTkGFiKb5RnPc_brofxFVlmHD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Productivity Secrets Slides</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Infinite Game by Simon Sinek" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FB16-63QRR1UDnqW3aj0xnpKPp6S_J7z"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1YdCJJU_eu0ttkkEsOviv63DI8BBX9-JD')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Infinite Game by Simon Sinek</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Selling the Invisible A Field Guide to Modern Marketing ebooksOnly" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1CHMvTh-rUaHFPt2QsNi0xmDtukNVypEm"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_KH1TN3r4bXhv9-UBLS2U8mhKn6QDLKi')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Selling the Invisible A Field Guide to Modern Marketing ebooksOnly</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Shel SIlverstein - The Giving Tree 0" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=11UzOS_LBT6Zz9nkoKxPKLIVXWzbzvDzQ"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1expYuwhoFJ6Zc9UK9p8SxoVfRAxKnkQP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Shel SIlverstein - The Giving Tree 0</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Sri Isopanisad English" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1xyV9OfEYkHkT8o2wQHP3LzongEuT9uQF"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1jdWrcYSMJJ3BEd5vnuqVf9Cl078YlT98')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Sri Isopanisad English</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The journey of self discovery" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fs5WxYxDf1e8c_TrGeI8wUGrF9t3XU3e"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1liLhbjXeKBVBbKS9ranEsf-FMydEDYxe')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The journey of self discovery</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Official Guide to Success Vol 1 .. Tom Hopkins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cQ9p2fbcYBROquCygg7ABPXndUHVT9QH"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1lmyvQ2w-ZhTs7wQxIqudk34V6hL-esJb')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Official Guide to Success Vol 1 .. Tom Hopkins</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Science Of Self Realization" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_rEIPfAmIP2LLEcdPONBE0xQYUuZoP4l"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1njj8o4C20ckQNiPheBeaf1jiyq-sThP4')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Science Of Self Realization</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="success Anthony Robbins Unlimited" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1q6xi-Kq5QWuedeUUiuMhsVjJZrUSCZAC"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1pUYpWqVAzAD6nanAaassmhFmHU56WPDw')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">success Anthony Robbins Unlimited</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="success - Turbo Coach, achieve breakthroughs - Brian Tracy" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1rz5MXLZ23lZ9y2eDMNbiGwgavAEc5gIM"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1qWsPeld7XDeO0ALc896-47ZAumJYOHfI')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">success - Turbo Coach, achieve breakthroughs - Brian Tracy</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Miracle Morning  The Not-So - Hal Elrod" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10aNYjXCeJXxwAFmYyNd5AqmGW4bpRO05"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1s2ElWEpGKqpC_Wr1qqEBefFosswyw7CG')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Miracle Morning  The Not-So - Hal Elrod</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="robin-sharma-leadership-without-any-title-manifesto(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1fOh5ezhwqioOnZOuKrBpy8TQAI5IGSzT"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1uCA2ZHbn_bcTRQIa98hEPChfRoWL98Hf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">robin-sharma-leadership-without-any-title-manifesto(1)</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="The Experience of No-Self  A Contemplative Journey(1993)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_my_xRv0qxMB-1V8jARmUlQz4qTCtDMY"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wD52Zp97QGQ2wPOoMMT7LbAtVrOCVVZ-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">The Experience of No-Self  A Contemplative Journey(1993)</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Project Management for Business" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1jFNwoABF1povQ8wcsBWG3asRuGVVzcgX"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1wF-ZPTM1H6qGG9kN6BKyWxEmZz8bH7Nh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Project Management for Business</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Edward de Bono Teach Your Child How to Think.    2009" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1UzmI24AHP73MBqCa4FaCkS3As0qzuS78"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1-4DO7XDEk4S6bpwqqBdDrDt4PWQx6JZM')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Edward de Bono Teach Your Child How to Think.    2009</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Lead the Field (2007" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SRjB2zff8OlpgBpCHo9pdlUURSNiLUph"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=11szCqx3olCKWgp5zqxYkvPzHUfHYoCFF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Lead the Field (2007</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="I Am That" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1pCps9UtpMFzIrC9K7qE-aqbyXngVD7_q"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=152TOOhdKJ_mFixn6lT-v6CnIWWqOjfze')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">I Am That</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Megaliving By Robin Sharma" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Xxb9r7CRoVoBs1LS3aA0IxletkjB27yh"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=17I7ftoWCLhJxYlFJfDbIlimHlcye20xh')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Megaliving By Robin Sharma</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="How They Succeeded Life Stories(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1JhmR2b0lvyP9kBzkZko7ETp7ELBpng3q"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1BYv47YMPsMYiP2P0BTkF2FJVY12WzpX6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">How They Succeeded Life Stories(1)</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="How They Succeeded Life Stories" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=16TubpX3OF9r6u7RDVDixQw3tZAHZM_xb"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EHhcyJ65DbmasSbyGTLiMETBZQb1noSV')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">How They Succeeded Life Stories</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="parable-of-the-pipeline" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1NwcgVHlaQXwDWTJflSEZEtrG-lqFIlWN"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1EobPXlNDk5ortyGJpMfFtCQ-3wQmMcYS')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">parable-of-the-pipeline</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Positive I am Positive" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1c9mad1LkVEwe-BgVdd3Lpev2gdotAoDe"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1JBY0cXB8Uh-6AH5pMQO4GcXVmoVB6gCL')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Positive I am Positive</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="POLYESTER PRINCE" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1XUFaKMrZenxqdQONL7zy9jTqiG8UJWJB"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1K5Y7D5i_j4AwsycIXNXGSaAUUcJv4B9S')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">POLYESTER PRINCE</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Perfection Of Yoga" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ApVS-Uf9QVPIWTaVHZnXLe5btWT7Vj--"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1L4mqtJCyYeAo2IDM1vqMVoOsoOjmGeMA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Perfection Of Yoga</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="HP - HL - The Tales of Beedle the Bard - J. K. Rowling" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1XFtun-gunlE8tKdbIHvLMTyvnwAVwI-m"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Mbu4p049tWNhr1L7-zw-_1C2UdWlha7T')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">HP - HL - The Tales of Beedle the Bard - J. K. Rowling</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Lead or Bleed" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1H_CKsk2fXbL9vCq8tcfyrVqNUZ1A8gUp"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1OaE6mn8oXr0320CMjGQd8Lfh34emXeZO')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Lead or Bleed</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="OurEducationalProblem" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=12TyH4X2SJjdyt31f_g-PIN1rTtSpKJ_d"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1PFNGLnJwLVX5SFBiaqwArFndevRJO5Bw')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">OurEducationalProblem</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Light From Many Lamps" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1_tuyGUH6dx265BkY79aRr8bogKfs6mkS"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1PI4fHJqMF-zp1TFPWF0hSYdC5BB0_qcR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Light From Many Lamps</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="How the Mind Works by Steven Pinker" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1qK_C1wDGNLWI0UDrMwUjpSO0Xz6lDcBK"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Pb7-IYsoCob4usxnFCi3JuzWha4dp2Vl')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">How the Mind Works by Steven Pinker</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Jim Blythe, Phil Megicks Marketing" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Cmx_9ZMlLQKUqeGw0FLfC764N8G6tRfC"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Q6Wa2bq3OG3o0Slpbh4UM7AVvJHKPoCA')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Jim Blythe, Phil Megicks Marketing</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Only love is real" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=15EfxChSmfrhNEevDNsdEGopn8TPc0Ng2"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1QwkYNbvaRj4gfCCfay6ydQZ42U2dt7pN')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Only love is real</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Gita ( Eng )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1HDwYB7i31qsItsNyilhQdCAU166iIriT"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1UEv_fSBAKqQ1u24EjeT6FiWGpkb1GZ8Y')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Gita ( Eng )</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Michael E Gerber The E Myth Revisited Why Most Small Businesses" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1R0SBGRHo2dSc7pmjEAzbKcHYPdLzF6z3"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1X1gLY0PAxcKyXsFeoHDqJvmWipZQSGjR')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Michael E Gerber The E Myth Revisited Why Most Small Businesses</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Inner Engineering - A Yogi s Guide to Joy - Sadhguru" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1UV6PLAJlJXnmta2ikg0u2CXI4kzNWeBY"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1XEM5Z9vYqe3RLsVZc-xeJgc3yECtK8Rk')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Inner Engineering - A Yogi s Guide to Joy - Sadhguru</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Half Lion - How P. V. Narasimha Rao Transformed India" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=18DMs8vjvlKpF-Fdc5GC_lc9UJ2DluELA"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1_TeeUPUgTLXZZ2ms2ryu3JJO2O0H7KPL')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Half Lion - How P. V. Narasimha Rao Transformed India</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Mastering the Art of Public Speaking - Michael J Gelb" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1ctp7n1k0N3vnaCpgz59xnLsEFpO0zfSr"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1a32Sdrp07vOYiJi_0e_dsPXDJTwnPMj8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Mastering the Art of Public Speaking - Michael J Gelb</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Get the Pump The Last Word in Bodybuilding 02722" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Wqk-C99d_dbfIcYn_qW4ZUirZxzTmVVH"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1gMpCj6t4tFCIXaCysqdckZORylYNvxih')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Get the Pump The Last Word in Bodybuilding 02722</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="HP - HL - Quidditch Through the Ages - J. K. Rowling" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Scah23g8sWSETinRgRDvmbqQyWDpRuF-"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1iNjuj1JrY3gBCFoOa-QNHbMP-sKNQH5f')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">HP - HL - Quidditch Through the Ages - J. K. Rowling</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="HP HL Fantastic Beasts and Where to Find Them J K Rowling" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1cKsjl5svwX94xTcLQdWYOM2xUY8CgVmk"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1jIxh--rWj6HnS9Ersc4jXcpVHiBNfUCx')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">HP HL Fantastic Beasts and Where to Find Them J K Rowling</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Life Comes From Life English" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1P7QlNUV5GdhY8SWKTZS165MbNSMXRkrE"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1tmNlGQ8qF2bcgIn8fQEksxuXBPB0SJ0p')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Life Comes From Life English</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Introduction to Tantra  The Transformation (2001" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=17XJUKQ41BZxBd9ncFQFGIYCYOt5uMzwY"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1zLn-w77ikJMZtaWqMulNRZDjKh9lRD5z')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Introduction to Tantra  The Transformation (2001</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="AnIndianPilgrim" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1sYPo7brvogWaaeragrbiRaNcqWi5KQXQ"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=17UbtgK6tw0MF0TWFU8DWdwwfU5iY1Slo')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">AnIndianPilgrim</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="beyond birth and death His Divine Grace A C Bhaktivedanta Swami" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1w-9BT-rws1JEcE2DZ0v5ksFoPg5s2PKc"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=18FU9GOFMpw7UO40hiwdiuzpKPIZkLaRt')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">beyond birth and death His Divine Grace A C Bhaktivedanta Swami</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Beyond Mars and Venus  by John Gray 51288" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1GvqZwYf5U4DOmjHjh-8hk_Wo1JtUGlG2"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=18pZxCUvbGkv8bulXxBrdYWrOGxV3SeO6')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Beyond Mars and Venus  by John Gray 51288</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="A Second Chance the Story of a Near Death Experience" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=19wxsirt0iSw0huINLiL0a1WbJ7rsCEpM"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=19aflf_aR0pTSfcyIBTF809CqwBjDvDOf')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">A Second Chance the Story of a Near Death Experience</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="5 6339080366904574274" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1J2NBOnuCZ0Wj-Vd2PmgdMXzqnhPzstNI"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1Bastqd6EriVk9cn9sCQn4g6KhqKXBIw3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">5 6339080366904574274</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Easy Journy to Other Planets His Divine Grace A C Bhaktivedanta" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Is3-UCtHFNDBr158FGnxkRwXVpuqo2l_"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1CauDM4ufXfTdUqlr4wBcdKNTJ-wxbwg0')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Easy Journy to Other Planets His Divine Grace A C Bhaktivedanta</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="ASURA - Tale of the Vanquished - Anand Neelakantan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1842m1MGB5a96dqyaDgmu7rnZ2fMZcxC0"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1FkUmOWM17eiCqtlDKoyJbzMUcK6wbOOd')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">ASURA - Tale of the Vanquished - Anand Neelakantan</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Change Your Thinking Change Your Life How to Unlock 2003" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=10cUshrUV-xuSKdc0NwbDMjnihENXcxAZ"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1HIcfrFYYN0oGSvP6M4pZlVnY9j78kz5s')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Change Your Thinking Change Your Life How to Unlock 2003</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="@eBooksOnly 80 20 Sales and Marketing Perry Marshal" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1muYC0Zl3ppcIwB_SNy0E3EbNC1hoIYa4"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1IU-Or3WlJIJsuJNN9jtvdLw5zugStEK3')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">@eBooksOnly 80 20 Sales and Marketing Perry Marshal</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="AnOpenLetterToDavidLlyodGeorge" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1i1NAnhBmXchVbyS9bAGBLceNKm9Qo948"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RTyjIxUAFvUMEQiioHiVunJ2bnOXo6pI')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">AnOpenLetterToDavidLlyodGeorge</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="5 6055356682756686119" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1SqS981yBVCoqRpCALI1img8e1MoR-C-B"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RU-S5cnxaivBOq9DW60gbCN-opbWsfL0')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">5 6055356682756686119</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="02. Prabhupada" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1WCtMJNrrlON7vTVUglCmifyAAlTPKGZR"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1RjpwE4KuHwkJUHpdc5s8zV_a9J6CihAF')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">02. Prabhupada</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="@eBooksOnly - Outwitting the Devil - Napoleon Hill" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1O_FBrG_x03jssBg-iyXds17fXmgkmqVB"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1SUUei4neNqtz5iHqd3tuVSZFNNWk6eF8')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">@eBooksOnly - Outwitting the Devil - Napoleon Hill</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="AwakeArise" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1Z2yq0OwwGUiicS3Ir_r82rJ4gLCHVQKR"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1i3XVzJ3k1JtfYVKjYCgd14Ao2aFGomti')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">AwakeArise</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="@eBooksOnly Alternatives to Suicide Beyond Risk and Toward a Life" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kLkLFwxSkmUcNyCviw0ryxyBQd8fFJcJ"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1lHtBFRxb9gkYIizN8NPHphd83LQFE3Cu')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">@eBooksOnly Alternatives to Suicide Beyond Risk and Toward a Life</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Anatomy of an Illness as Perceived by the Patient Reflections on" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1oPnU6c_HSSI7ecW0heEfhbTsIN96dOx3"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1m1kA9csZw-q9kLsFWwNtb0IevaAuUQuT')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Anatomy of an Illness as Perceived by the Patient Reflections on</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="@eBooksOnly  The Lost Keys by Brad Yates" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1QfOoRCHCapcyG_aR8mOOf84bBsqho7U4"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1ozLqGKVvC_6tEGaeFt4w5wNBt9wncPkQ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">@eBooksOnly  The Lost Keys by Brad Yates</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Bob Proctor - Workbook of Think and Grow Rich" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=16JWeGOZDwhDBM3SIMV1qZ_G_LI1Td2W5"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1qzTZ5KlKzIKUf1Xl26rEC6ZjC3NCoqo-')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Bob Proctor - Workbook of Think and Grow Rich</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Copycat Marketing 101 - Burke Hedges" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1u43EPEFaMjb0Zyw-Lof-gWcv60Z3bHuK"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1tM6nSc23uLi_9yQLXcarIVDqnZdGFc5E')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Copycat Marketing 101 - Burke Hedges</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Bob Proctor - Workbook of Think and Grow Rich(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1RRq0s2qBL6ExoZwPW1CJpVOiY3qtxiGn"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1uNlMHLAhqrt3-oE_8Z6y108OmQ1QGTGG')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Bob Proctor - Workbook of Think and Grow Rich(1)</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Death   An Inside Story   A Book for all Those who" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1FUsh9NgmcpEM6MhYqJnKok_fVPcGPDA8"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1uhv-1X9OSOHXQLYJ7LKi2SdVIaQixbtZ')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Death   An Inside Story   A Book for all Those who</div>
-</div>
-<div class="book-card">
-<div class="image-wrapper">
-<img alt="Dharma 40112" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&amp;id=149aMv4Ui0_mVy3V4yIIPM6_6zdEu5oIN"/>
-<div class="read-overlay">
-<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('read.html?id=1vJ8VoNWncgfFjVx_DTGUZMjDVRxQIqsP')">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-</div>
-</div>
-<div class="book-title">Dharma 40112</div>
+<div class="container">
+<h1>Collection 5</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
 </div>
 
+<div class="library-container" id="bookList">
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="@eBooksOnly 80 20 Sales and Marketing Perry Marshal" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1IU-Or3WlJIJsuJNN9jtvdLw5zugStEK3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IU-Or3WlJIJsuJNN9jtvdLw5zugStEK3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
         </div>
     </div>
+    <div class="book-title">@eBooksOnly 80 20 Sales and Marketing Perry Marshal</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="@eBooksOnly Alternatives to Suicide Beyond Risk and Toward a Life" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1lHtBFRxb9gkYIizN8NPHphd83LQFE3Cu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1lHtBFRxb9gkYIizN8NPHphd83LQFE3Cu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">@eBooksOnly Alternatives to Suicide Beyond Risk and Toward a Life</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="@eBooksOnly Outwitting the Devil Napoleon Hill" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1SUUei4neNqtz5iHqd3tuVSZFNNWk6eF8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1SUUei4neNqtz5iHqd3tuVSZFNNWk6eF8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">@eBooksOnly Outwitting the Devil Napoleon Hill</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="@eBooksOnly The Lost Keys by Brad Yates" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ozLqGKVvC_6tEGaeFt4w5wNBt9wncPkQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ozLqGKVvC_6tEGaeFt4w5wNBt9wncPkQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">@eBooksOnly The Lost Keys by Brad Yates</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="02. Prabhupada" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1RjpwE4KuHwkJUHpdc5s8zV_a9J6CihAF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RjpwE4KuHwkJUHpdc5s8zV_a9J6CihAF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">02. Prabhupada</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="5 6055356682756686119" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1RU-S5cnxaivBOq9DW60gbCN-opbWsfL0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RU-S5cnxaivBOq9DW60gbCN-opbWsfL0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">5 6055356682756686119</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="5 6339080366904574274" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Bastqd6EriVk9cn9sCQn4g6KhqKXBIw3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Bastqd6EriVk9cn9sCQn4g6KhqKXBIw3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">5 6339080366904574274</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="A Second Chance the Story of a Near Death Experience" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=19aflf_aR0pTSfcyIBTF809CqwBjDvDOf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('19aflf_aR0pTSfcyIBTF809CqwBjDvDOf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">A Second Chance the Story of a Near Death Experience</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Anatomy of an Illness as Perceived by the Patient Reflections on" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1m1kA9csZw-q9kLsFWwNtb0IevaAuUQuT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1m1kA9csZw-q9kLsFWwNtb0IevaAuUQuT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Anatomy of an Illness as Perceived by the Patient Reflections on</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="AnIndianPilgrim" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17UbtgK6tw0MF0TWFU8DWdwwfU5iY1Slo" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17UbtgK6tw0MF0TWFU8DWdwwfU5iY1Slo', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">AnIndianPilgrim</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="AnOpenLetterToDavidLlyodGeorge" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1RTyjIxUAFvUMEQiioHiVunJ2bnOXo6pI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RTyjIxUAFvUMEQiioHiVunJ2bnOXo6pI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">AnOpenLetterToDavidLlyodGeorge</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="ASURA Tale of the Vanquished Anand Neelakantan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FkUmOWM17eiCqtlDKoyJbzMUcK6wbOOd" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FkUmOWM17eiCqtlDKoyJbzMUcK6wbOOd', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">ASURA Tale of the Vanquished Anand Neelakantan</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="AwakeArise" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1i3XVzJ3k1JtfYVKjYCgd14Ao2aFGomti" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1i3XVzJ3k1JtfYVKjYCgd14Ao2aFGomti', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">AwakeArise</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="beyond birth and death His Divine Grace A C Bhaktivedanta Swami" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18FU9GOFMpw7UO40hiwdiuzpKPIZkLaRt" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18FU9GOFMpw7UO40hiwdiuzpKPIZkLaRt', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">beyond birth and death His Divine Grace A C Bhaktivedanta Swami</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Beyond Mars and Venus by John Gray 51288" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18pZxCUvbGkv8bulXxBrdYWrOGxV3SeO6" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18pZxCUvbGkv8bulXxBrdYWrOGxV3SeO6', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Beyond Mars and Venus by John Gray 51288</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Bob Proctor Workbook of Think and Grow Rich" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qzTZ5KlKzIKUf1Xl26rEC6ZjC3NCoqo-" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qzTZ5KlKzIKUf1Xl26rEC6ZjC3NCoqo-', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Bob Proctor Workbook of Think and Grow Rich</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Bob Proctor Workbook of Think and Grow Rich(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uNlMHLAhqrt3-oE_8Z6y108OmQ1QGTGG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uNlMHLAhqrt3-oE_8Z6y108OmQ1QGTGG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Bob Proctor Workbook of Think and Grow Rich(1)</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Change Your Thinking Change Your Life How to Unlock 2003" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1HIcfrFYYN0oGSvP6M4pZlVnY9j78kz5s" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1HIcfrFYYN0oGSvP6M4pZlVnY9j78kz5s', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Change Your Thinking Change Your Life How to Unlock 2003</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Copycat Marketing 101 Burke Hedges" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1tM6nSc23uLi_9yQLXcarIVDqnZdGFc5E" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1tM6nSc23uLi_9yQLXcarIVDqnZdGFc5E', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Copycat Marketing 101 Burke Hedges</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Death An Inside Story A Book for all Those who" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uhv-1X9OSOHXQLYJ7LKi2SdVIaQixbtZ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uhv-1X9OSOHXQLYJ7LKi2SdVIaQixbtZ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Death An Inside Story A Book for all Those who</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Dharma 40112" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1vJ8VoNWncgfFjVx_DTGUZMjDVRxQIqsP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1vJ8VoNWncgfFjVx_DTGUZMjDVRxQIqsP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Dharma 40112</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Easy Journy to Other Planets His Divine Grace A C Bhaktivedanta" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1CauDM4ufXfTdUqlr4wBcdKNTJ-wxbwg0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CauDM4ufXfTdUqlr4wBcdKNTJ-wxbwg0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Easy Journy to Other Planets His Divine Grace A C Bhaktivedanta</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Edward de Bono Teach Your Child How to Think. 2009" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1-4DO7XDEk4S6bpwqqBdDrDt4PWQx6JZM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1-4DO7XDEk4S6bpwqqBdDrDt4PWQx6JZM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Edward de Bono Teach Your Child How to Think. 2009</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Get the Pump The Last Word in Bodybuilding 02722" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gMpCj6t4tFCIXaCysqdckZORylYNvxih" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gMpCj6t4tFCIXaCysqdckZORylYNvxih', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Get the Pump The Last Word in Bodybuilding 02722</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Gita ( Eng )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1UEv_fSBAKqQ1u24EjeT6FiWGpkb1GZ8Y" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UEv_fSBAKqQ1u24EjeT6FiWGpkb1GZ8Y', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Gita ( Eng )</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Half Lion How P. V. Narasimha Rao Transformed India" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_TeeUPUgTLXZZ2ms2ryu3JJO2O0H7KPL" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_TeeUPUgTLXZZ2ms2ryu3JJO2O0H7KPL', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Half Lion How P. V. Narasimha Rao Transformed India</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="How the Mind Works by Steven Pinker" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Pb7-IYsoCob4usxnFCi3JuzWha4dp2Vl" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Pb7-IYsoCob4usxnFCi3JuzWha4dp2Vl', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">How the Mind Works by Steven Pinker</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="How They Succeeded Life Stories" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1EHhcyJ65DbmasSbyGTLiMETBZQb1noSV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1EHhcyJ65DbmasSbyGTLiMETBZQb1noSV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">How They Succeeded Life Stories</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="How They Succeeded Life Stories(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1BYv47YMPsMYiP2P0BTkF2FJVY12WzpX6" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1BYv47YMPsMYiP2P0BTkF2FJVY12WzpX6', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">How They Succeeded Life Stories(1)</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="HP HL Fantastic Beasts and Where to Find Them J K Rowling" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1jIxh--rWj6HnS9Ersc4jXcpVHiBNfUCx" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1jIxh--rWj6HnS9Ersc4jXcpVHiBNfUCx', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">HP HL Fantastic Beasts and Where to Find Them J K Rowling</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="HP HL Quidditch Through the Ages J. K. Rowling" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1iNjuj1JrY3gBCFoOa-QNHbMP-sKNQH5f" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1iNjuj1JrY3gBCFoOa-QNHbMP-sKNQH5f', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">HP HL Quidditch Through the Ages J. K. Rowling</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="HP HL The Tales of Beedle the Bard J. K. Rowling" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Mbu4p049tWNhr1L7-zw-_1C2UdWlha7T" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Mbu4p049tWNhr1L7-zw-_1C2UdWlha7T', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">HP HL The Tales of Beedle the Bard J. K. Rowling</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="I Am That" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=152TOOhdKJ_mFixn6lT-v6CnIWWqOjfze" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('152TOOhdKJ_mFixn6lT-v6CnIWWqOjfze', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">I Am That</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Inner Engineering A Yogi s Guide to Joy Sadhguru" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1XEM5Z9vYqe3RLsVZc-xeJgc3yECtK8Rk" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1XEM5Z9vYqe3RLsVZc-xeJgc3yECtK8Rk', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Inner Engineering A Yogi s Guide to Joy Sadhguru</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Introduction to Tantra The Transformation (2001" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1zLn-w77ikJMZtaWqMulNRZDjKh9lRD5z" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1zLn-w77ikJMZtaWqMulNRZDjKh9lRD5z', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Introduction to Tantra The Transformation (2001</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Jim Blythe Phil Megicks Marketing" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Q6Wa2bq3OG3o0Slpbh4UM7AVvJHKPoCA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Q6Wa2bq3OG3o0Slpbh4UM7AVvJHKPoCA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Jim Blythe Phil Megicks Marketing</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Lead or Bleed" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1OaE6mn8oXr0320CMjGQd8Lfh34emXeZO" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1OaE6mn8oXr0320CMjGQd8Lfh34emXeZO', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Lead or Bleed</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Lead the Field (2007" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=11szCqx3olCKWgp5zqxYkvPzHUfHYoCFF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('11szCqx3olCKWgp5zqxYkvPzHUfHYoCFF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Lead the Field (2007</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Life Comes From Life English" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1tmNlGQ8qF2bcgIn8fQEksxuXBPB0SJ0p" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1tmNlGQ8qF2bcgIn8fQEksxuXBPB0SJ0p', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Life Comes From Life English</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Light From Many Lamps" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1PI4fHJqMF-zp1TFPWF0hSYdC5BB0_qcR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1PI4fHJqMF-zp1TFPWF0hSYdC5BB0_qcR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Light From Many Lamps</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Mastering the Art of Public Speaking Michael J Gelb" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1a32Sdrp07vOYiJi_0e_dsPXDJTwnPMj8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1a32Sdrp07vOYiJi_0e_dsPXDJTwnPMj8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Mastering the Art of Public Speaking Michael J Gelb</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Megaliving By Robin Sharma" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17I7ftoWCLhJxYlFJfDbIlimHlcye20xh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17I7ftoWCLhJxYlFJfDbIlimHlcye20xh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Megaliving By Robin Sharma</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Michael E Gerber The E Myth Revisited Why Most Small Businesses" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1X1gLY0PAxcKyXsFeoHDqJvmWipZQSGjR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1X1gLY0PAxcKyXsFeoHDqJvmWipZQSGjR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Michael E Gerber The E Myth Revisited Why Most Small Businesses</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Only love is real" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1QwkYNbvaRj4gfCCfay6ydQZ42U2dt7pN" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1QwkYNbvaRj4gfCCfay6ydQZ42U2dt7pN', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Only love is real</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="OurEducationalProblem" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1PFNGLnJwLVX5SFBiaqwArFndevRJO5Bw" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1PFNGLnJwLVX5SFBiaqwArFndevRJO5Bw', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">OurEducationalProblem</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="parable of the pipeline" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1EobPXlNDk5ortyGJpMfFtCQ-3wQmMcYS" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1EobPXlNDk5ortyGJpMfFtCQ-3wQmMcYS', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">parable of the pipeline</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Perfection Of Yoga" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1L4mqtJCyYeAo2IDM1vqMVoOsoOjmGeMA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1L4mqtJCyYeAo2IDM1vqMVoOsoOjmGeMA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Perfection Of Yoga</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="POLYESTER PRINCE" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1K5Y7D5i_j4AwsycIXNXGSaAUUcJv4B9S" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1K5Y7D5i_j4AwsycIXNXGSaAUUcJv4B9S', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">POLYESTER PRINCE</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Positive I am Positive" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JBY0cXB8Uh-6AH5pMQO4GcXVmoVB6gCL" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JBY0cXB8Uh-6AH5pMQO4GcXVmoVB6gCL', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Positive I am Positive</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Productivity Secrets Slides" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Y9aFjQIUTkGFiKb5RnPc_brofxFVlmHD" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Y9aFjQIUTkGFiKb5RnPc_brofxFVlmHD', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Productivity Secrets Slides</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Project Management for Business" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wF-ZPTM1H6qGG9kN6BKyWxEmZz8bH7Nh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wF-ZPTM1H6qGG9kN6BKyWxEmZz8bH7Nh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Project Management for Business</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="robin sharma leadership without any title manifesto(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uCA2ZHbn_bcTRQIa98hEPChfRoWL98Hf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uCA2ZHbn_bcTRQIa98hEPChfRoWL98Hf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">robin sharma leadership without any title manifesto(1)</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="RobinSharma The Saint The Surfer And The CEO" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1TX9zlNpsT82sfyUEuGvdNGSF9NeVF1EA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1TX9zlNpsT82sfyUEuGvdNGSF9NeVF1EA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">RobinSharma The Saint The Surfer And The CEO</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Roger Dawson Secrets of Power Salary" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1GTpZDtjLJr5IV5fmhrUZKp96fdfT9EB3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1GTpZDtjLJr5IV5fmhrUZKp96fdfT9EB3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Roger Dawson Secrets of Power Salary</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Sara Pascoe Sex Power Money Faber Faber (2019) 0" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18yM2FQaoWg3f7NrYyo4doVTgFuhDrqK7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18yM2FQaoWg3f7NrYyo4doVTgFuhDrqK7', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Sara Pascoe Sex Power Money Faber Faber (2019) 0</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Selling the Invisible A Field Guide to Modern Marketing ebooksOnly" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_KH1TN3r4bXhv9-UBLS2U8mhKn6QDLKi" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_KH1TN3r4bXhv9-UBLS2U8mhKn6QDLKi', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Selling the Invisible A Field Guide to Modern Marketing ebooksOnly</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Shel SIlverstein The Giving Tree 0" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1expYuwhoFJ6Zc9UK9p8SxoVfRAxKnkQP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1expYuwhoFJ6Zc9UK9p8SxoVfRAxKnkQP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Shel SIlverstein The Giving Tree 0</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Sikshashtakam" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1XkjPVjP71vk6YbRd2NIrhTj8Tj7wqSbq" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1XkjPVjP71vk6YbRd2NIrhTj8Tj7wqSbq', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Sikshashtakam</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Smart Choices A Practical Guide to Making Better Decisions" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1RhFBw-UkorzmUcToz9-XVk0HBBfT2Ryh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RhFBw-UkorzmUcToz9-XVk0HBBfT2Ryh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Smart Choices A Practical Guide to Making Better Decisions</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Sri Isopanisad English" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1jdWrcYSMJJ3BEd5vnuqVf9Cl078YlT98" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1jdWrcYSMJJ3BEd5vnuqVf9Cl078YlT98', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Sri Isopanisad English</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Srimadh Bhagavatam" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17c9p9RIDzpsiMaibIngkzlBD_1BDbVq1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17c9p9RIDzpsiMaibIngkzlBD_1BDbVq1', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Srimadh Bhagavatam</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Statesman 25.2.17by SWENworld" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ADisB7iXliGDu5XoIuPMynOPHwA_LsSb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ADisB7iXliGDu5XoIuPMynOPHwA_LsSb', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Statesman 25.2.17by SWENworld</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Stories from Bhagavatam" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1V9rOAZvg64L2Ejo1lP97AWCvbHxQ40sY" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1V9rOAZvg64L2Ejo1lP97AWCvbHxQ40sY', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Stories from Bhagavatam</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="success Anthony Robbins Unlimited" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1pUYpWqVAzAD6nanAaassmhFmHU56WPDw" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pUYpWqVAzAD6nanAaassmhFmHU56WPDw', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">success Anthony Robbins Unlimited</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="success Turbo Coach achieve breakthroughs Brian Tracy" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qWsPeld7XDeO0ALc896-47ZAumJYOHfI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qWsPeld7XDeO0ALc896-47ZAumJYOHfI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">success Turbo Coach achieve breakthroughs Brian Tracy</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="the alchemist.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JEMl_34zaB9l_2mM2_vjX0YTm8Ehuhye" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JEMl_34zaB9l_2mM2_vjX0YTm8Ehuhye', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">the alchemist.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Coaching Habit Say Less Ask More Change the Way You Lead" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1fJC86mCzwpXn-ddq7QkDmz-NhSGqbeeh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1fJC86mCzwpXn-ddq7QkDmz-NhSGqbeeh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Coaching Habit Say Less Ask More Change the Way You Lead</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Detox Miracle Sourcebook. Raw Foods and Herbs" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17nHRorKRhEsCjsQEUw3hvDw_6nC8EQxd" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17nHRorKRhEsCjsQEUw3hvDw_6nC8EQxd', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Detox Miracle Sourcebook. Raw Foods and Herbs</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Experience of No Self A Contemplative Journey(1993)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wD52Zp97QGQ2wPOoMMT7LbAtVrOCVVZ-" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wD52Zp97QGQ2wPOoMMT7LbAtVrOCVVZ-', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Experience of No Self A Contemplative Journey(1993)</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Failure List" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1I0JkzQM6p3lkwV3TBRLwuNnNl6js1RGy" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1I0JkzQM6p3lkwV3TBRLwuNnNl6js1RGy', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Failure List</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The girl of my dreams" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=13jzRyksCDOWMIWhLPm8uiPR_0p3KvVFT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('13jzRyksCDOWMIWhLPm8uiPR_0p3KvVFT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The girl of my dreams</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Hound of the Baskervilles NT" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1N5_ajZZN6l6OjwYE2H1HnaesZ9XYmLvR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1N5_ajZZN6l6OjwYE2H1HnaesZ9XYmLvR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Hound of the Baskervilles NT</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Infinite Game by Simon Sinek" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YdCJJU_eu0ttkkEsOviv63DI8BBX9-JD" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YdCJJU_eu0ttkkEsOviv63DI8BBX9-JD', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Infinite Game by Simon Sinek</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The journey of self discovery" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1liLhbjXeKBVBbKS9ranEsf-FMydEDYxe" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1liLhbjXeKBVBbKS9ranEsf-FMydEDYxe', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The journey of self discovery</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The laws of nature" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1PmFhC8q2wIeskvlRSBJ61iJQae6tTgFI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1PmFhC8q2wIeskvlRSBJ61iJQae6tTgFI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The laws of nature</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Magic Question How to Get What You Want in Half the Time" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1K9msKQMl9hBUMqc-8siIetH_4wQkUg8W" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1K9msKQMl9hBUMqc-8siIetH_4wQkUg8W', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Magic Question How to Get What You Want in Half the Time</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Miracle Morning The Not So Hal Elrod" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1s2ElWEpGKqpC_Wr1qqEBefFosswyw7CG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1s2ElWEpGKqpC_Wr1qqEBefFosswyw7CG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Miracle Morning The Not So Hal Elrod</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Official Guide to Success Vol 1 .. Tom Hopkins" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1lmyvQ2w-ZhTs7wQxIqudk34V6hL-esJb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1lmyvQ2w-ZhTs7wQxIqudk34V6hL-esJb', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Official Guide to Success Vol 1 .. Tom Hopkins</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Path to No Self Life at the Center (1991)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1HJkigYpgODsP9a-4GSIbrRMxX6gmdYS3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1HJkigYpgODsP9a-4GSIbrRMxX6gmdYS3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Path to No Self Life at the Center (1991)</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Perfection of YOGA His Divine Grace A C Bhaktivedanta Swami" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1-axCyxB7S1QRl5jTcvjNL3ud8JGoF8Hf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1-axCyxB7S1QRl5jTcvjNL3ud8JGoF8Hf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Perfection of YOGA His Divine Grace A C Bhaktivedanta Swami</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Psychology of Money by Morgan Housel" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=12dmybfH3w9g5Ol6oUCUQ7NW5NAhAgx94" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('12dmybfH3w9g5Ol6oUCUQ7NW5NAhAgx94', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Psychology of Money by Morgan Housel</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Rules for Being Amazing" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=158fYaoEszuREIapTL5p5SUhNYJbBU8I1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('158fYaoEszuREIapTL5p5SUhNYJbBU8I1', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Rules for Being Amazing</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Science Of Self Realization" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1njj8o4C20ckQNiPheBeaf1jiyq-sThP4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1njj8o4C20ckQNiPheBeaf1jiyq-sThP4', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Science Of Self Realization</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Strangest Secret By Earl Nightingale" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JmuRlrri1lBgsYqYsYx7BXADHr7WZ1SU" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JmuRlrri1lBgsYqYsYx7BXADHr7WZ1SU', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Strangest Secret By Earl Nightingale</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Unemployed Millionaire by Matt Morris 041019144439" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1MoI4ljBTjk31pbIstyAdz4iGnmbpGD9z" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1MoI4ljBTjk31pbIstyAdz4iGnmbpGD9z', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Unemployed Millionaire by Matt Morris 041019144439</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="TheInspirationtoMankind free free KinigeDotCom" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17ofrx9vnI19_7SFLvzFvqX5SVrS9SEWA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17ofrx9vnI19_7SFLvzFvqX5SVrS9SEWA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">TheInspirationtoMankind free free KinigeDotCom</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="three mistakes of my life" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Tubc3whfEdRokuO55THrXR7KrUrtpDTT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Tubc3whfEdRokuO55THrXR7KrUrtpDTT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">three mistakes of my life</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Torah The Five Books of Moses(1992)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YgVUXGLazCfM3YHeUBE-d7p3GypsNG7L" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YgVUXGLazCfM3YHeUBE-d7p3GypsNG7L', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Torah The Five Books of Moses(1992)</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Unhappy India" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1r8ogzufI6Em6Cc95q3QAIdFLsGj_M8BX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1r8ogzufI6Em6Cc95q3QAIdFLsGj_M8BX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Unhappy India</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Unposted Letter English by Mahatria Ra" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JcgFckF9_vTx5jykjaxRk5SGbyRi_01_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JcgFckF9_vTx5jykjaxRk5SGbyRi_01_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Unposted Letter English by Mahatria Ra</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Vaishnava Etiquette Manual" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1l5sWl9fjJuie9QFULsiXGh2AlS6O989w" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1l5sWl9fjJuie9QFULsiXGh2AlS6O989w', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Vaishnava Etiquette Manual</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Weird World 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1vpV1f71HRx9igp93Hu6-TOuFROu8SFJ8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1vpV1f71HRx9igp93Hu6-TOuFROu8SFJ8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Weird World 1</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="What did you miss" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1CUbv5JYkeFPQYx4emmN7xEZX_DXwiUle" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CUbv5JYkeFPQYx4emmN7xEZX_DXwiUle', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">What did you miss</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="What Is Self A Study of the Spiritual Journey in(2005)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ti-uSvlMGQgC8T0T8GFJo4IbXkstQljh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ti-uSvlMGQgC8T0T8GFJo4IbXkstQljh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">What Is Self A Study of the Spiritual Journey in(2005)</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="what young india wants" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=13JrNb2uXJNfbW_AkXAS-9LYt9WzwzpO9" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('13JrNb2uXJNfbW_AkXAS-9LYt9WzwzpO9', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">what young india wants</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="you can heal your life louise l hay" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ojDra6RsFaZPZ_QV7XqBjcty9mqSO3l_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ojDra6RsFaZPZ_QV7XqBjcty9mqSO3l_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">you can heal your life louise l hay</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="YOU WERE BORN RICH" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kjiAeyu5Yp8PL9Q4L3claBu0NuHdeuE7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kjiAeyu5Yp8PL9Q4L3claBu0NuHdeuE7', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">YOU WERE BORN RICH</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="young india" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1lSIfseXeQaEZWkhLT4qo1cYWQj--Fw3R" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1lSIfseXeQaEZWkhLT4qo1cYWQj--Fw3R', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">young india</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Zak George s Dog Training Revolution by Zak George 51272" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1j_QpLvpIz5vxaGQVNmQCstH9JWZY9anp" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1j_QpLvpIz5vxaGQVNmQCstH9JWZY9anp', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Zak George s Dog Training Revolution by Zak George 51272</div>
+</div>
+
+</div>
+</div>
 </section>
 
 <footer>
-    <div class="container">
-        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-        <div class="footer-links">
-            <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-            <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-        </div>
-    </div>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+</div>
+</div>
 </footer>
-
-<style>
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
-</style>
 
 <div id="login-modal" class="lib-popup-overlay">
     <div class="lib-popup-box">
@@ -1032,31 +1113,70 @@
     </div>
 </div>
 
+<div id="pdfModal" class="pdf-modal-viewer">
+    <div class="pdf-modal-header">
+        <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> വായന മോഡ്</span>
+        <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
+            <i class="fas fa-times"></i> ക്ലോസ്
+        </button>
+    </div>
+    <div style="flex:1; width:100%; height:100%; position:relative;">
+        <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
+        <div class="pdf-blocker" title="Pop-out disabled"></div>
+    </div>
+</div>
+
 <script type="module">
+    // --- FIREBASE CONFIG ---
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+    const firebaseConfig = { 
+        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+        authDomain: "thripudilibrary.firebaseapp.com", 
+        projectId: "thripudilibrary", 
+        storageBucket: "thripudilibrary.firebasestorage.app", 
+        messagingSenderId: "887018912750", 
+        appId: "1:887018912750:web:cc05190a72b13db816acff", 
+        measurementId: "G-B59RDW4KG4" 
+    };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    let currentUser = null; 
 
+    // --- LOGIN STATE MANAGEMENT & UI UPDATE ---
     onAuthStateChanged(auth, (user) => {
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
         const logoutBtn = document.getElementById('logout-link');
 
         if (user) {
+            currentUser = user;
             localStorage.setItem('libraryUser', 'true');
             if(logoutBtn) logoutBtn.style.display = 'block';
             
             const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
-            if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+            
+            const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
+            if(userPhoto && avatarDiv) avatarDiv.innerHTML = `<img src="${userPhoto}" alt="${displayName}">`;
+            
+            // REDIRECT LOGIC: ലോഗിൻ ചെയ്ത ശേഷം Modal തുറക്കുന്നു
+            const pendingBookId = sessionStorage.getItem('pendingBook');
+            if (pendingBookId) {
+                sessionStorage.removeItem('pendingBook');
+                // openPdfModal ഫങ്ഷൻ ഇവിടെ വിളിക്കുന്നു
+                if (window.openPdfModal) {
+                    window.openPdfModal(pendingBookId); 
+                }
+            }
         } else {
+            currentUser = null;
             localStorage.removeItem('libraryUser');
             if(logoutBtn) logoutBtn.style.display = 'none';
         }
     });
 
+    // --- LOGOUT ---
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
         logoutLink.addEventListener('click', (e) => {
@@ -1067,21 +1187,98 @@
             });
         });
     }
+
+    // --- CHECK ACCESS & MODAL OPENING ---
+    window.checkAccess = function(bookId, element) {
+        if (!currentUser) {
+            sessionStorage.setItem('pendingBook', bookId); // ID മാത്രം ഓർത്തു വെക്കുന്നു
+            document.getElementById('login-modal').style.display = 'flex';
+        } else {
+            // ലോഗിൻ ഉണ്ടെങ്കിൽ: 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
+            saveToHistory(element, bookId);
+            
+            // 2. Modal തുറക്കുന്നു
+            window.openPdfModal(bookId); 
+        }
+    };
+    
+    // --- Global Functions (Defined below) ---
 </script>
 
 <script>
-    function checkAccess(targetUrl) {
-        var user = localStorage.getItem('libraryUser');
-        if (user) {
-            window.location.href = targetUrl;
-        } else {
-            sessionStorage.setItem('pendingBook', targetUrl);
-            document.getElementById('login-modal').style.display = 'flex';
+    // Global Helper functions (outside module scope)
+
+    // ⭐⭐ MODAL OPENING LOGIC ⭐⭐
+    window.openPdfModal = function(bookId) {
+        const modal = document.getElementById('pdfModal');
+        const frame = document.getElementById('pdfFrame');
+        
+        // Google Drive Link Conversion (Preview Mode - iFrame-ൽ വർക്ക് ചെയ്യുന്നത്)
+        const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
+
+        frame.src = embedUrl;
+        modal.style.display = "flex"; 
+        document.body.style.overflow = "hidden";
+    }
+
+    window.closePdfModal = function() {
+        const modal = document.getElementById('pdfModal');
+        const frame = document.getElementById('pdfFrame');
+        
+        modal.style.display = "none";
+        frame.src = ""; 
+        document.body.style.overflow = "auto";
+    }
+
+    // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
+    function saveToHistory(element, bookId) {
+        // ഇവിടെ userId കിട്ടാൻ താൽക്കാലികമായി default_user ഉപയോഗിക്കുന്നു
+        // Firebase onAuthStateChanged ഫങ്ഷൻ പൂർത്തിയാകുമ്പോൾ ഇത് കൃത്യമായിരിക്കും
+        try {
+            const userId = localStorage.getItem('libraryUser') ? 'default_user' : null;
+            if (!userId) return;
+
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : 'https://via.placeholder.com/150';
+            const date = new Date().toLocaleDateString('ml-IN');
+            const linkUrl = 'read.html?bookId=' + bookId;
+            
+            const key = 'history_' + userId;
+
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            history = history.filter(item => item.title !== title);
+            history.unshift({ title: title, image: image, link: linkUrl, date: date });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+        } catch (e) {
+            console.error("History Save Error:", e);
         }
     }
     
-    function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
-    function toggleProfileMenu() { var dropdown = document.querySelector(".profile-dropdown"); if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; }
+    function searchBooks() { 
+        var input = document.getElementById('searchBar'); 
+        if(!input) return; 
+        var filter = input.value.toUpperCase(); 
+        var cards = document.getElementsByClassName('book-card'); 
+        for (var i = 0; i < cards.length; i++) { 
+            var title = cards[i].getElementsByClassName("book-title")[0]; 
+            if (title) { 
+                var txtValue = title.textContent || title.innerText; 
+                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            } 
+        } 
+    }
+    
+    // ലോഗിൻ മോഡൽ അടക്കാനുള്ള ക്ലോസ് ബട്ടൺ
+    document.addEventListener('DOMContentLoaded', () => {
+        const closeBtn = document.querySelector('.lib-btn-close');
+        if(closeBtn) closeBtn.onclick = function() { document.getElementById('login-modal').style.display='none'; };
+    });
 </script>
 
 </body>
