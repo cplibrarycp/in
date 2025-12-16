@@ -50,10 +50,24 @@
         .btn-select i { font-size: 1.5em; display: block; margin-bottom: 5px; }
         
         /* Upload Button - Disabled State Handling */
-        .btn-upload { background: var(--primary-orange); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-size: 1em; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; margin-top: 15px; opacity: 0.5; pointer-events: none; }
+        .btn-upload { 
+            background: var(--primary-orange); 
+            color: white; border: none; 
+            padding: 12px 30px; border-radius: 50px; 
+            font-size: 1em; font-weight: 700; 
+            cursor: pointer; width: 100%; 
+            transition: 0.3s; margin-top: 15px; 
+            opacity: 0.5; /* Initial disabled style */
+            pointer-events: none; /* Block clicks when disabled */
+        }
         
         /* Active State for Upload Button */
-        .btn-upload.active { opacity: 1; pointer-events: auto; background: var(--secondary-dark); }
+        .btn-upload.active { 
+            opacity: 1; 
+            pointer-events: auto; 
+            background: var(--secondary-dark); /* Color when active */
+            cursor: pointer;
+        }
         .btn-upload.active:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
         footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; margin-top: auto; }
@@ -163,11 +177,15 @@
                     // Update Preview
                     previewImg.src = e.target.result;
                     
-                    // Enable Button (Add 'active' class)
+                    // ⭐⭐⭐ ഫിക്സ്: ബട്ടൺ എനേബിൾ ചെയ്യുന്നു ⭐⭐⭐
                     uploadBtn.classList.add('active');
-                    uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക (റെഡി)';
+                    uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക';
                 }
                 reader.readAsDataURL(file);
+            } else {
+                // If selection is cancelled, disable button
+                uploadBtn.classList.remove('active');
+                uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക';
             }
         });
 
@@ -203,13 +221,12 @@
                 .then(res => res.json())
                 .then(result => {
                     if (result.result === "Success") {
-                        alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി! (പേജ് റീലോഡ് ചെയ്യുന്നു)");
+                        // ⭐⭐⭐ ഫിക്സ്: പേജ് റീലോഡ് ചെയ്യുമ്പോൾ അപ്ഡേറ്റ് ഉറപ്പാക്കുന്നു ⭐⭐⭐
+                        alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി! (പേജ് അപ്ഡേറ്റ് ചെയ്യുന്നു)");
                         
-                        // Save new URL locally
                         localStorage.setItem('userPhoto_' + window.currentUserUid, result.photoUrl);
                         
-                        // ⭐ ഫിക്സ്: വിജയകരമായ ശേഷം പേജ് റീലോഡ് ചെയ്യുന്നു ⭐
-                        window.location.reload(); 
+                        window.location.reload(); // Hard reload for immediate UI update
                         
                     } else {
                         alert("❌ പരാജയപ്പെട്ടു: " + result.message);
