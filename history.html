@@ -28,8 +28,24 @@
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
         .nav-links { display: flex; align-items: center; gap: 15px; }
-        .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+        .nav-item { 
+            color: var(--light-text); 
+            font-weight: 600; 
+            font-size: 0.85em; 
+            text-transform: uppercase; 
+            padding: 8px 18px; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            border-radius: 4px; 
+            transition: 0.3s; 
+        }
         
+        /* ⭐⭐⭐ ഹെഡർ ബട്ടൺ ഹോവർ എഫക്റ്റ് (പുതിയത്) ⭐⭐⭐ */
+        .nav-item:hover {
+            background-color: var(--primary-orange); /* നേരിയ ടീൽ നിറം */
+            border-color: var(--primary-orange); /* ബോർഡർ നിറം മാറ്റുന്നു */
+        }
+        /* ⭐⭐⭐ END of NEW CSS ⭐⭐⭐ */
+
         /* User Profile Styles */
         .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
         .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
@@ -194,7 +210,6 @@
         // --- HISTORY LOADING FUNCTION ---
         function loadUserHistory(actualUserId) {
             // Local Storage-ൽ നിന്ന് ഡാറ്റ എടുക്കുന്നു
-            // നമ്മൾ bhagavad.html-ൽ "default_user" എന്ന ID ഉപയോഗിച്ചതുകൊണ്ട് അതും ഇവിടെ പരിശോധിക്കുന്നു.
             const key = 'history_' + actualUserId; 
             const fallbackKey = 'history_default_user'; 
 
@@ -209,7 +224,6 @@
 
             // കാർഡുകൾ ഉണ്ടാക്കുന്നു
             history.forEach(item => {
-                // link-ൽ നമ്മൾ read.html?bookId=... എന്ന ഫോർമാറ്റ് ആണ് സേവ് ചെയ്തത്
                 const bookId = item.link.split('bookId=')[1]; 
                 
                 const card = `
@@ -245,7 +259,7 @@
             const frame = document.getElementById('pdfFrame');
             
             // Google Drive Link Conversion (ID ഉപയോഗിച്ച് Preview URL ഉണ്ടാക്കുന്നു)
-            const embedUrl = \`https://drive.google.com/file/d/\${bookId}/preview\`;
+            const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
 
             frame.src = embedUrl;
             modal.style.display = "flex"; 
@@ -263,11 +277,19 @@
 
         // Profile Dropdown Close Logic
         window.onclick = function(event) {
-            if (!event.target.closest('.user-profile')) {
+            const profileSection = document.getElementById('profile-section');
+            if (profileSection && !event.target.closest('.user-profile')) {
                 var dropdowns = document.querySelectorAll(".profile-dropdown");
                 dropdowns.forEach(d => d.style.display = "none");
             }
         }
+        
+        // Profile Dropdown Toggle
+        document.getElementById('profile-section').addEventListener('click', function(e) {
+            e.stopPropagation(); // തുള്ളിത്തെറിച്ചു പോകാതിരിക്കാൻ
+            const dropdown = this.querySelector('.profile-dropdown');
+            dropdown.style.display = (dropdown.style.display === 'block' ? 'none' : 'block');
+        });
     </script>
 </body>
 </html>
