@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>വായന | THRIPUDI LIBRARY</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #f0f0f0; }
         .reader-container { width: 100%; height: 100%; display: flex; flex-direction: column; }
@@ -14,20 +15,34 @@
             color: #d32f2f; 
             font-size: 1.2em; 
         }
-        iframe { border: none; width: 100%; height: 100%; }
-        /* ലോഡിംഗ് സ്പിന്നർ (കാഴ്ചയിൽ ഭംഗിക്കായി) */
-        .loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2em; color: #00897B; }
+        iframe { 
+            border: none; 
+            width: 100%; 
+            height: 100%; 
+            /* പ്രധാന മാറ്റം: iframe സ്റ്റൈലിൽ ലോഡിംഗ് കാണുന്നില്ലെങ്കിൽ ഓട്ടോമാറ്റിക് സ്ക്രോൾ ഉണ്ടാവാതിരിക്കാൻ */
+            overflow: auto; 
+        }
+        .loading { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            font-size: 2em; 
+            color: #00897B; 
+            font-family: Arial, sans-serif;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
 
 <div class="reader-container">
     <div id="content">
-        <div class="loading" id="loadingSpinner"><i class="fas fa-spinner fa-spin"></i> ലോഡ് ചെയ്യുന്നു...</div>
+        <div class="loading" id="loadingSpinner">
+            <i class="fas fa-spinner fa-spin"></i> പുസ്തകം ലോഡ് ചെയ്യുന്നു...
+        </div>
     </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -46,33 +61,41 @@
             return;
         }
 
-        // ⭐ പുതിയ Embed Link രീതി: /preview? 
-        // ഈ രീതിക്ക് പൊതുവെ നല്ല വിശ്വാസ്യതയുണ്ട്.
-        const embedUrl = \`https://drive.google.com/file/d/\${bookId}/preview\`;
+        // ⭐ അന്തിമ പരിഹാരം: /embed ലിങ്ക് രീതി
+        // ഇത് iFrame-ൽ PDF ലോഡ് ചെയ്യാൻ ഏറ്റവും കൂടുതൽ സാധ്യതയുള്ള ലിങ്കാണ്.
+        const embedUrl = \`https://drive.google.com/file/d/\${bookId}/embed\`;
 
         // Iframe-ൽ പുസ്തകം തുറക്കുന്നു
         const iframeHtml = \`<iframe id="pdfFrame" src="\${embedUrl}" allowfullscreen></iframe>\`;
         
-        // iframe ചേർത്ത ശേഷം സ്പിന്നർ മറയ്ക്കുന്നു
-        contentDiv.innerHTML = iframeHtml;
-        spinner.style.display = 'none';
+        // iframe ചേർത്ത ശേഷം സ്പിന്നർ മറയ്ക്കുന്നതിനു പകരം, സ്പിന്നറിനെ iframe-ൻ്റെ മുകളിൽ വെക്കുന്നു.
+        contentDiv.innerHTML = iframeHtml + spinner.outerHTML; 
+        
+        // iframe ലോഡ് ചെയ്ത ശേഷം സ്പിന്നർ മറയ്ക്കുന്നു
+        const frame = document.getElementById('pdfFrame');
+        if (frame) {
+            frame.onload = function() {
+                // iframe പൂർണ്ണമായി ലോഡ് ചെയ്യുമ്പോൾ സ്പിന്നർ മറയ്ക്കുക.
+                const currentSpinner = document.getElementById('loadingSpinner');
+                if(currentSpinner) currentSpinner.style.display = 'none';
+            };
+        }
 
-        // ഒരുപക്ഷേ ലോഡിംഗ് തടസ്സപ്പെട്ടാൽ, 10 സെക്കൻഡിന് ശേഷം ഒരു മെസ്സേജ് കാണിക്കാം
+        // ലോഡിംഗ് പരാജയപ്പെട്ടാൽ (Error Handler)
         setTimeout(() => {
-            const frame = document.getElementById('pdfFrame');
-            if (frame && frame.contentWindow.document.body.innerHTML === "") {
-                // If it's still blank after 10s, it's likely a permission error.
+            const currentSpinner = document.getElementById('loadingSpinner');
+            if (currentSpinner && currentSpinner.style.display !== 'none') {
+                currentSpinner.style.display = 'none';
                 contentDiv.innerHTML = `
                 <div class="error-message">
-                    <h1>⚠️ ലോഡിംഗ് തകരാർ</h1>
-                    <p>ഫയൽ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. ഈ ഫയലിന് Google Drive-ൽ **'Anyone with the link'** എന്ന ഷെയറിംഗ് പെർമിഷൻ ഉണ്ടോ എന്ന് ഉറപ്പുവരുത്തുക.</p>
+                    <h1>⚠️ ലോഡിംഗ് പരാജയം</h1>
+                    <p>ഫയൽ ലോഡ് ചെയ്യുന്നതിൽ ഗുരുതരമായ തടസ്സം നേരിട്ടു. ഈ PDF ഫയലിന് Google Drive-ൽ <b>'Anyone with the link (Viewer)'</b> പെർമിഷൻ ഉണ്ടോ എന്ന് ഉറപ്പുവരുത്തുക.</p>
+                    <p><i>(പബ്ലിക് ആക്സസ് പ്രശ്നങ്ങൾ Google-ൻ്റെ ഭാഗത്തുനിന്നും ഉണ്ടാകാം.)</i></p>
                 </div>
                 `;
             }
-        }, 10000); // 10 സെക്കൻഡ്
+        }, 15000); // 15 സെക്കൻഡ്
     });
-    
-    // ലോഗിൻ സ്റ്റാറ്റസ് ചെക്കിംഗ് ആവശ്യമില്ലാത്തതിനാൽ മറ്റ് സ്ക്രിപ്റ്റുകൾ ഇവിടെ ചേർക്കുന്നില്ല.
 </script>
 
 </body>
