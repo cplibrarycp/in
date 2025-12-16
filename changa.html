@@ -11,7 +11,7 @@
         --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
         --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
     }
-    /* --- STYLES (Header, Footer, Cards, Modal - മുമ്പ് നൽകിയവ) --- */
+    /* --- STYLES (Header, Footer, Cards, Modal) --- */
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; padding: 0; }
     body { 
@@ -668,7 +668,6 @@
             const pendingBookId = sessionStorage.getItem('pendingBook');
             if (pendingBookId) {
                 sessionStorage.removeItem('pendingBook');
-                // openPdfModal ഫങ്ഷൻ ഇവിടെ വിളിക്കുന്നു
                 if (window.openPdfModal) {
                     window.openPdfModal(pendingBookId); 
                 }
@@ -736,10 +735,9 @@
 
     // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
     function saveToHistory(element, bookId) {
-        // ഇവിടെ userId കിട്ടാൻ താൽക്കാലികമായി libraryUser ഫ്ലാഗ് ഉപയോഗിക്കുന്നു
-        // ഇത് ഓട്ടോമാറ്റിക്കായി onAuthStateChanged ൽ നിന്ന് user.uid-യിലേക്ക് മാറും
         try {
-            const userId = localStorage.getItem('libraryUser') ? 'default_user' : null;
+            // Check for user UID in the global scope (set by the module script)
+            const userId = window.currentUser ? window.currentUser.uid : (localStorage.getItem('libraryUser') ? 'default_user' : null);
             if (!userId) return;
 
             const card = element.closest('.book-card');
@@ -754,6 +752,7 @@
             const key = 'history_' + userId;
 
             let history = JSON.parse(localStorage.getItem(key)) || [];
+            // Remove if book already exists (to push to the top)
             history = history.filter(item => item.title !== title);
             history.unshift({ title: title, image: image, link: linkUrl, date: date });
             
@@ -772,19 +771,18 @@
         for (var i = 0; i < cards.length; i++) { 
             var title = cards[i].getElementsByClassName("book-title")[0]; 
             if (title) { 
-                // സെർച്ച് ചെയ്യുമ്പോൾ മലയാളം പേരുകൾ uppercase ആക്കില്ല (കേസ് ഇൻസെൻസിറ്റീവ് സെർച്ചിനായി)
                 var txtValue = title.textContent || title.innerText; 
                 cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
             } 
         } 
     }
     
-    // ലോഗിൻ മോഡൽ അടക്കാനുള്ള ക്ലോസ് ബട്ടൺ
+    // UI Event Listeners
     document.addEventListener('DOMContentLoaded', () => {
         const closeBtn = document.querySelector('.lib-btn-close');
         if(closeBtn) closeBtn.onclick = function() { document.getElementById('login-modal').style.display='none'; };
 
-        // Dropdown Toggle
+        // Dropdown Toggle (Using JavaScript for better control)
         const profileSection = document.getElementById('profile-section');
         if(profileSection){
             profileSection.addEventListener('click', function(e) {
@@ -793,7 +791,11 @@
                 if(d) d.style.display = d.style.display==="block"?"none":"block";
             });
         }
-        window.onclick = e => { if(!e.target.closest('.user-profile')) document.querySelectorAll('.profile-dropdown').forEach(x=>x.style.display='none'); }
+        window.onclick = e => { 
+            if(!e.target.closest('.user-profile')) {
+                document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
+            } 
+        }
     });
 </script>
 
