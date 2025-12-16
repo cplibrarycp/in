@@ -8,222 +8,221 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
-        /* --- 1. തീം (Teal & Green) --- */
-        :root {
-            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
-            --background-light: #E0F2F1;
-            --text-color: #263238;
-            --light-text: #FFFFFF;
-            --card-bg: #FFFFFF;
-            --outline-color: #B2DFDB;
-        }
+        /* --- 1. തീം (Teal & Green) --- */
+        :root {
+            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
+            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB;
+        }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-color);
-            margin: 0; padding: 0;
-            line-height: 1.6;
-        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            margin: 0; padding: 0;
+            line-height: 1.6;
+        }
 
-        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
-        a { text-decoration: none; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; }
 
-        /* --- 2. ഹെഡർ --- */
-        header {
-            background-color: var(--secondary-dark);
-            padding: 15px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: sticky; top: 0; z-index: 1000;
-        }
+        /* --- 2. ഹെഡർ --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky; top: 0; z-index: 1000;
+        }
 
-        .navbar { display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo {
-            font-size: 1.8em; font-weight: 700;
-            color: var(--light-text); text-decoration: none;
-        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo {
+            font-size: 1.8em; font-weight: 700;
+            color: var(--light-text); text-decoration: none;
+        }
 
-        .nav-links { display: flex; align-items: center; }
+        .nav-links { display: flex; align-items: center; }
 
-        .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 15px;
-            font-weight: 600;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
+        .nav-links a.nav-item {
+            color: var(--light-text);
+            margin-left: 15px;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
 
-        .nav-links a.nav-item:hover {
-            background-color: #ffffff;
-            color: var(--secondary-dark);
-            border-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-        }
+        .nav-links a.nav-item:hover {
+            background-color: #ffffff;
+            color: var(--secondary-dark);
+            border-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
 
-        .nav-links a.active { 
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: var(--outline-color); 
-        }
+        .nav-links a.active { 
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--outline-color); 
+        }
 
-        /* --- User Profile --- */
-        .user-profile {
-            display: flex; align-items: center;
-            margin-left: 25px; padding-left: 25px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            position: relative; cursor: pointer;
-            padding-bottom: 5px;
-        }
+        /* --- User Profile --- */
+        .user-profile {
+            display: flex; align-items: center;
+            margin-left: 25px; padding-left: 25px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative; cursor: pointer;
+            padding-bottom: 5px;
+        }
 
-        .user-avatar {
-            width: 32px; height: 32px;
-            background-color: #fff; color: var(--primary-orange);
-            border-radius: 50%; display: flex;
-            align-items: center; justify-content: center;
-            font-weight: bold; margin-right: 10px; font-size: 1em;
-            overflow: hidden;
-        }
-        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-avatar {
+            width: 32px; height: 32px;
+            background-color: #fff; color: var(--primary-orange);
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: bold; margin-right: 10px; font-size: 1em;
+            overflow: hidden;
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
-        .user-name { font-weight: 600; display: block; }
-        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
 
-        /* Dropdown */
-        .profile-dropdown {
-            display: none; position: absolute;
-            top: 100%; right: 0;
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 5px; min-width: 180px;
-            margin-top: 10px; z-index: 1001;
-        }
-        .profile-dropdown::before { content: ""; position: absolute; top: -15px; left: 0; width: 100%; height: 15px; background: transparent; }
-        .user-profile:hover .profile-dropdown { display: block; }
+        /* Dropdown */
+        .profile-dropdown {
+            display: none; position: absolute;
+            top: 100%; right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px; min-width: 180px;
+            margin-top: 10px; z-index: 1001;
+        }
+        .profile-dropdown::before { content: ""; position: absolute; top: -15px; left: 0; width: 100%; height: 15px; background: transparent; }
 
-        .profile-dropdown a {
-            display: block; padding: 12px 15px;
-            color: var(--text-color); font-size: 0.9em;
-            transition: background 0.3s; border-bottom: 1px solid #eee;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+        .profile-dropdown a {
+            display: block; padding: 12px 15px;
+            color: var(--text-color); font-size: 0.9em;
+            transition: background 0.3s; border-bottom: 1px solid #eee;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
 
-        /* --- 3. Contact Section --- */
-        .contact-section { padding: 60px 0; text-align: center; min-height: 70vh; }
+        /* --- 3. Contact Section --- */
+        .contact-section { padding: 60px 0; text-align: center; min-height: 70vh; }
 
-        .contact-section h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.2em; color: var(--secondary-dark);
-            margin-bottom: 40px;
-            border-bottom: 3px solid var(--primary-orange);
-            display: inline-block; padding-bottom: 5px;
-        }
+        .contact-section h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2em; color: var(--secondary-dark);
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-orange);
+            display: inline-block; padding-bottom: 5px;
+        }
 
-        .contact-card {
-            display: flex; flex-wrap: wrap;
-            justify-content: center; align-items: flex-start;
-            gap: 40px; background: var(--card-bg);
-            padding: 40px; border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            border: 1px solid var(--outline-color);
-            text-align: left;
-        }
+        .contact-card {
+            display: flex; flex-wrap: wrap;
+            justify-content: center; align-items: flex-start;
+            gap: 40px; background: var(--card-bg);
+            padding: 40px; border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--outline-color);
+            text-align: left;
+        }
 
-        .contact-image-box { flex: 1; min-width: 300px; text-align: center; }
+        .contact-image-box { flex: 1; min-width: 300px; text-align: center; }
 
-        .contact-thumb {
-            width: 100%; max-width: 400px; height: auto;
-            border-radius: 10px; border: 4px solid var(--outline-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        .contact-thumb:hover { transform: scale(1.02); border-color: var(--primary-orange); }
+        .contact-thumb {
+            width: 100%; max-width: 400px; height: auto;
+            border-radius: 10px; border: 4px solid var(--outline-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .contact-thumb:hover { transform: scale(1.02); border-color: var(--primary-orange); }
 
-        .contact-info-text { margin-top: 20px; color: #546E7A; font-size: 0.95em; }
-        .contact-info-text p { margin: 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .contact-info-text i { color: var(--primary-orange); }
+        .contact-info-text { margin-top: 20px; color: #546E7A; font-size: 0.95em; }
+        .contact-info-text p { margin: 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .contact-info-text i { color: var(--primary-orange); }
 
-        .contact-form-box { flex: 1; min-width: 300px; }
-        .contact-form-box h3 { color: var(--secondary-dark); margin-top: 0; margin-bottom: 20px; font-weight: 700; }
+        .contact-form-box { flex: 1; min-width: 300px; }
+        .contact-form-box h3 { color: var(--secondary-dark); margin-top: 0; margin-bottom: 20px; font-weight: 700; }
 
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; color: var(--text-color); font-weight: 600; font-size: 0.9em; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-color); font-weight: 600; font-size: 0.9em; }
 
-        .form-control {
-            width: 100%; padding: 12px;
-            border: 2px solid var(--outline-color);
-            border-radius: 8px; font-size: 1em;
-            font-family: inherit; transition: 0.3s;
-            box-sizing: border-box;
-        }
-        .form-control:focus { outline: none; border-color: var(--primary-orange); }
+        .form-control {
+            width: 100%; padding: 12px;
+            border: 2px solid var(--outline-color);
+            border-radius: 8px; font-size: 1em;
+            font-family: inherit; transition: 0.3s;
+            box-sizing: border-box;
+        }
+        .form-control:focus { outline: none; border-color: var(--primary-orange); }
 
-        .btn-submit {
-            background-color: var(--primary-orange);
-            color: white; padding: 12px 30px;
-            border: none; border-radius: 50px;
-            font-size: 1em; font-weight: 600;
-            cursor: pointer; transition: 0.3s;
-            width: 100%; display: flex;
-            align-items: center; justify-content: center; gap: 10px;
-        }
-        .btn-submit:hover { background-color: var(--secondary-dark); transform: translateY(-2px); }
-        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
+        .btn-submit {
+            background-color: var(--primary-orange);
+            color: white; padding: 12px 30px;
+            border: none; border-radius: 50px;
+            font-size: 1em; font-weight: 600;
+            cursor: pointer; transition: 0.3s;
+            width: 100%; display: flex;
+            align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-submit:hover { background-color: var(--secondary-dark); transform: translateY(-2px); }
+        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
 
-        /* --- 4. ഫൂട്ടർ --- */
-        footer {
-            background-color: var(--secondary-dark);
-            color: var(--light-text); padding: 40px 0;
-            text-align: center; font-size: 0.9em; margin-top: 60px;
-        }
-        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
-        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
+        /* --- 4. ഫൂട്ടർ --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text); padding: 40px 0;
+            text-align: center; font-size: 0.9em; margin-top: 60px;
+        }
+        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
 
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
-            .contact-card { flex-direction: column; padding: 25px; }
-            .profile-dropdown { left: 0; right: 0; position: relative; width: 100%; border: 1px solid #eee; box-shadow: none; }
-        }
-    </style>
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
+            .contact-card { flex-direction: column; padding: 25px; }
+            .profile-dropdown { left: 0; right: 0; position: relative; width: 100%; border: 1px solid #eee; box-shadow: none; }
+        }
+    </style>
 
 
 <style id="footer-fix-style">
-    /* --- FORCE STICKY FOOTER --- */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    body {
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: 100vh !important;
-    }
+    /* --- FORCE STICKY FOOTER --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 100vh !important;
+    }
 
-    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
-    section, .collection-section, .about-hero, .container, .content-box {
-        flex: 1 0 auto;
-    }
+    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
+    section, .collection-section, .about-hero, .container, .content-box {
+        flex: 1 0 auto;
+    }
 
-    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
-    footer {
-        flex-shrink: 0 !important;
-        width: 100% !important;
-        margin-top: auto !important; 
-    }
-    /* --------------------------- */
+    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
+    footer {
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        margin-top: auto !important; 
+    }
+    /* --------------------------- */
 </style>
 </head>
 <body data-protected="true" data-secure="true">
@@ -263,9 +262,7 @@
 </div>
 <div class="contact-form-box">
 <h3>സന്ദേശങ്ങൾ അയക്കൂ</h3>
-<form id="contactForm" method="POST">
-<input name="_captcha" type="hidden" value="false"/>
-<input name="_subject" type="hidden" value="New Library Inquiry"/>
+<form id="contactForm">
 <div class="form-group">
 <label for="name">പേര്</label>
 <input class="form-control" id="name" name="name" placeholder="നിങ്ങളുടെ പേര്" required="" type="text"/>
@@ -279,8 +276,6 @@
 <textarea class="form-control" id="message" name="message" placeholder="നിങ്ങളുടെ അഭിപ്രായങ്ങൾ ഇവിടെ എഴുതുക..." required="" rows="5"></textarea>
 </div>
 <button class="btn-submit" id="submitBtn" type="submit">അയക്കുക <i class="fas fa-paper-plane"></i></button>
-</form>
-</div>
 </div>
 </div>
 </section>
@@ -289,402 +284,126 @@
 <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
 <div class="footer-links">
 <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
 <a href="#"><i class="fab fa-facebook-f"></i></a>
 </div>
 </div>
 </footer>
 <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig); 
-        const auth = getAuth(app);
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(app);
 
-        onAuthStateChanged(auth, async (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const avatarDiv = document.getElementById('userAvatar');
+        onAuthStateChanged(auth, async (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
 
-            if (user) {
-                try { await user.reload(); } catch(e) {}
-                const currentUser = auth.currentUser;
-                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
-                if(nameDisplay) nameDisplay.textContent = displayName;
-                if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
-            }
+            if (user) {
+                try { await user.reload(); } catch(e) {}
+                const currentUser = auth.currentUser;
+                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
+                if(nameDisplay) nameDisplay.textContent = displayName;
+                if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
+            }
+        });
+
+        const logoutLink = document.getElementById('logout-link');
+        if(logoutLink) {
+            logoutLink.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
+            });
+        }
+    </script>
+<script>
+    // ⭐⭐ ഇവിടെ നിങ്ങളുടെ Google Apps Script Web App URL ചേർക്കുക ⭐⭐
+    const APPS_SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE"; 
+
+    // Profile Dropdown Toggle
+    const profileSection = document.getElementById('profile-section');
+    if(profileSection){
+        profileSection.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = this.querySelector('.profile-dropdown');
+            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         });
+    }
+    
+    window.onclick = function(event) {
+        if (!event.target.closest('.user-profile')) {
+            var dropdowns = document.getElementsByClassName("profile-dropdown");
+            for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
+        }
+    }
 
-        const logoutLink = document.getElementById('logout-link');
-        if(logoutLink) {
-            logoutLink.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
+    // Google Apps Script വഴി Google Sheet-ലേക്ക് ഡാറ്റ സേവ് ചെയ്യാനുള്ള ലോജിക്
+    const contactForm = document.getElementById('contactForm');
+    if(contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const originalBtnText = btn.innerHTML;
+            
+            // Button Loading State
+            btn.innerHTML = 'അയക്കുന്നു... <i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+            const data = new URLSearchParams(formData); // URLSearchParams ഉപയോഗിച്ച് ഡാറ്റ Apps Script-ന് പാസ് ചെയ്യുന്നു
+
+            // Fetch request to Apps Script's doPost function
+            fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                body: data 
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.result === 'Success') {
+                    // വിജയ സന്ദേശം
+                    alert("✅ നന്ദി! നിങ്ങളുടെ സന്ദേശം Google Sheet-ൽ സേവ് ചെയ്തു.");
+                    contactForm.reset(); // ഫോം ക്ലിയർ ചെയ്യുന്നു
+                } else {
+                    // തകരാർ സന്ദേശം
+                    console.error('Apps Script Error:', result.message);
+                    alert("❌ ക്ഷമിക്കണം, സന്ദേശം ഷീറ്റിൽ സേവ് ചെയ്യാൻ സാധിച്ചില്ല. കാരണം: " + result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                alert("❌ കണക്ഷൻ തകരാർ. ഇന്റർനെറ്റ് കണക്ഷൻ പരിശോധിക്കുക.");
+            })
+            .finally(() => {
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
             });
-        }
-    </script>
-<script>
-        // Profile Dropdown Toggle
-        const profileSection = document.getElementById('profile-section');
-        if(profileSection){
-            profileSection.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const dropdown = this.querySelector('.profile-dropdown');
-                if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-            });
-        }
-        
-        window.onclick = function(event) {
-            if (!event.target.closest('.user-profile')) {
-                var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
-            }
-        }
-
-        // FormSubmit Logic (with AJAX for Popup message)
-        const contactForm = document.getElementById('contactForm');
-        if(contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const btn = document.getElementById('submitBtn');
-                const originalBtnText = btn.innerHTML;
-                
-                // Button Loading State
-                btn.innerHTML = 'അയക്കുന്നു... <i class="fas fa-spinner fa-spin"></i>';
-                btn.disabled = true;
-
-                const formData = new FormData(this);
-
-                // Use FormSubmit AJAX Endpoint
-                fetch("https://formsubmit.co/ajax/cplibrarycp@gmail.com", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert("നന്ദി! നിങ്ങളുടെ സന്ദേശം വിജയകരമായി അയച്ചു."); 
-                    contactForm.reset(); // Clear the form
-                })
-                .catch(error => {
-                    console.log(error);
-                    alert("ക്ഷമിക്കണം, സന്ദേശം അയക്കാൻ സാധിച്ചില്ല. വീണ്ടും ശ്രമിക്കുക.");
-                })
-                .finally(() => {
-                    btn.innerHTML = originalBtnText;
-                    btn.disabled = false;
-                });
-            });
-        }
-    </script>
-<style>
-    /* Popup Background */
-    .lib-modal { 
-        display: none; position: fixed; z-index: 99999; 
-        left: 0; top: 0; width: 100%; height: 100%; 
-        background-color: rgba(0, 0, 0, 0.7); 
-        backdrop-filter: blur(5px); 
-        justify-content: center; align-items: center; 
-    }
-    /* Popup Box */
-    .lib-box { 
-        background: #ffffff; padding: 30px; 
-        border-radius: 15px; width: 90%; max-width: 350px; 
-        text-align: center; 
-        border-top: 6px solid #00897B; /* Teal Color */
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
-        font-family: sans-serif; 
-        animation: slideDown 0.3s ease-out;
-    }
-    .lib-box h3 { color: #004D40; margin-top: 0; font-size: 22px; }
-    .lib-box p { color: #555; margin-bottom: 25px; font-size: 16px; }
-    
-    /* Buttons */
-    .btn-lib-login { 
-        background: #00897B; color: white; border: none; 
-        padding: 12px 25px; border-radius: 50px; 
-        font-weight: bold; cursor: pointer; width: 100%; 
-        margin-bottom: 10px; transition: 0.3s; 
-    }
-    .btn-lib-login:hover { background: #004D40; }
-    
-    .btn-lib-close { 
-        background: transparent; color: #777; border: 1px solid #ccc; 
-        padding: 10px 25px; border-radius: 50px; 
-        cursor: pointer; width: 100%; transition: 0.3s; 
-    }
-    .btn-lib-close:hover { background: #f1f1f1; color: #333; }
-
-    @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-</style>
-<script>
-    // 1. PDF വായന പരിശോധന (On Click)
-    function checkReadAccess(event, pdfUrl) {
-        // ലിങ്ക് പ്രവർത്തിക്കുന്നത് തടയുന്നു (Stop Link Jump)
-        if(event) { event.preventDefault(); }
-
-        var user = localStorage.getItem('libraryUser');
-        if (user) {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ PDF തുറക്കും
-            window.open(pdfUrl, '_blank');
-        } else {
-            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കും
-            sessionStorage.setItem('pendingBook', pdfUrl); // ബുക്ക് ഓർത്തു വെക്കുന്നു
-            document.getElementById('libraryAuthModal').style.display = 'flex';
-        }
+        });
     }
 
-    // 2. പേജ് സുരക്ഷാ പരിശോധന (On Page Load)
-    // Protected Pages ലിസ്റ്റിലുള്ള പേജുകളിൽ ഇത് പ്രവർത്തിക്കും
-    function enforcePageSecurity() {
-        var isProtected = document.body.getAttribute('data-protected');
-        if (isProtected === 'true') {
-            var user = localStorage.getItem('libraryUser');
-            if (!user) {
-                // ലോഗിൻ ഇല്ലെങ്കിൽ നേരെ ലോഗിൻ പേജിലേക്ക്
-                window.location.href = 'login.html';
-            }
-        }
-    }
-
-    // Helper Functions
-    function goToLogin() { window.location.href = 'login.html'; }
-    function closeLibModal() { document.getElementById('libraryAuthModal').style.display = 'none'; }
-    
-    // Run Security Check automatically
-    enforcePageSecurity();
-</script>
-<style>
-    .lib-modal-overlay { 
-        display: none; position: fixed; z-index: 999999; 
-        left: 0; top: 0; width: 100%; height: 100%; 
-        background: rgba(0, 0, 0, 0.8); 
-        backdrop-filter: blur(4px);
-        justify-content: center; align-items: center; 
-    }
-    .lib-modal-box { 
-        background: #fff; padding: 30px; border-radius: 15px; 
-        width: 320px; text-align: center; 
-        border-top: 5px solid #00897B; /* Teal Theme */
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-        font-family: sans-serif;
-    }
-    .lib-btn-go { background: #00897B; color: white; border: none; padding: 10px 20px; border-radius: 5px; width: 100%; margin: 10px 0; cursor: pointer; font-weight: bold; }
-    .lib-btn-no { background: transparent; color: #555; border: 1px solid #ccc; padding: 8px 20px; border-radius: 5px; width: 100%; cursor: pointer; }
-</style>
-<script>
-    // 1. PDF വായനയ്ക്കുള്ള ഫംഗ്‌ഷൻ
-    function openBook(element) {
-        // ലിങ്കിന്റെ ഉള്ളിൽ ഒളിപ്പിച്ചു വെച്ച അഡ്രസ്സ് എടുക്കുന്നു
-        var bookUrl = element.getAttribute('data-book-url');
-        var user = localStorage.getItem('libraryUser');
-
-        if (user) {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ മാത്രം ലിങ്ക് തുറക്കുന്നു
-            window.open(bookUrl, '_blank');
-        } else {
-            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കുന്നു
-            sessionStorage.setItem('pendingBook', bookUrl);
-            document.getElementById('libPopup').style.display = 'flex';
-        }
-    }
-
-    // 2. പേജ് പ്രൊട്ടക്ഷൻ (History, Profile etc.)
-    document.addEventListener("DOMContentLoaded", function() {
-        if (document.body.getAttribute('data-secure') === 'true') {
-            var user = localStorage.getItem('libraryUser');
-            if (!user) {
-                window.location.href = 'login.html';
-            }
-        }
-    });
-</script>
-<style>
-    /* Popup Style */
-    .lib-popup-overlay {
-        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
-        justify-content: center; align-items: center; z-index: 999999;
-    }
-    .lib-popup-box {
-        background: white; padding: 30px; width: 300px;
-        border-top: 5px solid #00897B; border-radius: 10px;
-        text-align: center; font-family: sans-serif;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold;}
-    .lib-btn-login:hover { background: #004D40; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px;}
-</style>
-<script>
-    // 1. PDF ലിങ്ക് ക്ലിക്ക് ചെയ്യുമ്പോൾ
-    function checkAccess(bookUrl) {
-        var user = localStorage.getItem('libraryUser');
-        if (user) {
-            window.open(bookUrl, '_blank');
-        } else {
-            sessionStorage.setItem('pendingBook', bookUrl);
-            document.getElementById('libAuthPopup').style.display = 'flex';
-        }
-    }
-
-    // 2. പേജ് സെക്യൂരിറ്റി (ലോഗിൻ ചെയ്യാത്തവരെ പുറത്താക്കാൻ)
-    function enforceSecurity() {
-        if (document.body.getAttribute('data-secure') === 'true') {
-            var user = localStorage.getItem('libraryUser');
-            if (!user) {
-                window.location.href = 'login.html';
-            }
-        }
-    }
-    enforceSecurity(); // Run immediately
-</script>
-<style>
-    /* Popup Overlay */
-    .lib-popup-overlay {
-        display: none; 
-        position: fixed; 
-        top: 0; left: 0; 
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); 
-        backdrop-filter: blur(4px);
-        justify-content: center; 
-        align-items: center; 
-        z-index: 999999;
-    }
-    /* Popup Box */
-    .lib-popup-box {
-        background: white; 
-        padding: 30px; 
-        width: 300px;
-        border-top: 5px solid #00897B; 
-        border-radius: 10px;
-        text-align: center; 
-        font-family: 'Poppins', sans-serif;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    /* Buttons */
-    .lib-btn-login { 
-        background: #00897B; 
-        color: white; 
-        border: none; 
-        padding: 10px 20px; 
-        width: 100%; 
-        margin-top: 10px; 
-        cursor: pointer; 
-        border-radius: 5px; 
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .lib-btn-login:hover { background: #004D40; }
-    
-    .lib-btn-close { 
-        background: transparent; 
-        border: 1px solid #ccc; 
-        color: #555; 
-        padding: 8px 20px; 
-        width: 100%; 
-        margin-top: 5px; 
-        cursor: pointer; 
-        border-radius: 5px;
-        transition: 0.3s;
-    }
-    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
-</style>
-<script>
+    // --- Logout Button Hook (Common Functions) ---
     function checkAccess(targetUrl) {
-        // LocalStorage-ൽ libraryUser ഉണ്ടോ എന്ന് നോക്കുന്നു
-        // (Firebase ലോഗിൻ ചെയ്യുമ്പോൾ ഇത് സെറ്റ് ചെയ്യപ്പെടണം)
-        var user = localStorage.getItem('libraryUser');
-        
-        if (user) {
-            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
-            window.location.href = targetUrl;
-        } else {
-            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
-            sessionStorage.setItem('pendingBook', targetUrl); // ഏത് ബുക്കാണ് വേണ്ടതെന്ന് ഓർത്തു വെക്കുന്നു
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    }
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            window.location.href = targetUrl;
+        } else {
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+    }
+
+    function goToLogin() {
+        window.location.href = 'login.html';
+    }
 </script>
 <style>
-    /* 1. Popup Overlay Style */
-    .lib-popup-overlay {
-        display: none; 
-        position: fixed; 
-        top: 0; left: 0; 
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); 
-        backdrop-filter: blur(4px);
-        justify-content: center; 
-        align-items: center; 
-        z-index: 999999;
-    }
-    .lib-popup-box {
-        background: white; 
-        padding: 30px; 
-        width: 300px;
-        border-top: 5px solid #00897B; 
-        border-radius: 10px;
-        text-align: center; 
-        font-family: 'Poppins', sans-serif;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        animation: fadeIn 0.3s ease;
-    }
-    
-    /* 2. Buttons */
-    .lib-btn-login { 
-        background: #00897B; color: white; border: none; 
-        padding: 10px 20px; width: 100%; margin-top: 10px; 
-        cursor: pointer; border-radius: 5px; font-weight: bold;
-        transition: 0.3s;
-    }
-    .lib-btn-login:hover { background: #004D40; }
-    
-    .lib-btn-close { 
-        background: transparent; border: 1px solid #ccc; color: #555; 
-        padding: 8px 20px; width: 100%; margin-top: 5px; 
-        cursor: pointer; border-radius: 5px; transition: 0.3s;
-    }
-    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-</style>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // --- A. LOGOUT BUTTON VISIBILITY FIX ---
-        var user = localStorage.getItem('libraryUser');
-        var logoutBtn = document.getElementById('logout-link');
-        
-        if (logoutBtn) {
-            if (user) {
-                logoutBtn.style.display = 'block'; // ലോഗിൻ ഉണ്ടെങ്കിൽ കാണിക്കുക
-            } else {
-                logoutBtn.style.display = 'none';  // ലോഗിൻ ഇല്ലെങ്കിൽ മറയ്ക്കുക (Guest Mode)
-            }
-        }
-    });
-
-    // --- B. ACCESS CHECK FUNCTION ---
-    function checkAccess(targetUrl) {
-        var user = localStorage.getItem('libraryUser');
-        
-        if (user) {
-            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
-            window.location.href = targetUrl;
-        } else {
-            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
-            sessionStorage.setItem('pendingBook', targetUrl);
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    }
-</script>
-<style>
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
 </style>
 <div class="lib-popup-overlay" id="login-modal">
 <div class="lib-popup-box">
@@ -694,61 +413,5 @@
 <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
 </div>
 </div>
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
-    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // ഉപയോക്താവിന്റെ ലോഗിൻ നില പരിശോധിക്കുന്നു
-    onAuthStateChanged(auth, (user) => {
-        const logoutBtn = document.getElementById('logout-link');
-        if (user) {
-            // ലോഗിൻ ആണെങ്കിൽ സിസ്റ്റത്തിൽ രേഖപ്പെടുത്തുന്നു
-            localStorage.setItem('libraryUser', 'true');
-            if(logoutBtn) logoutBtn.style.display = 'block';
-        } else {
-            // ലോഗിൻ അല്ല
-            localStorage.removeItem('libraryUser');
-            if(logoutBtn) logoutBtn.style.display = 'none';
-        }
-    });
-
-    window.performLogout = function() {
-        signOut(auth).then(() => { 
-            localStorage.removeItem('libraryUser');
-            window.location.href = "logout-success.html"; 
-        });
-    }
-</script>
-<script>
-    function checkAccess(targetUrl) {
-        var user = localStorage.getItem('libraryUser');
-        if (user) {
-            window.location.href = targetUrl;
-        } else {
-            // ഓർമ്മിച്ചു വെക്കുന്നു (Smart Redirect)
-            sessionStorage.setItem('pendingBook', targetUrl);
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    }
-
-    function goToLogin() {
-        window.location.href = 'login.html';
-    }
-
-    // Logout Button Hook
-    document.addEventListener("DOMContentLoaded", function() {
-        var logoutBtn = document.getElementById('logout-link');
-        if(logoutBtn) {
-            logoutBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if(window.performLogout) window.performLogout();
-            });
-        }
-    });
-</script>
 </body>
 </html>
