@@ -145,8 +145,9 @@
     </script>
 
     <script>
-        // ⭐⭐⭐ ഇവിടെ നിങ്ങളുടെ Apps Script URL ചേർക്കുക ⭐⭐⭐
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywNTrW5NxuXjI0Vl0c8LwO8uYCB45XIYDT8BI-y6L8cf1qH2NkjNAWQ5go3AhUB3OfQg/exec"; 
+        // ⭐⭐⭐ URL ഇവിടെ നിങ്ങളുടെ Apps Script URL ചേർക്കുക ⭐⭐⭐
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywNTrW5NxuXjI0Vl0c8LwO8uYCB45XIYDT8BI-y6L8cf1qH2NkjNAWQ5go3AhUB3OfQg/exec
+"; 
 
         // 1. Image Selection & Preview Logic
         const fileInput = document.getElementById('fileInput');
@@ -157,8 +158,6 @@
             const file = this.files[0];
             
             if (file) {
-                console.log("File selected:", file.name); // Debugging
-                
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     // Update Preview
@@ -204,12 +203,14 @@
                 .then(res => res.json())
                 .then(result => {
                     if (result.result === "Success") {
-                        alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി!");
+                        alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി! (പേജ് റീലോഡ് ചെയ്യുന്നു)");
+                        
+                        // Save new URL locally
                         localStorage.setItem('userPhoto_' + window.currentUserUid, result.photoUrl);
-                        document.getElementById('headerAvatar').innerHTML = `<img src="${result.photoUrl}">`;
-                        // Reset button
-                        uploadBtn.classList.add('active');
-                        uploadBtn.innerHTML = '<i class="fas fa-check"></i> വിജയിച്ചു';
+                        
+                        // ⭐ ഫിക്സ്: വിജയകരമായ ശേഷം പേജ് റീലോഡ് ചെയ്യുന്നു ⭐
+                        window.location.reload(); 
+                        
                     } else {
                         alert("❌ പരാജയപ്പെട്ടു: " + result.message);
                         uploadBtn.classList.add('active');
@@ -225,7 +226,7 @@
             };
         });
 
-        // Header Dropdown Toggle
+        // Dropdown Toggle
         document.getElementById('profile-section').addEventListener('click', function(e) {
             e.stopPropagation();
             const d = this.querySelector('.profile-dropdown');
@@ -235,4 +236,3 @@
     </script>
 </body>
 </html>
-
