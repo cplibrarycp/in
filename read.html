@@ -1,44 +1,38 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>വായനശാല | THRIPUDI LIBRARY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>വായനശാല | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
         :root {
             --primary-orange: #00897B;
             --secondary-dark: #004D40;
-            --background-light: #E0F2F1;
-            --text-color: #263238;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #333; /* വായനയ്ക്ക് അനുയോജ്യമായ ഡാർക്ക് ബാക്ക്ഗ്രൗണ്ട് */
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
             height: 100vh;
+            background-color: #202124;
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
         }
 
-        /* --- ടോപ്പ് ബാർ (Close Button) --- */
+        /* --- ടോപ്പ് ബാർ --- */
         .top-bar {
-            width: 100%;
+            height: 50px;
             background: var(--secondary-dark);
             color: white;
-            padding: 10px 20px;
+            padding: 0 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             z-index: 10;
         }
@@ -49,183 +43,611 @@
             font-size: 0.9em;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            font-weight: 600;
+        }
+        
+        .back-btn:hover {
+            color: #ccc;
         }
 
-        .page-info {
+        .logo-text {
             font-size: 0.9em;
+            opacity: 0.8;
         }
 
         /* --- PDF കണ്ടെയ്നർ --- */
-        #pdf-render-container {
+        .pdf-container {
             flex: 1;
-            overflow: auto;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
             width: 100%;
-            background-color: #525659;
+            height: 100%;
+            position: relative; /* ഇത് പ്രധാനം */
         }
 
-        canvas {
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* --- താഴെയുള്ള കൺട്രോൾ ബാർ --- */
-        .controls {
+        iframe {
             width: 100%;
-            background: white;
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 10;
-        }
-
-        .btn {
-            background-color: var(--primary-orange);
-            color: white;
+            height: 100%;
             border: none;
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: block;
         }
 
-        .btn:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        .btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        /* ലോഡിംഗ് സ്പിന്നർ */
-        #loader {
+        /* --- Pop-out ബട്ടൺ ബ്ലോക്കർ (TRICK) --- */
+        .popout-blocker {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1.5em;
+            top: 0;
+            right: 0;
+            width: 60px;  /* ബട്ടന്റെ ഏകദേശ വീതി */
+            height: 60px; /* ബട്ടന്റെ ഏകദേശ ഉയരം */
+            background: transparent; /* സുതാര്യം (കാണില്ല) */
+            z-index: 20; /* iframe-ന് മുകളിൽ */
+            cursor: default;
         }
+
     </style>
+
+
+<style id="footer-fix-style">
+    /* --- FORCE STICKY FOOTER --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 100vh !important;
+    }
+
+    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
+    section, .collection-section, .about-hero, .container, .content-box {
+        flex: 1 0 auto;
+    }
+
+    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
+    footer {
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        margin-top: auto !important; 
+    }
+    /* --------------------------- */
+</style>
 </head>
 <body>
-
-    <div class="top-bar">
-        <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> തിരികെ പോവുക</a>
-        <span class="page-info">പേജ്: <span id="page-num">--</span> / <span id="page-count">--</span></span>
-    </div>
-
-    <div id="loader">പുസ്തകം തുറക്കുന്നു... <i class="fas fa-spinner fa-spin"></i></div>
-
-    <div id="pdf-render-container">
-        <canvas id="the-canvas"></canvas>
-    </div>
-
-    <div class="controls">
-        <button class="btn" id="prev"><i class="fas fa-chevron-left"></i> Previous</button>
-        <button class="btn" id="next">Next <i class="fas fa-chevron-right"></i></button>
-    </div>
-
-    <script>
-        // URL-ൽ നിന്ന് ഫയൽ ID എടുക്കുന്നു (ഉദാ: read.html?id=YOUR_FILE_ID)
+<div class="top-bar">
+<a class="back-btn" href="javascript:history.back()">
+<i class="fas fa-arrow-left"></i> തിരികെ
+        </a>
+<span class="logo-text">THRIPUDI READ MODE</span>
+</div>
+<div class="pdf-container">
+<iframe allow="autoplay" id="pdf-frame" src=""></iframe>
+<div class="popout-blocker" title="Pop-out disabled"></div>
+</div>
+<script>
+        // URL-ൽ നിന്ന് ഫയൽ ID എടുക്കുന്നു
         const urlParams = new URLSearchParams(window.location.search);
         const fileId = urlParams.get('id');
 
         if (!fileId) {
             alert("പുസ്തകം കണ്ടെത്തിയില്ല!");
             window.location.href = 'dashboard.html';
+        } else {
+            // Preview URL
+            const driveUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+            document.getElementById('pdf-frame').src = driveUrl;
+        }
+    </script>
+<div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; flex-direction:column;">
+<div style="background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+<span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> Reading Mode</span>
+<button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
+<i class="fas fa-times"></i> Close
+            </button>
+</div>
+<iframe id="pdfFrame" style="width:100%; flex:1; border:none; display:block;"></iframe>
+</div>
+<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+
+            if (user) {
+                // --- 1. USER NAME SYNC FIX ---
+                // പേജ് ലോഡ് ആകുമ്പോൾ തന്നെ വിവരങ്ങൾ നിർബന്ധമായും പുതുക്കുന്നു
+                try { 
+                    await user.reload(); 
+                } catch(e) { 
+                    console.log("Auto-reload error, using cached data"); 
+                }
+                
+                // ഫയർബേസിൽ നിന്ന് ഏറ്റവും പുതിയ വിവരം എടുക്കുന്നു
+                const currentUser = auth.currentUser; 
+                
+                // പേര് ഡിസ്പ്ലേ ചെയ്യുന്നു
+                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
+                if(nameDisplay) nameDisplay.textContent = displayName;
+                
+                // ഫോട്ടോ ഡിസ്പ്ലേ ചെയ്യുന്നു
+                if (currentUser.photoURL && avatarDiv) {
+                    avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
+                }
+
+                // --- 2. SETUP CLICKS ---
+                setupInteractions(user.uid);
+
+            } else {
+                // ലോഗിൻ ചെയ്തിട്ടില്ലെങ്കിൽ ഇൻഡക്സ് പേജിലേക്ക്
+                if (!window.location.pathname.includes("index.html")) {
+                     window.location.href = "logout-success.html";
+                }
+            }
+        });
+
+        const logoutLink = document.getElementById('logout-link');
+        if(logoutLink) {
+            logoutLink.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
+            });
         }
 
-        // ഗൂഗിൾ ഡ്രൈവ് ഫയൽ ലിങ്ക് (CORS പ്രശ്നം ഒഴിവാക്കാൻ Proxy ഉപയോഗിക്കേണ്ടി വന്നേക്കാം)
-        // ശ്രദ്ധിക്കുക: ഫയൽ പബ്ലിക് ആയിരിക്കണം (Anyone with the link)
-        const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
-
-        let pdfDoc = null,
-            pageNum = 1,
-            pageRendering = false,
-            pageNumPending = null,
-            scale = 1.5, // സൂം ലെവൽ
-            canvas = document.getElementById('the-canvas'),
-            ctx = canvas.getContext('2d');
-
-        // പേജ് റെൻഡർ ചെയ്യുന്ന ഫംഗ്‌ഷൻ
-        function renderPage(num) {
-            pageRendering = true;
-            
-            // പേജ് എടുക്കുന്നു
-            pdfDoc.getPage(num).then(function(page) {
-                var viewport = page.getViewport({scale: scale});
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                var renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
-                var renderTask = page.render(renderContext);
-
-                // റെൻഡറിംഗ് കഴിഞ്ഞാൽ
-                renderTask.promise.then(function() {
-                    pageRendering = false;
-                    document.getElementById('loader').style.display = 'none'; // ലോഡർ മാറ്റുന്നു
+        // --- GLOBAL FUNCTIONS ---
+        window.setupInteractions = function(uid) {
+            const buttons = document.querySelectorAll(".overlay-btn");
+            buttons.forEach(btn => {
+                // പഴയ ഇവന്റുകൾ നീക്കം ചെയ്ത് പുതിയത് ചേർക്കുന്നു
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                newBtn.addEventListener("click", function(e) {
+                    e.preventDefault(); // പുതിയ ടാബിൽ തുറക്കുന്നത് തടയുന്നു
                     
-                    if (pageNumPending !== null) {
-                        renderPage(pageNumPending);
-                        pageNumPending = null;
+                    const card = this.closest('.book-card');
+                    const linkUrl = this.getAttribute('href');
+                    
+                    // History Saving
+                    if (card) {
+                        const title = card.querySelector('.book-title').innerText;
+                        const image = card.querySelector('.book-cover').src;
+                        const date = new Date().toLocaleDateString('ml-IN');
+                        
+                        const key = 'history_' + uid;
+                        let history = JSON.parse(localStorage.getItem(key)) || [];
+                        history = history.filter(item => item.title !== title); // Remove duplicate
+                        history.unshift({ title, image, url: linkUrl, date });
+                        if (history.length > 50) history.pop();
+                        localStorage.setItem(key, JSON.stringify(history));
                     }
+
+                    // Open Full Page PDF
+                    openPdfModal(linkUrl);
                 });
             });
-
-            // പേജ് നമ്പറുകൾ അപ്ഡേറ്റ് ചെയ്യുന്നു
-            document.getElementById('page-num').textContent = num;
+        };
+    </script>
+<script>
+        // --- FULL PAGE PDF LOGIC ---
+        function openPdfModal(url) {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            
+            // Drive Link Conversion (Preview Mode)
+            let embedUrl = url;
+            if(url.includes("view") || url.includes("preview")) {
+                embedUrl = url.replace(/\/view.*/, "/preview").replace(/\/preview.*/, "/preview");
+            }
+            
+            frame.src = embedUrl;
+            modal.style.display = "flex"; // Flex ഉപയോഗിച്ചാണ് ഫുൾ പേജ് സെറ്റ് ചെയ്യുന്നത്
+            document.body.style.overflow = "hidden"; // പിന്നിലെ പേജ് സ്ക്രോൾ ആവാതിരിക്കാൻ
         }
 
-        // അടുത്ത പേജ് കാത്തിരിക്കുന്നുണ്ടെങ്കിൽ അത് ലോഡ് ചെയ്യുക
-        function queueRenderPage(num) {
-            if (pageRendering) {
-                pageNumPending = num;
-            } else {
-                renderPage(num);
+        function closePdfModal() {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            
+            modal.style.display = "none";
+            frame.src = ""; 
+            document.body.style.overflow = "auto"; // സ്ക്രോൾ തിരികെ കൊണ്ടുവരുന്നു
+        }
+
+        function toggleProfileMenu() { 
+            var dropdown = document.querySelector(".profile-dropdown"); 
+            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block"; 
+        }
+        
+        // ക്ലിക്ക് ഔട്ട്സൈഡ് (Dropdown Close)
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-profile')) {
+                var dropdowns = document.getElementsByClassName("profile-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = "none";
+                }
             }
         }
-
-        // Previous Button Click
-        document.getElementById('prev').addEventListener('click', function() {
-            if (pageNum <= 1) return;
-            pageNum--;
-            queueRenderPage(pageNum);
-        });
-
-        // Next Button Click
-        document.getElementById('next').addEventListener('click', function() {
-            if (pageNum >= pdfDoc.numPages) return;
-            pageNum++;
-            queueRenderPage(pageNum);
-        });
-
-        // PDF ലോഡ് ചെയ്യുന്നു
-        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-            pdfDoc = pdfDoc_;
-            document.getElementById('page-count').textContent = pdfDoc.numPages;
-            renderPage(pageNum);
-        }).catch(function(error) {
-            console.error('Error loading PDF:', error);
-            // ചിലപ്പോൾ CORS പ്രശ്നം കാരണം ലോഡ് ആയില്ലെങ്കിൽ അറിയിക്കാൻ
-            alert("ക്ഷമിക്കണം, ഈ പുസ്തകം നേരിട്ട് ലോഡ് ചെയ്യാൻ സാധിക്കുന്നില്ല. ദയവായി ഡ്രൈവ് ലിങ്ക് 'Public' ആണെന്ന് ഉറപ്പുവരുത്തുക.");
-            document.getElementById('loader').innerHTML = "Error loading PDF.";
-        });
+        
+        function searchBooks() { var input = document.getElementById('searchBar'); if(!input) return; var filter = input.value.toUpperCase(); var cards = document.getElementsByClassName('book-card'); for (var i = 0; i < cards.length; i++) { var title = cards[i].getElementsByClassName("book-title")[0]; if (title) { var txtValue = title.textContent || title.innerText; cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; } } }
     </script>
+<style>
+    /* Popup Background */
+    .lib-modal { 
+        display: none; position: fixed; z-index: 99999; 
+        left: 0; top: 0; width: 100%; height: 100%; 
+        background-color: rgba(0, 0, 0, 0.7); 
+        backdrop-filter: blur(5px); 
+        justify-content: center; align-items: center; 
+    }
+    /* Popup Box */
+    .lib-box { 
+        background: #ffffff; padding: 30px; 
+        border-radius: 15px; width: 90%; max-width: 350px; 
+        text-align: center; 
+        border-top: 6px solid #00897B; /* Teal Color */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+        font-family: sans-serif; 
+        animation: slideDown 0.3s ease-out;
+    }
+    .lib-box h3 { color: #004D40; margin-top: 0; font-size: 22px; }
+    .lib-box p { color: #555; margin-bottom: 25px; font-size: 16px; }
+    
+    /* Buttons */
+    .btn-lib-login { 
+        background: #00897B; color: white; border: none; 
+        padding: 12px 25px; border-radius: 50px; 
+        font-weight: bold; cursor: pointer; width: 100%; 
+        margin-bottom: 10px; transition: 0.3s; 
+    }
+    .btn-lib-login:hover { background: #004D40; }
+    
+    .btn-lib-close { 
+        background: transparent; color: #777; border: 1px solid #ccc; 
+        padding: 10px 25px; border-radius: 50px; 
+        cursor: pointer; width: 100%; transition: 0.3s; 
+    }
+    .btn-lib-close:hover { background: #f1f1f1; color: #333; }
 
+    @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+</style>
+<script>
+    // 1. PDF വായന പരിശോധന (On Click)
+    function checkReadAccess(event, pdfUrl) {
+        // ലിങ്ക് പ്രവർത്തിക്കുന്നത് തടയുന്നു (Stop Link Jump)
+        if(event) { event.preventDefault(); }
+
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            // ലോഗിൻ ഉണ്ടെങ്കിൽ PDF തുറക്കും
+            window.open(pdfUrl, '_blank');
+        } else {
+            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കും
+            sessionStorage.setItem('pendingBook', pdfUrl); // ബുക്ക് ഓർത്തു വെക്കുന്നു
+            document.getElementById('libraryAuthModal').style.display = 'flex';
+        }
+    }
+
+    // 2. പേജ് സുരക്ഷാ പരിശോധന (On Page Load)
+    // Protected Pages ലിസ്റ്റിലുള്ള പേജുകളിൽ ഇത് പ്രവർത്തിക്കും
+    function enforcePageSecurity() {
+        var isProtected = document.body.getAttribute('data-protected');
+        if (isProtected === 'true') {
+            var user = localStorage.getItem('libraryUser');
+            if (!user) {
+                // ലോഗിൻ ഇല്ലെങ്കിൽ നേരെ ലോഗിൻ പേജിലേക്ക്
+                window.location.href = 'login.html';
+            }
+        }
+    }
+
+    // Helper Functions
+    function goToLogin() { window.location.href = 'login.html'; }
+    function closeLibModal() { document.getElementById('libraryAuthModal').style.display = 'none'; }
+    
+    // Run Security Check automatically
+    enforcePageSecurity();
+</script>
+<style>
+    .lib-modal-overlay { 
+        display: none; position: fixed; z-index: 999999; 
+        left: 0; top: 0; width: 100%; height: 100%; 
+        background: rgba(0, 0, 0, 0.8); 
+        backdrop-filter: blur(4px);
+        justify-content: center; align-items: center; 
+    }
+    .lib-modal-box { 
+        background: #fff; padding: 30px; border-radius: 15px; 
+        width: 320px; text-align: center; 
+        border-top: 5px solid #00897B; /* Teal Theme */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        font-family: sans-serif;
+    }
+    .lib-btn-go { background: #00897B; color: white; border: none; padding: 10px 20px; border-radius: 5px; width: 100%; margin: 10px 0; cursor: pointer; font-weight: bold; }
+    .lib-btn-no { background: transparent; color: #555; border: 1px solid #ccc; padding: 8px 20px; border-radius: 5px; width: 100%; cursor: pointer; }
+</style>
+<script>
+    // 1. PDF വായനയ്ക്കുള്ള ഫംഗ്‌ഷൻ
+    function openBook(element) {
+        // ലിങ്കിന്റെ ഉള്ളിൽ ഒളിപ്പിച്ചു വെച്ച അഡ്രസ്സ് എടുക്കുന്നു
+        var bookUrl = element.getAttribute('data-book-url');
+        var user = localStorage.getItem('libraryUser');
+
+        if (user) {
+            // ലോഗിൻ ഉണ്ടെങ്കിൽ മാത്രം ലിങ്ക് തുറക്കുന്നു
+            window.open(bookUrl, '_blank');
+        } else {
+            // ഇല്ലെങ്കിൽ പോപ്പ്-അപ്പ് കാണിക്കുന്നു
+            sessionStorage.setItem('pendingBook', bookUrl);
+            document.getElementById('libPopup').style.display = 'flex';
+        }
+    }
+
+    // 2. പേജ് പ്രൊട്ടക്ഷൻ (History, Profile etc.)
+    document.addEventListener("DOMContentLoaded", function() {
+        if (document.body.getAttribute('data-secure') === 'true') {
+            var user = localStorage.getItem('libraryUser');
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        }
+    });
+</script>
+<style>
+    /* Popup Style */
+    .lib-popup-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+        justify-content: center; align-items: center; z-index: 999999;
+    }
+    .lib-popup-box {
+        background: white; padding: 30px; width: 300px;
+        border-top: 5px solid #00897B; border-radius: 10px;
+        text-align: center; font-family: sans-serif;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold;}
+    .lib-btn-login:hover { background: #004D40; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px;}
+</style>
+<script>
+    // 1. PDF ലിങ്ക് ക്ലിക്ക് ചെയ്യുമ്പോൾ
+    function checkAccess(bookUrl) {
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            window.open(bookUrl, '_blank');
+        } else {
+            sessionStorage.setItem('pendingBook', bookUrl);
+            document.getElementById('libAuthPopup').style.display = 'flex';
+        }
+    }
+
+    // 2. പേജ് സെക്യൂരിറ്റി (ലോഗിൻ ചെയ്യാത്തവരെ പുറത്താക്കാൻ)
+    function enforceSecurity() {
+        if (document.body.getAttribute('data-secure') === 'true') {
+            var user = localStorage.getItem('libraryUser');
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        }
+    }
+    enforceSecurity(); // Run immediately
+</script>
+<style>
+    /* Popup Overlay */
+    .lib-popup-overlay {
+        display: none; 
+        position: fixed; 
+        top: 0; left: 0; 
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); 
+        backdrop-filter: blur(4px);
+        justify-content: center; 
+        align-items: center; 
+        z-index: 999999;
+    }
+    /* Popup Box */
+    .lib-popup-box {
+        background: white; 
+        padding: 30px; 
+        width: 300px;
+        border-top: 5px solid #00897B; 
+        border-radius: 10px;
+        text-align: center; 
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    /* Buttons */
+    .lib-btn-login { 
+        background: #00897B; 
+        color: white; 
+        border: none; 
+        padding: 10px 20px; 
+        width: 100%; 
+        margin-top: 10px; 
+        cursor: pointer; 
+        border-radius: 5px; 
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .lib-btn-login:hover { background: #004D40; }
+    
+    .lib-btn-close { 
+        background: transparent; 
+        border: 1px solid #ccc; 
+        color: #555; 
+        padding: 8px 20px; 
+        width: 100%; 
+        margin-top: 5px; 
+        cursor: pointer; 
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
+</style>
+<script>
+    function checkAccess(targetUrl) {
+        // LocalStorage-ൽ libraryUser ഉണ്ടോ എന്ന് നോക്കുന്നു
+        // (Firebase ലോഗിൻ ചെയ്യുമ്പോൾ ഇത് സെറ്റ് ചെയ്യപ്പെടണം)
+        var user = localStorage.getItem('libraryUser');
+        
+        if (user) {
+            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
+            window.location.href = targetUrl;
+        } else {
+            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
+            sessionStorage.setItem('pendingBook', targetUrl); // ഏത് ബുക്കാണ് വേണ്ടതെന്ന് ഓർത്തു വെക്കുന്നു
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+    }
+</script>
+<style>
+    /* 1. Popup Overlay Style */
+    .lib-popup-overlay {
+        display: none; 
+        position: fixed; 
+        top: 0; left: 0; 
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); 
+        backdrop-filter: blur(4px);
+        justify-content: center; 
+        align-items: center; 
+        z-index: 999999;
+    }
+    .lib-popup-box {
+        background: white; 
+        padding: 30px; 
+        width: 300px;
+        border-top: 5px solid #00897B; 
+        border-radius: 10px;
+        text-align: center; 
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: fadeIn 0.3s ease;
+    }
+    
+    /* 2. Buttons */
+    .lib-btn-login { 
+        background: #00897B; color: white; border: none; 
+        padding: 10px 20px; width: 100%; margin-top: 10px; 
+        cursor: pointer; border-radius: 5px; font-weight: bold;
+        transition: 0.3s;
+    }
+    .lib-btn-login:hover { background: #004D40; }
+    
+    .lib-btn-close { 
+        background: transparent; border: 1px solid #ccc; color: #555; 
+        padding: 8px 20px; width: 100%; margin-top: 5px; 
+        cursor: pointer; border-radius: 5px; transition: 0.3s;
+    }
+    .lib-btn-close:hover { background: #f1f1f1; color: #333; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- A. LOGOUT BUTTON VISIBILITY FIX ---
+        var user = localStorage.getItem('libraryUser');
+        var logoutBtn = document.getElementById('logout-link');
+        
+        if (logoutBtn) {
+            if (user) {
+                logoutBtn.style.display = 'block'; // ലോഗിൻ ഉണ്ടെങ്കിൽ കാണിക്കുക
+            } else {
+                logoutBtn.style.display = 'none';  // ലോഗിൻ ഇല്ലെങ്കിൽ മറയ്ക്കുക (Guest Mode)
+            }
+        }
+    });
+
+    // --- B. ACCESS CHECK FUNCTION ---
+    function checkAccess(targetUrl) {
+        var user = localStorage.getItem('libraryUser');
+        
+        if (user) {
+            // ലോഗിൻ ഉണ്ട് -> വായനയിലേക്ക് പോകാം
+            window.location.href = targetUrl;
+        } else {
+            // ലോഗിൻ ഇല്ല -> പോപ്പ് അപ്പ് കാണിക്കുക
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+    }
+</script>
+<style>
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+</style>
+<div class="lib-popup-overlay" id="login-modal">
+<div class="lib-popup-box">
+<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+<button class="lib-btn-login" onclick="goToLogin()">ലോഗിൻ പേജിലേക്ക്</button>
+<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+</div>
+</div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // ഉപയോക്താവിന്റെ ലോഗിൻ നില പരിശോധിക്കുന്നു
+    onAuthStateChanged(auth, (user) => {
+        const logoutBtn = document.getElementById('logout-link');
+        if (user) {
+            // ലോഗിൻ ആണെങ്കിൽ സിസ്റ്റത്തിൽ രേഖപ്പെടുത്തുന്നു
+            localStorage.setItem('libraryUser', 'true');
+            if(logoutBtn) logoutBtn.style.display = 'block';
+        } else {
+            // ലോഗിൻ അല്ല
+            localStorage.removeItem('libraryUser');
+            if(logoutBtn) logoutBtn.style.display = 'none';
+        }
+    });
+
+    window.performLogout = function() {
+        signOut(auth).then(() => { 
+            localStorage.removeItem('libraryUser');
+            window.location.href = "logout-success.html"; 
+        });
+    }
+</script>
+<script>
+    function checkAccess(targetUrl) {
+        var user = localStorage.getItem('libraryUser');
+        if (user) {
+            window.location.href = targetUrl;
+        } else {
+            // ഓർമ്മിച്ചു വെക്കുന്നു (Smart Redirect)
+            sessionStorage.setItem('pendingBook', targetUrl);
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+    }
+
+    function goToLogin() {
+        window.location.href = 'login.html';
+    }
+
+    // Logout Button Hook
+    document.addEventListener("DOMContentLoaded", function() {
+        var logoutBtn = document.getElementById('logout-link');
+        if(logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if(window.performLogout) window.performLogout();
+            });
+        }
+    });
+</script>
 </body>
 </html>
