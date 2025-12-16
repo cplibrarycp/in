@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     
     <style>
-        /* --- Styles from contact.html (Same Theme) --- */
+        /* --- Styles --- */
         :root { --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; }
         
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
@@ -21,7 +21,7 @@
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
         .nav-links { display: flex; align-items: center; }
         .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; margin-left: 15px; }
-        .nav-item:hover, .nav-item.active { background-color: var(--primary-orange); border-color: var(--primary-orange); color: white; }
+        .nav-item:hover { background-color: #fff; color: var(--secondary-dark); }
 
         /* Profile & Dropdown */
         .user-profile { display: flex; align-items: center; padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.2); margin-left: 20px; cursor: pointer; position: relative; }
@@ -45,20 +45,19 @@
         #previewImg { width: 100%; height: 100%; object-fit: cover; }
         
         /* File Input */
-        .file-input-wrapper { margin-bottom: 20px; position: relative; overflow: hidden; display: inline-block; }
-        .btn-select { border: 2px dashed #ccc; padding: 15px 30px; border-radius: 10px; cursor: pointer; display: block; width: 100%; transition: 0.3s; color: #666; font-weight: 600; }
+        .btn-select { border: 2px dashed #ccc; padding: 15px 30px; border-radius: 10px; cursor: pointer; display: block; width: 100%; transition: 0.3s; color: #666; font-weight: 600; box-sizing: border-box; }
         .btn-select:hover { border-color: var(--primary-orange); color: var(--primary-orange); background: #fafafa; }
         .btn-select i { font-size: 1.5em; display: block; margin-bottom: 5px; }
         
-        /* Upload Button */
-        .btn-upload { background: var(--primary-orange); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-size: 1em; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; margin-top: 10px; }
-        .btn-upload:hover { background: var(--secondary-dark); }
-        .btn-upload:disabled { background: #ccc; cursor: not-allowed; }
+        /* Upload Button - Disabled State Handling */
+        .btn-upload { background: var(--primary-orange); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-size: 1em; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; margin-top: 15px; opacity: 0.5; pointer-events: none; }
+        
+        /* Active State for Upload Button */
+        .btn-upload.active { opacity: 1; pointer-events: auto; background: var(--secondary-dark); }
+        .btn-upload.active:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        /* Footer */
         footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; margin-top: auto; }
         
-        /* Modal */
         .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
         .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px;}
@@ -98,12 +97,13 @@
             </div>
 
             <form id="uploadForm">
+                <input type="file" id="fileInput" accept="image/jpeg, image/png" style="display: none;">
+                
                 <label for="fileInput" class="btn-select">
                     <i class="fas fa-cloud-upload-alt"></i> ചിത്രം തിരഞ്ഞെടുക്കുക
                 </label>
-                <input type="file" id="fileInput" accept="image/jpeg, image/png" style="display: none;">
                 
-                <button type="submit" class="btn-upload" id="uploadBtn" disabled>
+                <button type="submit" class="btn-upload" id="uploadBtn">
                     <i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക
                 </button>
             </form>
@@ -122,14 +122,13 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         
-        window.currentUserUid = null; // Global Access
+        window.currentUserUid = null; 
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 window.currentUserUid = user.uid;
                 document.getElementById('display-name').textContent = user.displayName || "User";
                 
-                // Load existing photo
                 const savedPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
                 if(savedPhoto) {
                     document.getElementById('headerAvatar').innerHTML = `<img src="${savedPhoto}">`;
@@ -146,50 +145,57 @@
     </script>
 
     <script>
-        // ⭐⭐⭐ URL ചേർക്കുക ⭐⭐⭐
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8b1l6poc0fDGAVXZRV1LQW8_TXS0ozu0rxjHDzHx0P32zBfk4UcSDcdu9q16KL91lLw/exec
-"; 
+        // ⭐⭐⭐ ഇവിടെ നിങ്ങളുടെ Apps Script URL ചേർക്കുക ⭐⭐⭐
+        const APPS_SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE"; 
 
-        // 1. Image Preview
+        // 1. Image Selection & Preview Logic
         const fileInput = document.getElementById('fileInput');
         const previewImg = document.getElementById('previewImg');
         const uploadBtn = document.getElementById('uploadBtn');
 
         fileInput.addEventListener('change', function() {
             const file = this.files[0];
+            
             if (file) {
+                console.log("File selected:", file.name); // Debugging
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    // Update Preview
                     previewImg.src = e.target.result;
-                    uploadBtn.disabled = false; // Enable button
+                    
+                    // Enable Button (Add 'active' class)
+                    uploadBtn.classList.add('active');
+                    uploadBtn.innerHTML = '<i class="fas fa-save"></i> അപ്‌ലോഡ് ചെയ്യുക (റെഡി)';
                 }
                 reader.readAsDataURL(file);
             }
         });
 
-        // 2. Upload Logic (Base64)
+        // 2. Upload Logic
         document.getElementById('uploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const file = fileInput.files[0];
-            if (!file || !window.currentUserUid) return;
+            if (!file || !window.currentUserUid) {
+                alert("ദയവായി ഒരു ചിത്രം തിരഞ്ഞെടുക്കുക.");
+                return;
+            }
 
-            const btn = document.getElementById('uploadBtn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'അപ്‌ലോഡ് ചെയ്യുന്നു... <i class="fas fa-spinner fa-spin"></i>';
-            btn.disabled = true;
+            // Disable button during upload
+            uploadBtn.classList.remove('active');
+            uploadBtn.innerHTML = 'അപ്‌ലോഡ് ചെയ്യുന്നു... <i class="fas fa-spinner fa-spin"></i>';
 
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function() {
-                const base64Data = reader.result.split(',')[1]; // Remove "data:image/jpeg;base64," part
+                const base64Data = reader.result.split(',')[1];
                 
-                // Form Data for Apps Script
                 const formData = new URLSearchParams();
-                formData.append("action", "upload"); // Important Flag
+                formData.append("action", "upload"); 
                 formData.append("fileData", base64Data);
                 formData.append("mimeType", file.type);
-                formData.append("fileName", window.currentUserUid + "_profile_pic"); // Unique Name
+                formData.append("fileName", window.currentUserUid + "_profile_pic"); 
                 
                 fetch(APPS_SCRIPT_URL, {
                     method: "POST",
@@ -199,23 +205,27 @@
                 .then(result => {
                     if (result.result === "Success") {
                         alert("✅ ഫോട്ടോ വിജയകരമായി മാറ്റി!");
-                        // Save new URL locally
                         localStorage.setItem('userPhoto_' + window.currentUserUid, result.photoUrl);
-                        // Update Header immediately
                         document.getElementById('headerAvatar').innerHTML = `<img src="${result.photoUrl}">`;
+                        // Reset button
+                        uploadBtn.classList.add('active');
+                        uploadBtn.innerHTML = '<i class="fas fa-check"></i> വിജയിച്ചു';
                     } else {
                         alert("❌ പരാജയപ്പെട്ടു: " + result.message);
+                        uploadBtn.classList.add('active');
+                        uploadBtn.innerHTML = 'വീണ്ടും ശ്രമിക്കുക';
                     }
                 })
-                .catch(err => { console.error(err); alert("❌ കണക്ഷൻ തകരാർ."); })
-                .finally(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                .catch(err => { 
+                    console.error(err); 
+                    alert("❌ കണക്ഷൻ തകരാർ."); 
+                    uploadBtn.classList.add('active');
+                    uploadBtn.innerHTML = 'വീണ്ടും ശ്രമിക്കുക';
                 });
             };
         });
 
-        // Dropdown Toggle
+        // Header Dropdown Toggle
         document.getElementById('profile-section').addEventListener('click', function(e) {
             e.stopPropagation();
             const d = this.querySelector('.profile-dropdown');
