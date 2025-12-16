@@ -4,24 +4,52 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>📜 വായനാ ചരിത്രം | THRIPUDI LIBRARY</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
     <style>
-        /* CSS from bhagavad.html (for consistent Header/Footer/Layout) */
-        :root { --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; }
+        /* --- പൊതുവായ തീം സ്റ്റൈലുകൾ (ഭഗവദ്.html-ൽ നിന്നുള്ളവ) --- */
+        :root { 
+            --primary-orange: #00897B; /* ടീൽ നിറം */
+            --secondary-dark: #004D40; /* കടും ടീൽ */
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+        }
+        
+        /* Layout Fixes */
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; margin: 0; }
         .container { width: 90%; margin: 0 auto; max-width: 1200px; flex: 1; }
-        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        a { text-decoration: none; }
+
+        /* --- HEADER & NAVIGATION --- */
+        header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
         .navbar { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
-        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; margin-top: auto; }
+        .nav-links { display: flex; align-items: center; gap: 15px; }
+        .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
         
-        /* History Specific Styles */
-        .history-section { padding: 50px 0; }
+        /* User Profile Styles */
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+
+        /* --- FOOTER --- */
+        footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
+        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+
+        /* --- HISTORY CONTENT --- */
+        .history-section { padding: 50px 0; flex: 1; }
         .history-section h1 { color: var(--secondary-dark); margin-bottom: 30px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
         
-        /* History Card Layout */
-        .history-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .history-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .history-card { 
             background: white; 
             border-radius: 10px; 
@@ -41,21 +69,42 @@
         .card-details p { margin: 5px 0 0; font-size: 0.85em; color: #555; }
         .card-details a { color: var(--primary-orange); text-decoration: none; font-weight: 600; margin-top: 5px; display: inline-block; }
         
-        #emptyMessage { text-align: center; padding: 40px; font-size: 1.2em; color: #555; }
+        #emptyMessage, #loadingStatus { text-align: center; padding: 40px; font-size: 1.2em; color: #555; }
 
-        /* Login Required Styles (Same as Modal) */
-        .login-required { text-align: center; padding: 40px; font-size: 1.2em; color: var(--secondary-dark); background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 50px; }
-        .login-required a { color: var(--primary-orange); text-decoration: none; font-weight: 700; }
-
-        /* General UI components (User profile/logout needed here) */
-        .user-profile { /* ... (Your user-profile styles here) ... */ }
+        /* --- PDF MODAL (ഭഗവദ്.html-ൽ ഉള്ളത്) --- */
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
+        .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
+        .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
+        .pdf-blocker { position:absolute; top:0; right:0; width:60px; height:60px; background:transparent; z-index:20; cursor:default; }
     </style>
 </head>
 <body data-secure="true"> 
+    
     <header>
         <div class="container navbar">
             <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+            <div class="nav-links">
+                <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <a href="profile.html">Profile Settings</a>
+                        <a href="history.html">Reading History</a>
+                        <a href="profile-photo-upload.html">പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
+                        <a href="forgot-password.html">പാസ്‌വേർഡ് മറന്നു</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
             </div>
+        </div>
     </header>
 
     <section class="history-section">
@@ -71,6 +120,7 @@
             
             <div id="emptyMessage" style="display:none;">
                 <i class="fas fa-exclamation-circle"></i> നിങ്ങൾ ഇതുവരെ പുസ്തകങ്ങളൊന്നും വായിച്ചിട്ടില്ല.
+                <p>വായന തുടങ്ങാൻ <a href="collection.html">ഗ്രന്ഥശേഖരത്തിലേക്ക്</a> പോകുക.</p>
             </div>
         </div>
     </section>
@@ -78,15 +128,34 @@
     <footer>
         <div class="container">
             <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
         </div>
     </footer>
     
+    <div id="pdfModal" class="pdf-modal-viewer">
+        <div class="pdf-modal-header">
+            <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> വായന മോഡ്</span>
+            <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
+                <i class="fas fa-times"></i> ക്ലോസ്
+            </button>
+        </div>
+        <div style="flex:1; width:100%; height:100%; position:relative;">
+            <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
+            <div class="pdf-blocker" title="Pop-out disabled"></div>
+        </div>
+    </div>
+    
     <script type="module">
-        // Firebase Config (Must be included on all pages)
+        // --- FIREBASE CONFIG (Common to all pages) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
         
-        // (നിങ്ങളുടെ actual Firebase Config ഇവിടെ ചേർക്കുക)
+        // ⭐ നിങ്ങളുടെ Firebase Config ഇവിടെ ചേർക്കുക ⭐
         const firebaseConfig = { 
             apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
             authDomain: "thripudilibrary.firebaseapp.com", 
@@ -99,33 +168,35 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // സുരക്ഷാ പരിശോധനയും ഹിസ്റ്ററി ലോഡിംഗും
+        // --- AUTH & HISTORY LOAD ---
         onAuthStateChanged(auth, (user) => {
             const loadingStatus = document.getElementById('loadingStatus');
 
             if (user) {
-                // ലോക്കൽ സ്റ്റോറേജിൽ, യൂസർ ID അനുസരിച്ച് ഡാറ്റ തിരയുന്നു
+                // UI അപ്ഡേറ്റ് ചെയ്യുന്നു
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
+                document.getElementById('display-name').textContent = displayName;
+                document.getElementById('logout-link').style.display = 'block';
+
+                const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
+                if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}" alt="${displayName}">`;
+                
+                // ഹിസ്റ്ററി ലോഡ് ചെയ്യുന്നു
                 loadUserHistory(user.uid); 
-                // Header UI അപ്ഡേറ്റ് ചെയ്യുന്ന കോഡ് ഇവിടെ ചേർക്കുക
-                // (bhagavad.html-ലെ onAuthStateChanged ഫങ്ഷന്റെ ബാക്കി ഭാഗം)
                 
             } else {
-                // ലോഗിൻ ഇല്ലെങ്കിൽ, ലോഗിൻ പേജിലേക്ക് വിടുന്നു (data-secure="true" ഉള്ളതുകൊണ്ട്)
+                // ലോഗിൻ ഇല്ലെങ്കിൽ, login.html-ലേക്ക് റീഡയറക്ട് ചെയ്യുന്നു (data-secure="true" ഉള്ളതുകൊണ്ട്)
                 window.location.href = 'login.html'; 
             }
             loadingStatus.style.display = 'none';
         });
 
-        // ------------------------------------------------
-        // HISTORY LOADING FUNCTION
-        // ------------------------------------------------
-
-        function loadUserHistory(userId) {
-            // ശ്രദ്ധിക്കുക: നമ്മൾ bhagavad.html-ൽ "default_user" എന്ന userId ആണ് ഉപയോഗിച്ചത്.
-            // ഇവിടെ, നിങ്ങൾക്ക് ഇഷ്ടമുള്ള രീതി തിരഞ്ഞെടുക്കാം. തൽക്കാലം, രണ്ട് ഐഡികളും പരിശോധിക്കാം.
-            
-            const key = 'history_' + userId; // യഥാർത്ഥ Firebase UID
-            const fallbackKey = 'history_default_user'; // ഭഗവദ് പേജിൽ നമ്മൾ താൽക്കാലികമായി ഉപയോഗിച്ച ID
+        // --- HISTORY LOADING FUNCTION ---
+        function loadUserHistory(actualUserId) {
+            // Local Storage-ൽ നിന്ന് ഡാറ്റ എടുക്കുന്നു
+            // നമ്മൾ bhagavad.html-ൽ "default_user" എന്ന ID ഉപയോഗിച്ചതുകൊണ്ട് അതും ഇവിടെ പരിശോധിക്കുന്നു.
+            const key = 'history_' + actualUserId; 
+            const fallbackKey = 'history_default_user'; 
 
             let history = JSON.parse(localStorage.getItem(key)) || JSON.parse(localStorage.getItem(fallbackKey)) || [];
             const container = document.getElementById('historyList');
@@ -138,7 +209,8 @@
 
             // കാർഡുകൾ ഉണ്ടാക്കുന്നു
             history.forEach(item => {
-                const bookId = item.link.split('bookId=')[1];
+                // link-ൽ നമ്മൾ read.html?bookId=... എന്ന ഫോർമാറ്റ് ആണ് സേവ് ചെയ്തത്
+                const bookId = item.link.split('bookId=')[1]; 
                 
                 const card = `
                     <div class="history-card">
@@ -156,22 +228,46 @@
             });
         }
         
-        // Modal Functions (openPdfModal, closePdfModal) ഇവിടെ Global Scope-ൽ ചേർക്കുക
-        // (ഇവ bhagavad.html-ൽ Global ആയി നൽകിയിരിക്കുന്ന അതേ ഫങ്ഷനുകളാണ്)
+        // --- LOGOUT FUNCTION (Globalized) ---
+        window.performLogout = function() {
+            signOut(auth).then(() => { 
+                localStorage.removeItem('libraryUser');
+                window.location.href = "logout-success.html"; 
+            });
+        }
+        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); window.performLogout(); });
     </script>
     
     <script>
-        // ഇവിടെ openPdfModal(bookId) and closePdfModal() ഫങ്ഷനുകൾ ചേർക്കുക
-        // (bhagavad.html-ൽ നൽകിയ അതേ JavaScript കോഡ് ഉപയോഗിക്കുക)
-        
-        // ഉദാഹരണത്തിന്:
-        window.openPdfModal = function(bookId) { 
-             // Logic to open Modal using bookId 
-             const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
-             // ... Modal HTML elements ഇവിടെ ഉണ്ടെങ്കിൽ തുറക്കുക
-             alert("Book ID: " + bookId + " തുറക്കാൻ ശ്രമിക്കുന്നു. Modal Code ചേർക്കുക.");
+        // --- MODAL OPEN/CLOSE LOGIC (bhagavad.html-ൽ ഉള്ളത്) ---
+        window.openPdfModal = function(bookId) {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            
+            // Google Drive Link Conversion (ID ഉപയോഗിച്ച് Preview URL ഉണ്ടാക്കുന്നു)
+            const embedUrl = \`https://drive.google.com/file/d/\${bookId}/preview\`;
+
+            frame.src = embedUrl;
+            modal.style.display = "flex"; 
+            document.body.style.overflow = "hidden";
         }
-        window.closePdfModal = function() { /* ... */ }
+
+        window.closePdfModal = function() {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            
+            modal.style.display = "none";
+            frame.src = ""; 
+            document.body.style.overflow = "auto";
+        }
+
+        // Profile Dropdown Close Logic
+        window.onclick = function(event) {
+            if (!event.target.closest('.user-profile')) {
+                var dropdowns = document.querySelectorAll(".profile-dropdown");
+                dropdowns.forEach(d => d.style.display = "none");
+            }
+        }
     </script>
 </body>
 </html>
