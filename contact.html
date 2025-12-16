@@ -1,417 +1,394 @@
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>📚 ബന്ധപ്പെടുക | THRIPUDI LIBRARY</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-<style>
-        /* --- 1. തീം (Teal & Green) --- */
-        :root {
-            --primary-orange: #00897B; /* ടീൽ ഗ്രീൻ */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
-            --background-light: #E0F2F1;
-            --text-color: #263238;
-            --light-text: #FFFFFF;
-            --card-bg: #FFFFFF;
-            --outline-color: #B2DFDB;
-        }
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>📚 ബന്ധപ്പെടുക | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
+    <style>
+        /* --- 1. RESET & BASIC THEME --- */
+        :root {
+            --primary-orange: #00897B;
+            --secondary-dark: #004D40;
+            --background-light: #E0F2F1;
+            --text-color: #263238;
+            --light-text: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --outline-color: #B2DFDB;
+        }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-color);
-            margin: 0; padding: 0;
-            line-height: 1.6;
-        }
+        * { box-sizing: border-box; }
 
-        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
-        a { text-decoration: none; }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-        /* --- 2. ഹെഡർ --- */
-        header {
-            background-color: var(--secondary-dark);
-            padding: 15px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: sticky; top: 0; z-index: 1000;
-        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column; /* പേജ് മുകളിൽ നിന്ന് താഴേക്ക് */
+            min-height: 100vh;
+        }
 
-        .navbar { display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo {
-            font-size: 1.8em; font-weight: 700;
-            color: var(--light-text); text-decoration: none;
-        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
 
-        .nav-links { display: flex; align-items: center; }
+        a { text-decoration: none; transition: 0.3s; }
 
-        .nav-links a.nav-item {
-            color: var(--light-text);
-            margin-left: 15px;
-            font-weight: 600;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
+        /* --- 2. HEADER --- */
+        header {
+            background-color: var(--secondary-dark);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-shrink: 0; /* ഹെഡർ ചുരുങ്ങാൻ പാടില്ല */
+        }
 
-        .nav-links a.nav-item:hover {
-            background-color: #ffffff;
-            color: var(--secondary-dark);
-            border-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
+        .nav-links { display: flex; align-items: center; gap: 15px; }
 
-        .nav-links a.active { 
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: var(--outline-color); 
-        }
+        .nav-item {
+            color: var(--light-text);
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+        }
 
-        /* --- User Profile --- */
-        .user-profile {
-            display: flex; align-items: center;
-            margin-left: 25px; padding-left: 25px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            position: relative; cursor: pointer;
-            padding-bottom: 5px;
-        }
+        .nav-item:hover, .nav-item.active {
+            background-color: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
 
-        .user-avatar {
-            width: 32px; height: 32px;
-            background-color: #fff; color: var(--primary-orange);
-            border-radius: 50%; display: flex;
-            align-items: center; justify-content: center;
-            font-weight: bold; margin-right: 10px; font-size: 1em;
-            overflow: hidden;
-        }
-        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        /* User Profile */
+        .user-profile {
+            display: flex; align-items: center;
+            padding-left: 20px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            cursor: pointer;
+        }
+        .user-avatar {
+            width: 35px; height: 35px;
+            background: #fff; color: var(--primary-orange);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; margin-right: 10px;
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
 
-        .user-info { color: #fff; font-size: 0.85em; line-height: 1.2; text-align: left; }
-        .user-name { font-weight: 600; display: block; }
-        .user-role { font-size: 0.8em; opacity: 0.8; font-weight: 400; }
+        /* Dropdown */
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%; right: 0;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 5px;
+            min-width: 200px;
+            margin-top: 15px;
+            z-index: 1001;
+        }
+        .profile-dropdown a {
+            display: block; padding: 12px 15px;
+            color: var(--text-color); font-size: 0.9em;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-dropdown a:hover { background: var(--background-light); color: var(--primary-orange); }
 
-        /* Dropdown */
-        .profile-dropdown {
-            display: none; position: absolute;
-            top: 100%; right: 0;
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 5px; min-width: 180px;
-            margin-top: 10px; z-index: 1001;
-        }
-        .profile-dropdown::before { content: ""; position: absolute; top: -15px; left: 0; width: 100%; height: 15px; background: transparent; }
+        /* --- 3. MAIN CONTENT (Contact Section) --- */
+        .contact-section {
+            padding: 60px 0;
+            flex-grow: 1; /* ബാക്കിയുള്ള സ്ഥലം മുഴുവൻ എടുക്കും (Footer താഴെ നിൽക്കാൻ) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        .profile-dropdown a {
-            display: block; padding: 12px 15px;
-            color: var(--text-color); font-size: 0.9em;
-            transition: background 0.3s; border-bottom: 1px solid #eee;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+        .section-title {
+            text-align: center;
+            font-size: 2.2em;
+            color: var(--secondary-dark);
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-orange);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
 
-        /* --- 3. Contact Section --- */
-        .contact-section { padding: 60px 0; text-align: center; min-height: 70vh; }
+        .contact-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            width: 100%;
+        }
 
-        .contact-section h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.2em; color: var(--secondary-dark);
-            margin-bottom: 40px;
-            border-bottom: 3px solid var(--primary-orange);
-            display: inline-block; padding-bottom: 5px;
-        }
+        .contact-left { flex: 1; min-width: 300px; text-align: center; }
+        .contact-right { flex: 1; min-width: 300px; }
 
-        .contact-card {
-            display: flex; flex-wrap: wrap;
-            justify-content: center; align-items: flex-start;
-            gap: 40px; background: var(--card-bg);
-            padding: 40px; border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            border: 1px solid var(--outline-color);
-            text-align: left;
-        }
+        .contact-thumb {
+            width: 100%; max-width: 350px;
+            border-radius: 10px;
+            border: 5px solid var(--outline-color);
+            margin-bottom: 20px;
+        }
+        .contact-details p { margin: 10px 0; color: #555; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .contact-details i { color: var(--primary-orange); }
 
-        .contact-image-box { flex: 1; min-width: 300px; text-align: center; }
+        /* Form Styles */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-control {
+            width: 100%; padding: 12px;
+            border: 2px solid var(--outline-color);
+            border-radius: 8px; font-size: 1em;
+            font-family: inherit;
+        }
+        .form-control:focus { outline: none; border-color: var(--primary-orange); }
+        
+        .btn-submit {
+            background: var(--primary-orange);
+            color: white; border: none;
+            padding: 12px 30px; border-radius: 50px;
+            font-size: 1em; font-weight: 700;
+            cursor: pointer; width: 100%;
+            transition: 0.3s;
+        }
+        .btn-submit:hover { background: var(--secondary-dark); }
+        .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
 
-        .contact-thumb {
-            width: 100%; max-width: 400px; height: auto;
-            border-radius: 10px; border: 4px solid var(--outline-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        .contact-thumb:hover { transform: scale(1.02); border-color: var(--primary-orange); }
+        /* --- 4. FOOTER --- */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--light-text);
+            padding: 40px 0;
+            text-align: center;
+            flex-shrink: 0; /* Footer ചുരുങ്ങാൻ പാടില്ല */
+            margin-top: auto;
+        }
+        .footer-links a { color: rgba(255,255,255,0.8); margin: 0 10px; }
+        .footer-links a:hover { color: var(--primary-orange); }
 
-        .contact-info-text { margin-top: 20px; color: #546E7A; font-size: 0.95em; }
-        .contact-info-text p { margin: 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .contact-info-text i { color: var(--primary-orange); }
+        /* --- 5. RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .user-profile { margin-left: 0; border-left: none; padding-left: 0; margin-top: 10px; }
+            .contact-card { flex-direction: column; padding: 20px; }
+            .profile-dropdown { position: relative; width: 100%; box-shadow: none; border: 1px solid #eee; }
+        }
 
-        .contact-form-box { flex: 1; min-width: 300px; }
-        .contact-form-box h3 { color: var(--secondary-dark); margin-top: 0; margin-bottom: 20px; font-weight: 700; }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; color: var(--text-color); font-weight: 600; font-size: 0.9em; }
-
-        .form-control {
-            width: 100%; padding: 12px;
-            border: 2px solid var(--outline-color);
-            border-radius: 8px; font-size: 1em;
-            font-family: inherit; transition: 0.3s;
-            box-sizing: border-box;
-        }
-        .form-control:focus { outline: none; border-color: var(--primary-orange); }
-
-        .btn-submit {
-            background-color: var(--primary-orange);
-            color: white; padding: 12px 30px;
-            border: none; border-radius: 50px;
-            font-size: 1em; font-weight: 600;
-            cursor: pointer; transition: 0.3s;
-            width: 100%; display: flex;
-            align-items: center; justify-content: center; gap: 10px;
-        }
-        .btn-submit:hover { background-color: var(--secondary-dark); transform: translateY(-2px); }
-        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
-
-        /* --- 4. ഫൂട്ടർ --- */
-        footer {
-            background-color: var(--secondary-dark);
-            color: var(--light-text); padding: 40px 0;
-            text-align: center; font-size: 0.9em; margin-top: 60px;
-        }
-        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
-        .footer-links a:hover { opacity: 1; color: var(--primary-orange); }
-
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
-            .user-profile { margin-left: 0; border-left: none; margin-top: 10px; }
-            .contact-card { flex-direction: column; padding: 25px; }
-            .profile-dropdown { left: 0; right: 0; position: relative; width: 100%; border: 1px solid #eee; box-shadow: none; }
-        }
-    </style>
-
-
-<style id="footer-fix-style">
-    /* --- FORCE STICKY FOOTER --- */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    body {
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: 100vh !important;
-    }
-
-    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
-    section, .collection-section, .about-hero, .container, .content-box {
-        flex: 1 0 auto;
-    }
-
-    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
-    footer {
-        flex-shrink: 0 !important;
-        width: 100% !important;
-        margin-top: auto !important; 
-    }
-    /* --------------------------- */
-</style>
+        /* --- Login Modal --- */
+        .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+        .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
+    </style>
 </head>
 <body data-protected="true" data-secure="true">
-<header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> ABOUT</a><a class="nav-item active" href="contact.html"><i class="fas fa-envelope"></i> CONTACT US</a>
-<div class="user-profile" id="profile-section">
-<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-<div class="user-info">
-<span class="user-name" id="display-name">Guest</span>
-<span class="user-role">Member</span>
-</div>
-<div class="profile-dropdown">
-<a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
-<a href="history.html"><i class="fas fa-history"></i> Reading History</a>
-<a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
-</div>
-</div>
-</div>
-</header>
-<section class="contact-section">
-<div class="container">
-<h1>ഞങ്ങളെ ബന്ധപ്പെടുക</h1>
-<div class="contact-card">
-<div class="contact-image-box">
-<img alt="Contact Us" class="contact-thumb" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kR0sfXVA3JMj464R-cQSVTO3LB4p9nZC"/>
-<div class="contact-info-text">
-<p><i class="fas fa-map-marker-alt"></i> <strong>Thripudi Library</strong></p>
-<p>Near Main Road, Kerala, India</p>
-<p><i class="fas fa-envelope"></i> cplibrarycp@gmail.com</p>
-</div>
-</div>
-<div class="contact-form-box">
-<h3>സന്ദേശങ്ങൾ അയക്കൂ</h3>
-<form id="contactForm">
-<div class="form-group">
-<label for="name">പേര്</label>
-<input class="form-control" id="name" name="name" placeholder="നിങ്ങളുടെ പേര്" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="email">ഇമെയിൽ</label>
-<input class="form-control" id="email" name="email" placeholder="example@gmail.com" required="" type="email"/>
-</div>
-<div class="form-group">
-<label for="message">സന്ദേശം</label>
-<textarea class="form-control" id="message" name="message" placeholder="നിങ്ങളുടെ അഭിപ്രായങ്ങൾ ഇവിടെ എഴുതുക..." required="" rows="5"></textarea>
-</div>
-<button class="btn-submit" id="submitBtn" type="submit">അയക്കുക <i class="fas fa-paper-plane"></i></button>
-</div>
-</div>
-</section>
-<footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-                <a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
-</footer>
-<script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-        const app = initializeApp(firebaseConfig); 
-        const auth = getAuth(app);
+    <header>
+        <div class="container navbar">
+            <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+            <div class="nav-links">
+                <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+                <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a class="nav-item active" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
 
-        onAuthStateChanged(auth, async (user) => {
-            const nameDisplay = document.getElementById('display-name');
-            const avatarDiv = document.getElementById('userAvatar');
+                <div class="user-profile" id="profile-section">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                    <div class="user-info">
+                        <span class="user-name" id="display-name">Guest</span>
+                        <span class="user-role">Member</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
+                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                        <a href="profile-photo-upload.html"><i class="fas fa-camera"></i> Photo Upload</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-            if (user) {
-                try { await user.reload(); } catch(e) {}
-                const currentUser = auth.currentUser;
-                const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
-                if(nameDisplay) nameDisplay.textContent = displayName;
-                if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
-            }
-        });
+    <section class="contact-section">
+        <div class="container">
+            <h1 class="section-title">ഞങ്ങളെ ബന്ധപ്പെടുക</h1>
+            
+            <div class="contact-card">
+                <div class="contact-left">
+                    <img alt="Library" class="contact-thumb" src="https://drive.google.com/thumbnail?sz=w600&amp;id=1kR0sfXVA3JMj464R-cQSVTO3LB4p9nZC"/>
+                    <div class="contact-details">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Thripudi Library</strong></p>
+                        <p>Near Main Road, Kerala, India</p>
+                        <p><i class="fas fa-envelope"></i> cplibrarycp@gmail.com</p>
+                    </div>
+                </div>
 
-        const logoutLink = document.getElementById('logout-link');
-        if(logoutLink) {
-            logoutLink.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
-            });
-        }
-    </script>
-<script>
-    // ⭐⭐ ഇവിടെ നിങ്ങളുടെ Google Apps Script Web App URL ചേർക്കുക ⭐⭐
-    const APPS_SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE"; 
+                <div class="contact-right">
+                    <h3 style="color: var(--secondary-dark); margin-top: 0;">സന്ദേശം അയക്കൂ</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">പേര്</label>
+                            <input class="form-control" id="name" name="name" placeholder="നിങ്ങളുടെ പേര്" required type="text"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">ഇമെയിൽ</label>
+                            <input class="form-control" id="email" name="email" placeholder="example@gmail.com" required type="email"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">സന്ദേശം</label>
+                            <textarea class="form-control" id="message" name="message" placeholder="അഭിപ്രായങ്ങൾ..." required rows="5"></textarea>
+                        </div>
+                        <button class="btn-submit" id="submitBtn" type="submit">അയക്കുക <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // Profile Dropdown Toggle
-    const profileSection = document.getElementById('profile-section');
-    if(profileSection){
-        profileSection.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const dropdown = this.querySelector('.profile-dropdown');
-            if(dropdown) dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    <footer>
+        <div class="container">
+            <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="lib-popup-overlay" id="login-modal">
+        <div class="lib-popup-box">
+            <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+            <p style="color:#555;">തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+            <button class="lib-btn-login" onclick="goToLogin()">ലോഗിൻ പേജിലേക്ക്</button>
+            <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+            const logoutBtn = document.getElementById('logout-link');
+
+            if (user) {
+                localStorage.setItem('libraryUser', 'true');
+                if(logoutBtn) logoutBtn.style.display = 'block';
+                
+                try { await user.reload(); } catch(e) {}
+                const dName = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                if(nameDisplay) nameDisplay.textContent = dName;
+                
+                const photo = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
+                if(photo && avatarDiv) avatarDiv.innerHTML = `<img src="${photo}" alt="Profile">`;
+            } else {
+                localStorage.removeItem('libraryUser');
+                if(logoutBtn) logoutBtn.style.display = 'none';
+            }
         });
-    }
-    
-    window.onclick = function(event) {
-        if (!event.target.closest('.user-profile')) {
-            var dropdowns = document.getElementsByClassName("profile-dropdown");
-            for (var i = 0; i < dropdowns.length; i++) { dropdowns[i].style.display = "none"; }
-        }
-    }
 
-    // Google Apps Script വഴി Google Sheet-ലേക്ക് ഡാറ്റ സേവ് ചെയ്യാനുള്ള ലോജിക്
-    const contactForm = document.getElementById('contactForm');
-    if(contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('submitBtn');
-            const originalBtnText = btn.innerHTML;
-            
-            // Button Loading State
-            btn.innerHTML = 'അയക്കുന്നു... <i class="fas fa-spinner fa-spin"></i>';
-            btn.disabled = true;
-
-            const formData = new FormData(this);
-            const data = new URLSearchParams(formData); // URLSearchParams ഉപയോഗിച്ച് ഡാറ്റ Apps Script-ന് പാസ് ചെയ്യുന്നു
-
-            // Fetch request to Apps Script's doPost function
-            fetch(APPS_SCRIPT_URL, {
-                method: "POST",
-                body: data 
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.result === 'Success') {
-                    // വിജയ സന്ദേശം
-                    alert("✅ നന്ദി! നിങ്ങളുടെ സന്ദേശം Google Sheet-ൽ സേവ് ചെയ്തു.");
-                    contactForm.reset(); // ഫോം ക്ലിയർ ചെയ്യുന്നു
-                } else {
-                    // തകരാർ സന്ദേശം
-                    console.error('Apps Script Error:', result.message);
-                    alert("❌ ക്ഷമിക്കണം, സന്ദേശം ഷീറ്റിൽ സേവ് ചെയ്യാൻ സാധിച്ചില്ല. കാരണം: " + result.message);
-                }
-            })
-            .catch(error => {
-                console.error('Fetch Error:', error);
-                alert("❌ കണക്ഷൻ തകരാർ. ഇന്റർനെറ്റ് കണക്ഷൻ പരിശോധിക്കുക.");
-            })
-            .finally(() => {
-                btn.innerHTML = originalBtnText;
-                btn.disabled = false;
+        window.performLogout = function() {
+            signOut(auth).then(() => { 
+                localStorage.removeItem('libraryUser');
+                window.location.href = "logout-success.html"; 
             });
+        }
+    </script>
+
+    <script>
+        // ⭐⭐⭐ URL ഇവിടെ ചേർക്കുക ⭐⭐⭐
+        const APPS_SCRIPT_URL = "YOUR_DEPLOYED_WEB_APP_URL_HERE"; 
+
+        // Profile Dropdown
+        const profileSection = document.getElementById('profile-section');
+        if(profileSection){
+            profileSection.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const dd = this.querySelector('.profile-dropdown');
+                if(dd) dd.style.display = dd.style.display === "block" ? "none" : "block";
+            });
+        }
+        window.onclick = function(e) {
+            if (!e.target.closest('.user-profile')) {
+                document.querySelectorAll(".profile-dropdown").forEach(d => d.style.display = "none");
+            }
+        }
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = document.getElementById('submitBtn');
+                const orgText = btn.innerHTML;
+                
+                btn.innerHTML = 'അയക്കുന്നു... <i class="fas fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+
+                const data = new URLSearchParams(new FormData(this));
+
+                fetch(APPS_SCRIPT_URL, { method: "POST", body: data })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.result === 'Success') {
+                        alert("✅ സന്ദേശം അയച്ചു!");
+                        contactForm.reset();
+                    } else {
+                        alert("❌ പരാജയപ്പെട്ടു: " + result.message);
+                    }
+                })
+                .catch(err => { console.error(err); alert("❌ കണക്ഷൻ തകരാർ."); })
+                .finally(() => { btn.innerHTML = orgText; btn.disabled = false; });
+            });
+        }
+
+        // Logout
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            if(window.performLogout) window.performLogout();
         });
-    }
 
-    // --- Logout Button Hook (Common Functions) ---
-    function checkAccess(targetUrl) {
-        var user = localStorage.getItem('libraryUser');
-        if (user) {
-            window.location.href = targetUrl;
-        } else {
-            sessionStorage.setItem('pendingBook', targetUrl);
-            document.getElementById('login-modal').style.display = 'flex';
-        }
-    }
+        // Security
+        (function() {
+            if (document.body.getAttribute('data-secure') === 'true') {
+                if (!localStorage.getItem('libraryUser')) window.location.href = 'login.html';
+            }
+        })();
 
-    function goToLogin() {
-        window.location.href = 'login.html';
-    }
-</script>
-<style>
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
-</style>
-<div class="lib-popup-overlay" id="login-modal">
-<div class="lib-popup-box">
-<h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-<p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-<button class="lib-btn-login" onclick="goToLogin()">ലോഗിൻ പേജിലേക്ക്</button>
-<button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
-</div>
-</div>
+        function goToLogin() { window.location.href = 'login.html'; }
+    </script>
+
 </body>
 </html>
