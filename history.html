@@ -9,10 +9,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     
     <style>
-        /* --- പൊതുവായ തീം സ്റ്റൈലുകൾ --- */
         :root { 
-            --primary-orange: #00897B; /* ടീൽ നിറം */
-            --secondary-dark: #004D40; /* കടും ടീൽ */
+            --primary-orange: #00897B; 
+            --secondary-dark: #004D40; 
             --background-light: #E0F2F1;
             --text-color: #263238;
             --light-text: #FFFFFF;
@@ -20,155 +19,95 @@
         
         * { box-sizing: border-box; }
         
-        /* Layout Fixes: Sticky Footer & Full Height */
         html, body { height: 100%; margin: 0; padding: 0; }
         body { 
             font-family: 'Poppins', sans-serif; background-color: var(--background-light); 
             color: var(--text-color); min-height: 100vh; display: flex; 
-            flex-direction: column; margin: 0; line-height: 1.6;
+            flex-direction: column; line-height: 1.6;
         }
-        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; transition: 0.3s; }
 
-        /* --- HEADER & NAVIGATION --- */
-        
-    /* --- റെസ്പോൺസീവ് ഹെഡർ (പൈത്തൺ വഴി അപ്ഡേറ്റ് ചെയ്തത്) --- */
-    header {
-        background-color: var(--secondary-dark);
-        padding: 10px 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        width: 100%;
-    }
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    .logo {
-        font-size: 1.5em;
-        font-weight: 700;
-        color: #FFFFFF !important;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        white-space: nowrap;
-    }
-    .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    .nav-links a.nav-item {
-        color: #FFFFFF !important;
-        background-color: var(--secondary-dark) !important;
-        font-weight: 600;
-        font-size: 0.85em;
-        text-transform: uppercase;
-        padding: 8px 18px;
-        border: 1.5px solid rgba(255, 255, 255, 0.4);
-        border-radius: 4px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-    }
-    .nav-links a.nav-item:hover {
-        background-color: #FFFFFF !important;
-        color: var(--secondary-dark) !important;
-        border-color: #FFFFFF;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px);
-    }
-    .user-profile {
-        display: flex;
-        align-items: center;
-        margin-left: 15px;
-        padding-left: 15px;
-        border-left: 1px solid rgba(255, 255, 255, 0.2);
-        position: relative;
-        cursor: pointer;
-        color: #FFFFFF;
-    }
-    @media (max-width: 850px) {
-        .navbar { flex-direction: column; gap: 15px; }
-        .nav-links { justify-content: center; width: 100%; flex-wrap: wrap; gap: 8px; }
-        .user-profile { border-left: none; margin-left: 0; padding-left: 0; margin-top: 5px; }
-        .logo { font-size: 1.3em; }
-    }
-
-
-        /* User Profile Styles */
-        .user-profile { 
-            display: flex; align-items: center; margin-left: 25px; padding-left: 25px; 
-            border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; 
+        /* --- HEADER & NAVIGATION (RESPONSIVE FIX) --- */
+        header { 
+            background-color: var(--secondary-dark); padding: 10px 0; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; 
+            top: 0; z-index: 1000; flex-shrink: 0; width: 100%;
         }
-        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; }
-        .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .user-info { color: #fff; font-size: 0.85em; text-align: left; }
-        .user-name { font-weight: 600; display: block; }
-        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
-        /* Drodown is controlled by JS click */
-        .profile-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
-        .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
-
-        /* --- FOOTER --- */
-        footer { 
-            background-color: var(--secondary-dark); color: var(--light-text); 
-            padding: 40px 0; text-align: center; font-size: 0.9em; 
-            margin-top: auto; flex-shrink: 0; 
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            font-size: 1.5em; font-weight: 700; color: #FFFFFF !important; 
+            display: flex; align-items: center; gap: 10px;
         }
-        .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+        .nav-links { display: flex; align-items: center; gap: 12px; }
+        .nav-item { 
+            color: #FFFFFF !important; font-weight: 600; font-size: 0.85em; 
+            text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); 
+            border-radius: 4px; transition: 0.3s; background-color: var(--secondary-dark) !important;
+        }
+        .nav-item:hover {
+            background-color: #FFFFFF !important; color: var(--secondary-dark) !important;
+            border-color: #FFFFFF; transform: translateY(-2px);
+        }
+
+        /* User Profile */
+        .user-profile { display: flex; align-items: center; margin-left: 15px; padding-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 8px; overflow: hidden; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 12px; z-index: 1001; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); font-size: 0.85em; border-bottom: 1px solid #eee; }
+
+        @media (max-width: 850px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .nav-links { justify-content: center; width: 100%; flex-wrap: wrap; gap: 8px; }
+            .user-profile { border-left: none; margin-left: 0; padding-left: 0; }
+        }
 
         /* --- HISTORY CONTENT --- */
-        .history-section { padding: 50px 0; flex-grow: 1; }
-        .history-section h1 { 
-            color: var(--secondary-dark); margin-bottom: 30px; 
-            border-bottom: 3px solid var(--primary-orange); display: inline-block; 
-            padding-bottom: 5px; 
-        }
+        .history-section { padding: 40px 0; flex-grow: 1; }
+        .history-section h1 { color: var(--secondary-dark); margin-bottom: 30px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
         
-        .history-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .history-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
         .history-card { 
-            background: white; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            display: flex; 
-            align-items: center; 
-            padding: 15px;
-            transition: transform 0.2s;
-            border-left: 5px solid var(--primary-orange);
-            text-align: left;
+            background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+            display: flex; align-items: center; padding: 15px; border-left: 6px solid var(--primary-orange);
         }
-        .history-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
 
-        .book-thumb { width: 70px; height: 100px; object-fit: cover; border-radius: 5px; margin-right: 15px; }
+        .book-thumb { width: 70px; height: 100px; object-fit: cover; border-radius: 5px; margin-right: 18px; box-shadow: 2px 2px 8px rgba(0,0,0,0.1); }
         .card-details { flex-grow: 1; }
         .card-details h3 { margin: 0; font-size: 1.1em; color: var(--secondary-dark); }
-        .card-details p { margin: 5px 0 0; font-size: 0.85em; color: #555; }
-        .card-details a { color: var(--primary-orange); text-decoration: none; font-weight: 600; margin-top: 5px; display: inline-block; }
+        .card-details p { margin: 4px 0; font-size: 0.85em; color: #666; }
         
-        #emptyMessage, #loadingStatus { text-align: center; padding: 40px; font-size: 1.2em; color: #555; }
+        .action-btns { display: flex; gap: 15px; margin-top: 8px; }
+        .continue-link { color: var(--primary-orange); font-weight: 600; font-size: 0.9em; }
+        
+        /* ഡിലീറ്റ് ബട്ടൺ സ്റ്റൈൽ */
+        .delete-btn { 
+            color: #d32f2f; background: none; border: none; cursor: pointer; 
+            font-size: 0.85em; font-weight: 600; display: flex; align-items: center; gap: 4px;
+            padding: 0;
+        }
+        .delete-btn:hover { text-decoration: underline; }
 
-        /* --- PDF MODAL --- */
+        #emptyMessage, #loadingStatus { text-align: center; padding: 50px; font-size: 1.1em; color: #666; width: 100%; }
+
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 30px 0; margin-top: auto; }
+
+        /* PDF Viewer Modal */
         .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
-        .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
-        .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
-        .pdf-blocker { position:absolute; top:0; right:0; width:60px; height:60px; background:transparent; z-index:20; cursor:default; }
+        .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+        .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; }
     </style>
 </head>
-<body data-secure="true"> 
-    
+<body>
+
     <header>
         <div class="container navbar">
-            <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+            <a class="logo" href="dashboard.html"><i class="fas fa-book-reader"></i> THRIPUDI LIBRARY</a>
             <div class="nav-links">
-                <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-                <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-                <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-                <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a class="nav-item" href="dashboard.html">Home</a>
+                <a class="nav-item" href="collection.html">ഗ്രന്ഥശേഖരം</a>
+                <a class="nav-item" href="contact.html">Contact</a>
 
                 <div class="user-profile" id="profile-section">
                     <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
@@ -177,11 +116,9 @@
                         <span class="user-role">Member</span>
                     </div>
                     <div class="profile-dropdown">
-                        <a href="profile.html"><i class="fas fa-cog"></i> Profile Settings</a>
-                        <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
-                        <a href="profile-photo-upload.html"><i class="fas fa-camera"></i> പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
-                        <a href="forgot-password.html"><i class="fas fa-key"></i> പാസ്‌വേർഡ് മറന്നു</a>
-                        <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a href="profile.html">Profile Settings</a>
+                        <a href="history.html">Reading History</a>
+                        <a href="#" id="logout-link" style="color: #d32f2f;">Logout</a>
                     </div>
                 </div>
             </div>
@@ -192,16 +129,10 @@
         <div class="container">
             <h1>📜 നിങ്ങളുടെ വായനാ ചരിത്രം</h1>
             
-            <div id="loadingStatus">
-                <i class="fas fa-spinner fa-spin"></i> ഡാറ്റ ലോഡ് ചെയ്യുന്നു...
-            </div>
-            
-            <div id="historyList" class="history-list">
-            </div>
-            
+            <div id="loadingStatus"><i class="fas fa-spinner fa-spin"></i> ലോഡ് ചെയ്യുന്നു...</div>
+            <div id="historyList" class="history-list"></div>
             <div id="emptyMessage" style="display:none;">
-                <i class="fas fa-exclamation-circle"></i> നിങ്ങൾ ഇതുവരെ പുസ്തകങ്ങളൊന്നും വായിച്ചിട്ടില്ല.
-                <p>വായന തുടങ്ങാൻ <a href="collection.html">ഗ്രന്ഥശേഖരത്തിലേക്ക്</a> പോകുക.</p>
+                <i class="fas fa-info-circle"></i> നിങ്ങൾ ഇതുവരെ പുസ്തകങ്ങളൊന്നും വായിച്ചിട്ടില്ല.
             </div>
         </div>
     </section>
@@ -209,30 +140,18 @@
     <footer>
         <div class="container">
             <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-            <div class="footer-links">
-                <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-            </div>
         </div>
     </footer>
-    
+
     <div id="pdfModal" class="pdf-modal-viewer">
         <div class="pdf-modal-header">
-            <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> വായന മോഡ്</span>
-            <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
-                <i class="fas fa-times"></i> ക്ലോസ്
-            </button>
+            <span>വായന മോഡ്</span>
+            <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.2em;"><i class="fas fa-times"></i></button>
         </div>
-        <div style="flex:1; width:100%; height:100%; position:relative;">
-            <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
-            <div class="pdf-blocker" title="Pop-out disabled"></div>
-        </div>
+        <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
     </div>
-    
+
     <script type="module">
-        // --- FIREBASE CONFIG (Common to all pages) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
         
@@ -247,124 +166,88 @@
         };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        
-        // --- AUTH & HISTORY LOAD ---
+
         onAuthStateChanged(auth, (user) => {
             const loadingStatus = document.getElementById('loadingStatus');
-
             if (user) {
-                // UI അപ്ഡേറ്റ് ചെയ്യുന്നു
-                const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
-                document.getElementById('display-name').textContent = displayName;
-                document.getElementById('logout-link').style.display = 'block';
-
+                window.currentUser = user;
+                document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
                 const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
-                if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}" alt="${displayName}">`;
+                if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
                 
-                // ⭐ ഹിസ്റ്ററി ലോഡ് ചെയ്യാനുള്ള ഫങ്ഷൻ യൂസർ ID ഉപയോഗിച്ച് വിളിക്കുന്നു
-                loadUserHistory(user.uid); 
-                
+                // ⭐ ലോഡ് ഹിസ്റ്ററി (User UID ഉപയോഗിച്ച്)
+                loadUserHistory(user.uid);
             } else {
-                // ലോഗിൻ ഇല്ലെങ്കിൽ, login.html-ലേക്ക് റീഡയറക്ട് ചെയ്യുന്നു
-                window.location.href = 'login.html'; 
+                window.location.href = 'login.html';
             }
             loadingStatus.style.display = 'none';
         });
 
-        // --- HISTORY LOADING FUNCTION (FIXED) ---
-        function loadUserHistory(actualUserId) {
-            const key = 'history_' + actualUserId; 
-            const fallbackKey = 'history_default_user'; 
-
-            let history = JSON.parse(localStorage.getItem(key)) || JSON.parse(localStorage.getItem(fallbackKey)) || [];
+        window.loadUserHistory = function(uid) {
             const container = document.getElementById('historyList');
-            const emptyMessage = document.getElementById('emptyMessage');
-            
-            // ⭐ Migration Logic (Default user-ൽ നിന്ന് യഥാർത്ഥ UID-യിലേക്ക് മാറ്റുന്നു) ⭐
-            if (localStorage.getItem(fallbackKey) && localStorage.getItem(key) === null) {
-                localStorage.setItem(key, JSON.stringify(history));
-                localStorage.removeItem(fallbackKey);
-            }
-            
-            container.innerHTML = '';
+            const emptyMsg = document.getElementById('emptyMessage');
+            const key = 'history_' + uid;
+            let history = JSON.parse(localStorage.getItem(key)) || [];
 
+            container.innerHTML = '';
             if (history.length === 0) {
-                emptyMessage.style.display = 'block';
+                emptyMsg.style.display = 'block';
                 return;
             }
+            emptyMsg.style.display = 'none';
 
-            // കാർഡുകൾ ഉണ്ടാക്കുന്നു
-            history.forEach(item => {
-                // Read Link-ൽ നിന്ന് Book ID വേർതിരിച്ചെടുക്കുന്നു
-                const bookId = item.link.split('bookId=')[1]; 
-                
-                const card = `
-                    <div class="history-card">
-                        <img class="book-thumb" src="${item.image}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/70?text=Book'">
-                        <div class="card-details">
-                            <h3>${item.title}</h3>
-                            <p>അവസാനം വായിച്ചത്: ${item.date}</p>
-                            <a href="javascript:void(0)" onclick="openPdfModal('${bookId}')">
-                                തുടരുക <i class="fas fa-chevron-right"></i>
-                            </a>
+            history.forEach((item, index) => {
+                const bookId = item.link ? item.link.split('bookId=')[1] : '';
+                const card = document.createElement('div');
+                card.className = 'history-card';
+                card.innerHTML = `
+                    <img class="book-thumb" src="${item.image}" onerror="this.src='https://via.placeholder.com/70'">
+                    <div class="card-details">
+                        <h3>${item.title}</h3>
+                        <p>വായിച്ചത്: ${item.date}</p>
+                        <div class="action-btns">
+                            <a href="javascript:void(0)" class="continue-link" onclick="openPdfModal('${bookId}')">തുടരുക <i class="fas fa-arrow-right"></i></a>
+                            <button class="delete-btn" onclick="deleteHistoryItem('${uid}', ${index})"><i class="fas fa-trash"></i> ഡിലീറ്റ് ചെയ്യുക</button>
                         </div>
                     </div>
                 `;
-                container.innerHTML += card;
+                container.appendChild(card);
             });
-        }
-        
-        // --- LOGOUT FUNCTION (Globalized) ---
-        window.performLogout = function() {
-            signOut(auth).then(() => { 
-                localStorage.removeItem('libraryUser');
-                window.location.href = "logout-success.html"; 
-            });
-        }
-        document.getElementById('logout-link').addEventListener('click', (e) => { e.preventDefault(); window.performLogout(); });
-    </script>
-    
-    <script>
-        // --- MODAL OPEN/CLOSE LOGIC ---
-        window.openPdfModal = function(bookId) {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
+        };
 
-            frame.src = embedUrl;
-            modal.style.display = "flex"; 
+        window.deleteHistoryItem = function(uid, index) {
+            if(confirm("ഈ പുസ്തകം ചരിത്രത്തിൽ നിന്ന് നീക്കം ചെയ്യണമെന്നുണ്ടോ?")) {
+                const key = 'history_' + uid;
+                let history = JSON.parse(localStorage.getItem(key)) || [];
+                history.splice(index, 1);
+                localStorage.setItem(key, JSON.stringify(history));
+                loadUserHistory(uid); // റീലോഡ് ലിസ്റ്റ്
+            }
+        };
+
+        document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="login.html");
+    </script>
+
+    <script>
+        window.openPdfModal = function(bookId) {
+            if(!bookId) return;
+            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview`;
+            document.getElementById('pdfModal').style.display = "flex";
             document.body.style.overflow = "hidden";
-        }
+        };
 
         window.closePdfModal = function() {
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            
-            modal.style.display = "none";
-            frame.src = ""; 
+            document.getElementById('pdfModal').style.display = "none";
+            document.getElementById('pdfFrame').src = "";
             document.body.style.overflow = "auto";
-        }
+        };
 
-        // Profile Dropdown Toggle Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const profileSection = document.getElementById('profile-section');
-            if (profileSection) {
-                profileSection.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const dropdown = this.querySelector('.profile-dropdown');
-                    if (dropdown) dropdown.style.display = (dropdown.style.display === 'block' ? 'none' : 'block');
-                });
-            }
-
-            // Close dropdown when clicking outside
-            window.onclick = function(event) {
-                if (!event.target.closest('.user-profile')) {
-                    var dropdowns = document.querySelectorAll(".profile-dropdown");
-                    dropdowns.forEach(d => d.style.display = "none");
-                }
-            }
-        });
+        document.getElementById('profile-section').onclick = function(e) {
+            e.stopPropagation();
+            let d = this.querySelector('.profile-dropdown');
+            d.style.display = d.style.display === "block" ? "none" : "block";
+        };
+        window.onclick = () => document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
     </script>
 </body>
 </html>
