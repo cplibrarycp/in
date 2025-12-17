@@ -62,98 +62,6 @@
 <body>
     
 <header>
-    /* --- റെസ്പോൺസീവ് ഹെഡർ (പുതുക്കിയത്) --- */
-header {
-    background-color: var(--secondary-dark);
-    padding: 10px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.logo {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: #FFFFFF !important;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    white-space: nowrap;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-/* ⭐⭐⭐ ബട്ടൺ സ്റ്റൈൽ (ആദ്യം പച്ച ബാക്ക്ഗ്രൗണ്ട്, വെള്ള അക്ഷരം) ⭐⭐⭐ */
-.nav-links a.nav-item {
-    color: #FFFFFF !important; /* അക്ഷരം വെള്ള */
-    background-color: var(--secondary-dark) !important; /* ഹെഡറിന് സമാനമായ പച്ച */
-    font-weight: 600;
-    font-size: 0.85em;
-    text-transform: uppercase;
-    padding: 8px 18px;
-    border: 1.5px solid rgba(255, 255, 255, 0.4); /* നേരിയ വെള്ള ബോർഡർ */
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-
-/* ⭐⭐⭐ ഹോവർ ആക്ഷൻ: വെള്ള ബാക്ക്ഗ്രൗണ്ട്, പച്ച അക്ഷരം ⭐⭐⭐ */
-.nav-links a.nav-item:hover {
-    background-color: #FFFFFF !important; /* ബട്ടൺ വെള്ളയാകുന്നു */
-    color: var(--secondary-dark) !important; /* അക്ഷരം പച്ചയാകുന്നു */
-    border-color: #FFFFFF;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-}
-
-/* യൂസർ പ്രൊഫൈൽ ഭാഗം */
-.user-profile {
-    display: flex;
-    align-items: center;
-    margin-left: 15px;
-    padding-left: 15px;
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    cursor: pointer;
-    color: #FFFFFF;
-}
-
-/* --- മൊബൈൽ ക്രമീകരണം (Media Query) --- */
-@media (max-width: 850px) {
-    .navbar {
-        flex-direction: column; /* മൊബൈലിൽ ലോഗോ മുകളിൽ വരും */
-        gap: 12px;
-    }
-    .nav-links {
-        justify-content: center;
-        width: 100%;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    .user-profile {
-        border-left: none;
-        margin-left: 0;
-        padding-left: 0;
-        margin-top: 5px;
-    }
-    .logo {
-        font-size: 1.3em;
-    }
-}
 <div class="container navbar">
 <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
 <div class="nav-links">
@@ -197,7 +105,7 @@ header {
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Ly_i34E-u19eMBD2oIWmXorPH0NuYOmQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
         </div>
     </div>
-    <div class="book-title">ഋഗ്വേദം ഒന്നാം മണ്ഡലം</div>
+    <div class="book-title">RgveedsNhit 1 Unknown</div>
 </div>
 
 <div class="book-card">
@@ -207,7 +115,7 @@ header {
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1a2Ct6T3XSZ1CGjVH95pt8w1-OcSU4rPm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
         </div>
     </div>
-    <div class="book-title">ഋഗ്വേദം രണ്ടാം മണ്ഡലം</div>
+    <div class="book-title">RgveedsNhit 2 Unknown</div>
 </div>
 
 <div class="book-card">
@@ -217,7 +125,7 @@ header {
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1z9Y_C_jKv8aQsi2w6l3dYliJFHdc0R-u', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
         </div>
     </div>
-    <div class="book-title">ഋഗ്വേദം മൂന്നാം മണ്ഡലം</div>
+    <div class="book-title">RgveedsNhit 3 Unknown</div>
 </div>
 
 <div class="book-card">
@@ -227,7 +135,7 @@ header {
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yfJ7K70f6J_lafGbkim0NPoI75JVU6WB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
         </div>
     </div>
-    <div class="book-title">ഋഗ്വേദം നാലാം മണ്ഡലം</div>
+    <div class="book-title">RgveedsNhit 4 Unknown</div>
 </div>
 
 </div>
@@ -425,5 +333,3 @@ header {
 
 </body>
 </html>
-
-
