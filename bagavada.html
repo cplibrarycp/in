@@ -20,8 +20,8 @@
         .container { width: 92%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; transition: 0.3s; }
 
-        /* --- ഹെഡർ (ത്രിപുടി സ്റ്റൈൽ) --- */
-        header { background-color: var(--secondary-dark); padding: 5px 0; height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        /* --- ഹെഡർ --- */
+        header { background-color: var(--secondary-dark); padding: 5px 0; height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
         .logo-img { height: 65px; width: auto; } 
@@ -64,8 +64,8 @@
         .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
         .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
 
-        /* --- PDF MODAL --- */
-        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
+        /* --- PDF MODAL & Background Masking --- */
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.9); z-index:9999; flex-direction:column; }
         .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
         .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; }
 
@@ -91,7 +91,7 @@
             <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
             <div class="user-profile" id="profile-section">
                 <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-                <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
+                <div class="welcome-msg">സ്വാഗതം, <span id="display-name">Guest</span></div>
                 <div class="profile-dropdown">
                     <a href="profile.html"><i class="fas fa-user-cog"></i> Settings</a>
                     <a href="history.html"><i class="fas fa-history"></i> History</a>
@@ -106,7 +106,7 @@
     <div class="container">
         <h1>ഭാഗവതം മലയാളം</h1>
         <div class="library-container">
-<div class="book-card">
+           <div class="book-card">
     <div class="image-wrapper">
         <img alt="ഭാഗവതം 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1j-zH__1UCEDxTNWEJTlUZnAnuvcR8k8o" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
         <div class="read-overlay">
@@ -269,7 +269,7 @@
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
             <div style="font-size: 0.85em; opacity: 0.8;">
-                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉയയോഗ നിബന്ധനകൾ</a>
             </div>
         </div>
         <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
@@ -295,8 +295,6 @@
             const urlParams = new URLSearchParams(window.location.search);
             const openBookId = urlParams.get('openBook');
             if (openBookId) {
-                // ആ പുസ്തകത്തിന്റെ ഐഡി വെച്ച് വായന തുടങ്ങാം
-                // (ശ്രദ്ധിക്കുക: ഇവിടെ element കിട്ടാത്തതിനാൽ ഹിസ്റ്ററി സേവിംഗിൽ മാറ്റം വേണ്ടിവരും)
                 document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${openBookId}/preview`;
                 document.getElementById('pdfModal').style.display = "flex";
                 document.body.style.overflow = "hidden";
@@ -326,7 +324,6 @@
 
     window.checkAccess = function(bookId, element) {
         if (!window.currentUser) {
-            // നിലവിലെ പേജും പുസ്തകത്തിന്റെ ഐഡിയും ലോഗിൻ ലിങ്കിൽ ചേർക്കുന്നു
             const currentPath = window.location.pathname.split('/').pop();
             const loginUrl = `login.html?redirect=${currentPath}&bookId=${bookId}`;
             document.getElementById('loginRedirectBtn').href = loginUrl;
@@ -335,16 +332,17 @@
             saveToHistory(element, bookId);
             document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview`;
             document.getElementById('pdfModal').style.display = "flex";
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden"; // Masking enabled
         }
     };
 
     function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
-    window.closePdfModal = function() {
+    
+    function closePdfModal() {
         document.getElementById('pdfModal').style.display = "none";
         document.getElementById('pdfFrame').src = "";
-        document.body.style.overflow = "auto";
-    };
+        document.body.style.overflow = "auto"; // Scroll restored
+    }
 
     document.getElementById('profile-section').onclick = function(e) {
         e.stopPropagation();
