@@ -22,22 +22,81 @@
     .container { width: 90%; margin: 0 auto; max-width: 1200px; }
     a { text-decoration: none; transition: 0.3s; }
     
-    /* Header */
-    header { 
-        background-color: var(--secondary-dark); padding: 15px 0; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; 
-        top: 0; z-index: 1000; flex-shrink: 0; 
+    /* --- റെസ്പോൺസീവ് ഹെഡർ CSS --- */
+header {
+    background-color: var(--secondary-dark);
+    padding: 10px 0; /* പാഡിംഗ് അല്പം കുറച്ചു */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%; /* ഹെഡർ വിൻഡോയ്ക്ക് ഉള്ളിൽ നിൽക്കാൻ */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* ആവശ്യമാണെങ്കിൽ അടുത്ത വരിയിലേക്ക് വരാൻ */
+}
+
+.logo {
+    font-size: 1.4em; /* ലോഗോ വലിപ്പം അല്പം കുറച്ചു */
+    font-weight: 700;
+    color: var(--light-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap; /* പേര് മുറിഞ്ഞു പോകാതിരിക്കാൻ */
+}
+
+#header-logo-image {
+    height: 28px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- മൊബൈൽ & ടാബ് ഫിക്സ് (Media Query) --- */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 0;
     }
-    .navbar { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
-    .nav-links { display: flex; align-items: center; gap: 15px; }
-    .nav-item { 
-        color: var(--light-text); font-weight: 600; font-size: 0.85em; 
-        text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); 
-        border-radius: 4px; transition: 0.3s; 
+
+    .navbar {
+        flex-direction: column; /* മൊബൈലിൽ ലോഗോ മുകളിലും ലിങ്കുകൾ താഴെയും വരും */
+        gap: 15px;
+        text-align: center;
     }
-    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
-    
+
+    .nav-links {
+        justify-content: center;
+        width: 100%;
+        flex-wrap: wrap; /* ലിങ്കുകൾ സ്ക്രീനിന് ഉള്ളിൽ ഒതുങ്ങാൻ */
+        gap: 8px;
+    }
+
+    .nav-links a.nav-item {
+        margin-left: 0;
+        padding: 6px 12px; /* ബട്ടണുകളുടെ വലിപ്പം മൊബൈലിൽ കുറച്ചു */
+        font-size: 0.75em;
+    }
+
+    .user-profile {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none; /* സൈഡ് ബോർഡർ മാറ്റി */
+        margin-top: 5px;
+    }
+
+    .logo {
+        font-size: 1.2em; /* മൊബൈലിൽ ലോഗോ അക്ഷരങ്ങൾ കുറച്ചുകൂടി ചെറുതാക്കി */
+    }
+}
     /* User Profile */
     .user-profile { 
         display: flex; align-items: center; margin-left: 25px; 
@@ -801,3 +860,4 @@
 
 </body>
 </html>
+
