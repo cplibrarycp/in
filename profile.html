@@ -3,63 +3,40 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ | THRIPUDI LIBRARY</title>
+    <title>പ്രൊഫൈൽ | THRIPUDI LIBRARY</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     <style>
-        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --outline-color: #B2DFDB; }
+        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); display: flex; flex-direction: column; min-height: 100vh; }
-        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        .container { width: 90%; margin: 0 auto; max-width: 1200px; }
 
-        /* --- ത്രിപുടി ഹെഡർ --- */
         header { background-color: var(--secondary-dark); padding: 5px 0; height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF; text-decoration: none; }
-        .logo-img { height: 65px; }
-        .logo-text { font-size: 1.6em; font-weight: 700; }
-
-        .nav-links { display: flex; align-items: center; gap: 10px; }
-        .nav-item { color: #FFFFFF; font-weight: 600; font-size: 0.85em; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; text-decoration: none; }
-        .nav-item:hover { background: #fff; color: var(--secondary-dark); }
-
-        .user-profile { position: relative; cursor: pointer; display: flex; align-items: center; color: white; margin-left: 15px; padding-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); }
-        .user-avatar { width: 35px; height: 35px; background: white; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--primary-teal); margin-right: 10px; }
-        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF; text-decoration: none; font-size: 1.6em; font-weight: 700; }
         
-        .profile-dropdown { display: none; position: absolute; top: 110%; right: 0; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-radius: 8px; min-width: 200px; }
-        .profile-dropdown a { display: block; padding: 12px 20px; color: var(--text-color); border-bottom: 1px solid #eee; text-decoration: none; font-size: 0.9em; }
+        .nav-item { color: #FFFFFF; font-weight: 600; font-size: 0.85em; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; text-decoration: none; }
 
-        /* --- പ്രൊഫൈൽ കാർഡ് --- */
-        .profile-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--outline-color); max-width: 500px; margin: 60px auto; text-align: center; }
-        .avatar-large { width: 110px; height: 110px; background: var(--primary-teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3em; margin: 0 auto 20px; overflow: hidden; border: 4px solid var(--outline-color); }
+        .profile-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 500px; margin: 60px auto; text-align: center; }
+        .avatar-large { width: 110px; height: 110px; background: var(--primary-teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3em; margin: 0 auto 20px; overflow: hidden; }
         .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
 
         .form-group { margin-bottom: 20px; text-align: left; }
         label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9em; color: var(--secondary-dark); }
-        input { width: 100%; padding: 12px; border: 2px solid var(--outline-color); border-radius: 8px; font-size: 1em; }
-        .btn-update { background: var(--primary-teal); color: white; border: none; padding: 14px; border-radius: 8px; width: 100%; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        input { width: 100%; padding: 12px; border: 2px solid #B2DFDB; border-radius: 8px; font-size: 1em; outline: none; }
+        .btn-update { background: var(--primary-teal); color: white; border: none; padding: 14px; border-radius: 8px; width: 100%; font-weight: 700; cursor: pointer; }
         footer { background: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; }
     </style>
 </head>
 <body>
-
 <header>
     <div class="container navbar">
-        <a href="dashboard.html" class="logo-container">
-            <img src="https://drive.google.com/thumbnail?sz=w600&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" class="logo-img">
-            <span class="logo-text">THRIPUDI</span>
-        </a>
-        <div class="nav-links">
+        <a href="dashboard.html" class="logo-container">THRIPUDI LIBRARY</a>
+        <div style="display: flex; gap: 10px; align-items: center;">
             <a class="nav-item" href="dashboard.html">HOME</a>
-            <div class="user-profile" id="profTrigger">
-                <div class="user-avatar" id="headAvatar"><i class="fas fa-user"></i></div>
-                <span>Profile</span>
-                <div class="profile-dropdown" id="profMenu">
-                    <a href="history.html">History</a>
-                    <a href="#" id="logoutBtn" style="color:red;">Logout</a>
-                </div>
-            </div>
+            <a class="nav-item" href="history.html">HISTORY</a>
+            <a href="#" id="logoutBtn" style="color: #FF5252; font-weight: bold; margin-left: 10px; text-decoration: none;">LOGOUT</a>
         </div>
     </div>
 </header>
@@ -80,7 +57,7 @@
         <input type="text" id="photoInp">
     </div>
     <button class="btn-update" id="saveBtn">മാറ്റങ്ങൾ സേവ് ചെയ്യുക</button>
-    <p id="msg" style="margin-top:10px; font-weight:bold;"></p>
+    <p id="msg" style="margin-top:15px; font-weight:bold;"></p>
 </div>
 
 <footer>© 2025 THRIPUDI LIBRARY</footer>
@@ -89,23 +66,21 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-    const firebaseConfig = { apiKey: "നിങ്ങളുടെ_പുതിയ_API_KEY", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary" };
+    const firebaseConfig = { 
+        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+        authDomain: "thripudilibrary.firebaseapp.com", 
+        projectId: "thripudilibrary" 
+    };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // ✅ ഇത് ശ്രദ്ധിക്കൂ: ലോഗിൻ സ്റ്റാറ്റസ് ഫയർബേസ് വഴി മാത്രം ചെക്ക് ചെയ്യുന്നു
     onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById('emailInp').value = user.email;
             document.getElementById('nameInp').value = user.displayName || "";
             document.getElementById('photoInp').value = user.photoURL || "";
-            if(user.photoURL) {
-                const img = `<img src="${user.photoURL}">`;
-                document.getElementById('headAvatar').innerHTML = img;
-                document.getElementById('largeAvatar').innerHTML = img;
-            }
+            if(user.photoURL) document.getElementById('largeAvatar').innerHTML = `<img src="${user.photoURL}">`;
         } else {
-            // ലോഗിൻ ഇല്ലെങ്കിൽ മാത്രം ലോഗിൻ പേജിലേക്ക് വിടുന്നു
             window.location.href = "login.html";
         }
     });
@@ -116,18 +91,13 @@
                 displayName: document.getElementById('nameInp').value,
                 photoURL: document.getElementById('photoInp').value
             });
+            document.getElementById('msg').style.color = "green";
             document.getElementById('msg').innerHTML = "വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു!";
             setTimeout(() => location.reload(), 1000);
         } catch (e) { alert(e.message); }
     };
 
     document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href="login.html");
-    
-    // Dropdown
-    const trigger = document.getElementById('profTrigger');
-    const menu = document.getElementById('profMenu');
-    trigger.onclick = (e) => { e.stopPropagation(); menu.style.display = menu.style.display === 'block' ? 'none' : 'block'; };
-    window.onclick = () => menu.style.display = 'none';
 </script>
 </body>
 </html>
