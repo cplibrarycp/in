@@ -98,17 +98,17 @@
         setTimeout(() => { messageBox.textContent = ""; }, 5000);
     }
 
-    // ✅ ലോഗിൻ ചെയ്ത ശേഷം പഴയ പേജിലേക്ക് പോകാനുള്ള ഫങ്ക്ഷൻ
-    function handleRedirect() {
+    // ✅ ലോഗിൻ സക്സസ് ആകുമ്പോൾ പ്രവർത്തിക്കുന്ന Redirect Logic
+    function handleLoginSuccess() {
         const urlParams = new URLSearchParams(window.location.search);
-        const redirect = urlParams.get('redirect');
-        const bookId = urlParams.get('bookId');
+        const targetPage = urlParams.get('redirect'); // ഉദാ: collection.html
+        const targetBook = urlParams.get('bookId');   // ഗൂഗിൾ ഡ്രൈവ് ഐഡി
 
-        if (redirect && bookId) {
-            // ബുക്ക് ഓപ്പൺ ആകുന്ന രീതിയിൽ തിരിച്ചു വിടുന്നു
-            window.location.href = `${redirect}?openBook=${bookId}`;
+        if (targetPage && targetBook) {
+            // വായനക്കാരനെ പുസ്തകം തുറക്കുന്ന രീതിയിൽ തിരികെ വിടുന്നു
+            window.location.href = targetPage + "?openBook=" + targetBook;
         } else {
-            // സാധാരണ ലോഗിൻ എങ്കിൽ ഡാഷ്ബോർഡിലേക്ക്
+            // കണ്ടീഷൻ ഇല്ലെങ്കിൽ ഡാഷ്ബോർഡിലേക്ക്
             window.location.href = "dashboard.html";
         }
     }
@@ -118,14 +118,18 @@
         e.preventDefault();
         const email = document.getElementById("loginEmail").value;
         const pass = document.getElementById("loginPassword").value;
-        if(!email || !pass) return showMessage("Please enter credentials", "error");
+        if(!email || !pass) return showMessage("ഇമെയിലും പാസ്‌വേഡും നൽകുക.", "error");
 
         signInWithEmailAndPassword(auth, email, pass)
             .then(() => {
                 showMessage("Login Successful!", "success");
-                setTimeout(handleRedirect, 1000);
+                setTimeout(handleLoginSuccess, 1000); // 1 സെക്കൻഡിന് ശേഷം റീഡയറക്ട്
             })
-            .catch((err) => showMessage("Failed: " + err.code, "error"));
+            .catch((err) => {
+                let msg = "Login Failed";
+                if(err.code === 'auth/wrong-password') msg = "തെറ്റായ പാസ്‌വേഡ്.";
+                showMessage(msg, "error");
+            });
     });
 
     // --- 2. REGISTER ---
@@ -138,8 +142,8 @@
         createUserWithEmailAndPassword(auth, email, pass)
             .then((userCredential) => {
                 updateProfile(userCredential.user, { displayName: name }).then(() => {
-                    showMessage("Welcome " + name, "success");
-                    setTimeout(handleRedirect, 1500);
+                    showMessage("Registration Successful!", "success");
+                    setTimeout(handleLoginSuccess, 1000);
                 });
             })
             .catch((err) => showMessage(err.message, "error"));
