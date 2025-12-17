@@ -10,23 +10,22 @@
         :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); display: flex; flex-direction: column; min-height: 100vh; }
-        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        .container { width: 85%; margin: 0 auto; max-width: 1200px; }
 
-        /* --- ത്രിപുടി മാസ്റ്റർ ഹെഡർ (വലിയ ലോഗോ + ഹെഡർ ഐക്കണുകൾ) --- */
+        /* --- ത്രിപുടി മാസ്റ്റർ ഹെഡർ --- */
         header { background-color: var(--secondary-dark); height: 95px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo-container { display: flex; align-items: center; gap: 15px; color: #FFFFFF !important; text-decoration: none; }
-        .logo-img { height: 70px; width: auto; } /* വലിയ ലോഗോ */
-        .logo-text { font-size: 1.8em; font-weight: 700; }
+        .logo-img { height: 70px; width: auto; } 
+        .logo-text { font-size: 1.8em; font-weight: 700; letter-spacing: 1px; }
 
         .nav-links { display: flex; align-items: center; gap: 15px; }
-        .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.9em; text-decoration: none; padding: 10px 20px; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 6px; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.9em; text-decoration: none; padding: 10px 20px; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 6px; display: flex; align-items: center; gap: 8px; }
         .nav-item:hover { background: #fff; color: var(--secondary-dark) !important; }
 
         /* --- പ്രൊഫൈൽ കാർഡ് --- */
         .profile-card { background: white; padding: 45px; border-radius: 20px; box-shadow: 0 6px 25px rgba(0,0,0,0.08); max-width: 550px; margin: 60px auto; text-align: center; border: 1px solid #B2DFDB; }
-        .avatar-area { position: relative; width: 130px; height: 130px; margin: 0 auto 25px; }
-        .avatar-circle { width: 100%; height: 100%; background: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4em; color: white; overflow: hidden; border: 4px solid #B2DFDB; }
+        .avatar-circle { width: 130px; height: 130px; background: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4em; color: white; margin: 0 auto 25px; overflow: hidden; border: 4px solid #B2DFDB; }
         .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
         
         .form-group { margin-bottom: 22px; text-align: left; }
@@ -34,10 +33,10 @@
         input { width: 100%; padding: 13px; border: 2px solid #B2DFDB; border-radius: 10px; font-size: 1em; outline: none; }
         input:focus { border-color: var(--primary-teal); }
 
-        .btn-action { background: var(--primary-teal); color: white; border: none; padding: 16px; border-radius: 10px; width: 100%; font-weight: 700; cursor: pointer; font-size: 1.1em; transition: 0.3s; margin-top: 10px; }
-        .btn-action:hover { background: var(--secondary-dark); transform: translateY(-2px); }
+        .btn-update { background: var(--primary-teal); color: white; border: none; padding: 16px; border-radius: 10px; width: 100%; font-weight: 700; cursor: pointer; font-size: 1.1em; transition: 0.3s; margin-top: 10px; }
+        .btn-update:hover { background: var(--secondary-dark); transform: translateY(-2px); }
 
-        /* --- ത്രിപുടി കോംപാക്ട് ഫൂട്ടർ --- */
+        /* --- ത്രിപുടി ഫൂട്ടർ --- */
         footer { background: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; font-size: 0.9em; }
     </style>
 </head>
@@ -58,13 +57,11 @@
 
 <div class="container">
     <div class="profile-card">
-        <div class="avatar-area">
-            <div class="avatar-circle" id="userPic"><i class="fas fa-user"></i></div>
-        </div>
+        <div class="avatar-circle" id="userPic"><i class="fas fa-user"></i></div>
         <h2 style="margin-bottom: 30px; color: var(--secondary-dark);">പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ</h2>
         
         <div class="form-group">
-            <label>ലോഗിൻ ചെയ്ത ഇമെയിൽ</label>
+            <label>ഇമെയിൽ</label>
             <input type="text" id="emailBox" disabled>
         </div>
         <div class="form-group">
@@ -73,18 +70,18 @@
         </div>
         <div class="form-group">
             <label>ഫോട്ടോ ലിങ്ക് (Direct Link URL)</label>
-            <input type="text" id="photoBox" placeholder="ഡ്രൈവ് ലിങ്ക് ഇവിടെ നൽകുക">
+            <input type="text" id="photoBox" placeholder="ചിത്രത്തിന്റെ URL ഇവിടെ നൽകുക">
         </div>
         
-        <button class="btn-action" id="updateBtn">സേവ് ചെയ്യുക</button>
+        <button class="btn-update" id="saveBtn">സേവ് ചെയ്യുക</button>
         <p id="msg" style="margin-top: 15px; font-weight: bold;"></p>
         
-        <a href="#" id="outBtn" style="color: #d32f2f; display: inline-block; margin-top: 25px; text-decoration: none; font-weight: 600;">LOGOUT</a>
+        <a href="#" id="logoutBtn" style="color: #d32f2f; display: inline-block; margin-top: 25px; text-decoration: none; font-weight: 600;"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
     </div>
 </div>
 
 <footer>
-    <p>© 2025 THRIPUDI LIBRARY | All Rights Reserved</p>
+    <p>© 2025 THRIPUDI LIBRARY | എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
 </footer>
 
 <script type="module">
@@ -99,13 +96,11 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // യൂസർ വിവരങ്ങൾ ലോഡ് ചെയ്യുന്നു
     onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById('emailBox').value = user.email;
             document.getElementById('nameBox').value = user.displayName || "";
             document.getElementById('photoBox').value = user.photoURL || "";
-            
             if(user.photoURL) {
                 document.getElementById('userPic').innerHTML = `<img src="${user.photoURL}">`;
             }
@@ -114,39 +109,27 @@
         }
     });
 
-    // പ്രൊഫൈൽ അപ്‌ഡേറ്റ് ഫങ്ക്ഷൻ
-    document.getElementById('updateBtn').onclick = async () => {
+    document.getElementById('saveBtn').onclick = async () => {
         const user = auth.currentUser;
-        const newName = document.getElementById('nameBox').value;
-        const newPhoto = document.getElementById('photoBox').value;
-
         if (!user) return;
 
         try {
             await updateProfile(user, {
-                displayName: newName,
-                photoURL: newPhoto
+                displayName: document.getElementById('nameBox').value,
+                photoURL: document.getElementById('photoBox').value
             });
-            
-            // ലോഗിൻ സ്റ്റാറ്റസിനായി ചിലപ്പോൾ ബ്രൗസർ ഡാറ്റ പുതുക്കേണ്ടി വരും
             document.getElementById('msg').style.color = "green";
-            document.getElementById('msg').innerHTML = "വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു!";
-            
-            // പേജ് ഉടൻ റീലോഡ് ചെയ്യുന്നു
-            setTimeout(() => { location.reload(); }, 1500);
-            
+            document.getElementById('msg').innerHTML = "വിവരങ്ങൾ വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു!";
+            setTimeout(() => { location.reload(); }, 1200);
         } catch (error) {
             document.getElementById('msg').style.color = "red";
-            document.getElementById('msg').innerHTML = "പിശക്: " + error.message;
+            document.getElementById('msg').innerHTML = "Error: " + error.message;
         }
     };
 
-    // ലോഗൗട്ട്
-    document.getElementById('outBtn').onclick = (e) => {
+    document.getElementById('logoutBtn').onclick = (e) => {
         e.preventDefault();
-        signOut(auth).then(() => {
-            window.location.href = "login.html";
-        });
+        signOut(auth).then(() => { window.location.href = "login.html"; });
     };
 </script>
 </body>
