@@ -398,8 +398,8 @@
 
     function saveToHistory(element, bookId) {
         try {
-            // Firebase ലോഗിൻ ഉണ്ടോ എന്ന് നോക്കുന്നു
-            const userId = (window.currentUser) ? window.currentUser.uid : 'default_user';
+            // Firebase ലോഗിൻ ഉണ്ടെങ്കിൽ UID എടുക്കുന്നു, ഇല്ലെങ്കിൽ 'default_user'
+            const userId = (window.currentUser && window.currentUser.uid) ? window.currentUser.uid : 'default_user';
             
             const card = element.closest('.book-card');
             if (!card) return;
@@ -412,12 +412,14 @@
             const key = 'history_' + userId;
             let history = JSON.parse(localStorage.getItem(key)) || [];
             
+            // പഴയ ഡാറ്റ നീക്കം ചെയ്യുന്നു
             history = history.filter(item => item.title !== title);
+            // പുതിയത് ചേർക്കുന്നു
             history.unshift({ title: title, image: image, link: 'read.html?bookId=' + bookId, date: date });
             
             if (history.length > 50) history.pop();
             localStorage.setItem(key, JSON.stringify(history));
-            console.log("History Updated for:", userId);
+            console.log("History saved for:", userId);
         } catch (e) {
             console.log("History Error:", e);
         }
@@ -451,18 +453,7 @@
     }
 
     // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
-    
     );
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-            
-            console.log("History updated for user: " + userId);
-        } catch (e) {
-            console.error("History Save Error:", e);
-        }
-    }
-);
             
             if (history.length > 50) history.pop();
             localStorage.setItem(key, JSON.stringify(history));
