@@ -1,316 +1,158 @@
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Login / Register | THRIPUDI LIBRARY</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<style>
-        /* --- Theme Variables --- */
-        :root {
-            --primary-teal: #00897B; 
-            --secondary-dark: #004D40; 
-            --text-white: #FFFFFF;
-        }
-
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login / Register | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --text-white: #FFFFFF; }
         * { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; box-sizing: border-box; }
-
         .hero {
-            height: 100vh;
-            width: 100%;
+            height: 100vh; width: 100%;
             background-image: linear-gradient(rgba(0, 77, 64, 0.85), rgba(0, 77, 64, 0.85)), url(https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
-            background-position: center;
-            background-size: cover;
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-position: center; background-size: cover; position: absolute; display: flex; align-items: center; justify-content: center;
         }
-
         .form-box {
-            width: 380px;
-            height: 500px;
-            position: relative;
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            padding: 5px;
-            overflow: hidden;
-            border-radius: 20px; 
+            width: 380px; height: 500px; position: relative; background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); padding: 5px; overflow: hidden; border-radius: 20px; 
         }
-
-        /* --- Toggle Switch Design --- */
-        .button-box {
-            width: 240px;
-            margin: 35px auto;
-            position: relative;
-            border-radius: 30px;
-            background: rgba(0, 0, 0, 0.25);
-            display: flex;
-            justify-content: space-between;
-            padding: 5px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .toggle-btn {
-            padding: 10px 0;
-            cursor: pointer;
-            background: transparent;
-            border: 0;
-            outline: none;
-            position: relative;
-            font-weight: 600;
-            color: #ccc;
-            flex: 1;
-            transition: color 0.5s;
-            z-index: 1;
-            font-size: 14px;
-        }
-
-        #btn {
-            top: 5px; left: 5px;
-            position: absolute;
-            width: 115px;
-            height: calc(100% - 10px);
-            background: #fff;
-            border-radius: 25px;
-            transition: .5s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-
-        .input-group {
-            top: 150px; position: absolute; width: 280px; transition: .5s;
-        }
-
-        .input-field {
-            width: 100%; padding: 10px 0; margin: 10px 0;
-            border-left: 0; border-top: 0; border-right: 0;
-            border-bottom: 1px solid #fff; 
-            outline: none; background: transparent;
-            color: #fff; 
-            font-size: 14px;
-        }
-        
+        .button-box { width: 240px; margin: 35px auto; position: relative; border-radius: 30px; background: rgba(0, 0, 0, 0.25); display: flex; justify-content: space-between; padding: 5px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); }
+        .toggle-btn { padding: 10px 0; cursor: pointer; background: transparent; border: 0; outline: none; position: relative; font-weight: 600; color: #ccc; flex: 1; transition: color 0.5s; z-index: 1; font-size: 14px; }
+        #btn { top: 5px; left: 5px; position: absolute; width: 115px; height: calc(100% - 10px); background: #fff; border-radius: 25px; transition: .5s; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .input-group { top: 150px; position: absolute; width: 280px; transition: .5s; }
+        .input-field { width: 100%; padding: 10px 0; margin: 10px 0; border-left: 0; border-top: 0; border-right: 0; border-bottom: 1px solid #fff; outline: none; background: transparent; color: #fff; font-size: 14px; }
         ::placeholder { color: #ccc; opacity: 0.8; font-size: 13px; }
-
-        .submit-btn {
-            width: 85%; padding: 12px 30px; cursor: pointer; display: block; margin: 30px auto;
-            background: linear-gradient(to right, var(--primary-teal), var(--secondary-dark));
-            border: 0; outline: none; border-radius: 30px; color: #fff;
-            font-weight: bold; font-size: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-        
+        .submit-btn { width: 85%; padding: 12px 30px; cursor: pointer; display: block; margin: 30px auto; background: linear-gradient(to right, var(--primary-teal), var(--secondary-dark)); border: 0; outline: none; border-radius: 30px; color: #fff; font-weight: bold; font-size: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
         .submit-btn:active { transform: scale(0.98); }
-        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-
-        .forgot-pass {
-            display: block; text-align: center; margin-top: 15px; color: #fff;
-            font-size: 12px; text-decoration: none; cursor: pointer; opacity: 0.8; transition: opacity 0.3s;
-        }
-        .forgot-pass:hover { opacity: 1; text-decoration: underline; color: #4DB6AC; }
-
-        /* Status Message */
-        #messageBox {
-            position: absolute; bottom: 20px; width: 100%; text-align: center;
-            font-size: 12px; font-weight: 600; padding: 0 20px;
-        }
+        .forgot-pass { display: block; text-align: center; margin-top: 15px; color: #fff; font-size: 12px; text-decoration: none; cursor: pointer; opacity: 0.8; }
+        #messageBox { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 12px; font-weight: 600; padding: 0 20px; }
         .success { color: #69F0AE; }
         .error { color: #FF5252; }
-
         #login { left: 50px; }
         #register { left: 450px; }
     </style>
-
-
-<style id="footer-fix-style">
-    /* --- FORCE STICKY FOOTER --- */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    body {
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: 100vh !important;
-    }
-
-    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
-    section, .collection-section, .about-hero, .container, .content-box {
-        flex: 1 0 auto;
-    }
-
-    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
-    footer {
-        flex-shrink: 0 !important;
-        width: 100% !important;
-        margin-top: auto !important; 
-    }
-    /* --------------------------- */
-</style>
 </head>
 <body>
 <div class="hero">
-<div class="form-box">
-<div class="button-box">
-<div id="btn"></div>
-<button class="toggle-btn" id="loginToggle" onclick="openLogin()" style="color: var(--primary-teal);" type="button">Log In</button>
-<button class="toggle-btn" id="regToggle" onclick="openRegister()" type="button">Register</button>
+    <div class="form-box">
+        <div class="button-box">
+            <div id="btn"></div>
+            <button class="toggle-btn" id="loginToggle" onclick="openLogin()" style="color: var(--primary-teal);" type="button">Log In</button>
+            <button class="toggle-btn" id="regToggle" onclick="openRegister()" type="button">Register</button>
+        </div>
+        <form class="input-group" id="login">
+            <input class="input-field" id="loginEmail" placeholder="Email Id" required="" type="email"/>
+            <input class="input-field" id="loginPassword" placeholder="Password" required="" type="password"/>
+            <button class="submit-btn" id="loginBtn" type="submit">Log In</button>
+            <a class="forgot-pass" onclick="forgotPassword()">Forgot Password?</a>
+        </form>
+        <form class="input-group" id="register">
+            <input class="input-field" id="regUser" placeholder="Full Name" required="" type="text"/>
+            <input class="input-field" id="regEmail" placeholder="Email Id" required="" type="email"/>
+            <input class="input-field" id="regPassword" minlength="6" placeholder="Password (Min 6 chars)" required="" type="password"/>
+            <button class="submit-btn" id="regBtn" type="submit">Register</button>
+        </form>
+        <div id="messageBox"></div>
+    </div>
 </div>
-<form class="input-group" id="login">
-<input class="input-field" id="loginEmail" placeholder="Email Id" required="" type="email"/>
-<input class="input-field" id="loginPassword" placeholder="Password" required="" type="password"/>
-<button class="submit-btn" id="loginBtn" type="submit">Log In</button>
-<a class="forgot-pass" onclick="forgotPassword()">Forgot Password?</a>
-</form>
-<form class="input-group" id="register">
-<input class="input-field" id="regUser" placeholder="Full Name" required="" type="text"/>
-<input class="input-field" id="regEmail" placeholder="Email Id" required="" type="email"/>
-<input class="input-field" id="regPassword" minlength="6" placeholder="Password (Min 6 chars)" required="" type="password"/>
-<button class="submit-btn" id="regBtn" type="submit">Register</button>
-</form>
-<div id="messageBox"></div>
-</div>
-</div>
+
 <script>
-        var x = document.getElementById("login");
-        var y = document.getElementById("register");
-        var z = document.getElementById("btn");
-        var loginToggle = document.getElementById("loginToggle");
-        var regToggle = document.getElementById("regToggle");
+    var x = document.getElementById("login");
+    var y = document.getElementById("register");
+    var z = document.getElementById("btn");
+    var loginToggle = document.getElementById("loginToggle");
+    var regToggle = document.getElementById("regToggle");
 
-        function openRegister() { 
-            x.style.left = "-400px"; 
-            y.style.left = "50px"; 
-            z.style.left = "120px"; 
-            loginToggle.style.color = "#ccc";
-            regToggle.style.color = "var(--primary-teal)"; 
-            document.getElementById("messageBox").textContent = "";
-        }
-        function openLogin() { 
-            x.style.left = "50px"; 
-            y.style.left = "450px"; 
-            z.style.left = "5px"; 
-            loginToggle.style.color = "var(--primary-teal)";
-            regToggle.style.color = "#ccc";
-            document.getElementById("messageBox").textContent = "";
-        }
-    </script>
+    function openRegister() { 
+        x.style.left = "-400px"; y.style.left = "50px"; z.style.left = "120px"; 
+        loginToggle.style.color = "#ccc"; regToggle.style.color = "var(--primary-teal)"; 
+    }
+    function openLogin() { 
+        x.style.left = "50px"; y.style.left = "450px"; z.style.left = "5px"; 
+        loginToggle.style.color = "var(--primary-teal)"; regToggle.style.color = "#ccc"; 
+    }
+</script>
+
 <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-        // Firebase Config
-        const firebaseConfig = {
-            apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA",
-            authDomain: "thripudilibrary.firebaseapp.com",
-            projectId: "thripudilibrary",
-            storageBucket: "thripudilibrary.firebasestorage.app",
-            messagingSenderId: "887018912750",
-            appId: "1:887018912750:web:cc05190a72b13db816acff",
-            measurementId: "G-B59RDW4KG4"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA",
+        authDomain: "thripudilibrary.firebaseapp.com",
+        projectId: "thripudilibrary",
+        storageBucket: "thripudilibrary.firebasestorage.app",
+        messagingSenderId: "887018912750",
+        appId: "1:887018912750:web:cc05190a72b13db816acff"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const messageBox = document.getElementById("messageBox");
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const messageBox = document.getElementById("messageBox");
 
-        // --- Helper Function for Messages ---
-        function showMessage(msg, type) {
-            messageBox.textContent = msg;
-            messageBox.className = type; // 'success' or 'error'
-            setTimeout(() => { messageBox.textContent = ""; }, 5000);
+    function showMessage(msg, type) {
+        messageBox.textContent = msg;
+        messageBox.className = type;
+        setTimeout(() => { messageBox.textContent = ""; }, 5000);
+    }
+
+    // ✅ ലോഗിൻ ചെയ്ത ശേഷം പഴയ പേജിലേക്ക് പോകാനുള്ള ഫങ്ക്ഷൻ
+    function handleRedirect() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+        const bookId = urlParams.get('bookId');
+
+        if (redirect && bookId) {
+            // ബുക്ക് ഓപ്പൺ ആകുന്ന രീതിയിൽ തിരിച്ചു വിടുന്നു
+            window.location.href = `${redirect}?openBook=${bookId}`;
+        } else {
+            // സാധാരണ ലോഗിൻ എങ്കിൽ ഡാഷ്ബോർഡിലേക്ക്
+            window.location.href = "dashboard.html";
         }
+    }
 
-        // --- 1. LOGIN LOGIC ---
-        document.getElementById("loginBtn").addEventListener("click", (e) => {
-            e.preventDefault();
-            const email = document.getElementById("loginEmail").value;
-            const pass = document.getElementById("loginPassword").value;
+    // --- 1. LOGIN ---
+    document.getElementById("loginBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const pass = document.getElementById("loginPassword").value;
+        if(!email || !pass) return showMessage("Please enter credentials", "error");
 
-            if(!email || !pass) { showMessage("Please enter email and password", "error"); return; }
+        signInWithEmailAndPassword(auth, email, pass)
+            .then(() => {
+                showMessage("Login Successful!", "success");
+                setTimeout(handleRedirect, 1000);
+            })
+            .catch((err) => showMessage("Failed: " + err.code, "error"));
+    });
 
-            signInWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    showMessage("Login Successful! Redirecting...", "success");
-                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
-                })
-                .catch((error) => {
-                    let msg = "Login Failed: " + error.code;
-                    if(error.code === 'auth/wrong-password') msg = "തെറ്റായ പാസ്‌വേഡ്.";
-                    if(error.code === 'auth/user-not-found') msg = "അക്കൗണ്ട് കണ്ടെത്തിയില്ല.";
-                    showMessage(msg, "error");
+    // --- 2. REGISTER ---
+    document.getElementById("regBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("regUser").value;
+        const email = document.getElementById("regEmail").value;
+        const pass = document.getElementById("regPassword").value;
+
+        createUserWithEmailAndPassword(auth, email, pass)
+            .then((userCredential) => {
+                updateProfile(userCredential.user, { displayName: name }).then(() => {
+                    showMessage("Welcome " + name, "success");
+                    setTimeout(handleRedirect, 1500);
                 });
-        });
+            })
+            .catch((err) => showMessage(err.message, "error"));
+    });
 
-        // --- 2. REGISTER LOGIC ---
-        document.getElementById("regBtn").addEventListener("click", (e) => {
-            e.preventDefault();
-            const name = document.getElementById("regUser").value;
-            const email = document.getElementById("regEmail").value;
-            const pass = document.getElementById("regPassword").value;
-
-            if(!name || !email || !pass) { showMessage("All fields are required", "error"); return; }
-            if(pass.length < 6) { showMessage("Password must be at least 6 chars", "error"); return; }
-
-            createUserWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    updateProfile(user, { displayName: name })
-                        .then(() => {
-                            showMessage("Registration Successful! Welcome " + name, "success");
-                            setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
-                        });
-                })
-                .catch((error) => {
-                    let msg = error.message;
-                    if(error.code === 'auth/email-already-in-use') msg = "ഈ ഇമെയിൽ നിലവിലുണ്ട്.";
-                    showMessage(msg, "error");
-                });
-        });
-
-        // --- 3. FORGOT PASSWORD LOGIC ---
-        window.forgotPassword = function() {
-            const email = document.getElementById("loginEmail").value;
-            if (!email) {
-                showMessage("പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യാൻ മുകളിലെ ബോക്സിൽ ഇമെയിൽ നൽകുക.", "error");
-                return;
-            }
-            
-            sendPasswordResetEmail(auth, email)
-                .then(() => {
-                    showMessage("Password reset link sent to " + email, "success");
-                })
-                .catch((error) => {
-                    showMessage("Error: " + error.message, "error");
-                });
-        }
-    </script>
+    // --- 3. FORGOT PASSWORD ---
+    window.forgotPassword = function() {
+        const email = document.getElementById("loginEmail").value;
+        if (!email) return showMessage("ഇമെയിൽ നൽകുക.", "error");
+        sendPasswordResetEmail(auth, email)
+            .then(() => showMessage("Reset link sent!", "success"))
+            .catch((err) => showMessage(err.message, "error"));
+    }
+</script>
 </body>
 </html>
-<script type="module">
-    // ലോഗിൻ ചെയ്ത ശേഷം എങ്ങോട്ട് പോകണം എന്ന് തീരുമാനിക്കുന്നു
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    const auth = getAuth();
-    
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // നേരത്തെ ഏതെങ്കിലും ബുക്ക് ക്ലിക്ക് ചെയ്തിട്ടുണ്ടോ എന്ന് നോക്കുന്നു
-            const pending = sessionStorage.getItem('pendingBook');
-            if (pending) {
-                sessionStorage.removeItem('pendingBook'); // ക്ലിയർ ചെയ്യുന്നു
-                window.location.href = pending; // ബുക്കിലേക്ക് പോകുന്നു
-            } else {
-                // ഇല്ലെങ്കിൽ ഡാഷ്ബോർഡിലേക്ക് (Default)
-                // ശ്രദ്ധിക്കുക: നിങ്ങളുടെ ലോഗിൻ പേജിൽ ഇതിനകം റീഡയറക്ട് ഉണ്ടെങ്കിൽ ഇത് മാറ്റേണ്ടി വരും.
-                // സാധാരണ നിലയിൽ ഇത് കുഴപ്പമില്ല.
-            }
-        }
-    });
-</script>
