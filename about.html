@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ml">
 <head>
 <meta charset="utf-8"/>
@@ -7,84 +8,79 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
-    :root {
-        --primary-teal: #00897B;
-        --dark-teal: #004D40;
-        --bg-light: #E0F2F1;
-        --text-dark: #263238;
-        --white: #ffffff;
-    }
+        :root {
+            --primary-teal: #00897B;
+            --dark-teal: #004D40;
+            --bg-light: #E0F2F1;
+            --text-dark: #263238;
+            --white: #ffffff;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-light); color: var(--text-dark); margin: 0; padding: 0; }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; }
+        a { text-decoration: none; }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body { 
-        font-family: 'Poppins', sans-serif; background-color: var(--bg-light); 
-        color: var(--text-dark); line-height: 1.6; display: flex; 
-        flex-direction: column; min-height: 100vh; 
+        /* Header Style */
+        
+    /* --- റെസ്പോൺസീവ് ഹെഡർ (പൈത്തൺ വഴി അപ്ഡേറ്റ് ചെയ്തത്) --- */
+    header {
+        background-color: var(--secondary-dark);
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
     }
-    .container { width: 90%; max-width: 1100px; margin: 0 auto; }
-    a { text-decoration: none; transition: 0.3s; }
-
-    /* --- HEADER & NAVIGATION (RESPONSIVE & NEW HOVER) --- */
-    header { 
-        background-color: var(--dark-teal); padding: 10px 0; 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2); position: sticky; 
-        top: 0; z-index: 1000; flex-shrink: 0; width: 100%;
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
     }
-    .navbar { display: flex; justify-content: space-between; align-items: center; }
-    
-    .logo { 
-        font-size: 1.5em; font-weight: 700; color: #FFFFFF !important; 
-        display: flex; align-items: center; gap: 10px; white-space: nowrap;
+    .logo {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: #FFFFFF !important;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
     }
-    
-    .nav-links { display: flex; align-items: center; gap: 12px; }
-
-    .nav-item { 
-        color: #FFFFFF !important; 
-        font-weight: 600; 
-        font-size: 0.85em; 
-        text-transform: uppercase; 
-        padding: 8px 18px; 
-        border: 1px solid rgba(255,255,255,0.3); 
-        border-radius: 4px; 
-        transition: 0.3s;
-        background-color: var(--dark-teal) !important;
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .nav-links a.nav-item {
+        color: #FFFFFF !important;
+        background-color: var(--secondary-dark) !important;
+        font-weight: 600;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        padding: 8px 18px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        text-decoration: none;
         display: inline-block;
     }
-
-    .nav-item:hover { 
-        background-color: #FFFFFF !important; 
-        color: var(--dark-teal) !important;
-        border-color: #FFFFFF; 
+    .nav-links a.nav-item:hover {
+        background-color: #FFFFFF !important;
+        color: var(--secondary-dark) !important;
+        border-color: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-
-    /* User Profile */
-    .user-profile { 
-        display: flex; align-items: center; margin-left: 15px; 
-        padding-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); 
-        position: relative; cursor: pointer; color: #FFFFFF;
+    .user-profile {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+        padding-left: 15px;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        cursor: pointer;
+        color: #FFFFFF;
     }
-    .user-avatar { 
-        width: 32px; height: 32px; background-color: #fff; color: var(--primary-teal); 
-        border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-        margin-right: 8px; overflow: hidden;
-    }
-    .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .user-info { color: #fff; font-size: 0.8em; text-align: left; }
-    .user-name { font-weight: 600; display: block; }
-    
-    .profile-dropdown { 
-        display: none; position: absolute; top: 100%; right: 0; 
-        background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-        border-radius: 5px; min-width: 180px; margin-top: 12px; z-index: 1001; 
-    }
-    .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-dark); font-size: 0.9em; border-bottom: 1px solid #eee; }
-    .profile-dropdown a:hover { background-color: var(--bg-light); color: var(--primary-teal); }
-
-    /* --- MOBILE HEADER FIX --- */
     @media (max-width: 850px) {
         .navbar { flex-direction: column; gap: 15px; }
         .nav-links { justify-content: center; width: 100%; flex-wrap: wrap; gap: 8px; }
@@ -92,152 +88,215 @@
         .logo { font-size: 1.3em; }
     }
 
-    /* --- CONTENT SECTION --- */
-    .about-hero {
-        background: linear-gradient(rgba(0, 77, 64, 0.8), rgba(0, 137, 123, 0.8)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-        background-size: cover; background-position: center;
-        color: white; text-align: center; padding: 80px 20px; border-radius: 0 0 20px 20px;
-        flex-shrink: 0;
-    }
-    .about-hero h1 { font-size: 2.5em; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-    .about-hero p { font-size: 1.1em; max-width: 600px; margin: 15px auto 0; opacity: 0.9; }
 
-    .content-box { 
-        background: white; padding: 40px; border-radius: 15px; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -40px; 
-        position: relative; z-index: 10; flex-grow: 1;
+        /* Profile Section */
+        .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+        .user-name { font-weight: 600; display: block; }
+        .user-role { font-size: 0.8em; opacity: 0.8; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 160px; margin-top: 10px; z-index: 1001; }
+        .user-profile:hover .profile-dropdown { display: block; }
+        .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-dark); font-size: 0.9em; border-bottom: 1px solid #eee; transition: 0.3s; }
+        .profile-dropdown a:hover { background-color: var(--bg-light); color: var(--primary-teal); }
+
+        /* About Section */
+        .about-hero {
+            background: linear-gradient(rgba(0, 77, 64, 0.8), rgba(0, 137, 123, 0.8)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center;
+            color: white; text-align: center; padding: 80px 20px; border-radius: 0 0 50% 50% / 20px;
+        }
+        .about-hero h1 { font-size: 3em; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .about-hero p { font-size: 1.2em; max-width: 600px; margin: 20px auto 0; opacity: 0.9; }
+
+        .content-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -40px; position: relative; z-index: 10; }
+        
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+        .feature-card { text-align: center; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--primary-teal); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .feature-icon { font-size: 2.5em; color: var(--primary-teal); margin-bottom: 15px; }
+
+        /* Footer Style */
+        footer { background: var(--dark-teal); color: white; text-align: center; padding: 40px 0; margin-top: 50px; font-size: 0.9em; }
+        .footer-links { margin-top: 15px; }
+        .footer-links a { color: var(--white); margin: 0 10px; opacity: 0.8; transition: 0.3s; text-decoration: none; }
+        .footer-links a:hover { opacity: 1; color: var(--primary-teal); }
+    </style>
+
+
+<style id="footer-fix-style">
+    /* --- FORCE STICKY FOOTER --- */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
     }
     
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
-    .feature-card { text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; transition: 0.3s; }
-    .feature-card:hover { transform: translateY(-5px); border-color: var(--primary-teal); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-    .feature-icon { font-size: 2.5em; color: var(--primary-teal); margin-bottom: 15px; }
-
-    /* --- FOOTER --- */
-    footer { 
-        background-color: var(--dark-teal); color: white; 
-        text-align: center; padding: 40px 0; font-size: 0.9em; 
-        margin-top: auto; flex-shrink: 0;
+    body {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 100vh !important;
     }
-    .footer-links a { color: var(--white); margin: 0 10px; opacity: 0.8; }
+
+    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
+    section, .collection-section, .about-hero, .container, .content-box {
+        flex: 1 0 auto;
+    }
+
+    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
+    footer {
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        margin-top: auto !important; 
+    }
+    /* --------------------------- */
 </style>
 </head>
 <body>
-
 <header>
 <div class="container navbar">
 <a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
 <div class="nav-links">
-    <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-    <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-    <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-    <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-
-    <div class="user-profile" id="profile-section">
-        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-        <div class="user-info">
-            <span class="user-name" id="display-name">Guest</span>
-            <span class="user-role">Member</span>
-        </div>
-        <div class="profile-dropdown">
-            <a href="profile.html">Profile Settings</a>
-            <a href="history.html">Reading History</a>
-            <a href="#" id="logout-link" style="color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
-    </div>
+<a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+<a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+<a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+<a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+<div class="user-profile" id="profile-section">
+<div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+<div class="user-info">
+<span class="user-name" id="display-name">Guest</span>
+<span class="user-role">Member</span>
+</div>
+<div class="profile-dropdown">
+<a href="profile.html">Profile Settings</a>
+<a href="history.html">Reading History</a>
+<a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+</div>
 </div>
 </div>
 </header>
-
 <div class="about-hero">
-    <div class="container">
-        <h1>ഞങ്ങളെക്കുറിച്ച്</h1>
-        <p>അറിവിൻ്റെയും വായനയുടെയും പുതിയ ലോകത്തേയ്ക്ക് സ്വാഗതം.</p>
-    </div>
-</div>
-
 <div class="container">
-    <div class="content-box">
-        <h2>📚 തൃപുടി ഡിജിറ്റൽ ലൈബ്രറി</h2>
-        <p>മലയാള സാഹിത്യത്തെ സ്നേഹിക്കുന്നവർക്കായി ഒരുക്കിയ ഡിജിറ്റൽ ഇടമാണ് തൃപുടി ലൈബ്രറി. കാലഹരണപ്പെട്ടുപോകുന്ന പുസ്തകങ്ങളെ ഡിജിറ്റൽ രൂപത്തിൽ സംരക്ഷിക്കുക, വായന എല്ലാവരിലേയ്ക്കും എത്തിക്കുക എന്നിവയാണ് ഞങ്ങളുടെ ലക്ഷ്യം.</p>
-        <p>നന്ദകുമാർ ചേടപ്പുറം എന്ന വ്യക്തിയുടെ സ്വപ്നസാക്ഷാത്കാരമാണ് ഈ സംരംഭം. ലോകത്തെവിടെയിരുന്നും മലയാള കൃതികൾ വായിക്കാനും ആസ്വദിക്കാനും ഈ പ്ലാറ്റ്‌ഫോം അവസരമൊരുക്കുന്നു.</p>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-book-reader feature-icon"></i>
-                <h3>വിപുലമായ ശേഖരം</h3>
-                <p>കഥകൾ, കവിതകൾ, നോവലുകൾ തുടങ്ങി നിരവധി വിഭാഗങ്ങളിലുള്ള പുസ്തകങ്ങൾ.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-mobile-alt feature-icon"></i>
-                <h3>എവിടെയും വായിക്കാം</h3>
-                <p>മൊബൈലിലോ ലാപ്ടോപ്പിലോ എളുപ്പത്തിൽ ഉപയോഗിക്കാവുന്ന ലളിതമായ ഡിസൈൻ.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-history feature-icon"></i>
-                <h3>വായനാ ചരിത്രം</h3>
-                <p>നിങ്ങൾ വായിച്ച പുസ്തകങ്ങൾ ഓട്ടോമാറ്റിക് ആയി സേവ് ചെയ്യപ്പെടുന്നു.</p>
-            </div>
-        </div>
-    </div>
+<h1>ഞങ്ങളെക്കുറിച്ച്</h1>
+<p>അറിവിൻ്റെയും വായനയുടെയും പുതിയ ലോകത്തേയ്ക്ക് സ്വാഗതം.</p>
 </div>
+</div>
+<div class="container">
+<div class="content-box">
+<h2>📚 തൃപുടി ഡിജിറ്റൽ ലൈബ്രറി</h2>
+<p>മലയാള സാഹിത്യത്തെ സ്നേഹിക്കുന്നവർക്കായി ഒരുക്കിയ ഡിജിറ്റൽ ഇടമാണ് തൃപുടി ലൈബ്രറി. കാലഹരണപ്പെട്ടുപോകുന്ന പുസ്തകങ്ങളെ ഡിജിറ്റൽ രൂപത്തിൽ സംരക്ഷിക്കുക, വായന എല്ലാവരിലേയ്ക്കും എത്തിക്കുക എന്നിവയാണ് ഞങ്ങളുടെ ലക്ഷ്യം.</p>
+<p>നന്ദകുമാർ ചേടപ്പുറം എന്ന വ്യക്തിയുടെ സ്വപ്നസാക്ഷാത്കാരമാണ് ഈ സംരംഭം. ലോകത്തെവിടെയിരുന്നും മലയാള കൃതികൾ വായിക്കാനും ആസ്വദിക്കാനും ഈ പ്ലാറ്റ്‌ഫോം അവസരമൊരുക്കുന്നു.</p>
+<div class="features-grid">
+<div class="feature-card">
+<i class="fas fa-book-reader feature-icon"></i>
+<h3>വിപുലമായ ശേഖരം</h3>
+<p>കഥകൾ, കവിതകൾ, നോവലുകൾ തുടങ്ങി നിരവധി വിഭാഗങ്ങളിലുള്ള പുസ്തകങ്ങൾ.</p>
+</div>
+<div class="feature-card">
+                    
 
+[Image of mobile phone reading icon]
+
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+<h3>എവിടെയും വായിക്കാം</h3>
+<p>മൊബൈലിലോ ലാപ്ടോപ്പിലോ എളുപ്പത്തിൽ ഉപയോഗിക്കാവുന്ന ലളിതമായ ഡിസൈൻ.</p>
+</div>
+<div class="feature-card">
+<i class="fas fa-history feature-icon"></i>
+<h3>വായനാ ചരിത്രം</h3>
+<p>നിങ്ങൾ വായിച്ച പുസ്തകങ്ങൾ ഓട്ടോമാറ്റിക് ആയി സേവ് ചെയ്യപ്പെടുന്നു.</p>
+</div>
+</div>
+</div>
+</div>
 <footer>
 <div class="container">
-    <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-    <div class="footer-links">
-        <a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-        <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-    </div>
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+                <a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+                <a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+</div>
 </div>
 </footer>
-
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    
-    onAuthStateChanged(auth, (user) => {
-        const nameDisplay = document.getElementById('display-name');
-        const avatarDiv = document.getElementById('userAvatar');
-        const logoutBtn = document.getElementById('logout-link');
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        onAuthStateChanged(auth, (user) => {
+            const nameDisplay = document.getElementById('display-name');
+            const avatarDiv = document.getElementById('userAvatar');
+            const logoutBtn = document.getElementById('logout-link');
 
-        if(user) { 
-            localStorage.setItem('libraryUser', 'true'); 
-            if(logoutBtn) logoutBtn.style.display = 'block';
-            const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
-            if(nameDisplay) nameDisplay.textContent = displayName;
-            const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
-            if(userPhoto && avatarDiv) avatarDiv.innerHTML = `<img src="${userPhoto}" alt="Profile">`;
-        } else { 
-            localStorage.removeItem('libraryUser'); 
-            if(logoutBtn) logoutBtn.style.display = 'none';
-            if(nameDisplay) nameDisplay.textContent = "Guest";
-        }
-    });
+            if(user) { 
+                localStorage.setItem('libraryUser', 'true'); 
+                if(logoutBtn) logoutBtn.style.display = 'block';
 
-    const logoutLink = document.getElementById('logout-link');
-    if(logoutLink) {
-        logoutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            signOut(auth).then(() => { 
+                // പേരും ഫോട്ടോയും അപ്ഡേറ്റ് ചെയ്യുന്നു
+                const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
+                if(nameDisplay) nameDisplay.textContent = displayName;
+                if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+
+            } else { 
                 localStorage.removeItem('libraryUser'); 
-                window.location.href = "logout-success.html"; 
-            });
+                if(logoutBtn) logoutBtn.style.display = 'none';
+                if(nameDisplay) nameDisplay.textContent = "Guest";
+            }
         });
+
+        // Logout Functionality
+        const logoutLink = document.getElementById('logout-link');
+        if(logoutLink) {
+            logoutLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                signOut(auth).then(() => { 
+                    localStorage.removeItem('libraryUser'); 
+                    window.location.href = "logout-success.html"; // ലോഗൗട്ട് പേജിലേക്ക്
+                });
+            });
+        }
+    
+    function saveToHistory(element, bookId) {
+        try {
+            // ലോഗിൻ ചെയ്ത യൂസറുടെ ഐഡി വിൻഡോ ഒബ്ജക്റ്റിൽ നിന്നോ ഫയർബേസിൽ നിന്നോ എടുക്കുന്നു
+            const userId = (window.currentUser && window.currentUser.uid) ? window.currentUser.uid : (localStorage.getItem('libraryUser') ? 'default_user' : null);
+            
+            if (!userId) return;
+
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : 'https://via.placeholder.com/150';
+            const date = new Date().toLocaleDateString('ml-IN');
+            
+            // ഓരോ യൂസർക്കും പ്രത്യേകമായ കീ (ഉദാ: history_abc123)
+            const key = 'history_' + userId;
+
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            
+            // പഴയത് ഉണ്ടെങ്കിൽ നീക്കം ചെയ്യുന്നു (ഡ്യൂപ്ലിക്കേറ്റ് ഒഴിവാക്കാൻ)
+            history = history.filter(item => item.title !== title);
+            
+            // പുതിയത് തുടക്കത്തിൽ ചേർക്കുന്നു
+            history.unshift({ title: title, image: image, link: 'read.html?bookId=' + bookId, date: date });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+            
+            console.log("History updated for user: " + userId);
+        } catch (e) {
+            console.error("History Save Error:", e);
+        }
     }
 
-    // Dropdown Logic
-    document.getElementById('profile-section').onclick = function(e) {
-        e.stopPropagation();
-        let d = this.querySelector('.profile-dropdown');
-        d.style.display = d.style.display === "block" ? "none" : "block";
-    };
-    window.onclick = () => document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
 </script>
 </body>
 </html>
