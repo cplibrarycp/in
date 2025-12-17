@@ -17,13 +17,12 @@
         * { box-sizing: border-box; }
         html, body { height: 100%; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
-        .container { width: 92%; margin: 0 auto; max-width: 1300px; }
-        a { text-decoration: none; transition: 0.3s; }
+        .container { width: 92%; margin: 0 auto; max-width: 1400px; }
 
-        /* --- ഹെഡർ --- */
+        /* --- ത്രിപുടി ഹെഡർ --- */
         header { background-color: var(--secondary-dark); padding: 5px 0; height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; text-decoration: none; }
         .logo-img { height: 65px; width: auto; } 
         .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
 
@@ -31,7 +30,7 @@
         .nav-item { 
             color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; 
             border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px;
-            background-color: var(--secondary-dark) !important;
+            background-color: var(--secondary-dark) !important; text-decoration: none; transition: 0.3s;
         }
         .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; transform: translateY(-2px); }
 
@@ -40,10 +39,8 @@
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
         
-        /* ഡ്രോപ്പ് ഡൗൺ സ്റ്റൈൽ */
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
-        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; font-size: 0.85em; display: flex; align-items: center; gap: 10px; }
-        .profile-dropdown a:hover { background-color: #f9f9f9; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; text-decoration: none; font-size: 0.85em; display: flex; align-items: center; gap: 10px; }
 
         /* --- പുസ്തകങ്ങൾ (ഒരു വരിയിൽ 5) --- */
         .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
@@ -58,23 +55,28 @@
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
 
-        /* --- വായനാമോഡ് മാസ്കിംഗ് --- */
-        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
+        /* ✅ വായനാമോഡ് മാസ്കിംഗ് & സെക്യൂരിറ്റി */
+        .pdf-modal-viewer { 
+            display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+            background: rgba(0, 0, 0, 0.98); z-index:9999; flex-direction:column; 
+        }
         .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
-        .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; }
+        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; }
+        .pdf-modal-frame { width:100%; height:100%; border:none; }
+        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
 
-        /* --- ലോഗിൻ പോപ്പപ്പ് --- */
+        /* ലോഗിൻ പോപ്പപ്പ് */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 4000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; }
         .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
         .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f4f4f4; }
         .btn-action { background: var(--primary-teal); color: white; padding: 10px 20px; border-radius: 5px; font-weight: 600; text-decoration: none; }
 
-        /* --- ഫൂട്ടർ --- */
+        /* ത്രിപുടി ഫൂട്ടർ */
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; }
         .footer-row { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-bottom: 10px; }
         .social-icons a { color: white; font-size: 1.3em; margin: 0 10px; opacity: 0.8; }
-        .copyright { font-size: 0.8em; opacity: 0.6; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; width: 80%; margin: 0 auto; }
+        .copyright { font-size: 0.8em; opacity: 0.6; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; width: 80%; margin: 0 auto; }
     </style>
 </head>
 <body>
@@ -95,7 +97,6 @@
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">Guest</span></div>
                 <div class="profile-dropdown" id="profileDropdown">
                     <a href="history.html"><i class="fas fa-history"></i> History</a>
-                    <a href="profile.html"><i class="fas fa-user-cog"></i> Settings</a>
                     <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
@@ -254,9 +255,12 @@
 <div id="pdfModal" class="pdf-modal-viewer">
     <div class="pdf-modal-header">
         <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മോഡ്</span>
-        <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i> ക്ലോസ്</button>
+        <button onclick="closePdfModal()" style="background:var(--primary-teal); border:none; color:white; padding:8px 15px; border-radius:5px; cursor:pointer; font-weight:bold;">ക്ലോസ്</button>
     </div>
-    <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
+    <div class="iframe-container">
+        <div class="security-mask"></div>
+        <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
+    </div>
 </div>
 
 <footer>
@@ -273,21 +277,47 @@
     </div>
 </footer>
 
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.currentUser = user;
+            document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
+            const urlParams = new URLSearchParams(window.location.search);
+            const openBookId = urlParams.get('openBook');
+            if (openBookId) {
+                document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${openBookId}/preview?rm=minimal`;
+                document.getElementById('pdfModal').style.display = "flex";
+                lockPage();
+            }
+        } else {
+            window.currentUser = null;
+            document.getElementById('display-name').textContent = "Guest";
+        }
+    });
+
+    document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="login.html");
+</script>
+
 <script>
-    // 1. പ്രൊഫൈൽ ഡ്രോപ്പ്ഡൗൺ ലോജിക്
-    const profileTrigger = document.getElementById('profile-section');
-    const profileMenu = document.getElementById('profileDropdown');
+    function lockPage() {
+        document.getElementById('masterHeader').style.pointerEvents = "none";
+        document.getElementById('masterSection').style.pointerEvents = "none";
+        document.body.style.overflow = "hidden";
+    }
 
-    profileTrigger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
-    });
+    function unlockPage() {
+        document.getElementById('masterHeader').style.pointerEvents = "all";
+        document.getElementById('masterSection').style.pointerEvents = "all";
+        document.body.style.overflow = "auto";
+    }
 
-    window.addEventListener('click', function() {
-        profileMenu.style.display = 'none';
-    });
-
-    // 2. വായനാമോഡ് & ബാക്ക്ഗ്രൗണ്ട് മാസ്കിംഗ് ലോജിക്
     window.checkAccess = function(bookId, element) {
         if (!window.currentUser) {
             const currentPath = window.location.pathname.split('/').pop();
@@ -295,24 +325,16 @@
             document.getElementById('loginAlertModal').style.display = 'flex';
         } else {
             saveToHistory(element, bookId);
-            const modal = document.getElementById('pdfModal');
-            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview`;
-            modal.style.display = "flex";
-            
-            // ബാക്ക്ഗ്രൗണ്ട് ലോക്ക് (Masking)
-            document.getElementById('masterHeader').style.pointerEvents = "none";
-            document.getElementById('masterSection').style.pointerEvents = "none";
-            document.body.style.overflow = "hidden"; 
+            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview?rm=minimal`;
+            document.getElementById('pdfModal').style.display = "flex";
+            lockPage();
         }
     };
 
     function closePdfModal() {
         document.getElementById('pdfModal').style.display = "none";
         document.getElementById('pdfFrame').src = "";
-        // ബാക്ക്ഗ്രൗണ്ട് അൺലോക്ക്
-        document.getElementById('masterHeader').style.pointerEvents = "all";
-        document.getElementById('masterSection').style.pointerEvents = "all";
-        document.body.style.overflow = "auto";
+        unlockPage();
     }
 
     function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
@@ -328,6 +350,14 @@
         history.unshift({ title, image, link: window.location.pathname + '?openBook=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
         localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
     }
+
+    const profileSection = document.getElementById('profile-section');
+    const profileDropdown = document.getElementById('profileDropdown');
+    profileSection.onclick = (e) => {
+        e.stopPropagation();
+        profileDropdown.style.display = (profileDropdown.style.display === "block") ? "none" : "block";
+    };
+    window.onclick = () => { profileDropdown.style.display = 'none'; };
 </script>
 </body>
 </html>
