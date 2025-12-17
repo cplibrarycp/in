@@ -205,7 +205,75 @@
         .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
         .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
-    </style>
+    
+    /* --- റെസ്പോൺസീവ് ഹെഡർ (പൈത്തൺ വഴി അപ്ഡേറ്റ് ചെയ്തത്) --- */
+    header {
+        background-color: var(--secondary-dark);
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .logo {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: #FFFFFF !important;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+    }
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .nav-links a.nav-item {
+        color: #FFFFFF !important;
+        background-color: var(--secondary-dark) !important;
+        font-weight: 600;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        padding: 8px 18px;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .nav-links a.nav-item:hover {
+        background-color: #FFFFFF !important;
+        color: var(--secondary-dark) !important;
+        border-color: #FFFFFF;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+    .user-profile {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+        padding-left: 15px;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        cursor: pointer;
+        color: #FFFFFF;
+    }
+    @media (max-width: 850px) {
+        .navbar { flex-direction: column; gap: 15px; }
+        .nav-links { justify-content: center; width: 100%; flex-wrap: wrap; gap: 8px; }
+        .user-profile { border-left: none; margin-left: 0; padding-left: 0; margin-top: 5px; }
+        .logo { font-size: 1.3em; }
+    }
+
+</style>
 </head>
 <body data-protected="true" data-secure="true">
 
