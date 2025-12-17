@@ -435,6 +435,34 @@
     };
     
     // --- Global Functions (Defined below) ---
+
+    function saveToHistory(element, bookId) {
+        try {
+            // Firebase ലോഗിൻ ഉണ്ടോ എന്ന് നോക്കുന്നു
+            const userId = (window.currentUser) ? window.currentUser.uid : 'default_user';
+            
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : '';
+            const date = new Date().toLocaleDateString('ml-IN');
+            
+            const key = 'history_' + userId;
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            
+            history = history.filter(item => item.title !== title);
+            history.unshift({ title: title, image: image, link: 'read.html?bookId=' + bookId, date: date });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+            console.log("History Updated for:", userId);
+        } catch (e) {
+            console.log("History Error:", e);
+        }
+    }
+
 </script>
 
 <script>
@@ -464,31 +492,7 @@
 
     // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
     
-    function saveToHistory(element, bookId) {
-        try {
-            // ലോഗിൻ ചെയ്ത യൂസറുടെ ഐഡി വിൻഡോ ഒബ്ജക്റ്റിൽ നിന്നോ ഫയർബേസിൽ നിന്നോ എടുക്കുന്നു
-            const userId = (window.currentUser && window.currentUser.uid) ? window.currentUser.uid : (localStorage.getItem('libraryUser') ? 'default_user' : null);
-            
-            if (!userId) return;
-
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : 'https://via.placeholder.com/150';
-            const date = new Date().toLocaleDateString('ml-IN');
-            
-            // ഓരോ യൂസർക്കും പ്രത്യേകമായ കീ (ഉദാ: history_abc123)
-            const key = 'history_' + userId;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            
-            // പഴയത് ഉണ്ടെങ്കിൽ നീക്കം ചെയ്യുന്നു (ഡ്യൂപ്ലിക്കേറ്റ് ഒഴിവാക്കാൻ)
-            history = history.filter(item => item.title !== title);
-            
-            // പുതിയത് തുടക്കത്തിൽ ചേർക്കുന്നു
-            history.unshift({ title: title, image: image, link: 'read.html?bookId=' + bookId, date: date });
+    );
             
             if (history.length > 50) history.pop();
             localStorage.setItem(key, JSON.stringify(history));
