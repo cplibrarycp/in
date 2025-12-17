@@ -23,74 +23,97 @@
     a { text-decoration: none; transition: 0.3s; }
     
     /* --- റെസ്പോൺസീവ് ഹെഡർ CSS --- */
+header {
+    background-color: var(--secondary-dark);
+    padding: 10px 0; /* പാഡിംഗ് അല്പം കുറച്ചു */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%; /* ഹെഡർ വിൻഡോയ്ക്ക് ഉള്ളിൽ നിൽക്കാൻ */
+}
 
-    /* --- റെസ്പോൺസീവ് ഹെഡർ (പൈത്തൺ വഴി അപ്ഡേറ്റ് ചെയ്തത്) --- */
-    header {
-        background-color: var(--secondary-dark);
-        padding: 10px 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        width: 100%;
-    }
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    .logo {
-        font-size: 1.5em;
-        font-weight: 700;
-        color: #FFFFFF !important;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        white-space: nowrap;
-    }
-    .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    .nav-links a.nav-item {
-        color: #FFFFFF !important;
-        background-color: var(--secondary-dark) !important;
-        font-weight: 600;
-        font-size: 0.85em;
-        text-transform: uppercase;
-        padding: 8px 18px;
-        border: 1.5px solid rgba(255, 255, 255, 0.4);
-        border-radius: 4px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: inline-block;
-    }
-    .nav-links a.nav-item:hover {
-        background-color: #FFFFFF !important;
-        color: var(--secondary-dark) !important;
-        border-color: #FFFFFF;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px);
-    }
-    .user-profile {
-        display: flex;
-        align-items: center;
-        margin-left: 15px;
-        padding-left: 15px;
-        border-left: 1px solid rgba(255, 255, 255, 0.2);
-        position: relative;
-        cursor: pointer;
-        color: #FFFFFF;
-    }
-    @media (max-width: 850px) {
-        .navbar { flex-direction: column; gap: 15px; }
-        .nav-links { justify-content: center; width: 100%; flex-wrap: wrap; gap: 8px; }
-        .user-profile { border-left: none; margin-left: 0; padding-left: 0; margin-top: 5px; }
-        .logo { font-size: 1.3em; }
-    }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* ആവശ്യമാണെങ്കിൽ അടുത്ത വരിയിലേക്ക് വരാൻ */
+}
 
+.logo {
+    font-size: 1.4em; /* ലോഗോ വലിപ്പം അല്പം കുറച്ചു */
+    font-weight: 700;
+    color: var(--light-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap; /* പേര് മുറിഞ്ഞു പോകാതിരിക്കാൻ */
+}
+
+#header-logo-image {
+    height: 28px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}/* --- റെസ്പോൺസീവ് ഹെഡർ CSS (FIXED) --- */
+header {
+    background-color: var(--secondary-dark);
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #FFFFFF !important; /* എപ്പോഴും വെള്ള നിറം ഉറപ്പാക്കുന്നു */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ⭐⭐⭐ ബട്ടൺ സ്റ്റൈൽ (ടെക്സ്റ്റ് വെള്ള) ⭐⭐⭐ */
+.nav-links a.nav-item {
+    color: #FFFFFF !important; /* ടെക്സ്റ്റ് വെള്ള */
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* ⭐⭐⭐ ഹോവർ എഫക്റ്റ് തിരികെ നൽകുന്നു ⭐⭐⭐ */
+.nav-links a.nav-item:hover {
+    background-color: var(--primary-orange) !important; /* ഹോവർ ചെയ്യുമ്പോൾ ടീൽ നിറം */
+    color: #FFFFFF !important;
+    border-color: var(--primary-orange);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
 
 /* യൂസർ പ്രൊഫൈൽ ഭാഗം */
 .user-profile {
@@ -834,36 +857,6 @@
     };
     
     // --- Global Functions (Defined below) ---
-
-    function saveToHistory(element, bookId) {
-        try {
-            // Firebase ലോഗിൻ ഉണ്ടെങ്കിൽ UID എടുക്കുന്നു, ഇല്ലെങ്കിൽ 'default_user'
-            const userId = (window.currentUser && window.currentUser.uid) ? window.currentUser.uid : 'default_user';
-            
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : '';
-            const date = new Date().toLocaleDateString('ml-IN');
-            
-            const key = 'history_' + userId;
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            
-            // പഴയ ഡാറ്റ നീക്കം ചെയ്യുന്നു
-            history = history.filter(item => item.title !== title);
-            // പുതിയത് ചേർക്കുന്നു
-            history.unshift({ title: title, image: image, link: 'read.html?bookId=' + bookId, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-            console.log("History saved for:", userId);
-        } catch (e) {
-            console.log("History Error:", e);
-        }
-    }
-
 </script>
 
 <script>
@@ -892,7 +885,27 @@
     }
 
     // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
-    );
+    function saveToHistory(element, bookId) {
+        try {
+            // Check for user UID in the global scope (set by the module script)
+            const userId = window.currentUser ? window.currentUser.uid : (localStorage.getItem('libraryUser') ? 'default_user' : null);
+            if (!userId) return;
+
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : 'https://via.placeholder.com/150';
+            const date = new Date().toLocaleDateString('ml-IN');
+            const linkUrl = 'read.html?bookId=' + bookId;
+            
+            const key = 'history_' + userId;
+
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            // Remove if book already exists (to push to the top)
+            history = history.filter(item => item.title !== title);
+            history.unshift({ title: title, image: image, link: linkUrl, date: date });
             
             if (history.length > 50) history.pop();
             localStorage.setItem(key, JSON.stringify(history));
