@@ -3,32 +3,42 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ | THRIPUDI LIBRARY</title>
+    <title>പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ | THRIPUDI</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     <style>
         :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); min-height: 100vh; display: flex; flex-direction: column; }
-        .container { width: 85%; margin: 0 auto; max-width: 1200px; }
-        header { background-color: var(--secondary-dark); padding: 5px 0; height: 90px; display: flex; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+
+        /* --- ത്രിപുടി മാസ്റ്റർ ഹെഡർ (വലിയ ലോഗോ + ഹെഡർ ഐക്കണുകൾ) --- */
+        header { background-color: var(--secondary-dark); height: 95px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; text-decoration: none; font-size: 1.5em; font-weight: 700; }
-        .logo-img { height: 60px; }
-        .profile-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 550px; margin: 50px auto; text-align: center; }
+        .logo-container { display: flex; align-items: center; gap: 15px; color: #FFFFFF !important; text-decoration: none; }
+        .logo-img { height: 70px; width: auto; } /* വലിയ ലോഗോ */
+        .logo-text { font-size: 1.8em; font-weight: 700; }
+
+        .nav-links { display: flex; align-items: center; gap: 15px; }
+        .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.9em; text-decoration: none; padding: 10px 20px; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 6px; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .nav-item:hover { background: #fff; color: var(--secondary-dark) !important; }
+
+        /* --- പ്രൊഫൈൽ കാർഡ് --- */
+        .profile-card { background: white; padding: 45px; border-radius: 20px; box-shadow: 0 6px 25px rgba(0,0,0,0.08); max-width: 550px; margin: 60px auto; text-align: center; border: 1px solid #B2DFDB; }
+        .avatar-area { position: relative; width: 130px; height: 130px; margin: 0 auto 25px; }
+        .avatar-circle { width: 100%; height: 100%; background: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4em; color: white; overflow: hidden; border: 4px solid #B2DFDB; }
+        .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* ഫോട്ടോ അപ്‌ലോഡ് ഏരിയ */
-        .avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 25px; }
-        .avatar-large { width: 100%; height: 100%; background: var(--primary-teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3.5em; overflow: hidden; border: 5px solid #B2DFDB; }
-        .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
-        .upload-badge { position: absolute; bottom: 5px; right: 5px; background: var(--secondary-dark); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid white; }
-        
-        .form-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9em; color: var(--secondary-dark); }
-        input { width: 100%; padding: 12px; border: 2px solid #B2DFDB; border-radius: 10px; font-size: 1em; outline: none; }
-        .btn-save { background: var(--primary-teal); color: white; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        footer { background: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; }
-        #loadingOverlay { display:none; color: var(--primary-teal); font-weight: bold; margin-top: 10px; }
+        .form-group { margin-bottom: 22px; text-align: left; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--secondary-dark); font-size: 0.95em; }
+        input { width: 100%; padding: 13px; border: 2px solid #B2DFDB; border-radius: 10px; font-size: 1em; outline: none; }
+        input:focus { border-color: var(--primary-teal); }
+
+        .btn-action { background: var(--primary-teal); color: white; border: none; padding: 16px; border-radius: 10px; width: 100%; font-weight: 700; cursor: pointer; font-size: 1.1em; transition: 0.3s; margin-top: 10px; }
+        .btn-action:hover { background: var(--secondary-dark); transform: translateY(-2px); }
+
+        /* --- ത്രിപുടി കോംപാക്ട് ഫൂട്ടർ --- */
+        footer { background: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; font-size: 0.9em; }
     </style>
 </head>
 <body>
@@ -37,102 +47,106 @@
     <div class="container navbar">
         <a href="dashboard.html" class="logo-container">
             <img src="https://drive.google.com/thumbnail?sz=w600&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" class="logo-img">
-            <span>THRIPUDI</span>
+            <span class="logo-text">THRIPUDI</span>
         </a>
-        <div style="display:flex; gap:15px;">
-            <a href="dashboard.html" style="color:white; text-decoration:none; font-weight:600;">HOME</a>
-            <a href="history.html" style="color:white; text-decoration:none; font-weight:600;">HISTORY</a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> HOME</a>
+            <a class="nav-item" href="history.html"><i class="fas fa-history"></i> HISTORY</a>
         </div>
     </div>
 </header>
 
 <div class="container">
     <div class="profile-card">
-        <div class="avatar-container">
-            <div class="avatar-large" id="profileAvatar"><i class="fas fa-user"></i></div>
-            <label for="fileInput" class="upload-badge"><i class="fas fa-camera"></i></label>
-            <input type="file" id="fileInput" style="display:none;" accept="image/*">
+        <div class="avatar-area">
+            <div class="avatar-circle" id="userPic"><i class="fas fa-user"></i></div>
         </div>
-        
-        <div id="loadingOverlay">ചിത്രം അപ്‌ലോഡ് ചെയ്യുന്നു...</div>
-
-        <div class="form-group">
-            <label>പേര്</label>
-            <input type="text" id="nameInput">
-        </div>
+        <h2 style="margin-bottom: 30px; color: var(--secondary-dark);">പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ</h2>
         
         <div class="form-group">
-            <label>ഫോട്ടോ ലിങ്ക് (ഓട്ടോമാറ്റിക്കായി വരും)</label>
-            <input type="text" id="photoInput" placeholder="Upload ചെയ്താൽ ലിങ്ക് ഇവിടെ വരും">
+            <label>ലോഗിൻ ചെയ്ത ഇമെയിൽ</label>
+            <input type="text" id="emailBox" disabled>
+        </div>
+        <div class="form-group">
+            <label>പേര് (Name)</label>
+            <input type="text" id="nameBox">
+        </div>
+        <div class="form-group">
+            <label>ഫോട്ടോ ലിങ്ക് (Direct Link URL)</label>
+            <input type="text" id="photoBox" placeholder="ഡ്രൈവ് ലിങ്ക് ഇവിടെ നൽകുക">
         </div>
         
-        <button class="btn-save" id="saveProfileBtn">പ്രൊഫൈൽ അപ്‌ഡേറ്റ് ചെയ്യുക</button>
-        <p id="statusBox" style="margin-top:15px; font-weight:bold;"></p>
+        <button class="btn-action" id="updateBtn">സേവ് ചെയ്യുക</button>
+        <p id="msg" style="margin-top: 15px; font-weight: bold;"></p>
+        
+        <a href="#" id="outBtn" style="color: #d32f2f; display: inline-block; margin-top: 25px; text-decoration: none; font-weight: 600;">LOGOUT</a>
     </div>
 </div>
 
-<footer>© 2025 THRIPUDI LIBRARY</footer>
+<footer>
+    <p>© 2025 THRIPUDI LIBRARY | All Rights Reserved</p>
+</footer>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary" };
+    const firebaseConfig = { 
+        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+        authDomain: "thripudilibrary.firebaseapp.com", 
+        projectId: "thripudilibrary" 
+    };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // ✅ Apps Script URL (ഇവിടെ നിങ്ങളുടെ പഴയ ലിങ്ക് പേസ്റ്റ് ചെയ്യുക)
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8b1l6poc0fDGAVXZRV1LQW8_TXS0ozu0rxjHDzHx0P32zBfk4UcSDcdu9q16KL91lLw/exec";
-
+    // യൂസർ വിവരങ്ങൾ ലോഡ് ചെയ്യുന്നു
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            document.getElementById('nameInput').value = user.displayName || "";
-            document.getElementById('photoInput').value = user.photoURL || "";
-            if(user.photoURL) document.getElementById('profileAvatar').innerHTML = `<img src="${user.photoURL}">`;
+            document.getElementById('emailBox').value = user.email;
+            document.getElementById('nameBox').value = user.displayName || "";
+            document.getElementById('photoBox').value = user.photoURL || "";
+            
+            if(user.photoURL) {
+                document.getElementById('userPic').innerHTML = `<img src="${user.photoURL}">`;
+            }
         } else {
             window.location.href = "login.html";
         }
     });
 
-    // 📸 ഡ്രൈവിലേക്ക് അപ്‌ലോഡ് ചെയ്യുന്ന ലോജിക്
-    document.getElementById('fileInput').addEventListener('change', function() {
-        const file = this.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        document.getElementById('loadingOverlay').style.display = "block";
-
-        reader.onload = function(e) {
-            const base64 = e.target.result.split(',')[1];
-            
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                body: JSON.stringify({ file: base64, filename: file.name, type: file.type })
-            })
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('loadingOverlay').style.display = "none";
-                if(data.url) {
-                    document.getElementById('photoInput').value = data.url;
-                    document.getElementById('profileAvatar').innerHTML = `<img src="${data.url}">`;
-                    alert("ചിത്രം റെഡിയായി! മാറ്റങ്ങൾ സേവ് ചെയ്യുക.");
-                }
-            })
-            .catch(err => alert("അപ്‌ലോഡ് പരാജയപ്പെട്ടു. ലിങ്ക് പരിശോധിക്കുക."));
-        };
-        reader.readAsDataURL(file);
-    });
-
-    document.getElementById('saveProfileBtn').onclick = async () => {
+    // പ്രൊഫൈൽ അപ്‌ഡേറ്റ് ഫങ്ക്ഷൻ
+    document.getElementById('updateBtn').onclick = async () => {
         const user = auth.currentUser;
+        const newName = document.getElementById('nameBox').value;
+        const newPhoto = document.getElementById('photoBox').value;
+
+        if (!user) return;
+
         try {
             await updateProfile(user, {
-                displayName: document.getElementById('nameInput').value,
-                photoURL: document.getElementById('photoInput').value
+                displayName: newName,
+                photoURL: newPhoto
             });
-            alert("പ്രൊഫൈൽ വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു!");
-            location.reload();
-        } catch (e) { alert(e.message); }
+            
+            // ലോഗിൻ സ്റ്റാറ്റസിനായി ചിലപ്പോൾ ബ്രൗസർ ഡാറ്റ പുതുക്കേണ്ടി വരും
+            document.getElementById('msg').style.color = "green";
+            document.getElementById('msg').innerHTML = "വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു!";
+            
+            // പേജ് ഉടൻ റീലോഡ് ചെയ്യുന്നു
+            setTimeout(() => { location.reload(); }, 1500);
+            
+        } catch (error) {
+            document.getElementById('msg').style.color = "red";
+            document.getElementById('msg').innerHTML = "പിശക്: " + error.message;
+        }
+    };
+
+    // ലോഗൗട്ട്
+    document.getElementById('outBtn').onclick = (e) => {
+        e.preventDefault();
+        signOut(auth).then(() => {
+            window.location.href = "login.html";
+        });
     };
 </script>
 </body>
