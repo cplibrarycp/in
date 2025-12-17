@@ -22,10 +22,9 @@
         .toggle-btn { padding: 10px 0; cursor: pointer; background: transparent; border: 0; outline: none; position: relative; font-weight: 600; color: #ccc; flex: 1; transition: color 0.5s; z-index: 1; font-size: 14px; }
         #btn { top: 5px; left: 5px; position: absolute; width: 115px; height: calc(100% - 10px); background: #fff; border-radius: 25px; transition: .5s; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         .input-group { top: 150px; position: absolute; width: 280px; transition: .5s; }
-        .input-field { width: 100%; padding: 10px 0; margin: 10px 0; border-left: 0; border-top: 0; border-right: 0; border-bottom: 1px solid #fff; outline: none; background: transparent; color: #fff; font-size: 14px; }
+        .input-field { width: 100%; padding: 10px 0; margin: 10px 0; border: none; border-bottom: 1px solid #fff; outline: none; background: transparent; color: #fff; font-size: 14px; }
         ::placeholder { color: #ccc; opacity: 0.8; font-size: 13px; }
         .submit-btn { width: 85%; padding: 12px 30px; cursor: pointer; display: block; margin: 30px auto; background: linear-gradient(to right, var(--primary-teal), var(--secondary-dark)); border: 0; outline: none; border-radius: 30px; color: #fff; font-weight: bold; font-size: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
-        .submit-btn:active { transform: scale(0.98); }
         .forgot-pass { display: block; text-align: center; margin-top: 15px; color: #fff; font-size: 12px; text-decoration: none; cursor: pointer; opacity: 0.8; }
         #messageBox { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 12px; font-weight: 600; padding: 0 20px; }
         .success { color: #69F0AE; }
@@ -43,16 +42,16 @@
             <button class="toggle-btn" id="regToggle" onclick="openRegister()" type="button">Register</button>
         </div>
         <form class="input-group" id="login">
-            <input class="input-field" id="loginEmail" placeholder="Email Id" required="" type="email"/>
-            <input class="input-field" id="loginPassword" placeholder="Password" required="" type="password"/>
-            <button class="submit-btn" id="loginBtn" type="submit">Log In</button>
-            <a class="forgot-pass" onclick="forgotPassword()">Forgot Password?</a>
+            <input class="input-field" id="loginEmail" placeholder="Email Id" required type="email"/>
+            <input class="input-field" id="loginPassword" placeholder="Password" required type="password"/>
+            <button class="submit-btn" id="loginBtn" type="button">Log In</button>
+            <a class="forgot-pass" onclick="handleForgot()">Forgot Password?</a>
         </form>
         <form class="input-group" id="register">
-            <input class="input-field" id="regUser" placeholder="Full Name" required="" type="text"/>
-            <input class="input-field" id="regEmail" placeholder="Email Id" required="" type="email"/>
-            <input class="input-field" id="regPassword" minlength="6" placeholder="Password (Min 6 chars)" required="" type="password"/>
-            <button class="submit-btn" id="regBtn" type="submit">Register</button>
+            <input class="input-field" id="regUser" placeholder="Full Name" required type="text"/>
+            <input class="input-field" id="regEmail" placeholder="Email Id" required type="email"/>
+            <input class="input-field" id="regPassword" minlength="6" placeholder="Password" required type="password"/>
+            <button class="submit-btn" id="regBtn" type="button">Register</button>
         </form>
         <div id="messageBox"></div>
     </div>
@@ -98,65 +97,60 @@
         setTimeout(() => { messageBox.textContent = ""; }, 5000);
     }
 
-    // ✅ ലോഗിൻ സക്സസ് ആകുമ്പോൾ പ്രവർത്തിക്കുന്ന Redirect Logic
-    function handleLoginSuccess() {
+    // Redirect Logic
+    function handleRedirect() {
         const urlParams = new URLSearchParams(window.location.search);
-        const targetPage = urlParams.get('redirect'); // ഉദാ: collection.html
-        const targetBook = urlParams.get('bookId');   // ഗൂഗിൾ ഡ്രൈവ് ഐഡി
+        const targetPage = urlParams.get('redirect');
+        const targetBook = urlParams.get('bookId');
 
         if (targetPage && targetBook) {
-            // വായനക്കാരനെ പുസ്തകം തുറക്കുന്ന രീതിയിൽ തിരികെ വിടുന്നു
             window.location.href = targetPage + "?openBook=" + targetBook;
         } else {
-            // കണ്ടീഷൻ ഇല്ലെങ്കിൽ ഡാഷ്ബോർഡിലേക്ക്
             window.location.href = "dashboard.html";
         }
     }
 
-    // --- 1. LOGIN ---
-    document.getElementById("loginBtn").addEventListener("click", (e) => {
-        e.preventDefault();
+    // Login Action
+    document.getElementById("loginBtn").addEventListener("click", () => {
         const email = document.getElementById("loginEmail").value;
         const pass = document.getElementById("loginPassword").value;
-        if(!email || !pass) return showMessage("ഇമെയിലും പാസ്‌വേഡും നൽകുക.", "error");
+        if(!email || !pass) { showMessage("Enter details", "error"); return; }
 
         signInWithEmailAndPassword(auth, email, pass)
             .then(() => {
-                showMessage("Login Successful!", "success");
-                setTimeout(handleLoginSuccess, 1000); // 1 സെക്കൻഡിന് ശേഷം റീഡയറക്ട്
+                showMessage("Success! Redirecting...", "success");
+                setTimeout(handleRedirect, 1000);
             })
             .catch((err) => {
-                let msg = "Login Failed";
-                if(err.code === 'auth/wrong-password') msg = "തെറ്റായ പാസ്‌വേഡ്.";
-                showMessage(msg, "error");
+                showMessage("Error: " + err.code, "error");
             });
     });
 
-    // --- 2. REGISTER ---
-    document.getElementById("regBtn").addEventListener("click", (e) => {
-        e.preventDefault();
+    // Register Action
+    document.getElementById("regBtn").addEventListener("click", () => {
         const name = document.getElementById("regUser").value;
         const email = document.getElementById("regEmail").value;
         const pass = document.getElementById("regPassword").value;
+        if(!name || !email || !pass) { showMessage("Fill all fields", "error"); return; }
 
         createUserWithEmailAndPassword(auth, email, pass)
-            .then((userCredential) => {
-                updateProfile(userCredential.user, { displayName: name }).then(() => {
-                    showMessage("Registration Successful!", "success");
-                    setTimeout(handleLoginSuccess, 1000);
+            .then((res) => {
+                updateProfile(res.user, { displayName: name }).then(() => {
+                    showMessage("Account Created!", "success");
+                    setTimeout(handleRedirect, 1000);
                 });
             })
             .catch((err) => showMessage(err.message, "error"));
     });
 
-    // --- 3. FORGOT PASSWORD ---
-    window.forgotPassword = function() {
+    // Forgot Password Action
+    window.handleForgot = function() {
         const email = document.getElementById("loginEmail").value;
-        if (!email) return showMessage("ഇമെയിൽ നൽകുക.", "error");
+        if(!email) { showMessage("Enter email first", "error"); return; }
         sendPasswordResetEmail(auth, email)
             .then(() => showMessage("Reset link sent!", "success"))
             .catch((err) => showMessage(err.message, "error"));
-    }
+    };
 </script>
 </body>
 </html>
