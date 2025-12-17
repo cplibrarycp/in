@@ -59,6 +59,98 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+}/* --- റെസ്പോൺസീവ് ഹെഡർ CSS (FIXED) --- */
+header {
+    background-color: var(--secondary-dark);
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #FFFFFF !important; /* എപ്പോഴും വെള്ള നിറം ഉറപ്പാക്കുന്നു */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ⭐⭐⭐ ബട്ടൺ സ്റ്റൈൽ (ടെക്സ്റ്റ് വെള്ള) ⭐⭐⭐ */
+.nav-links a.nav-item {
+    color: #FFFFFF !important; /* ടെക്സ്റ്റ് വെള്ള */
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* ⭐⭐⭐ ഹോവർ എഫക്റ്റ് തിരികെ നൽകുന്നു ⭐⭐⭐ */
+.nav-links a.nav-item:hover {
+    background-color: var(--primary-orange) !important; /* ഹോവർ ചെയ്യുമ്പോൾ ടീൽ നിറം */
+    color: #FFFFFF !important;
+    border-color: var(--primary-orange);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+/* യൂസർ പ്രൊഫൈൽ ഭാഗം */
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    padding-left: 15px;
+    border-left: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+/* --- മൊബൈൽ & ടാബ് ഫിക്സ് --- */
+@media (max-width: 850px) {
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav-links {
+        justify-content: center;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .user-profile {
+        border-left: none;
+        margin-left: 0;
+        padding-left: 0;
+        margin-top: 5px;
+    }
+
+    .logo {
+        font-size: 1.3em;
+    }
 }
 
 /* --- മൊബൈൽ & ടാബ് ഫിക്സ് (Media Query) --- */
@@ -860,4 +952,5 @@ header {
 
 </body>
 </html>
+
 
