@@ -1,0 +1,795 @@
+
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>📚 തമിഴ് പുസ്തകങ്ങള്‍ | THRIPUDI LIBRARY</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
+    :root { 
+        --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
+        --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
+    }
+    /* --- STYLES (Header, Footer, Cards, Modal - മുമ്പ് നൽകിയവ) --- */
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
+    a { text-decoration: none; }
+    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
+    .nav-links { display: flex; align-items: center; gap: 15px; }
+    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
+    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
+    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
+    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
+    .user-name { font-weight: 600; display: block; }
+    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
+    .user-profile:hover .profile-dropdown { display: block; }
+    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
+    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
+    .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
+    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
+    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
+    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
+    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
+    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
+    .book-card:hover .read-overlay { opacity: 1; }
+    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
+    .book-card:hover .overlay-btn { transform: translateY(0); }
+    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
+    footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
+    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
+    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    /* Modal PDF Viewer Styles */
+    .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
+    .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
+    .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
+    .pdf-blocker { position:absolute; top:0; right:0; width:60px; height:60px; background:transparent; z-index:20; cursor:default; }
+</style>
+</head>
+<body>
+    
+<header>
+<div class="container navbar">
+<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
+<div class="nav-links">
+    <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
+    <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+    <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+    <div class="user-profile" id="profile-section">
+        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+        <div class="user-info">
+            <span class="user-name" id="display-name">Guest</span>
+            <span class="user-role">Member</span>
+        </div>
+        <div class="profile-dropdown">
+            <a href="profile.html">Profile Settings</a>
+            <a href="history.html">Reading History</a>
+            <a href="profile-photo-upload.html">പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
+            <a href="forgot-password.html">പാസ്‌വേർഡ് മറന്നു</a>
+            <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+</div>
+</div>
+</header>
+    
+<section class="collection-section">
+<div class="container">
+<h1>തമിഴ് പുസ്തകങ്ങള്‍</h1>
+<div class="search-container">
+<i class="fas fa-search search-icon"></i>
+<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
+</div>
+
+<div class="library-container" id="bookList">
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="alai oosai 1 2 .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1mAOkKVUKNhji3xIO6juIjqyY26IH1vnm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mAOkKVUKNhji3xIO6juIjqyY26IH1vnm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">alai oosai 1 2 .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="ayisha .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1xHr3TfQJZy15j6w1PXRqKBVnKVynYwgm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xHr3TfQJZy15j6w1PXRqKBVnKVynYwgm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">ayisha .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="bharathipiranthaar .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=16RpecA3ot7p0ZWJA1GTjPyo5bOEXI9im" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('16RpecA3ot7p0ZWJA1GTjPyo5bOEXI9im', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">bharathipiranthaar .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="dasavatharam.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1bCuEW41HPZxAMJV5pj-u-Fhj8B8-Gzej" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1bCuEW41HPZxAMJV5pj-u-Fhj8B8-Gzej', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">dasavatharam.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="eenredutha eesan .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1nZRfCKbKjHhqwt6gHj0_npeMqlby0DG2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1nZRfCKbKjHhqwt6gHj0_npeMqlby0DG2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">eenredutha eesan .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="en kalyana vaibogam unnodu thaan by r maheshwari.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1vn2hwcHm5Hs_llDfT6BX60ixzb1fRBn4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1vn2hwcHm5Hs_llDfT6BX60ixzb1fRBn4', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">en kalyana vaibogam unnodu thaan by r maheshwari.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kabadapuram.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1lfvRgLs7W2HZMXzrsUxhQ_t_W9hGbQ1h" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1lfvRgLs7W2HZMXzrsUxhQ_t_W9hGbQ1h', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kabadapuram.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kadhala kadamaiya .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1dpf56J7AL_xpfAc0D3muq6VxSTYzi_x9" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1dpf56J7AL_xpfAc0D3muq6VxSTYzi_x9', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kadhala kadamaiya .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kadhalninaivugal.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=123EqvvkvFRBmmPCKmrmqK5sHNEjk1kRY" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('123EqvvkvFRBmmPCKmrmqK5sHNEjk1kRY', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kadhalninaivugal.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kadhalum kanneerum.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1pVqxa7_4ms5Mv1H-IqT6cOmIXHUslChU" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pVqxa7_4ms5Mv1H-IqT6cOmIXHUslChU', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kadhalum kanneerum.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kai kodutha karigaiyar .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=185i4C3zD_AXtBtI7KjifMieKz8A6uLd0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('185i4C3zD_AXtBtI7KjifMieKz8A6uLd0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kai kodutha karigaiyar .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kamaraj .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uIz2IkFqaS1rRoUYwgdW3lLTBD2353rG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uIz2IkFqaS1rRoUYwgdW3lLTBD2353rG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kamaraj .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kapothipurathu kadhal .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17ATQrK3YIshxzXQAqlQzC-w547KOIKFH" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17ATQrK3YIshxzXQAqlQzC-w547KOIKFH', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kapothipurathu kadhal .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="karikal valavan.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1eGs1Dq4ie2xJPpMNRPyYj_lxlvYSlr68" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1eGs1Dq4ie2xJPpMNRPyYj_lxlvYSlr68', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">karikal valavan.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="karippu manikal .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1euoBl5QUrLT8QqJY5-Ys4mTp7ugbi89g" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1euoBl5QUrLT8QqJY5-Ys4mTp7ugbi89g', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">karippu manikal .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="karpom computer news .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_BsgUsxNRSiqMTA7lkGSp1SQVpLl6zNP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_BsgUsxNRSiqMTA7lkGSp1SQVpLl6zNP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">karpom computer news .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kodi asaindhathum kaatru vandhathaa.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1r75s7ID76WJeeSJ8rk9K22X_nHDIN7R2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1r75s7ID76WJeeSJ8rk9K22X_nHDIN7R2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kodi asaindhathum kaatru vandhathaa.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="kurinjimalar .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1UMeAkpw4C3BpkfZgFWQzs23PExY41PoB" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UMeAkpw4C3BpkfZgFWQzs23PExY41PoB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">kurinjimalar .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="learn gnulinux in tamil part 1 .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1J8j73NlRvcphbCcvlNrewBMvvbSd0ZoS" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1J8j73NlRvcphbCcvlNrewBMvvbSd0ZoS', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">learn gnulinux in tamil part 1 .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="maanavamaharaja .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qnb0vcwx0yBNp2a-v8Ij7ECxdcWnoNPg" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qnb0vcwx0yBNp2a-v8Ij7ECxdcWnoNPg', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">maanavamaharaja .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="maathevan malarththogai.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1r8zaDWvR-MS8A0O_JHTzqPaUglTrlwbG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1r8zaDWvR-MS8A0O_JHTzqPaUglTrlwbG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">maathevan malarththogai.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="manmathan leelaigal .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1DQV6YIvIBNImbPI7uAQBaly_j5U4A307" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1DQV6YIvIBNImbPI7uAQBaly_j5U4A307', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">manmathan leelaigal .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="maragatha valari .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1RTcpr0tQhpUbb70bETThzLt-jPtI5JZe" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RTcpr0tQhpUbb70bETThzLt-jPtI5JZe', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">maragatha valari .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="meeraandmohdariff .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1XXKC9XVoGlbPMDrygv1tTElXfiQ_BOmw" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1XXKC9XVoGlbPMDrygv1tTElXfiQ_BOmw', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">meeraandmohdariff .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="mooligai valam .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1OkVA10Byx1FfVJH07kKjPas7EKZI7wIv" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1OkVA10Byx1FfVJH07kKjPas7EKZI7wIv', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">mooligai valam .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="mooligai valam (1).pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=15pZcDZAGGKxrLF9pOk5VBmQ_EQ6pLxcB" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15pZcDZAGGKxrLF9pOk5VBmQ_EQ6pLxcB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">mooligai valam (1).pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="nadigavel mr radhavin siraichaalai sindhanaigal.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=14gAwlycjKHhUaAzXfF4zsStejQPmmEn8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('14gAwlycjKHhUaAzXfF4zsStejQPmmEn8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">nadigavel mr radhavin siraichaalai sindhanaigal.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="orae oru idli .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FV4NUAI2NE-6j72YXefe0kcHhx8CROG_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FV4NUAI2NE-6j72YXefe0kcHhx8CROG_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">orae oru idli .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="pandimadevi .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=10q61sxFmgjOdPsgcS9RPhDtB-9l9C2h0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('10q61sxFmgjOdPsgcS9RPhDtB-9l9C2h0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">pandimadevi .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="pandiyanparisu.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1IfUNNwOFXSxPGS2kxsUrHj6bIezrvjoI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IfUNNwOFXSxPGS2kxsUrHj6bIezrvjoI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">pandiyanparisu.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="parvai .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=19l5gV3GfId5TPo1NZAiYidjkHr0B5MtA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('19l5gV3GfId5TPo1NZAiYidjkHr0B5MtA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">parvai .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="ponniyin selvan abridged version .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1BJF_NfLsP68oEbOVSiHqzWILySQYnLQu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1BJF_NfLsP68oEbOVSiHqzWILySQYnLQu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">ponniyin selvan abridged version .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="puthumaipithan padaipugal.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wrlA76Nt9FNdRXb-QzBekWCm3I2CojLL" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wrlA76Nt9FNdRXb-QzBekWCm3I2CojLL', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">puthumaipithan padaipugal.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="rangonradha .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1fI3Eaq4FUYpQ5-3Pe_mDXJVsbhdZjw0U" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1fI3Eaq4FUYpQ5-3Pe_mDXJVsbhdZjw0U', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">rangonradha .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="santhikku markam .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Eo-yIuidycMZduKZDs_GrOSw7kAY2y31" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Eo-yIuidycMZduKZDs_GrOSw7kAY2y31', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">santhikku markam .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="selva kalanjiyame .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1X_uHkeacGYfTRiSvgGMIWSngXZoJ4wTn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1X_uHkeacGYfTRiSvgGMIWSngXZoJ4wTn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">selva kalanjiyame .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="shobhasakthi .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1MqYWeHw9bHdhrUKyE_8regViFgYUXnFE" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1MqYWeHw9bHdhrUKyE_8regViFgYUXnFE', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">shobhasakthi .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="space research center .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1DDwb6kguX5O4bQ1IX9zWL4g1IHZWWeOc" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1DDwb6kguX5O4bQ1IX9zWL4g1IHZWWeOc', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">space research center .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="story of a foetus .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1dj3ZwO-GHWyPRadN0grhmA13TnZdVjiy" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1dj3ZwO-GHWyPRadN0grhmA13TnZdVjiy', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">story of a foetus .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="suga prasavam .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1eMn0KgktLGXDKiXfndIkxo2wWVpM2B2c" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1eMn0KgktLGXDKiXfndIkxo2wWVpM2B2c', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">suga prasavam .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="sutram soozha .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1waewtq0jGAuM5xGLDu05oYLdS8SXB906" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1waewtq0jGAuM5xGLDu05oYLdS8SXB906', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">sutram soozha .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="suzhalil midhakkum deepangal.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=144MClA6ofMz0a9AL9Yeqbtvch637mFcI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('144MClA6ofMz0a9AL9Yeqbtvch637mFcI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">suzhalil midhakkum deepangal.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="the legacy of nehru .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1QjSSmy_mNP1vsRAgNJYFuhaKN_20KW6Z" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1QjSSmy_mNP1vsRAgNJYFuhaKN_20KW6Z', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">the legacy of nehru .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="unari .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1PFxKaZvwSdUKg-Ei_XIiWiUqb5GIfiPX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1PFxKaZvwSdUKg-Ei_XIiWiUqb5GIfiPX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">unari .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="uravaadum eluthugal part 1 .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1iAHsh9eXW7fz_uMOz9jaItIi5lXkeuJ0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1iAHsh9eXW7fz_uMOz9jaItIi5lXkeuJ0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">uravaadum eluthugal part 1 .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="vaazhvum bowthamum .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1UQhOcy9d7c6VVtA2ZsgQfp4aRc7MtxU0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UQhOcy9d7c6VVtA2ZsgQfp4aRc7MtxU0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">vaazhvum bowthamum .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="vaeruku neer.pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1WUHPRxafH8PRN9PekTAuKT5CqIAiVxEv" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1WUHPRxafH8PRN9PekTAuKT5CqIAiVxEv', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">vaeruku neer.pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="veerar ulagam .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1CH5rftIuTU6Vz3ERbUA9IoA_ipV-AKjf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CH5rftIuTU6Vz3ERbUA9IoA_ipV-AKjf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">veerar ulagam .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="vingnana mutti mothal .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1cgTu4zMpSTtX3HJCMv6KCbqcBtj9_quB" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cgTu4zMpSTtX3HJCMv6KCbqcBtj9_quB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">vingnana mutti mothal .pdf</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="washingtonil thirumanam .pdf" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=11gBLbGbW59U8O7yZ-yoMMaJ8h7alCW8k" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('11gBLbGbW59U8O7yZ-yoMMaJ8h7alCW8k', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">washingtonil thirumanam .pdf</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+<div class="footer-links">
+<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
+<a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+</div>
+</div>
+</footer>
+
+<div id="login-modal" class="lib-popup-overlay">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
+</div>
+
+<div id="pdfModal" class="pdf-modal-viewer">
+    <div class="pdf-modal-header">
+        <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> വായന മോഡ്</span>
+        <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
+            <i class="fas fa-times"></i> ക്ലോസ്
+        </button>
+    </div>
+    <div style="flex:1; width:100%; height:100%; position:relative;">
+        <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
+        <div class="pdf-blocker" title="Pop-out disabled"></div>
+    </div>
+</div>
+
+<script type="module">
+    // --- FIREBASE CONFIG ---
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    const firebaseConfig = { 
+        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
+        authDomain: "thripudilibrary.firebaseapp.com", 
+        projectId: "thripudilibrary", 
+        storageBucket: "thripudilibrary.firebasestorage.app", 
+        messagingSenderId: "887018912750", 
+        appId: "1:887018912750:web:cc05190a72b13db816acff", 
+        measurementId: "G-B59RDW4KG4" 
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    let currentUser = null; 
+
+    // --- LOGIN STATE MANAGEMENT & UI UPDATE ---
+    onAuthStateChanged(auth, (user) => {
+        const nameDisplay = document.getElementById('display-name');
+        const avatarDiv = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logout-link');
+
+        if (user) {
+            currentUser = user;
+            localStorage.setItem('libraryUser', 'true');
+            if(logoutBtn) logoutBtn.style.display = 'block';
+            
+            const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
+            if(nameDisplay) nameDisplay.textContent = displayName;
+            
+            const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
+            if(userPhoto && avatarDiv) avatarDiv.innerHTML = `<img src="${userPhoto}" alt="${displayName}">`;
+            
+            // REDIRECT LOGIC: ലോഗിൻ ചെയ്ത ശേഷം Modal തുറക്കുന്നു
+            const pendingBookId = sessionStorage.getItem('pendingBook');
+            if (pendingBookId) {
+                sessionStorage.removeItem('pendingBook');
+                // openPdfModal ഫങ്ഷൻ ഇവിടെ വിളിക്കുന്നു
+                if (window.openPdfModal) {
+                    window.openPdfModal(pendingBookId); 
+                }
+            }
+        } else {
+            currentUser = null;
+            localStorage.removeItem('libraryUser');
+            if(logoutBtn) logoutBtn.style.display = 'none';
+        }
+    });
+
+    // --- LOGOUT ---
+    const logoutLink = document.getElementById('logout-link');
+    if(logoutLink) {
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { 
+                localStorage.removeItem('libraryUser'); 
+                window.location.href = "logout-success.html"; 
+            });
+        });
+    }
+
+    // --- CHECK ACCESS & MODAL OPENING ---
+    window.checkAccess = function(bookId, element) {
+        if (!currentUser) {
+            sessionStorage.setItem('pendingBook', bookId); // ID മാത്രം ഓർത്തു വെക്കുന്നു
+            document.getElementById('login-modal').style.display = 'flex';
+        } else {
+            // ലോഗിൻ ഉണ്ടെങ്കിൽ: 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
+            saveToHistory(element, bookId);
+            
+            // 2. Modal തുറക്കുന്നു
+            window.openPdfModal(bookId); 
+        }
+    };
+    
+    // --- Global Functions (Defined below) ---
+</script>
+
+<script>
+    // Global Helper functions (outside module scope)
+
+    // ⭐⭐ MODAL OPENING LOGIC ⭐⭐
+    window.openPdfModal = function(bookId) {
+        const modal = document.getElementById('pdfModal');
+        const frame = document.getElementById('pdfFrame');
+        
+        // Google Drive Link Conversion (Preview Mode - iFrame-ൽ വർക്ക് ചെയ്യുന്നത്)
+        const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
+
+        frame.src = embedUrl;
+        modal.style.display = "flex"; 
+        document.body.style.overflow = "hidden";
+    }
+
+    window.closePdfModal = function() {
+        const modal = document.getElementById('pdfModal');
+        const frame = document.getElementById('pdfFrame');
+        
+        modal.style.display = "none";
+        frame.src = ""; 
+        document.body.style.overflow = "auto";
+    }
+
+    // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
+    function saveToHistory(element, bookId) {
+        // ഇവിടെ userId കിട്ടാൻ താൽക്കാലികമായി default_user ഉപയോഗിക്കുന്നു
+        // Firebase onAuthStateChanged ഫങ്ഷൻ പൂർത്തിയാകുമ്പോൾ ഇത് കൃത്യമായിരിക്കും
+        try {
+            const userId = localStorage.getItem('libraryUser') ? 'default_user' : null;
+            if (!userId) return;
+
+            const card = element.closest('.book-card');
+            if (!card) return;
+
+            const title = card.querySelector('.book-title').innerText;
+            const imgTag = card.querySelector('.book-cover');
+            const image = imgTag ? imgTag.src : 'https://via.placeholder.com/150';
+            const date = new Date().toLocaleDateString('ml-IN');
+            const linkUrl = 'read.html?bookId=' + bookId;
+            
+            const key = 'history_' + userId;
+
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            history = history.filter(item => item.title !== title);
+            history.unshift({ title: title, image: image, link: linkUrl, date: date });
+            
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+        } catch (e) {
+            console.error("History Save Error:", e);
+        }
+    }
+    
+    function searchBooks() { 
+        var input = document.getElementById('searchBar'); 
+        if(!input) return; 
+        var filter = input.value.toUpperCase(); 
+        var cards = document.getElementsByClassName('book-card'); 
+        for (var i = 0; i < cards.length; i++) { 
+            var title = cards[i].getElementsByClassName("book-title")[0]; 
+            if (title) { 
+                var txtValue = title.textContent || title.innerText; 
+                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            } 
+        } 
+    }
+    
+    // ലോഗിൻ മോഡൽ അടക്കാനുള്ള ക്ലോസ് ബട്ടൺ
+    document.addEventListener('DOMContentLoaded', () => {
+        const closeBtn = document.querySelector('.lib-btn-close');
+        if(closeBtn) closeBtn.onclick = function() { document.getElementById('login-modal').style.display='none'; };
+    });
+</script>
+
+</body>
+</html>
