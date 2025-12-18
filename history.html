@@ -15,58 +15,51 @@
         }
 
         * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; padding: 0; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
         .container { width: 92%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; transition: 0.3s; }
 
-        /* --- ത്രിപുടി മാസ്റ്റർ ഹെഡർ (Responsive Fix) --- */
-        header { 
-            background-color: var(--secondary-dark); 
-            padding: 10px 0; 
-            min-height: 90px; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            display: flex; 
-            align-items: center; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-        }
-        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px; }
-        .logo-container { display: flex; align-items: center; gap: 10px; color: #FFFFFF !important; flex-shrink: 0; }
-        .logo-img { height: 55px; width: auto; } 
-        .logo-text { font-size: 1.4em; font-weight: 700; letter-spacing: 1px; }
+        /* --- ത്രിപുടി മാസ്റ്റർ ഹെഡർ --- */
+        header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
+        .logo-img { height: 65px; width: auto; } 
+        .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
 
         .nav-links { display: flex; align-items: center; gap: 8px; }
         .nav-item { 
-            color: #FFFFFF !important; font-weight: 600; font-size: 0.75em; text-transform: uppercase; padding: 8px 10px; 
-            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 5px;
+            color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; 
+            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px;
             background-color: var(--secondary-dark) !important;
         }
         .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
 
-        .user-profile { display: flex; align-items: center; margin-left: 5px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); color: #FFFFFF; }
-        .user-avatar { width: 35px; height: 35px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .welcome-msg { font-size: 0.8em; font-weight: 500; white-space: nowrap; }
+        .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
 
-        /* Mobile Header Adjustments */
+        /* ഹെഡർ റെസ്പോൺസീവ് കറക്ഷൻ */
         @media (max-width: 768px) {
             header { height: auto; padding: 12px 0; }
-            .navbar { flex-direction: column; gap: 15px; }
-            .logo-text { font-size: 1.2em; }
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-            .nav-item { padding: 6px 8px; font-size: 0.7em; flex-direction: column; gap: 2px; border: none; }
+            .navbar { flex-direction: column; gap: 12px; }
+            .logo-container { gap: 8px; width: 100%; justify-content: center; }
+            .logo-img { height: 45px; } 
+            .logo-text { font-size: 1.25em; white-space: nowrap; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
+            .nav-item { padding: 6px 10px; font-size: 0.72em; border: 1px solid rgba(255, 255, 255, 0.2); flex-direction: column; gap: 2px; }
             .nav-item i { font-size: 1.2em; }
+            .welcome-msg { display: none; }
             .user-profile { border-left: none; margin-top: 5px; }
         }
 
-        /* --- കണ്ടെന്റ് --- */
+        /* --- ഹിസ്റ്ററി കണ്ടെന്റ് --- */
         .history-section { padding: 40px 0; flex: 1; text-align: center; }
         .back-nav { text-align: left; margin-bottom: 20px; }
         .back-link { color: var(--secondary-dark); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
 
-        .history-grid { display: grid; gap: 20px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
+        .history-grid { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
         @media (min-width: 1024px) { .history-grid { grid-template-columns: repeat(5, 1fr) !important; } }
 
         .history-card { background: white; border-radius: 10px; overflow: hidden; position: relative; border: 3px solid var(--outline-color); transition: transform 0.2s; }
@@ -81,16 +74,17 @@
 
         /* --- പോപ്പപ്പ് സ്റ്റൈൽ --- */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
-        .popup-body { padding: 25px; color: var(--text-color); }
+        .popup-body { padding: 25px; color: var(--text-color); font-size: 0.95em; }
         .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
         .btn-action { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
         .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
 
         /* --- ത്രിപുടി മാസ്റ്റർ ഫൂട്ടർ --- */
-        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; }
-        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; }
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
     </style>
 </head>
@@ -100,12 +94,13 @@
     <div class="container navbar">
         <a href="dashboard.html" class="logo-container">
             <img src="https://drive.google.com/thumbnail?sz=w600&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
-            <span class="logo-text">THRIPUDI</span>
+            <span class="logo-text">THRIPUDI LIBRARY</span>
         </a>
         <div class="nav-links">
             <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> <span>Home</span></a>
             <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> <span>ശേഖരം</span></a>
             <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> <span>About</span></a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
             <div class="user-profile">
                 <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
@@ -136,18 +131,19 @@
 </div>
 
 <footer>
-    <div class="container">
+    <div class="container footer-content">
         <div class="footer-row">
             <div class="social-links-compact">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-whatsapp"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
             <div style="font-size: 0.85em; opacity: 0.8;">
-                <a href="privacy-policy.html" style="color:white;">Privacy</a> | <a href="terms.html" style="color:white;">Terms</a>
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
             </div>
         </div>
-        <p style="font-size: 0.8em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY.</p>
+        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
     </div>
 </footer>
 
