@@ -41,14 +41,17 @@
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
 
-        /* റെസ്പോൺസീവ് ഹെഡർ കറക്ഷൻ */
+        /* ഹെഡർ റെസ്പോൺസീവ് തിരുത്തലുകൾ */
         @media (max-width: 768px) {
-            header { height: auto; padding: 10px 0; }
-            .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-            .nav-item { padding: 6px 10px; font-size: 0.75em; }
+            header { height: auto; padding: 12px 0; }
+            .navbar { flex-direction: column; gap: 12px; }
+            .logo-container { gap: 8px; width: 100%; justify-content: center; }
+            .logo-img { height: 45px; } /* ലോഗോ അല്പം ചെറുതാക്കി */
+            .logo-text { font-size: 1.25em; white-space: nowrap; } /* ടെക്സ്റ്റ് ഒറ്റ വരിയിൽ ഒതുക്കി */
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
+            .nav-item { padding: 6px 10px; font-size: 0.72em; border: 1px solid rgba(255, 255, 255, 0.2); }
             .welcome-msg { display: none; }
-            .logo-text { font-size: 1.3em; }
+            .user-profile { margin-left: 5px; padding-left: 5px; border-left: none; }
         }
 
         .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
@@ -111,47 +114,45 @@
 
 <section class="collection-section" id="masterSection">
     <div class="container">
-        <h1>ഇവിടെപേജിന്റെപേര്</h1>
-        <div class="library-container"><div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഋഗ്വേദം ഒന്നാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Ly_i34E-u19eMBD2oIWmXorPH0NuYOmQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Ly_i34E-u19eMBD2oIWmXorPH0NuYOmQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഋഗ്വേദം ഒന്നാം സംഹിത</div>
-</div>
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഋഗ്വേദം രണ്ടാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1a2Ct6T3XSZ1CGjVH95pt8w1-OcSU4rPm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1a2Ct6T3XSZ1CGjVH95pt8w1-OcSU4rPm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഋഗ്വേദം രണ്ടാം സംഹിത</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഋഗ്വേദം മൂന്നാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1z9Y_C_jKv8aQsi2w6l3dYliJFHdc0R-u" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1z9Y_C_jKv8aQsi2w6l3dYliJFHdc0R-u', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഋഗ്വേദം മൂന്നാം സംഹിത</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഋഗ്വേദം നാലാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1yfJ7K70f6J_lafGbkim0NPoI75JVU6WB" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yfJ7K70f6J_lafGbkim0NPoI75JVU6WB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഋഗ്വേദം നാലാം സംഹിത</div>
-</div>
-
+        <h1>തിരഞ്ഞെടുത്ത ഗ്രന്ഥങ്ങൾ</h1>
+        <div class="library-container">
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="ഋഗ്വേദം ഒന്നാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Ly_i34E-u19eMBD2oIWmXorPH0NuYOmQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Ly_i34E-u19eMBD2oIWmXorPH0NuYOmQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">ഋഗ്വേദം ഒന്നാം സംഹിത</div>
             </div>
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="ഋഗ്വേദം രണ്ടാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1a2Ct6T3XSZ1CGjVH95pt8w1-OcSU4rPm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1a2Ct6T3XSZ1CGjVH95pt8w1-OcSU4rPm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">ഋഗ്വേദം രണ്ടാം സംഹിത</div>
+            </div>
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="ഋഗ്വേദം മൂന്നാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1z9Y_C_jKv8aQsi2w6l3dYliJFHdc0R-u" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1z9Y_C_jKv8aQsi2w6l3dYliJFHdc0R-u', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">ഋഗ്വേദം മൂന്നാം സംഹിത</div>
+            </div>
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="ഋഗ്വേദം നാലാം സംഹിത" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1yfJ7K70f6J_lafGbkim0NPoI75JVU6WB" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yfJ7K70f6J_lafGbkim0NPoI75JVU6WB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">ഋഗ്വേദം നാലാം സംഹിത</div>
+            </div>
+        </div>
     </div>
 </section>
 
