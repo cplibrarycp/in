@@ -43,7 +43,7 @@
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
 
         /* --- CONTACT CONTENT --- */
-        .contact-section { padding: 50px 0; flex: 1 0 auto; }
+        .contact-section { padding: 40px 0; flex: 1 0 auto; }
         .contact-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; flex-wrap: wrap; gap: 40px; border: 4px solid var(--outline-color); }
         .contact-left { flex: 1; min-width: 300px; text-align: center; }
         .contact-right { flex: 1; min-width: 300px; text-align: left; }
@@ -58,9 +58,11 @@
         .btn-submit { background: var(--primary-teal); color: white; border: none; padding: 14px; border-radius: 50px; width: 100%; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1.1em; }
         .btn-submit:hover { background: var(--secondary-dark); transform: translateY(-2px); }
 
-        /* --- ത്രിപുടി ഫൂട്ടർ --- */
+        /* --- ത്രിപുടി മാസ്റ്റർ ഫൂട്ടർ --- */
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
 
         @media (max-width: 768px) {
             header { height: auto; padding: 12px 0; }
@@ -130,7 +132,18 @@
 
 <footer>
     <div class="container footer-content">
-        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+        <div class="footer-row">
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/919447333333" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="font-size: 0.85em; opacity: 0.8;">
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+        </div>
+        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
     </div>
 </footer>
 
@@ -146,29 +159,23 @@
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
         if (user) {
-            localStorage.setItem('libraryUser', 'true');
             const dName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = dName;
             const photo = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(photo && avatarDiv) avatarDiv.innerHTML = `<img src="${photo}" alt="Profile">`;
         } else {
-            localStorage.removeItem('libraryUser');
             window.location.href = "login.html";
         }
     });
 
     window.performLogout = function() {
-        signOut(auth).then(() => { 
-            localStorage.removeItem('libraryUser');
-            window.location.href = "login.html"; 
-        });
+        signOut(auth).then(() => { window.location.href = "login.html"; });
     }
 </script>
 
 <script>
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8b1l6poc0fDGAVXZRV1LQW8_TXS0ozu0rxjHDzHx0P32zBfk4UcSDcdu9q16KL91lLw/exec"; 
 
-    // Dropdown Logic
     document.getElementById('profile-section').addEventListener('click', function(e) {
         e.stopPropagation();
         const dd = this.querySelector('.profile-dropdown');
@@ -176,7 +183,6 @@
     });
     window.onclick = () => document.querySelectorAll(".profile-dropdown").forEach(d => d.style.display = "none");
 
-    // Form Submit Logic
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
@@ -198,7 +204,7 @@
 
     document.getElementById('logout-link').onclick = (e) => {
         e.preventDefault();
-        if(window.performLogout) window.performLogout();
+        window.performLogout();
     };
 </script>
 </body>
