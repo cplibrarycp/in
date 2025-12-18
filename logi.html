@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Login | THRIPUDI LIBRARY</title>
+    <title>Login / Register | THRIPUDI LIBRARY</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <style>
         :root { --primary-teal: #00897B; --secondary-dark: #004D40; --text-white: #FFFFFF; }
@@ -14,41 +14,69 @@
             background-position: center; background-size: cover; position: absolute; display: flex; align-items: center; justify-content: center;
         }
         .form-box {
-            width: 380px; height: 450px; position: relative; background: rgba(255, 255, 255, 0.1); 
+            width: 380px; height: 500px; position: relative; background: rgba(255, 255, 255, 0.1); 
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); padding: 40px; overflow: hidden; border-radius: 20px; 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); padding: 5px; overflow: hidden; border-radius: 20px; 
         }
-        .form-box h2 { color: #fff; text-align: center; margin-bottom: 30px; font-weight: 700; letter-spacing: 1px; }
-        .input-group { width: 100%; transition: .5s; }
-        .input-field { width: 100%; padding: 12px 0; margin: 10px 0; border: none; border-bottom: 1px solid #fff; outline: none; background: transparent; color: #fff; font-size: 14px; }
+        .button-box { width: 240px; margin: 35px auto; position: relative; border-radius: 30px; background: rgba(0, 0, 0, 0.25); display: flex; justify-content: space-between; padding: 5px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); }
+        .toggle-btn { padding: 10px 0; cursor: pointer; background: transparent; border: 0; outline: none; position: relative; font-weight: 600; color: #ccc; flex: 1; transition: color 0.5s; z-index: 1; font-size: 14px; }
+        #btn { top: 5px; left: 5px; position: absolute; width: 115px; height: calc(100% - 10px); background: #fff; border-radius: 25px; transition: .5s; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .input-group { top: 150px; position: absolute; width: 280px; transition: .5s; }
+        .input-field { width: 100%; padding: 10px 0; margin: 10px 0; border: none; border-bottom: 1px solid #fff; outline: none; background: transparent; color: #fff; font-size: 14px; }
         ::placeholder { color: #ccc; opacity: 0.8; font-size: 13px; }
-        .submit-btn { width: 100%; padding: 12px 30px; cursor: pointer; display: block; margin: 30px auto 10px; background: linear-gradient(to right, var(--primary-teal), var(--secondary-dark)); border: 0; outline: none; border-radius: 30px; color: #fff; font-weight: bold; font-size: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
-        .submit-btn:active { transform: scale(0.98); }
+        .submit-btn { width: 85%; padding: 12px 30px; cursor: pointer; display: block; margin: 30px auto; background: linear-gradient(to right, var(--primary-teal), var(--secondary-dark)); border: 0; outline: none; border-radius: 30px; color: #fff; font-weight: bold; font-size: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
         .forgot-pass { display: block; text-align: center; margin-top: 15px; color: #fff; font-size: 12px; text-decoration: none; cursor: pointer; opacity: 0.8; }
-        #messageBox { margin-top: 20px; width: 100%; text-align: center; font-size: 12px; font-weight: 600; }
+        #messageBox { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 12px; font-weight: 600; padding: 0 20px; }
         .success { color: #69F0AE; }
         .error { color: #FF5252; }
-        .register-link { color: #fff; display: block; text-align: center; margin-top: 20px; font-size: 13px; opacity: 0.9; text-decoration: none; }
+        #login { left: 50px; }
+        #register { left: 450px; }
     </style>
 </head>
 <body>
 <div class="hero">
     <div class="form-box">
-        <h2>Log In</h2>
+        <div class="button-box">
+            <div id="btn"></div>
+            <button class="toggle-btn" id="loginToggle" onclick="openLogin()" style="color: var(--primary-teal);" type="button">Log In</button>
+            <button class="toggle-btn" id="regToggle" onclick="openRegister()" type="button">Register</button>
+        </div>
         <form class="input-group" id="login">
             <input class="input-field" id="loginEmail" placeholder="Email Id" required type="email"/>
             <input class="input-field" id="loginPassword" placeholder="Password" required type="password"/>
             <button class="submit-btn" id="loginBtn" type="button">Log In</button>
             <a class="forgot-pass" onclick="handleForgot()">Forgot Password?</a>
-            <div id="messageBox"></div>
-            <a href="login.html" class="register-link">Don't have an account? Register here</a>
         </form>
+        <form class="input-group" id="register">
+            <input class="input-field" id="regUser" placeholder="Full Name" required type="text"/>
+            <input class="input-field" id="regEmail" placeholder="Email Id" required type="email"/>
+            <input class="input-field" id="regPassword" minlength="6" placeholder="Password" required type="password"/>
+            <button class="submit-btn" id="regBtn" type="button">Register</button>
+        </form>
+        <div id="messageBox"></div>
     </div>
 </div>
 
+<script>
+    var x = document.getElementById("login");
+    var y = document.getElementById("register");
+    var z = document.getElementById("btn");
+    var loginToggle = document.getElementById("loginToggle");
+    var regToggle = document.getElementById("regToggle");
+
+    function openRegister() { 
+        x.style.left = "-400px"; y.style.left = "50px"; z.style.left = "120px"; 
+        loginToggle.style.color = "#ccc"; regToggle.style.color = "var(--primary-teal)"; 
+    }
+    function openLogin() { 
+        x.style.left = "50px"; y.style.left = "450px"; z.style.left = "5px"; 
+        loginToggle.style.color = "var(--primary-teal)"; regToggle.style.color = "#ccc"; 
+    }
+</script>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA",
@@ -69,14 +97,13 @@
         setTimeout(() => { messageBox.textContent = ""; }, 5000);
     }
 
-    // Redirect Logic - കണിശമായും നിലനിർത്തിയിരിക്കുന്നു
+    // Redirect Logic
     function handleRedirect() {
         const urlParams = new URLSearchParams(window.location.search);
         const targetPage = urlParams.get('redirect');
         const targetBook = urlParams.get('bookId');
 
         if (targetPage && targetBook) {
-            // പുസ്തകം തുറന്നു വരാൻ ആവശ്യമായ പാരമീറ്റർ സഹിതം റിഡയറക്ട് ചെയ്യുന്നു
             window.location.href = targetPage + "?openBook=" + targetBook;
         } else {
             window.location.href = "dashboard.html";
@@ -95,11 +122,25 @@
                 setTimeout(handleRedirect, 1000);
             })
             .catch((err) => {
-                let errorMsg = "Login Failed";
-                if(err.code === 'auth/user-not-found') errorMsg = "User not found";
-                if(err.code === 'auth/wrong-password') errorMsg = "Wrong password";
-                showMessage("Error: " + errorMsg, "error");
+                showMessage("Error: " + err.code, "error");
             });
+    });
+
+    // Register Action
+    document.getElementById("regBtn").addEventListener("click", () => {
+        const name = document.getElementById("regUser").value;
+        const email = document.getElementById("regEmail").value;
+        const pass = document.getElementById("regPassword").value;
+        if(!name || !email || !pass) { showMessage("Fill all fields", "error"); return; }
+
+        createUserWithEmailAndPassword(auth, email, pass)
+            .then((res) => {
+                updateProfile(res.user, { displayName: name }).then(() => {
+                    showMessage("Account Created!", "success");
+                    setTimeout(handleRedirect, 1000);
+                });
+            })
+            .catch((err) => showMessage(err.message, "error"));
     });
 
     // Forgot Password Action
@@ -107,10 +148,9 @@
         const email = document.getElementById("loginEmail").value;
         if(!email) { showMessage("Enter email first", "error"); return; }
         sendPasswordResetEmail(auth, email)
-            .then(() => showMessage("Reset link sent to your email!", "success"))
-            .catch((err) => showMessage("Error: " + err.message, "error"));
+            .then(() => showMessage("Reset link sent!", "success"))
+            .catch((err) => showMessage(err.message, "error"));
     };
 </script>
 </body>
 </html>
-
