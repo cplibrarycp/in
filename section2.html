@@ -1,1225 +1,1181 @@
-
 <!DOCTYPE html>
 <html lang="ml">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>📚 Collection 2 | THRIPUDI LIBRARY</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-<style>
-    :root { 
-        --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
-        --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
-    }
-    /* --- STYLES (Header, Footer, Cards, Modal - മുമ്പ് നൽകിയവ) --- */
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
-    a { text-decoration: none; }
-    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
-    .navbar { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
-    .nav-links { display: flex; align-items: center; gap: 15px; }
-    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
-    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
-    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
-    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
-    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
-    .user-name { font-weight: 600; display: block; }
-    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
-    .user-profile:hover .profile-dropdown { display: block; }
-    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
-    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
-    .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
-    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
-    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
-    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
-    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
-    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
-    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
-    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
-    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
-    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
-    .book-card:hover .read-overlay { opacity: 1; }
-    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
-    .book-card:hover .overlay-btn { transform: translateY(0); }
-    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
-    footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
-    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    /* Modal PDF Viewer Styles */
-    .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
-    .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
-    .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
-    .pdf-blocker { position:absolute; top:0; right:0; width:60px; height:60px; background:transparent; z-index:20; cursor:default; }
-</style>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ലൈബ്രറി പേജ് | THRIPUDI LIBRARY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
+    <style>
+        :root { 
+            --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
+            --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 95%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
+        .logo-img { height: 65px; width: auto; } 
+        .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
+
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-item { 
+            color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; 
+            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px;
+            background-color: var(--secondary-dark) !important;
+        }
+        .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
+
+        .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+
+        @media (max-width: 768px) {
+            header { height: auto; padding: 12px 0; }
+            .navbar { flex-direction: column; gap: 12px; }
+            .logo-container { gap: 8px; width: 100%; justify-content: center; }
+            .logo-img { height: 45px; } 
+            .logo-text { font-size: 1.25em; white-space: nowrap; } 
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
+            .welcome-msg { display: none; }
+            .user-profile { margin-left: 5px; padding-left: 5px; border-left: none; }
+        }
+
+        .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+        
+        /* അലൈൻമെന്റ് കൃത്യം 5 എണ്ണം വീതം - കണിശമായ വിഡ്ത്ത് */
+        .library-container { 
+            display: grid; 
+            gap: 20px; 
+            margin-top: 20px; 
+            grid-template-columns: repeat(2, 1fr); 
+            justify-content: center;
+        }
+        
+        @media (min-width: 1024px) { 
+            .library-container { 
+                grid-template-columns: repeat(5, 1fr) !important; 
+            } 
+        }
+
+        .book-card { background: transparent; text-align: center; width: 100%; max-width: 210px; margin: 0 auto; }
+        .image-wrapper { 
+            position: relative; 
+            width: 100%; 
+            height: 280px; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            border: 4px solid var(--outline-color); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+        }
+        .book-cover { width: 100%; height: 100%; object-fit: cover; }
+        .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.85); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .book-card:hover .read-overlay { opacity: 1; }
+        .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
+        .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.88em; height: 2.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; padding: 0 5px; line-height: 1.4; }
+
+        .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
+        .popup-body { padding: 25px; color: var(--text-color); font-size: 0.95em; }
+        .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
+        .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
+
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
+        .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; }
+        .pdf-modal-frame { width:100%; height:100%; border:none; }
+        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
+
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
+    </style>
 </head>
 <body>
-    
-<header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-    <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-    <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-    <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-    <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
 
-    <div class="user-profile" id="profile-section">
-        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-        <div class="user-info">
-            <span class="user-name" id="display-name">Guest</span>
-            <span class="user-role">Member</span>
-        </div>
-        <div class="profile-dropdown">
-            <a href="profile.html">Profile Settings</a>
-            <a href="history.html">Reading History</a>
-            <a href="profile-photo-upload.html">പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
-            <a href="forgot-password.html">പാസ്‌വേർഡ് മറന്നു</a>
-            <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+<header id="masterHeader">
+    <div class="container navbar">
+        <a href="dashboard.html" class="logo-container">
+            <img src="https://drive.google.com/thumbnail?sz=w1000&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
+            <span class="logo-text">THRIPUDI LIBRARY</span>
+        </a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
+                <div class="profile-dropdown">
+                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
+                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                    <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </header>
-    
-<section class="collection-section">
-<div class="container">
-<h1>Collection 2</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
-
-<div class="library-container" id="bookList">
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="[Harris Malcolm.] Lethal Unarmed Combat 271119130906" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1n8XsFuq5_32HFqJu2vXt-wYJ_Y3LM2_J" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1n8XsFuq5_32HFqJu2vXt-wYJ_Y3LM2_J', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">[Harris Malcolm.] Lethal Unarmed Combat 271119130906</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="[Max Mckeown] The Strategy Book.epub 231119131055" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1mW6i7hALk1wDSOif9K0iAtZrePY31QYm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mW6i7hALk1wDSOif9K0iAtZrePY31QYm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">[Max Mckeown] The Strategy Book.epub 231119131055</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="1 Beyond Positive Thinking Dr. Robert Anthony ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Mx4weUYrtKkGSdeHx2YEBtYo0h0baWto" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Mx4weUYrtKkGSdeHx2YEBtYo0h0baWto', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">1 Beyond Positive Thinking Dr. Robert Anthony ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="50 Success Classics Winning Wisdom for Work and Life From 50 Landmark Books ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=179VyinjicK7Gpo4Uo3uJbJOu0GfWA2fy" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('179VyinjicK7Gpo4Uo3uJbJOu0GfWA2fy', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">50 Success Classics Winning Wisdom for Work and Life From 50 Landmark Books ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="34247510" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FkU9M40zUZUqLtIgqSAmbbwifv0rMNLJ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FkU9M40zUZUqLtIgqSAmbbwifv0rMNLJ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">34247510</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="A Beautiful Mind by Sylvia Nasar 161119131210" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1CgP4w7trkXN0PB5hh9B0wtJkITEoc-6n" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CgP4w7trkXN0PB5hh9B0wtJkITEoc-6n', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">A Beautiful Mind by Sylvia Nasar 161119131210</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Act Like a Leader Think Like a Leader ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1E-0q48Ank6LtBesRhS5nDuDtmKkcMQUt" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1E-0q48Ank6LtBesRhS5nDuDtmKkcMQUt', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Act Like a Leader Think Like a Leader ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="BBC Science Focus New Year 2021" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1UNL_mtVhlxBkn-v5CgvL0r8IjvmrlkAg" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UNL_mtVhlxBkn-v5CgvL0r8IjvmrlkAg', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">BBC Science Focus New Year 2021</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Beverly E Jones Think Like an Entrepreneur Act Like 121119165330" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Eue3X_gLC9sQRXylQSb1RJy69nqrjFBm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Eue3X_gLC9sQRXylQSb1RJy69nqrjFBm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Beverly E Jones Think Like an Entrepreneur Act Like 121119165330</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Book of Myths Acharya Prashant 75691" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=12Kio69K8i_t0PscdrI3aa06gA7bkLWZV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('12Kio69K8i_t0PscdrI3aa06gA7bkLWZV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Book of Myths Acharya Prashant 75691</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Breaking Free Day by Day Beth Moore 281119202007" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1H0xW993Xaqsaf0kZRDA1tP-uIsriCDim" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1H0xW993Xaqsaf0kZRDA1tP-uIsriCDim', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Breaking Free Day by Day Beth Moore 281119202007</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Building With Earth" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1cBcnmu9KI-WBA8RHmNlFqYxOh8bs8FhK" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cBcnmu9KI-WBA8RHmNlFqYxOh8bs8FhK', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Building With Earth</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Calm the F ck Down How to Control What You Can and Accept What You Can’t So You Can Stop Freaking Out and Get On With Your Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YkpRT-tP1g0amBup-5zNL91LXVGTFfwi" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YkpRT-tP1g0amBup-5zNL91LXVGTFfwi', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Calm the F ck Down How to Control What You Can and Accept What You Can’t So You Can Stop Freaking Out and Get On With Your Life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Comedy Writing Secrets The Best Selling Book on How to Think Funny Write Funny Act Funny And Get Paid For It ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1KcrvneEvt6lUrR83lo4uQPy2n3RAkzQo" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1KcrvneEvt6lUrR83lo4uQPy2n3RAkzQo', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Comedy Writing Secrets The Best Selling Book on How to Think Funny Write Funny Act Funny And Get Paid For It ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Coming to Our Senses by Jon Kabat Zinn 201119134551" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YL3YQliCu0hsQgnusg9F1SiEOefadwy7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YL3YQliCu0hsQgnusg9F1SiEOefadwy7', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Coming to Our Senses by Jon Kabat Zinn 201119134551</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Communicate to Win (2006)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1loez59UMlSZ4mxtxo4MkNCkKGHad34ud" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1loez59UMlSZ4mxtxo4MkNCkKGHad34ud', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Communicate to Win (2006)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Destiny Disrupted A History of the World Through Islamic Eyes ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1w20DhJWiPRCY7z5SumK5aX6JRflYfUes" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1w20DhJWiPRCY7z5SumK5aX6JRflYfUes', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Destiny Disrupted A History of the World Through Islamic Eyes ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Emotional Healing Dummies" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_JfVTLdGD0W2PE6mvmWURZhQtjiP6Psq" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_JfVTLdGD0W2PE6mvmWURZhQtjiP6Psq', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Emotional Healing Dummies</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Execution The Discipline of Getting Things Done ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1yzM1QiINvjhRt2Z75ONVZ8ygDX5NbZpX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yzM1QiINvjhRt2Z75ONVZ8ygDX5NbZpX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Execution The Discipline of Getting Things Done ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Get Anyone to Do Anything Never Feel Powerless Again With Psychological Secrets to Control and Influence Every Situation ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1REpEFtCcHt6ZzL8x9qgyhwiILVUjgWi7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1REpEFtCcHt6ZzL8x9qgyhwiILVUjgWi7', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Get Anyone to Do Anything Never Feel Powerless Again With Psychological Secrets to Control and Influence Every Situation ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Get It! Street Smart Negotiation at Work How Emotions Get You What You Want ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1cpbB77MwgGU2jbszgDwX22MVcU3qYWju" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cpbB77MwgGU2jbszgDwX22MVcU3qYWju', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Get It! Street Smart Negotiation at Work How Emotions Get You What You Want ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Get Out of Your Own Way Overcoming Self Defeating Behavior ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1THE2bhHsvmcgrS4mGXj7DKwKf1ZTeyr9" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1THE2bhHsvmcgrS4mGXj7DKwKf1ZTeyr9', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Get Out of Your Own Way Overcoming Self Defeating Behavior ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Get Smart! How to Think and Act Like the Most Successful and Highest Paid People in Every Field ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1q3e-JeQt9EiL8AXiZztMd6NMvEn-pVOR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1q3e-JeQt9EiL8AXiZztMd6NMvEn-pVOR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Get Smart! How to Think and Act Like the Most Successful and Highest Paid People in Every Field ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Getting (More of) What You Want How the Secrets of Economics and Psychology Can Help You Negotiate Anything in Business and in Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1BV2wJHplFRiY_GeH1m0HckV66mWfNdG3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1BV2wJHplFRiY_GeH1m0HckV66mWfNdG3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Getting (More of) What You Want How the Secrets of Economics and Psychology Can Help You Negotiate Anything in Business and in Life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Getting Things Done The Art of Stress Free Productivity ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1iT00mPF79NFmL5F1d6BjbrgpBrYsg2jL" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1iT00mPF79NFmL5F1d6BjbrgpBrYsg2jL', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Getting Things Done The Art of Stress Free Productivity ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Girl Wash Your Face Stop Believing the Lies About Who You Are so You Can Become Who You Were Meant to Be ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1bconMheFOmkQeUFaREDMT6CrdxVfBy7q" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1bconMheFOmkQeUFaREDMT6CrdxVfBy7q', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Girl Wash Your Face Stop Believing the Lies About Who You Are so You Can Become Who You Were Meant to Be ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="How Successful People Think Change Your Thinking Change Your Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1pBzNA9FbFGTEl99TgjtOYxJm0Chpq3gC" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pBzNA9FbFGTEl99TgjtOYxJm0Chpq3gC', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">How Successful People Think Change Your Thinking Change Your Life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="How to Change Your Mind What the New Science of Psychedelics Teaches Us About Consciousness ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1f5qoWULDEr-ObFdPA5cby07Br7ewUvPM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1f5qoWULDEr-ObFdPA5cby07Br7ewUvPM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">How to Change Your Mind What the New Science of Psychedelics Teaches Us About Consciousness ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="How To Improve Memory The Ultimate Mind Power Manual The Best Brain Exercises to Improve Your Memory and Master Your Mind Power ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1j-EOKwA6RFKIaa3DKCDxY5bsm1K8W-ua" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1j-EOKwA6RFKIaa3DKCDxY5bsm1K8W-ua', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">How To Improve Memory The Ultimate Mind Power Manual The Best Brain Exercises to Improve Your Memory and Master Your Mind Power ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="how to persuade people who don t want to be persuaded get what you wanr every time joel bauer" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gcOJRXBAbzswooFNzwu5GAyfY12ZZO2b" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gcOJRXBAbzswooFNzwu5GAyfY12ZZO2b', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">how to persuade people who don t want to be persuaded get what you wanr every time joel bauer</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="howtogetwhatyouwantwithouthavingtoask" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1k0Bb_jD7YkkR6NJez2gpggT6Z9YFdt6v" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1k0Bb_jD7YkkR6NJez2gpggT6Z9YFdt6v', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">howtogetwhatyouwantwithouthavingtoask</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="I Could Do Anything If I Only Knew What It Was How to Discover What You Really Want and How to Get It ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1jnzPy4DfnawsF9gJo6cyMD0c6ROC8nAf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1jnzPy4DfnawsF9gJo6cyMD0c6ROC8nAf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">I Could Do Anything If I Only Knew What It Was How to Discover What You Really Want and How to Get It ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="I m Rich Beyond My Wildest Dreams I Am. I Am. I Am. How to Get Everything You Want in Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1e2IAV3NTST9tlCzUe8g8NvuEVROX2X-r" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1e2IAV3NTST9tlCzUe8g8NvuEVROX2X-r', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">I m Rich Beyond My Wildest Dreams I Am. I Am. I Am. How to Get Everything You Want in Life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Impulse Why We Do What We Do Without Knowing Why We Do It ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1a44pRtK9Mo1f2EznhT3XqXfZSvpKPf9W" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1a44pRtK9Mo1f2EznhT3XqXfZSvpKPf9W', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Impulse Why We Do What We Do Without Knowing Why We Do It ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Intermittent Fasting For Dummies Janet Bond Brill" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1xXDfVGtIu8666K6AM4AGFY9HFsBHySZg" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xXDfVGtIu8666K6AM4AGFY9HFsBHySZg', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Intermittent Fasting For Dummies Janet Bond Brill</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="It s Not Where You Start It s Where You Finish! The Success Secrets of a Top Member of the Mary Kay Independent Sales Force ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kbyXMtKVujXpgcBZgfOqC8nKH4QPuLYP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kbyXMtKVujXpgcBZgfOqC8nKH4QPuLYP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">It s Not Where You Start It s Where You Finish! The Success Secrets of a Top Member of the Mary Kay Independent Sales Force ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Jeffrey Archer Kane and Abel Coronet Books 1981" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1-TiBV-XKutJZdkeMZXb0Ou5GiRmlRTdZ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1-TiBV-XKutJZdkeMZXb0Ou5GiRmlRTdZ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Jeffrey Archer Kane and Abel Coronet Books 1981</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Just Mercy A story of Justice and Redemption ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Cv6_-ICw6zCTCYfVaSC27mPLOv0MPV2u" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Cv6_-ICw6zCTCYfVaSC27mPLOv0MPV2u', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Just Mercy A story of Justice and Redemption ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Kim George Coaching Into Greatness 101119105851" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1NippaFmayPBBREZS3z3a7Cft1wC8XZhP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1NippaFmayPBBREZS3z3a7Cft1wC8XZhP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Kim George Coaching Into Greatness 101119105851</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Learned optimism how to change your mind and your life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1g9m66v9zmtlcloNfr1w7tPk6LZoPxF_t" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1g9m66v9zmtlcloNfr1w7tPk6LZoPxF_t', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Learned optimism how to change your mind and your life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Learning to “Think Like a Lawyer” ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1y-aFNmBunJM7l3tr61cnA1ue4Q6jjss2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1y-aFNmBunJM7l3tr61cnA1ue4Q6jjss2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Learning to “Think Like a Lawyer” ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Let Your Life Speak Listening for the Voice of Vocation ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uQZnBwxgTAdrjI4s7D6W6N2InFEVQTKd" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uQZnBwxgTAdrjI4s7D6W6N2InFEVQTKd', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Let Your Life Speak Listening for the Voice of Vocation ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Living Rich by Spending Smart How to Get More of What You Really Want ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1W830SyOgyLcva4Bv7oW_4AhmniqICPTs" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1W830SyOgyLcva4Bv7oW_4AhmniqICPTs', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Living Rich by Spending Smart How to Get More of What You Really Want ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Maxwell 2 in 1 Winning With People 011219103152" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1R7QtQJ_-yrqbaq7-ksVjLdo0jtxAumjj" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1R7QtQJ_-yrqbaq7-ksVjLdo0jtxAumjj', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Maxwell 2 in 1 Winning With People 011219103152</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Money Won’t Make You Rich God’s Principles for True Wealth Prosperity and Success ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Pb_V-TGjzt36_cFOntZGeCSbj2Rkc9c6" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Pb_V-TGjzt36_cFOntZGeCSbj2Rkc9c6', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Money Won’t Make You Rich God’s Principles for True Wealth Prosperity and Success ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Motivate to Win How to Motivate Yourself and Othe(2009)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JHzyDLgG82XjLpG6wTrLn3qAf-jRumlV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JHzyDLgG82XjLpG6wTrLn3qAf-jRumlV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Motivate to Win How to Motivate Yourself and Othe(2009)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="No Drama Discipline The Whole Brain Way to Calm the Chaos and Nurture Your Child s Developing Mind ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kKMykSsAtmqyGMltul9Sbo2vDP_aJquT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kKMykSsAtmqyGMltul9Sbo2vDP_aJquT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">No Drama Discipline The Whole Brain Way to Calm the Chaos and Nurture Your Child s Developing Mind ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Persuasion Tactics Covert Psychology Strategies to Influence Persuade Get Your Way (Without Manipulation) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=16GphTqmHWfrG2BBiTafJUg95IhGrb43Y" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('16GphTqmHWfrG2BBiTafJUg95IhGrb43Y', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Persuasion Tactics Covert Psychology Strategies to Influence Persuade Get Your Way (Without Manipulation) ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Portfolios of the Poor How the World s Poor 2009)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gVcjeeFUxJb-xnILl73_FxGXt97QKSs-" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gVcjeeFUxJb-xnILl73_FxGXt97QKSs-', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Portfolios of the Poor How the World s Poor 2009)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="power up your mind learn fasterwork smarter bill lucas" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1hhbFlgE3MpcfU8j5glbLGgJfK-_jjfc3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hhbFlgE3MpcfU8j5glbLGgJfK-_jjfc3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">power up your mind learn fasterwork smarter bill lucas</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Procrastination Why You Do It What to Do About It Now (25th Anniversary Edition Fully Revised and Updated) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1VzLrPR87cKZI6ugv4wXA2v56qJIfbmWI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1VzLrPR87cKZI6ugv4wXA2v56qJIfbmWI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Procrastination Why You Do It What to Do About It Now (25th Anniversary Edition Fully Revised and Updated) ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Red notice a true story of high finance murder and one man s fight for justice ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1xEul4hmV0DRAjT9QuIyThB7TTI3XcNUT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xEul4hmV0DRAjT9QuIyThB7TTI3XcNUT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Red notice a true story of high finance murder and one man s fight for justice ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="RH StudyGuide V2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=14xiK4xzgBTtIRlCBxZ5xqtXwTzw2e_zh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('14xiK4xzgBTtIRlCBxZ5xqtXwTzw2e_zh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">RH StudyGuide V2</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Selling to Win (2009)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18Hc2IR1bk3kbPOPPxHM9xTp1xqA25nu5" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18Hc2IR1bk3kbPOPPxHM9xTp1xqA25nu5', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Selling to Win (2009)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Selling to Win (2013)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=15vpRWFOFt07R5_lGPxQLi0sTi1aaDlgA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15vpRWFOFt07R5_lGPxQLi0sTi1aaDlgA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Selling to Win (2013)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Set Your Voice Free How to Get the Singing or Speaking Voice You Want ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1hCbjPLpRoR2dAjMfg1KW5vuKlTPj28IS" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hCbjPLpRoR2dAjMfg1KW5vuKlTPj28IS', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Set Your Voice Free How to Get the Singing or Speaking Voice You Want ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Start Where You Are A Guide to Compassionate Living ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1mlhs8DlrBfOB_dRAtW6zIbKD8Qxy2tTn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mlhs8DlrBfOB_dRAtW6zIbKD8Qxy2tTn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Start Where You Are A Guide to Compassionate Living ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Strategic Thinking for Leaders The Systems Thinking Approach ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=129H8_lPBJWn66uM93VeaJ8DdzOp6Hrp1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('129H8_lPBJWn66uM93VeaJ8DdzOp6Hrp1', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Strategic Thinking for Leaders The Systems Thinking Approach ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Succeed for Yourself Unlock Your Potential for Su 2009)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Cvqvg1sEbttsG2hE5VC43JFnKG-FQg3c" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Cvqvg1sEbttsG2hE5VC43JFnKG-FQg3c', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Succeed for Yourself Unlock Your Potential for Su 2009)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Succeeding with Use Cases Working Smart to (2005)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ThH5kHOoPthANoJV7en9iCPcz3nkFpRk" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ThH5kHOoPthANoJV7en9iCPcz3nkFpRk', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Succeeding with Use Cases Working Smart to (2005)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Successful Selling Skills (Creating Success(2009)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1CtFtfIz2yAWdhnvp_iiWsjv30DtUmyAw" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CtFtfIz2yAWdhnvp_iiWsjv30DtUmyAw', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Successful Selling Skills (Creating Success(2009)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Survive Like a Spy Real CIA Operatives Reveal How They Stay Safe in a Dangerous World and How You Can Too ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1mmBDMEx13iVcOR9EbK5fSos55ueyo5Xr" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mmBDMEx13iVcOR9EbK5fSos55ueyo5Xr', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Survive Like a Spy Real CIA Operatives Reveal How They Stay Safe in a Dangerous World and How You Can Too ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The art of invisibility the world’s most famous hacker teaches you how to be safe in the age of Big Brother and big data ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1IUq50QKoUkFqoHQnQ_N1IqChvbsmBGSH" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IUq50QKoUkFqoHQnQ_N1IqChvbsmBGSH', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The art of invisibility the world’s most famous hacker teaches you how to be safe in the age of Big Brother and big data ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The art of manipulation how to get what you want out of people in business in your personal life and in your love life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ZOMyMgaVhcBi17avF_tHW5Xmdx0SOGvb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ZOMyMgaVhcBi17avF_tHW5Xmdx0SOGvb', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The art of manipulation how to get what you want out of people in business in your personal life and in your love life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Art of Work A Proven Path to Discovering What You Were Meant to Do ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1DMmapiWWICYs7Y8jank0hZdwcGcgMGtR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1DMmapiWWICYs7Y8jank0hZdwcGcgMGtR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Art of Work A Proven Path to Discovering What You Were Meant to Do ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Buddha Is Still Teaching Contemporary Buddhist Wisdom ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1TGsM7N4t5kZqL6GolczoUEKaUrIJdN7_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1TGsM7N4t5kZqL6GolczoUEKaUrIJdN7_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Buddha Is Still Teaching Contemporary Buddhist Wisdom ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Business Writer s Handbook Ninth Edition (2008)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1cnokNPSFm-ZeSrMVEZ6m9UIUTUudeivF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cnokNPSFm-ZeSrMVEZ6m9UIUTUudeivF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Business Writer s Handbook Ninth Edition (2008)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Coaching Habit Say Less Ask More Change the Way You Lead Forever ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1zctzeDyiH5TZ5ZbvWqdM_mI1qVVAFHN8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1zctzeDyiH5TZ5ZbvWqdM_mI1qVVAFHN8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Coaching Habit Say Less Ask More Change the Way You Lead Forever ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Ecology of Everyday Things by Mark Everard UserUpload Net" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=15khIA5_DVS44L52Sforygep6yIgjIrx8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15khIA5_DVS44L52Sforygep6yIgjIrx8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Ecology of Everyday Things by Mark Everard UserUpload Net</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Emotional Life of Your Brain How Its Unique Patterns Affect the Way You Think Feel and Live—and How You Can Change Them ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1dd7jcHjHk_dTsOY0HgikZ-WLmnSOZmxo" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1dd7jcHjHk_dTsOY0HgikZ-WLmnSOZmxo', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Emotional Life of Your Brain How Its Unique Patterns Affect the Way You Think Feel and Live—and How You Can Change Them ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The intelligent negotiator what to say what to do how to get what you want—every time ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1M-DeAAk0oquZehWFZVGyatuYwBdKzXAr" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1M-DeAAk0oquZehWFZVGyatuYwBdKzXAr', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The intelligent negotiator what to say what to do how to get what you want—every time ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Nature Fix Why Nature Makes us Happier Healthier and More Creative ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1OobWfGOdSMoASt0uYVvatcXqKRcOsgNm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1OobWfGOdSMoASt0uYVvatcXqKRcOsgNm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Nature Fix Why Nature Makes us Happier Healthier and More Creative ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Psychology of Persuasion How To Persuade Others To Your Way Of Thinking ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ay7GF6nHNXZ3LvJwOPuVhhtnQkvcAtmK" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ay7GF6nHNXZ3LvJwOPuVhhtnQkvcAtmK', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Psychology of Persuasion How To Persuade Others To Your Way Of Thinking ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Reason Driven Life What Am I Here on Earth For ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1vLYGGPC0hGICqgH7cmGFpZIK7MUA9SGu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1vLYGGPC0hGICqgH7cmGFpZIK7MUA9SGu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Reason Driven Life What Am I Here on Earth For ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Secrets of People Who Never Get Sick What They Know Why It Works and How It Can Work for You ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1yNdPk0r4ePd7_q7zasSjYXMVEwXdht4n" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yNdPk0r4ePd7_q7zasSjYXMVEwXdht4n', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Secrets of People Who Never Get Sick What They Know Why It Works and How It Can Work for You ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Space of Variations. 1 O Books (2008)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wwzPW7UBtLdAtERss2oivqrqhFnmaMNO" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wwzPW7UBtLdAtERss2oivqrqhFnmaMNO', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Space of Variations. 1 O Books (2008)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Stress Proof Brain Master Your Emotional Response to Stress Using Mindfulness and Neuroplasticity ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1h5ga54ODxbbmthdvqjn7MjfNPUw77MvY" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1h5ga54ODxbbmthdvqjn7MjfNPUw77MvY', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Stress Proof Brain Master Your Emotional Response to Stress Using Mindfulness and Neuroplasticity ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Time Management Proven Techniques for Making Every Minute Count ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1nPWE0yLLONiTCxUAPu1ESWGSb_jOoMDM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1nPWE0yLLONiTCxUAPu1ESWGSb_jOoMDM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Time Management Proven Techniques for Making Every Minute Count ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Tiny Buddha simple wisdom for life s hard questions ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18cgNxD6YkWMpj9zPCnplQMPQouD9eaT4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18cgNxD6YkWMpj9zPCnplQMPQouD9eaT4', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Tiny Buddha simple wisdom for life s hard questions ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Tolstoy Leo The Kingdom of God is within you (1994)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ilpvW_mkOzFxtki5YFy8OfyHg9ge48H1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ilpvW_mkOzFxtki5YFy8OfyHg9ge48H1', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Tolstoy Leo The Kingdom of God is within you (1994)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="top" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1AQMeXKr3w3KK7x4Enu6bm7jmihD1PYno" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1AQMeXKr3w3KK7x4Enu6bm7jmihD1PYno', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">top</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="What got you here won t get you there how successful people become even more successful ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1pq3pULNoDxG7yIwzqTz6Vg9SUb8fhit3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pq3pULNoDxG7yIwzqTz6Vg9SUb8fhit3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">What got you here won t get you there how successful people become even more successful ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="What Is Your WHAT Discover The One Amazing Thing You Were Born To Do ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ZFm01vf3KawHufS3sKSB8evUdy3Hu8dT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ZFm01vf3KawHufS3sKSB8evUdy3Hu8dT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">What Is Your WHAT Discover The One Amazing Thing You Were Born To Do ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Whitey s Payback and Other True Stories Gangsterism Murder Corruption and Revenge ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qZiixb3FbqvjAQPIrbe2Iwqfqt7fJcbn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qZiixb3FbqvjAQPIrbe2Iwqfqt7fJcbn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Whitey s Payback and Other True Stories Gangsterism Murder Corruption and Revenge ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Who do you think you are ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1lDen4_hx3DruEjVCYEWhOsXgnuc2xP2R" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1lDen4_hx3DruEjVCYEWhOsXgnuc2xP2R', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Who do you think you are ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Winning new business essential selling skills (2008)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1y0Hv3ShOhRY--p0jZg7zPMShYg5iaMfQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1y0Hv3ShOhRY--p0jZg7zPMShYg5iaMfQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Winning new business essential selling skills (2008)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Words That Work Revised Updated Edition It s Not What You Say It s What People Hear ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wXC17_VaIBN9mAkyVExbIiNGmE_OMwI2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wXC17_VaIBN9mAkyVExbIiNGmE_OMwI2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Words That Work Revised Updated Edition It s Not What You Say It s What People Hear ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Write Better Faster How To Triple Your Writing Speed and Write More Every Day ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1rMM-lMRPxPeFDGO0xH-n-S6prGr-iB3F" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1rMM-lMRPxPeFDGO0xH-n-S6prGr-iB3F', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Write Better Faster How To Triple Your Writing Speed and Write More Every Day ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Write Yourself Creative Writing and Personal Development (Writing for Therapy Or Personal Development) ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18eXLqMvf57vqgKS-N-1XqqCpL-hKN9PQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18eXLqMvf57vqgKS-N-1XqqCpL-hKN9PQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Write Yourself Creative Writing and Personal Development (Writing for Therapy Or Personal Development) ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Yes! 50 Scientifically Proven Ways to Be Persuasive ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YwvQkRyTAvapZKbRmwvmR7JQFL_cKz-v" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YwvQkRyTAvapZKbRmwvmR7JQFL_cKz-v', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Yes! 50 Scientifically Proven Ways to Be Persuasive ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="You Are Not Your Brain The 4 Step Solution for Changing Bad Habits Ending Unhealthy Thinking and Taking Control of Your Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1IUhR0FtJVCc_LcBT2HvLNk7g5_Bteh1z" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IUhR0FtJVCc_LcBT2HvLNk7g5_Bteh1z', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">You Are Not Your Brain The 4 Step Solution for Changing Bad Habits Ending Unhealthy Thinking and Taking Control of Your Life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="You Can Learn to Remember Change Your Thinking Change Your Life ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_AccYVmk5-czKLSU-puAM1Nrjm5vfOu8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_AccYVmk5-czKLSU-puAM1Nrjm5vfOu8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">You Can Learn to Remember Change Your Thinking Change Your Life ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="You matter to God discovering your true value and identity in God s eyes ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ra4p1BtkfiaN46s5CCy_jbWdAarlx039" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ra4p1BtkfiaN46s5CCy_jbWdAarlx039', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+
+<section class="collection-section" id="masterSection">
+    <div class="container">
+        <h1>Collection 2</h1>
+        <div class="library-container">
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Lethal Unarmed Combat" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1n8XsFuq5_32HFqJu2vXt-wYJ_Y3LM2_J" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1n8XsFuq5_32HFqJu2vXt-wYJ_Y3LM2_J', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">[Harris Malcolm.] Lethal Unarmed Combat</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="The Strategy Book" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1mW6i7hALk1wDSOif9K0iAtZrePY31QYm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mW6i7hALk1wDSOif9K0iAtZrePY31QYm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">[Max Mckeown] The Strategy Book</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Beyond Positive Thinking" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Mx4weUYrtKkGSdeHx2YEBtYo0h0baWto" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Mx4weUYrtKkGSdeHx2YEBtYo0h0baWto', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">1 Beyond Positive Thinking Dr. Robert Anthony</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="50 Success Classics" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=179VyinjicK7Gpo4Uo3uJbJOu0GfWA2fy" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('179VyinjicK7Gpo4Uo3uJbJOu0GfWA2fy', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">50 Success Classics Winning Wisdom</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="34247510" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1FkU9M40zUZUqLtIgqSAmbbwifv0rMNLJ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FkU9M40zUZUqLtIgqSAmbbwifv0rMNLJ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">34247510</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="A Beautiful Mind" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1CgP4w7trkXN0PB5hh9B0wtJkITEoc-6n" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CgP4w7trkXN0PB5hh9B0wtJkITEoc-6n', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">A Beautiful Mind by Sylvia Nasar</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Act Like a Leader" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1E-0q48Ank6LtBesRhS5nDuDtmKkcMQUt" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1E-0q48Ank6LtBesRhS5nDuDtmKkcMQUt', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Act Like a Leader Think Like a Leader</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="BBC Science Focus" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1UNL_mtVhlxBkn-v5CgvL0r8IjvmrlkAg" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UNL_mtVhlxBkn-v5CgvL0r8IjvmrlkAg', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">BBC Science Focus New Year 2021</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Entrepreneur" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Eue3X_gLC9sQRXylQSb1RJy69nqrjFBm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Eue3X_gLC9sQRXylQSb1RJy69nqrjFBm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Beverly E Jones Think Like an Entrepreneur</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Book of Myths" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=12Kio69K8i_t0PscdrI3aa06gA7bkLWZV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('12Kio69K8i_t0PscdrI3aa06gA7bkLWZV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Book of Myths Acharya Prashant 75691</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Breaking Free" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1H0xW993Xaqsaf0kZRDA1tP-uIsriCDim" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1H0xW993Xaqsaf0kZRDA1tP-uIsriCDim', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Breaking Free Day by Day Beth Moore</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Building With Earth" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1cBcnmu9KI-WBA8RHmNlFqYxOh8bs8FhK" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cBcnmu9KI-WBA8RHmNlFqYxOh8bs8FhK', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Building With Earth</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Calm" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1YkpRT-tP1g0amBup-5zNL91LXVGTFfwi" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YkpRT-tP1g0amBup-5zNL91LXVGTFfwi', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Calm the F ck Down How to Control</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Comedy Writing" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1KcrvneEvt6lUrR83lo4uQPy2n3RAkzQo" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1KcrvneEvt6lUrR83lo4uQPy2n3RAkzQo', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Comedy Writing Secrets Get Paid For It</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Senses" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1YL3YQliCu0hsQgnusg9F1SiEOefadwy7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YL3YQliCu0hsQgnusg9F1SiEOefadwy7', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Coming to Our Senses by Jon Kabat Zinn</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Communicate" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1loez59UMlSZ4mxtxo4MkNCkKGHad34ud" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1loez59UMlSZ4mxtxo4MkNCkKGHad34ud', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Communicate to Win (2006)</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Destiny" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1w20DhJWiPRCY7z5SumK5aX6JRflYfUes" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1w20DhJWiPRCY7z5SumK5aX6JRflYfUes', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Destiny Disrupted Islamic Eyes</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Healing" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1_JfVTLdGD0W2PE6mvmWURZhQtjiP6Psq" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_JfVTLdGD0W2PE6mvmWURZhQtjiP6Psq', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Emotional Healing Dummies</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Execution" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1yzM1QiINvjhRt2Z75ONVZ8ygDX5NbZpX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yzM1QiINvjhRt2Z75ONVZ8ygDX5NbZpX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Execution Getting Things Done</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Get Anyone" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1REpEFtCcHt6ZzL8x9qgyhwiILVUjgWi7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1REpEFtCcHt6ZzL8x9qgyhwiILVUjgWi7', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Get Anyone to Do Anything Never Feel Powerless</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Negotiation" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1cpbB77MwgGU2jbszgDwX22MVcU3qYWju" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cpbB77MwgGU2jbszgDwX22MVcU3qYWju', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Get It! Street Smart Negotiation at Work</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Get Out" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1THE2bhHsvmcgrS4mGXj7DKwKf1ZTeyr9" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1THE2bhHsvmcgrS4mGXj7DKwKf1ZTeyr9', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Get Out of Your Own Way Self Defeating</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Get Smart" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1q3e-JeQt9EiL8AXiZztMd6NMvEn-pVOR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1q3e-JeQt9EiL8AXiZztMd6NMvEn-pVOR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Get Smart! Most Successful People</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Getting More" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1BV2wJHplFRiY_GeH1m0HckV66mWfNdG3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1BV2wJHplFRiY_GeH1m0HckV66mWfNdG3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Getting (More of) What You Want</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="GTD" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1iT00mPF79NFmL5F1d6BjbrgpBrYsg2jL" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1iT00mPF79NFmL5F1d6BjbrgpBrYsg2jL', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Getting Things Done Art of Productivity</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Girl" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1bconMheFOmkQeUFaREDMT6CrdxVfBy7q" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1bconMheFOmkQeUFaREDMT6CrdxVfBy7q', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Girl Wash Your Face Believe Lies</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Success" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1pBzNA9FbFGTEl99TgjtOYxJm0Chpq3gC" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pBzNA9FbFGTEl99TgjtOYxJm0Chpq3gC', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">How Successful People Think</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Change Mind" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1f5qoWULDEr-ObFdPA5cby07Br7ewUvPM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1f5qoWULDEr-ObFdPA5cby07Br7ewUvPM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">How to Change Your Mind Psychedelics</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Memory" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1j-EOKwA6RFKIaa3DKCDxY5bsm1K8W-ua" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1j-EOKwA6RFKIaa3DKCDxY5bsm1K8W-ua', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">How To Improve Memory Mind Power</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Persuade" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1gcOJRXBAbzswooFNzwu5GAyfY12ZZO2b" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gcOJRXBAbzswooFNzwu5GAyfY12ZZO2b', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">How to persuade people who don't want</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Ask" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1k0Bb_jD7YkkR6NJez2gpggT6Z9YFdt6v" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1k0Bb_jD7YkkR6NJez2gpggT6Z9YFdt6v', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">howtogetwhatyouwantwithouthavingtoask</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Discover" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1jnzPy4DfnawsF9gJo6cyMD0c6ROC8nAf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1jnzPy4DfnawsF9gJo6cyMD0c6ROC8nAf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">I Could Do Anything If I Only Knew</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Rich Dreams" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1e2IAV3NTST9tlCzUe8g8NvuEVROX2X-r" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1e2IAV3NTST9tlCzUe8g8NvuEVROX2X-r', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">I'm Rich Beyond My Wildest Dreams</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Impulse" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1a44pRtK9Mo1f2EznhT3XqXfZSvpKPf9W" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1a44pRtK9Mo1f2EznhT3XqXfZSvpKPf9W', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Impulse Why We Do What We Do</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Fasting" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1xXDfVGtIu8666K6AM4AGFY9HFsBHySZg" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xXDfVGtIu8666K6AM4AGFY9HFsBHySZg', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Intermittent Fasting For Dummies</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Finish" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1kbyXMtKVujXpgcBZgfOqC8nKH4QPuLYP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kbyXMtKVujXpgcBZgfOqC8nKH4QPuLYP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">It's Not Where You Start Finish!</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Jeffrey Archer" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1-TiBV-XKutJZdkeMZXb0Ou5GiRmlRTdZ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1-TiBV-XKutJZdkeMZXb0Ou5GiRmlRTdZ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Jeffrey Archer Kane and Abel</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Mercy" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Cv6_-ICw6zCTCYfVaSC27mPLOv0MPV2u" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Cv6_-ICw6zCTCYfVaSC27mPLOv0MPV2u', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Just Mercy A story of Justice</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Coaching" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1NippaFmayPBBREZS3z3a7Cft1wC8XZhP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1NippaFmayPBBREZS3z3a7Cft1wC8XZhP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Kim George Coaching Into Greatness</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Optimism" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1g9m66v9zmtlcloNfr1w7tPk6LZoPxF_t" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1g9m66v9zmtlcloNfr1w7tPk6LZoPxF_t', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Learned optimism change mind</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Lawyer" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1y-aFNmBunJM7l3tr61cnA1ue4Q6jjss2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1y-aFNmBunJM7l3tr61cnA1ue4Q6jjss2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Learning to “Think Like a Lawyer”</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Speak" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1uQZnBwxgTAdrjI4s7D6W6N2InFEVQTKd" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uQZnBwxgTAdrjI4s7D6W6N2InFEVQTKd', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Let Your Life Speak Vocation</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Spending" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1W830SyOgyLcva4Bv7oW_4AhmniqICPTs" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1W830SyOgyLcva4Bv7oW_4AhmniqICPTs', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Living Rich by Spending Smart</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Maxwell" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1R7QtQJ_-yrqbaq7-ksVjLdo0jtxAumjj" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1R7QtQJ_-yrqbaq7-ksVjLdo0jtxAumjj', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Maxwell 2 in 1 Winning With People</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Money" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Pb_V-TGjzt36_cFOntZGeCSbj2Rkc9c6" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Pb_V-TGjzt36_cFOntZGeCSbj2Rkc9c6', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Money Won’t Make You Rich Success</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Motivate" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1JHzyDLgG82XjLpG6wTrLn3qAf-jRumlV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JHzyDLgG82XjLpG6wTrLn3qAf-jRumlV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Motivate to Win How to Motivate</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Discipline" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1kKMykSsAtmqyGMltul9Sbo2vDP_aJquT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kKMykSsAtmqyGMltul9Sbo2vDP_aJquT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">No Drama Discipline Whole Brain</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Tactics" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=16GphTqmHWfrG2BBiTafJUg95IhGrb43Y" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('16GphTqmHWfrG2BBiTafJUg95IhGrb43Y', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Persuasion Tactics Psychology</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Poor" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1gVcjeeFUxJb-xnILl73_FxGXt97QKSs-" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gVcjeeFUxJb-xnILl73_FxGXt97QKSs-', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Portfolios of the Poor Poor 2009)</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Power" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1hhbFlgE3MpcfU8j5glbLGgJfK-_jjfc3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hhbFlgE3MpcfU8j5glbLGgJfK-_jjfc3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">power up your mind learn faster</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Procrastination" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1VzLrPR87cKZI6ugv4wXA2v56qJIfbmWI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1VzLrPR87cKZI6ugv4wXA2v56qJIfbmWI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Procrastination Why You Do It</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Red notice" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1xEul4hmV0DRAjT9QuIyThB7TTI3XcNUT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xEul4hmV0DRAjT9QuIyThB7TTI3XcNUT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Red notice a true story high finance</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="StudyGuide" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=14xiK4xzgBTtIRlCBxZ5xqtXwTzw2e_zh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('14xiK4xzgBTtIRlCBxZ5xqtXwTzw2e_zh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">RH StudyGuide V2</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Selling 2009" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=18Hc2IR1bk3kbPOPPxHM9xTp1xqA25nu5" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18Hc2IR1bk3kbPOPPxHM9xTp1xqA25nu5', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Selling to Win (2009)</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Selling 2013" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=15vpRWFOFt07R5_lGPxQLi0sTi1aaDlgA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15vpRWFOFt07R5_lGPxQLi0sTi1aaDlgA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Selling to Win (2013)</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Voice" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1hCbjPLpRoR2dAjMfg1KW5vuKlTPj28IS" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hCbjPLpRoR2dAjMfg1KW5vuKlTPj28IS', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Set Your Voice Free Singing Voice</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Start Where" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1mlhs8DlrBfOB_dRAtW6zIbKD8Qxy2tTn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mlhs8DlrBfOB_dRAtW6zIbKD8Qxy2tTn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Start Where You Are Guide Living</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Strategic" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=129H8_lPBJWn66uM93VeaJ8DdzOp6Hrp1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('129H8_lPBJWn66uM93VeaJ8DdzOp6Hrp1', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Strategic Thinking for Leaders Systems</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Succeed" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Cvqvg1sEbttsG2hE5VC43JFnKG-FQg3c" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Cvqvg1sEbttsG2hE5VC43JFnKG-FQg3c', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Succeed for Yourself Unlock Potential</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Cases" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1ThH5kHOoPthANoJV7en9iCPcz3nkFpRk" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ThH5kHOoPthANoJV7en9iCPcz3nkFpRk', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Succeeding with Use Cases Smart</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Skills" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1CtFtfIz2yAWdhnvp_iiWsjv30DtUmyAw" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CtFtfIz2yAWdhnvp_iiWsjv30DtUmyAw', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Successful Selling Skills Success</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Spy" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1mmBDMEx13iVcOR9EbK5fSos55ueyo5Xr" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mmBDMEx13iVcOR9EbK5fSos55ueyo5Xr', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Survive Like a Spy CIA Operatives</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Invisibility" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IUq50QKoUkFqoHQnQ_N1IqChvbsmBGSH" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IUq50QKoUkFqoHQnQ_N1IqChvbsmBGSH', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The art of invisibility safe big data</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Manipulation" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1ZOMyMgaVhcBi17avF_tHW5Xmdx0SOGvb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ZOMyMgaVhcBi17avF_tHW5Xmdx0SOGvb', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The art of manipulation get what you want</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Work" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1DMmapiWWICYs7Y8jank0hZdwcGcgMGtR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1DMmapiWWICYs7Y8jank0hZdwcGcgMGtR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Art of Work Meant to Do</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Buddha Teaching" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1TGsM7N4t5kZqL6GolczoUEKaUrIJdN7_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1TGsM7N4t5kZqL6GolczoUEKaUrIJdN7_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Buddha Is Still Teaching Wisdom</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Writer Handbook" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1cnokNPSFm-ZeSrMVEZ6m9UIUTUudeivF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cnokNPSFm-ZeSrMVEZ6m9UIUTUudeivF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Business Writer's Handbook 2008</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Habit" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1zctzeDyiH5TZ5ZbvWqdM_mI1qVVAFHN8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1zctzeDyiH5TZ5ZbvWqdM_mI1qVVAFHN8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Coaching Habit Say Less Lead Forever</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Everyday Things" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=15khIA5_DVS44L52Sforygep6yIgjIrx8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15khIA5_DVS44L52Sforygep6yIgjIrx8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Ecology of Everyday Things Mark Everard</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Brain Life" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1dd7jcHjHk_dTsOY0HgikZ-WLmnSOZmxo" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1dd7jcHjHk_dTsOY0HgikZ-WLmnSOZmxo', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Emotional Life of Your Brain Patterns</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Negotiator" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1M-DeAAk0oquZehWFZVGyatuYwBdKzXAr" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1M-DeAAk0oquZehWFZVGyatuYwBdKzXAr', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The intelligent negotiator get what you want</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Nature Fix" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1OobWfGOdSMoASt0uYVvatcXqKRcOsgNm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1OobWfGOdSMoASt0uYVvatcXqKRcOsgNm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Nature Fix Happier Healthier</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Psychology" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1ay7GF6nHNXZ3LvJwOPuVhhtnQkvcAtmK" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ay7GF6nHNXZ3LvJwOPuVhhtnQkvcAtmK', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Psychology of Persuasion Others Thinking</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Reason" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1vLYGGPC0hGICqgH7cmGFpZIK7MUA9SGu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1vLYGGPC0hGICqgH7cmGFpZIK7MUA9SGu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Reason Driven Life Why Earth For</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Sick" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1yNdPk0r4ePd7_q7zasSjYXMVEwXdht4n" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yNdPk0r4ePd7_q7zasSjYXMVEwXdht4n', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Secrets of People Never Get Sick</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Variations" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1wwzPW7UBtLdAtERss2oivqrqhFnmaMNO" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wwzPW7UBtLdAtERss2oivqrqhFnmaMNO', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Space of Variations. 1 O Books</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Stress Proof" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1h5ga54ODxbbmthdvqjn7MjfNPUw77MvY" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1h5ga54ODxbbmthdvqjn7MjfNPUw77MvY', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">The Stress Proof Brain Mindfulness</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Time" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1nPWE0yLLONiTCxUAPu1ESWGSb_jOoMDM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1nPWE0yLLONiTCxUAPu1ESWGSb_jOoMDM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Time Management Proven Techniques</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Tiny Buddha" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=18cgNxD6YkWMpj9zPCnplQMPQouD9eaT4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18cgNxD6YkWMpj9zPCnplQMPQouD9eaT4', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Tiny Buddha wisdom for hard questions</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Tolstoy" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1ilpvW_mkOzFxtki5YFy8OfyHg9ge48H1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ilpvW_mkOzFxtki5YFy8OfyHg9ge48H1', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Tolstoy Leo Kingdom God is within you</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Top" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1AQMeXKr3w3KK7x4Enu6bm7jmihD1PYno" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1AQMeXKr3w3KK7x4Enu6bm7jmihD1PYno', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">top</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Success" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1pq3pULNoDxG7yIwzqTz6Vg9SUb8fhit3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pq3pULNoDxG7yIwzqTz6Vg9SUb8fhit3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">What got you here won t get you there</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="What" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1ZFm01vf3KawHufS3sKSB8evUdy3Hu8dT" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ZFm01vf3KawHufS3sKSB8evUdy3Hu8dT', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">What Is Your WHAT Discover One Thing</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Payback" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1qZiixb3FbqvjAQPIrbe2Iwqfqt7fJcbn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qZiixb3FbqvjAQPIrbe2Iwqfqt7fJcbn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Whitey s Payback and Other True Stories</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Who" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1lDen4_hx3DruEjVCYEWhOsXgnuc2xP2R" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1lDen4_hx3DruEjVCYEWhOsXgnuc2xP2R', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Who do you think you are ( PDFDrive )</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Winning" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1y0Hv3ShOhRY--p0jZg7zPMShYg5iaMfQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1y0Hv3ShOhRY--p0jZg7zPMShYg5iaMfQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Winning new business selling skills</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Words" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1wXC17_VaIBN9mAkyVExbIiNGmE_OMwI2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wXC17_VaIBN9mAkyVExbIiNGmE_OMwI2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Words That Work Revised Edition</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Write Better" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1rMM-lMRPxPeFDGO0xH-n-S6prGr-iB3F" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1rMM-lMRPxPeFDGO0xH-n-S6prGr-iB3F', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Write Better Faster Writing Speed</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Write Yourself" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=18eXLqMvf57vqgKS-N-1XqqCpL-hKN9PQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18eXLqMvf57vqgKS-N-1XqqCpL-hKN9PQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Write Yourself Creative Writing</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Yes" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1YwvQkRyTAvapZKbRmwvmR7JQFL_cKz-v" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YwvQkRyTAvapZKbRmwvmR7JQFL_cKz-v', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">Yes! 50 Scientifically Proven Ways</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Not Your Brain" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IUhR0FtJVCc_LcBT2HvLNk7g5_Bteh1z" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IUhR0FtJVCc_LcBT2HvLNk7g5_Bteh1z', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">You Are Not Your Brain Changing Bad Habits</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Remember" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1_AccYVmk5-czKLSU-puAM1Nrjm5vfOu8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_AccYVmk5-czKLSU-puAM1Nrjm5vfOu8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">You Can Learn to Remember Your Thinking</div>
+            </div>
+
+            <div class="book-card">
+                <div class="image-wrapper">
+                    <img alt="Matter God" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1ra4p1BtkfiaN46s5CCy_jbWdAarlx039" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                    <div class="read-overlay">
+                        <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ra4p1BtkfiaN46s5CCy_jbWdAarlx039', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                    </div>
+                </div>
+                <div class="book-title">You matter to God true value and identity</div>
+            </div>
+
         </div>
     </div>
-    <div class="book-title">You matter to God discovering your true value and identity in God s eyes ( PDFDrive )</div>
-</div>
-
-</div>
-</div>
 </section>
 
-<footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-<a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
-</footer>
-
-<div id="login-modal" class="lib-popup-overlay">
-    <div class="lib-popup-box">
-        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+<div id="loginAlertModal" class="login-popup-modal">
+    <div class="popup-box">
+        <div class="popup-header">ത്രിപുടി ലൈബ്രറി പറയുന്നു</div>
+        <div class="popup-body">ഈ പുസ്തകം വായിക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
+        <div class="popup-footer">
+            <a href="#" id="loginRedirectBtn" class="btn-login">ലോഗിൻ ചെയ്യുക</a>
+            <button onclick="closeLoginPopup()" class="btn-cancel">ഇപ്പോൾ വേണ്ട</button>
+        </div>
     </div>
 </div>
 
 <div id="pdfModal" class="pdf-modal-viewer">
     <div class="pdf-modal-header">
-        <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> വായന മോഡ്</span>
-        <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
-            <i class="fas fa-times"></i> ക്ലോസ്
-        </button>
+        <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മോഡ്</span>
+        <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i> ക്ലോസ്</button>
     </div>
-    <div style="flex:1; width:100%; height:100%; position:relative;">
+    <div class="iframe-container">
+        <div class="security-mask"></div>
         <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
-        <div class="pdf-blocker" title="Pop-out disabled"></div>
     </div>
 </div>
 
+<footer>
+    <div class="container footer-content">
+        <div class="footer-row">
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="font-size: 0.85em; opacity: 0.8;">
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+        </div>
+        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+    </div>
+</footer>
+
 <script type="module">
-    // --- FIREBASE CONFIG ---
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    const firebaseConfig = { 
-        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-        authDomain: "thripudilibrary.firebaseapp.com", 
-        projectId: "thripudilibrary", 
-        storageBucket: "thripudilibrary.firebasestorage.app", 
-        messagingSenderId: "887018912750", 
-        appId: "1:887018912750:web:cc05190a72b13db816acff", 
-        measurementId: "G-B59RDW4KG4" 
-    };
+    
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    let currentUser = null; 
 
-    // --- LOGIN STATE MANAGEMENT & UI UPDATE ---
     onAuthStateChanged(auth, (user) => {
-        const nameDisplay = document.getElementById('display-name');
-        const avatarDiv = document.getElementById('userAvatar');
-        const logoutBtn = document.getElementById('logout-link');
-
         if (user) {
-            currentUser = user;
-            localStorage.setItem('libraryUser', 'true');
-            if(logoutBtn) logoutBtn.style.display = 'block';
-            
-            const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
-            if(nameDisplay) nameDisplay.textContent = displayName;
-            
+            window.currentUser = user;
+            document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
-            if(userPhoto && avatarDiv) avatarDiv.innerHTML = `<img src="${userPhoto}" alt="${displayName}">`;
+            if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
             
-            // REDIRECT LOGIC: ലോഗിൻ ചെയ്ത ശേഷം Modal തുറക്കുന്നു
-            const pendingBookId = sessionStorage.getItem('pendingBook');
-            if (pendingBookId) {
-                sessionStorage.removeItem('pendingBook');
-                // openPdfModal ഫങ്ഷൻ ഇവിടെ വിളിക്കുന്നു
-                if (window.openPdfModal) {
-                    window.openPdfModal(pendingBookId); 
-                }
+            const urlParams = new URLSearchParams(window.location.search);
+            const openBookId = urlParams.get('openBook');
+            if (openBookId) {
+                document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${openBookId}/preview?rm=minimal`;
+                document.getElementById('pdfModal').style.display = "flex";
+                document.body.style.overflow = "hidden";
             }
         } else {
-            currentUser = null;
-            localStorage.removeItem('libraryUser');
-            if(logoutBtn) logoutBtn.style.display = 'none';
+            window.currentUser = null;
+            document.getElementById('display-name').textContent = "...";
+            document.getElementById('userAvatar').innerHTML = `<i class="fas fa-user"></i>`;
         }
     });
 
-    // --- LOGOUT ---
-    const logoutLink = document.getElementById('logout-link');
-    if(logoutLink) {
-        logoutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            signOut(auth).then(() => { 
-                localStorage.removeItem('libraryUser'); 
-                window.location.href = "logout-success.html"; 
-            });
-        });
-    }
-
-    // --- CHECK ACCESS & MODAL OPENING ---
-    window.checkAccess = function(bookId, element) {
-        if (!currentUser) {
-            sessionStorage.setItem('pendingBook', bookId); // ID മാത്രം ഓർത്തു വെക്കുന്നു
-            document.getElementById('login-modal').style.display = 'flex';
-        } else {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ: 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
-            saveToHistory(element, bookId);
-            
-            // 2. Modal തുറക്കുന്നു
-            window.openPdfModal(bookId); 
-        }
-    };
-    
-    // --- Global Functions (Defined below) ---
+    document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
 </script>
 
 <script>
-    // Global Helper functions (outside module scope)
-
-    // ⭐⭐ MODAL OPENING LOGIC ⭐⭐
-    window.openPdfModal = function(bookId) {
-        const modal = document.getElementById('pdfModal');
-        const frame = document.getElementById('pdfFrame');
-        
-        // Google Drive Link Conversion (Preview Mode - iFrame-ൽ വർക്ക് ചെയ്യുന്നത്)
-        const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
-
-        frame.src = embedUrl;
-        modal.style.display = "flex"; 
-        document.body.style.overflow = "hidden";
-    }
-
-    window.closePdfModal = function() {
-        const modal = document.getElementById('pdfModal');
-        const frame = document.getElementById('pdfFrame');
-        
-        modal.style.display = "none";
-        frame.src = ""; 
-        document.body.style.overflow = "auto";
-    }
-
-    // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
     function saveToHistory(element, bookId) {
-        // ഇവിടെ userId കിട്ടാൻ താൽക്കാലികമായി default_user ഉപയോഗിക്കുന്നു
-        // Firebase onAuthStateChanged ഫങ്ഷൻ പൂർത്തിയാകുമ്പോൾ ഇത് കൃത്യമായിരിക്കും
-        try {
-            const userId = localStorage.getItem('libraryUser') ? 'default_user' : null;
-            if (!userId) return;
+        if (!window.currentUser) return;
+        const card = element.closest('.book-card');
+        const title = card.querySelector('.book-title').innerText;
+        const image = card.querySelector('.book-cover').src;
+        const key = 'history_' + window.currentUser.uid;
+        let history = JSON.parse(localStorage.getItem(key)) || [];
+        history = history.filter(item => item.title !== title);
+        history.unshift({ title, image, link: window.location.pathname + '?openBook=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
+        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+    }
 
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : 'https://via.placeholder.com/150';
-            const date = new Date().toLocaleDateString('ml-IN');
-            const linkUrl = 'read.html?bookId=' + bookId;
-            
-            const key = 'history_' + userId;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            history = history.filter(item => item.title !== title);
-            history.unshift({ title: title, image: image, link: linkUrl, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-        } catch (e) {
-            console.error("History Save Error:", e);
+    window.checkAccess = function(bookId, element) {
+        if (!window.currentUser) {
+            const currentPath = window.location.pathname.split('/').pop();
+            document.getElementById('loginRedirectBtn').href = `login.html?redirect=${currentPath}&bookId=${bookId}`;
+            document.getElementById('loginAlertModal').style.display = 'flex';
+        } else {
+            saveToHistory(element, bookId);
+            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview?rm=minimal`;
+            document.getElementById('pdfModal').style.display = "flex";
+            document.body.style.overflow = "hidden";
         }
-    }
-    
-    function searchBooks() { 
-        var input = document.getElementById('searchBar'); 
-        if(!input) return; 
-        var filter = input.value.toUpperCase(); 
-        var cards = document.getElementsByClassName('book-card'); 
-        for (var i = 0; i < cards.length; i++) { 
-            var title = cards[i].getElementsByClassName("book-title")[0]; 
-            if (title) { 
-                var txtValue = title.textContent || title.innerText; 
-                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-            } 
-        } 
-    }
-    
-    // ലോഗിൻ മോഡൽ അടക്കാനുള്ള ക്ലോസ് ബട്ടൺ
-    document.addEventListener('DOMContentLoaded', () => {
-        const closeBtn = document.querySelector('.lib-btn-close');
-        if(closeBtn) closeBtn.onclick = function() { document.getElementById('login-modal').style.display='none'; };
-    });
-</script>
+    };
 
+    function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
+    function closePdfModal() {
+        document.getElementById('pdfModal').style.display = "none";
+        document.getElementById('pdfFrame').src = "";
+        document.body.style.overflow = "auto";
+    };
+
+    document.getElementById('profile-section').onclick = function(e) {
+        e.stopPropagation();
+        let d = this.querySelector('.profile-dropdown');
+        d.style.display = d.style.display === "block" ? "none" : "block";
+    };
+    window.onclick = () => document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
+</script>
 </body>
 </html>

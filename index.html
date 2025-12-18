@@ -1,163 +1,146 @@
 <!DOCTYPE html>
-
 <html lang="ml">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>സ്വാഗതം | THRIPUDI LIBRARY</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&amp;display=swap" rel="stylesheet"/>
-<style>
-        /* --- 1. കളർ പാലറ്റ് --- */
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>സ്വാഗതം | THRIPUDI LIBRARY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
+    <style>
         :root {
-            --primary-teal: #00897B; /* ടീൽ ഗ്രീൻ */
-            --secondary-dark: #004D40; /* ഡാർക്ക് ഗ്രീൻ */
-            --text-light: #FFFFFF;
-            --overlay-gradient: linear-gradient(135deg, rgba(0, 77, 64, 0.8) 0%, rgba(0, 137, 123, 0.8) 100%);
+            --primary-teal: #00897B;
+            --secondary-dark: #004D40;
+            --text-white: #FFFFFF;
+            --overlay: linear-gradient(135deg, rgba(0, 77, 64, 0.85) 0%, rgba(0, 137, 123, 0.85) 100%);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            color: var(--text-light);
-            
-            /* --- ബാക്ക്ഗ്രൗണ്ട് ഇമേജ് & ഓവർലേ --- */
-            background-image: var(--overlay-gradient), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            color: var(--text-white);
+            overflow: hidden;
+            /* പശ്ചാത്തല ചിത്രം */
+            background: var(--overlay), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
         }
 
-        .container {
-            /* ഗ്ലാസ് എഫക്റ്റ് */
+        /* കണ്ടന്റ് ഏരിയ കുറച്ചുകൂടി ഒതുക്കമുള്ളതാക്കി (85% width) */
+        .glass-container {
             background: rgba(255, 255, 255, 0.1);
-            padding: 60px;
-            border-radius: 20px;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            max-width: 700px;
-            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            width: 85%;
+            max-width: 650px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
+            font-size: 2.8em;
+            margin-bottom: 15px;
             font-weight: 700;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         p {
-            font-size: 1.3em;
-            margin-bottom: 40px;
-            color: #E0F2F1;
+            font-size: 1.1em;
+            margin-bottom: 35px;
             line-height: 1.6;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            color: #E0F2F1;
+            opacity: 0.9;
         }
 
-        /* ബട്ടണുകൾ ഒരരിപ്പിച്ചു വരാൻ */
+        /* ബട്ടൺ ഗ്രൂപ്പ് */
         .btn-group {
             display: flex;
-            gap: 20px; /* ബട്ടണുകൾക്കിടയിലുള്ള അകലം */
+            gap: 15px;
             justify-content: center;
-            flex-wrap: wrap; /* മൊബൈലിൽ താഴെ താഴെ വരാൻ */
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 15px 30px; /* പാഡിംഗ് അല്പം കുറച്ചു, 3 ബട്ടൺ ഉള്ളതുകൊണ്ട് */
+            padding: 14px 28px;
             text-decoration: none;
-            font-size: 1.1em;
+            font-size: 0.95em;
             border-radius: 50px;
-            transition: all 0.3s ease-in-out;
-            display: inline-block;
             font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             cursor: pointer;
         }
 
-        /* 1. രജിസ്റ്റർ ബട്ടൺ (Filled Style) */
+        /* പ്രധാന ബട്ടൺ */
         .btn-primary {
             background-color: var(--primary-teal);
-            color: var(--text-light);
-            border: 2px solid transparent;
-            box-shadow: 0 4px 15px rgba(0, 137, 123, 0.4);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 137, 123, 0.4);
         }
 
         .btn-primary:hover {
-            background-color: var(--secondary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 77, 64, 0.5);
+            background-color: #00796B;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 137, 123, 0.5);
         }
 
-        /* 2. ലോഗിൻ & വിസിറ്റ് ബട്ടൺ (Outline Style) */
+        /* ഔട്ട്ലൈൻ ബട്ടൺ */
         .btn-outline {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
         }
 
         .btn-outline:hover {
-            background-color: #ffffff;
+            background-color: white;
             color: var(--secondary-dark);
-            border-color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2.5em; }
-            p { font-size: 1.1em; }
-            .container { padding: 40px 20px; }
-            .btn { width: 100%; box-sizing: border-box; } /* മൊബൈലിൽ ബട്ടൺ വലുതായി വരാൻ */
+            h1 { font-size: 2em; }
+            .glass-container { width: 90%; padding: 40px 20px; }
+            .btn { width: 100%; justify-content: center; }
         }
     </style>
-
-
-<style id="footer-fix-style">
-    /* --- FORCE STICKY FOOTER --- */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    body {
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: 100vh !important;
-    }
-
-    /* പ്രധാന ഉള്ളടക്കം വികസിപ്പിക്കുന്നു */
-    section, .collection-section, .about-hero, .container, .content-box {
-        flex: 1 0 auto;
-    }
-
-    /* ഫൂട്ടർ താഴേക്ക് തള്ളുന്നു */
-    footer {
-        flex-shrink: 0 !important;
-        width: 100% !important;
-        margin-top: auto !important; 
-    }
-    /* --------------------------- */
-</style>
 </head>
 <body>
-<div class="container">
-<h1>നമസ്കാരം! 🙏</h1>
-<p>തൃപുടി ലൈബ്രറിയിലേക്ക് സ്വാഗതം.<br/>
-        അറിവിൻ്റെ വിശാലമായ ലോകത്തേക്ക് പ്രവേശിക്കാൻ തയ്യാറാണോ?</p>
-<div class="btn-group">
-<a class="btn btn-outline" href="dashboard.html">ലൈബ്രറി കാണുക 📚</a>
-<a class="btn btn-primary" href="register.html">പുതിയ അംഗമാകുക 🚀</a>
-<a class="btn btn-outline" href="login.html">ലോഗിൻ ചെയ്യുക 🔐</a>
-</div>
-</div>
+
+    <div class="glass-container">
+        <h1>നമസ്കാരം! 🙏</h1>
+        <p>തൃപുടി ലൈബ്രറിയിലേക്ക് സ്വാഗതം.<br>
+           അറിവിൻ്റെ വിശാലമായ ലോകത്തേക്ക് പ്രവേശിക്കാൻ തയ്യാറാണോ?</p>
+        
+        <div class="btn-group">
+            <a href="dashboard.html" class="btn btn-outline">
+                <i class="fas fa-book-open"></i> ലൈബ്രറി കാണുക
+            </a>
+            <a href="login.html?mode=register" class="btn btn-primary">
+                <i class="fas fa-rocket"></i> അംഗമാകുക
+            </a>
+            <a href="login.html" class="btn btn-outline">
+                <i class="fas fa-lock"></i> ലോഗിൻ
+            </a>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -1,103 +1,122 @@
-
 <!DOCTYPE html>
 <html lang="ml">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>📚 English Fictions | THRIPUDI LIBRARY</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
-<style>
-    :root { 
-        --primary-orange: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
-        --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
-    }
-    /* --- STYLES (Header, Footer, Cards, Modal - മുമ്പ് നൽകിയവ) --- */
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-    .container { width: 90%; margin: 0 auto; max-width: 1200px; }
-    a { text-decoration: none; }
-    header { background-color: var(--secondary-dark); padding: 15px 0; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
-    .navbar { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.8em; font-weight: 700; color: var(--light-text); }
-    .nav-links { display: flex; align-items: center; gap: 15px; }
-    .nav-item { color: var(--light-text); font-weight: 600; font-size: 0.85em; text-transform: uppercase; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; transition: 0.3s; }
-    .nav-item:hover { background-color: #ffffff; color: var(--secondary-dark); transform: translateY(-2px); }
-    .user-profile { display: flex; align-items: center; margin-left: 25px; padding-left: 25px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; }
-    .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; }
-    .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    .user-info { color: #fff; font-size: 0.85em; text-align: left; }
-    .user-name { font-weight: 600; display: block; }
-    .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 180px; margin-top: 10px; z-index: 1001; }
-    .user-profile:hover .profile-dropdown { display: block; }
-    .profile-dropdown a { display: block; padding: 10px 15px; color: var(--text-color); font-size: 0.9em; border-bottom: 1px solid #eee; }
-    .profile-dropdown a:hover { background-color: var(--background-light); color: var(--primary-orange); }
-    .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
-    .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 20px; border-bottom: 3px solid var(--primary-orange); display: inline-block; padding-bottom: 5px; }
-    .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin: 0 auto 40px; }
-    #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
-    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
-    .library-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px; margin-top: 20px; }
-    .book-card { background: transparent; text-align: center; transition: transform 0.3s; }
-    .image-wrapper { position: relative; width: 100%; height: 320px; border-radius: 10px; overflow: hidden; border: 6px solid var(--outline-color); box-shadow: 0 8px 20px rgba(0,0,0,0.1); background-color: white; transition: 0.3s; }
-    .book-cover { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.75); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
-    .book-card:hover .image-wrapper { transform: translateY(-5px); border-color: var(--primary-orange); box-shadow: 0 12px 25px rgba(0, 77, 64, 0.25); }
-    .book-card:hover .read-overlay { opacity: 1; }
-    .overlay-btn { background-color: var(--primary-orange); color: white; padding: 12px 25px; border-radius: 30px; font-weight: 600; font-size: 0.9em; transform: translateY(20px); transition: 0.3s; border: 2px solid var(--primary-orange); cursor: pointer; }
-    .book-card:hover .overlay-btn { transform: translateY(0); }
-    .book-title { margin-top: 15px; font-weight: 700; color: var(--secondary-dark); font-size: 1rem; }
-    footer { background-color: var(--secondary-dark); color: var(--light-text); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top: auto; flex-shrink: 0; }
-    .footer-links a { color: var(--light-text); margin: 0 10px; opacity: 0.8; transition: 0.3s; }
-    .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
-    .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-    /* Modal PDF Viewer Styles */
-    .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; flex-direction:column; }
-    .pdf-modal-header { background:#004D40; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
-    .pdf-modal-frame { flex:1; width:100%; height:100%; border:none; display:block; }
-    .pdf-blocker { position:absolute; top:0; right:0; width:60px; height:60px; background:transparent; z-index:20; cursor:default; }
-</style>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ലൈബ്രറി പേജ് | THRIPUDI LIBRARY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
+    <style>
+        :root { 
+            --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
+            --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
+        .logo-img { height: 65px; width: auto; } 
+        .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
+
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-item { 
+            color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; 
+            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px;
+            background-color: var(--secondary-dark) !important;
+        }
+        .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
+
+        .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+
+        /* ഹെഡർ റെസ്പോൺസീവ് തിരുത്തലുകൾ */
+        @media (max-width: 768px) {
+            header { height: auto; padding: 12px 0; }
+            .navbar { flex-direction: column; gap: 12px; }
+            .logo-container { gap: 8px; width: 100%; justify-content: center; }
+            .logo-img { height: 45px; } /* ലോഗോ അല്പം ചെറുതാക്കി */
+            .logo-text { font-size: 1.25em; white-space: nowrap; } /* ടെക്സ്റ്റ് ഒറ്റ വരിയിൽ ഒതുക്കി */
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
+            .nav-item { padding: 6px 10px; font-size: 0.72em; border: 1px solid rgba(255, 255, 255, 0.2); }
+            .welcome-msg { display: none; }
+            .user-profile { margin-left: 5px; padding-left: 5px; border-left: none; }
+        }
+
+        .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+        .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 1024px) { .library-container { grid-template-columns: repeat(5, 1fr) !important; } }
+
+        .book-card { background: transparent; text-align: center; }
+        .image-wrapper { position: relative; width: 100%; height: 280px; border-radius: 8px; overflow: hidden; border: 4px solid var(--outline-color); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .book-cover { width: 100%; height: 100%; object-fit: cover; }
+        .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.85); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .book-card:hover .read-overlay { opacity: 1; }
+        .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
+        .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
+
+        .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
+        .popup-body { padding: 25px; color: var(--text-color); font-size: 0.95em; }
+        .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
+        .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
+
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
+        .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; }
+        .pdf-modal-frame { width:100%; height:100%; border:none; }
+        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
+
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
+    </style>
 </head>
 <body>
-    
-<header>
-<div class="container navbar">
-<a class="logo" href="dashboard.html">THRIPUDI LIBRARY</a>
-<div class="nav-links">
-    <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-    <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ഗ്രന്ഥശേഖരം</a>
-    <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
-    <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
 
-    <div class="user-profile" id="profile-section">
-        <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-        <div class="user-info">
-            <span class="user-name" id="display-name">Guest</span>
-            <span class="user-role">Member</span>
-        </div>
-        <div class="profile-dropdown">
-            <a href="profile.html">Profile Settings</a>
-            <a href="history.html">Reading History</a>
-            <a href="profile-photo-upload.html">പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ്</a>
-            <a href="forgot-password.html">പാസ്‌വേർഡ് മറന്നു</a>
-            <a href="#" id="logout-link" style="color: #d32f2f; display:none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+<header id="masterHeader">
+    <div class="container navbar">
+        <a href="dashboard.html" class="logo-container">
+            <img src="https://drive.google.com/thumbnail?sz=w1000&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
+            <span class="logo-text">THRIPUDI LIBRARY</span>
+        </a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
+                <div class="profile-dropdown">
+                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
+                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                    <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </header>
-    
-<section class="collection-section">
-<div class="container">
-<h1>English Fictions</h1>
-<div class="search-container">
-<i class="fas fa-search search-icon"></i>
-<input id="searchBar" onkeyup="searchBooks()" placeholder="പുസ്തകം തിരയുക..." type="text"/>
-</div>
 
-<div class="library-container" id="bookList">
-
+<section class="collection-section" id="masterSection">
+    <div class="container">
+        <h1>തിരഞ്ഞെടുത്ത ഗ്രന്ഥങ്ങൾ</h1>
+        <div class="library-container">
+           
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="( 8freebooks.net ) The Red Pyramid" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1tnV4MqJDXszsnutlPSOVOl7XX6eJUQ4_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
@@ -2028,1128 +2047,117 @@
     <div class="book-title">Ravi SubramanianThe Bestseller She Wrote (2015 EBOOK4IN.BLOGSPOT.COM) libgen.lc</div>
 </div>
 
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Revolution 2020 ( PDFDrive.com )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YUbef2Y8RhijtiCXYEb28WxFeftRsOuN" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YUbef2Y8RhijtiCXYEb28WxFeftRsOuN', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
         </div>
     </div>
-    <div class="book-title">Revolution 2020 ( PDFDrive.com )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="rick riordan heroes of olympus book 1 the lost hero" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kWYydUvW1YSxTe1lo4MMkanaTv0rJSLC" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kWYydUvW1YSxTe1lo4MMkanaTv0rJSLC', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">rick riordan heroes of olympus book 1 the lost hero</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="rick riordan percy jackson the olympians 03 the titans curse" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17bsrmTBUDVsoPZjvtnkx3kRJ08zhTKeX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17bsrmTBUDVsoPZjvtnkx3kRJ08zhTKeX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">rick riordan percy jackson the olympians 03 the titans curse</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="rick riordan the kane chronicles book 3 the serpents shadow" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1PPkcCziiH8FlamUQYnlULpwdr6f6lxEa" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1PPkcCziiH8FlamUQYnlULpwdr6f6lxEa', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">rick riordan the kane chronicles book 3 the serpents shadow</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Riordan Rick [Percy Jackson 1] The Lightning Thief (2011) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1fIZm5Dbex11Fpj_HsLgpC1GLBJCWxqQo" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1fIZm5Dbex11Fpj_HsLgpC1GLBJCWxqQo', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Riordan Rick [Percy Jackson 1] The Lightning Thief (2011) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Riordan Rick [The 39 Clues 1] The Maze of Bones (2008 Scholastic Inc. 978 0 545 29265 8) libgen.lc PDFConverted" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_2yUNQf1KI3Va-cD7uMoBILyNIpNFTnu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_2yUNQf1KI3Va-cD7uMoBILyNIpNFTnu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Riordan Rick [The 39 Clues 1] The Maze of Bones (2008 Scholastic Inc. 978 0 545 29265 8) libgen.lc PDFConverted</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Riordan Rick Lerangis Peter Korman Gordon [39 Clues 11] The Vespers Rising (2011 Scholastic) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1M49sTFOPHaqsSHl-iYHM72sbmr3v8UY9" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1M49sTFOPHaqsSHl-iYHM72sbmr3v8UY9', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Riordan Rick Lerangis Peter Korman Gordon [39 Clues 11] The Vespers Rising (2011 Scholastic) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rishabhdas Ranka Pratap Mulick Amar Chitra Katha Mahavira (2006 Amar Chitra Katha) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ttcogy9Js2psbPR_1V9yOBiWTH72yz6p" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ttcogy9Js2psbPR_1V9yOBiWTH72yz6p', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rishabhdas Ranka Pratap Mulick Amar Chitra Katha Mahavira (2006 Amar Chitra Katha) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rita Hayworth and Shawshank Redemption a Story from Different Seasons ( PDFDrive.com )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FmIEGbwJgxW9uF4m5lLsaQXVjVibiMHi" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FmIEGbwJgxW9uF4m5lLsaQXVjVibiMHi', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rita Hayworth and Shawshank Redemption a Story from Different Seasons ( PDFDrive.com )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Roth Veronica [Divergent 3] Allegiant (2013 HarperCollins 97800620240609780062287335) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1plojjKRQeLJ8g82J3qYjRrEFz_fMtjvl" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1plojjKRQeLJ8g82J3qYjRrEFz_fMtjvl', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Roth Veronica [Divergent 3] Allegiant (2013 HarperCollins 97800620240609780062287335) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rowling J K [Harry Potter 3] Harry Potter And The Prisoner Of Azkaban (UK) (2003) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1VWrpT8uaY7DeFEu6BfliOZvAINOJ7DeV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1VWrpT8uaY7DeFEu6BfliOZvAINOJ7DeV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rowling J K [Harry Potter 3] Harry Potter And The Prisoner Of Azkaban (UK) (2003) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rowling J K [Harry Potter 5] Harry Potter And The Order Of The Phoenix (UK) (2003) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1WHzE1-Q8Qp1Y3g3qhZsvG2RCRo5zpo_D" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1WHzE1-Q8Qp1Y3g3qhZsvG2RCRo5zpo_D', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rowling J K [Harry Potter 5] Harry Potter And The Order Of The Phoenix (UK) (2003) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rowling Joanne Kathleen [Harry Potter 1] Harry Potter and the Philosopher s Stone (2012) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=14Tw31K42k2472-ELFJzFtHQGgOj1TNGn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('14Tw31K42k2472-ELFJzFtHQGgOj1TNGn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rowling Joanne Kathleen [Harry Potter 1] Harry Potter and the Philosopher s Stone (2012) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rowling Joanne Kathleen [Harry Potter 2] Harry Potter and the Chamber of Secrets (2012) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1DD45mac1AkvhoHz2xzujjFPSJYHL7fxv" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1DD45mac1AkvhoHz2xzujjFPSJYHL7fxv', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rowling Joanne Kathleen [Harry Potter 2] Harry Potter and the Chamber of Secrets (2012) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rowling Joanne Kathleen [Harry Potter 4] Harry Potter and the Goblet of Fire (0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1LZhGPGhlcakszALkEGPxw4C71-7Ulhp_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1LZhGPGhlcakszALkEGPxw4C71-7Ulhp_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rowling Joanne Kathleen [Harry Potter 4] Harry Potter and the Goblet of Fire (0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Rowling Joanne Kathleen [Harry Potter 6] Harry Potter and the Half Blood Prince (2012) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1APkEg7NLxERINrBM6OoE6TkpGY78RMP8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1APkEg7NLxERINrBM6OoE6TkpGY78RMP8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Rowling Joanne Kathleen [Harry Potter 6] Harry Potter and the Half Blood Prince (2012) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="SALEMS LOT" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1We9s_yccqUdwgN02l_Ov_QCkW_Wkta1q" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1We9s_yccqUdwgN02l_Ov_QCkW_Wkta1q', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">SALEMS LOT</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Sanghi Ashwin Chanakya s Chant (1993 978 93 80658 67 4) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=186BP-pZs1bbZA_xXFKOYbzyb-XVk3ltR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('186BP-pZs1bbZA_xXFKOYbzyb-XVk3ltR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Sanghi Ashwin Chanakya s Chant (1993 978 93 80658 67 4) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Sanghi Ashwin Keepers of the Kalachakra libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gAzvHjmBIa0EgELFDqrUrVEWen6wQGLX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gAzvHjmBIa0EgELFDqrUrVEWen6wQGLX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Sanghi Ashwin Keepers of the Kalachakra libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Sanghi Ashwin The Krishna Key (2012 Westland 978 93 81626 68 9) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1pjVz7UtdryDpCiITvY92jd3qchW22P2v" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pjVz7UtdryDpCiITvY92jd3qchW22P2v', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Sanghi Ashwin The Krishna Key (2012 Westland 978 93 81626 68 9) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Sanghi Ashwin The Rozabal Line (2012 Westland Limited 978 81 89975 81 4) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=11CdND7ZRc_jM9jmIKop69hCk3ys1HejA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('11CdND7ZRc_jM9jmIKop69hCk3ys1HejA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Sanghi Ashwin The Rozabal Line (2012 Westland Limited 978 81 89975 81 4) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Sanghi Ashwin The Sialkot Saga (2016 978 93 86036 10 0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1c0u3uV6kgLtndAe-G6kpDUe6Pdqc0PQ0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1c0u3uV6kgLtndAe-G6kpDUe6Pdqc0PQ0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Sanghi Ashwin The Sialkot Saga (2016 978 93 86036 10 0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shanti Devi Motichandra V. B. Halbe Amar Chitra Katha A Bag of Gold Coins (2009 Amar Chitra Katha Pvt. Ltd.) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wJq0QssLkGHVcLImWXhGKt5e5T3Q83s1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wJq0QssLkGHVcLImWXhGKt5e5T3Q83s1', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shanti Devi Motichandra V. B. Halbe Amar Chitra Katha A Bag of Gold Coins (2009 Amar Chitra Katha Pvt. Ltd.) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shelby Mahurin[Serpent Dove 2] Blood Honey [ARC] (2020 HarperCollins Children s Books) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=10NnSZX992NPTtdw7MQdU56Z8w5KGYva3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('10NnSZX992NPTtdw7MQdU56Z8w5KGYva3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shelby Mahurin[Serpent Dove 2] Blood Honey [ARC] (2020 HarperCollins Children s Books) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shenoy Preeti [ (non Retail)] It Happens for a Reason (2014 Westland 3930310287 9783930310289) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1T-Co52RuM-ALvqd5mkx2dhVKMx7qW_so" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1T-Co52RuM-ALvqd5mkx2dhVKMx7qW_so', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shenoy Preeti [ (non Retail)] It Happens for a Reason (2014 Westland 3930310287 9783930310289) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shenoy Preeti A Hundred Little Flames (2017 Westland) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1iycAxeRICERVKnirnlswIvj7-yA0mO_j" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1iycAxeRICERVKnirnlswIvj7-yA0mO_j', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shenoy Preeti A Hundred Little Flames (2017 Westland) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shenoy Preeti Tea for Two and a Piece of Cake (2012 Random House India 9788184001273) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gheEWjk1AwaIOpuDqSsf6NcXuB6RPghP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gheEWjk1AwaIOpuDqSsf6NcXuB6RPghP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shenoy Preeti Tea for Two and a Piece of Cake (2012 Random House India 9788184001273) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shenoy Preeti The Frogs (2018 Westland Publications) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YopJMGxAq3PbPhcxSDV_TtmDBu57WfmM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YopJMGxAq3PbPhcxSDV_TtmDBu57WfmM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shenoy Preeti The Frogs (2018 Westland Publications) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shenoy Preeti The Rule Breakers (2018 Westland Publications Private Limited 97893875786789387578674) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gCoyzGjmMA-Vn3SnFs_Q_4nXjUcjQ9VG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gCoyzGjmMA-Vn3SnFs_Q_4nXjUcjQ9VG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shenoy Preeti The Rule Breakers (2018 Westland Publications Private Limited 97893875786789387578674) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shenoy Preeti The Secret wish List (2013 978 93 82618 18 8) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1oZQ3KShqVZ-SbS3clroSB1KuSlHvbkwZ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1oZQ3KShqVZ-SbS3clroSB1KuSlHvbkwZ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shenoy Preeti The Secret wish List (2013 978 93 82618 18 8) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Shenoy Preeti Why We Love the Way We Do (2015 westland) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1DL92p_sniS3UJ6BgaFEy5d2sbOtdSRFh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1DL92p_sniS3UJ6BgaFEy5d2sbOtdSRFh', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Shenoy Preeti Why We Love the Way We Do (2015 westland) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Steve Berry[Cotton Malone 15] The Warsaw Protocol (2020 St. Martin s Publishing Group 9781250140319) libgen.li" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1doLgplp5ZUvqtPQtkzGYCJ7Vd0zbyiEF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1doLgplp5ZUvqtPQtkzGYCJ7Vd0zbyiEF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Steve Berry[Cotton Malone 15] The Warsaw Protocol (2020 St. Martin s Publishing Group 9781250140319) libgen.li</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stine R L [Goosebumps 1] Welcome to Dead House (1992 Scholastic Inc. 9780545158886) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ovdNQFtq7NACalWllWLaIVuUnWnqvxEM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ovdNQFtq7NACalWllWLaIVuUnWnqvxEM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stine R L [Goosebumps 1] Welcome to Dead House (1992 Scholastic Inc. 9780545158886) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stine R L [Goosebumps 11] Haunted Mask (1993 Scholastic Inc. 9780545035217) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=12vm5J4GbfJ-9yOF688gQbOH0WAu0KmRR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('12vm5J4GbfJ-9yOF688gQbOH0WAu0KmRR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stine R L [Goosebumps 11] Haunted Mask (1993 Scholastic Inc. 9780545035217) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stine R L [Goosebumps 14] The Werewolf of Fever Swamp (0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1vF43CvMOgvDn8APcPT_CQBE9HFhsWT61" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1vF43CvMOgvDn8APcPT_CQBE9HFhsWT61', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stine R L [Goosebumps 14] The Werewolf of Fever Swamp (0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stine R L [Goosebumps 27] A Night in Terror Tower (0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1pzq6cdJhKo3UrKofh6bI-UA9yK2Y2_rv" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1pzq6cdJhKo3UrKofh6bI-UA9yK2Y2_rv', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stine R L [Goosebumps 27] A Night in Terror Tower (0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stine R L [Goosebumps 30] It Came from Beneath the Sink (0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1LYio-HyP8NT7FpzzghKrHoJzYe83oZLA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1LYio-HyP8NT7FpzzghKrHoJzYe83oZLA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stine R L [Goosebumps 30] It Came from Beneath the Sink (0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stine R L [Goosebumps 33] The Horror at Camp Jellyjam (0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1IMiPLYH9aVTm_qmVDuMNCwgR_7C8jXMe" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IMiPLYH9aVTm_qmVDuMNCwgR_7C8jXMe', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stine R L [Goosebumps 33] The Horror at Camp Jellyjam (0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stine R L [Goosebumps 56] The Curse of Camp Cold Lake (0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1oQVxVjx7N6_c3OqjwB19FSMvdcnnKobM" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1oQVxVjx7N6_c3OqjwB19FSMvdcnnKobM', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stine R L [Goosebumps 56] The Curse of Camp Cold Lake (0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="stine r.l. goosebumps 16 one day at horrorland undead v1.5" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1r9JdvZaiXkKU2DqL0z_0_LGrj8OHfsoR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1r9JdvZaiXkKU2DqL0z_0_LGrj8OHfsoR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">stine r.l. goosebumps 16 one day at horrorland undead v1.5</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Stories We Never Tell Savi Sharma" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1W5N1l4CLYcejlC1n1ZNEZwlX2QlXO82q" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1W5N1l4CLYcejlC1n1ZNEZwlX2QlXO82q', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Stories We Never Tell Savi Sharma</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi [Ravi Subramanian] Bankerupt (2013 Penguin Books Ltd 978 0 143 42138 2978 9 351 18298 6) libgen.lc (1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1W27hqplwWK1chHfvVRGbTmMTYZ5VBIsA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1W27hqplwWK1chHfvVRGbTmMTYZ5VBIsA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi [Ravi Subramanian] Bankerupt (2013 Penguin Books Ltd 978 0 143 42138 2978 9 351 18298 6) libgen.lc (1)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi [Ravi Subramanian] The Bankster (2013) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kW2LgMXhbIYhgBRyOzK0SqjAjc6YxDQF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kW2LgMXhbIYhgBRyOzK0SqjAjc6YxDQF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi [Ravi Subramanian] The Bankster (2013) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi Devil in Pinstripes (2010 978 81 291 2137 0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=15xpOxrr5TgAK4S9zEr_lFuTDwGOaz9Wz" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15xpOxrr5TgAK4S9zEr_lFuTDwGOaz9Wz', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi Devil in Pinstripes (2010 978 81 291 2137 0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi Don t Tell the Governor (2018 HarperCollins Publishers India 978 93 5302 462 8978 93 5302 463 5) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1XHG1SGK0j4aF0V_39XihNJToVCirnGgB" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1XHG1SGK0j4aF0V_39XihNJToVCirnGgB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi Don t Tell the Governor (2018 HarperCollins Publishers India 978 93 5302 462 8978 93 5302 463 5) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi God is a Gamer (2014 Penguin Books Ltd 97801434213999789351188087) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uiV5WE3kCyZybV_EeJCh_UUupUBYvd46" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uiV5WE3kCyZybV_EeJCh_UUupUBYvd46', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi God is a Gamer (2014 Penguin Books Ltd 97801434213999789351188087) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi I Bought The Monk s Ferrari (2013 9788129121912) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1AuYT-nFFcJm-ikGsSzTUs9opGkGe6hOd" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1AuYT-nFFcJm-ikGsSzTUs9opGkGe6hOd', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi I Bought The Monk s Ferrari (2013 9788129121912) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi If God Was A Banker (2013 9788129121424) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1jhZvgg_geEhwsVAhWpIR-YIaSXU6ozEt" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1jhZvgg_geEhwsVAhWpIR-YIaSXU6ozEt', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi If God Was A Banker (2013 9788129121424) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi In the Name of God (2017 Penguin Group 9789386495938) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ruaUWHetyOhvrp4VmbMiHAAJqKck8I29" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ruaUWHetyOhvrp4VmbMiHAAJqKck8I29', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi In the Name of God (2017 Penguin Group 9789386495938) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Subramanian Ravi The Incredible Banker (2013 9788129121561) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1K-jgy6NHVRzcoEBfHiC03T84xL6JKZ7t" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1K-jgy6NHVRzcoEBfHiC03T84xL6JKZ7t', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Subramanian Ravi The Incredible Banker (2013 9788129121561) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Ballad of Songbirds and Snakes" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1oQwHzwxvpp86ElXGlzROtUDGHfVxBsBF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1oQwHzwxvpp86ElXGlzROtUDGHfVxBsBF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Ballad of Songbirds and Snakes</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Book Thief ( PDFDrive.com )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1f60g5-S3K7rZx4TVWIzB_TS0cvUD7rny" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1f60g5-S3K7rZx4TVWIzB_TS0cvUD7rny', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Book Thief ( PDFDrive.com )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Boy Who Loved Durjoy Datta" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1thQswNJZfILJH5Fc7zt_wW4ad2Cf_BVq" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1thQswNJZfILJH5Fc7zt_wW4ad2Cf_BVq', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Boy Who Loved Durjoy Datta</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the burning maze rick riordan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1KypZjXTs2QFh_aq0txLSplWmEfTlwGaG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1KypZjXTs2QFh_aq0txLSplWmEfTlwGaG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the burning maze rick riordan</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The fault in our star" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1SmvZEJ6REDlk7KSF_QHz2wfUQ-jMDR8_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1SmvZEJ6REDlk7KSF_QHz2wfUQ-jMDR8_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The fault in our star</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The fever code by james Dashner" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1HVG1PcmUp6ewK0ppbSs86xieU126gMVI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1HVG1PcmUp6ewK0ppbSs86xieU126gMVI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The fever code by james Dashner</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the gatekeepers 02 evil star v5" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18TQAhV7_3JhRuNjZaq_YgPmjTiRKcCX8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18TQAhV7_3JhRuNjZaq_YgPmjTiRKcCX8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the gatekeepers 02 evil star v5</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the gatekeepers 03 nightrise v5" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1x320k0hvi3ito5mvRWx4ulVVPeyR0VYf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1x320k0hvi3ito5mvRWx4ulVVPeyR0VYf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the gatekeepers 03 nightrise v5</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the gatekeepers 04 necropolis(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Jq8IPU82PVfqqfvhYCBt36nHdHgGaDuR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Jq8IPU82PVfqqfvhYCBt36nHdHgGaDuR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the gatekeepers 04 necropolis(1)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The girl in room 105" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=15X34gi0dzYf8GmVVmgqUMFY3fHilEPHp" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15X34gi0dzYf8GmVVmgqUMFY3fHilEPHp', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The girl in room 105</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Girl of My Dreams Durjoy Dutta" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FeH0PKwtAXiBAai-REpJlhi0HTpfhySZ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FeH0PKwtAXiBAai-REpJlhi0HTpfhySZ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Girl of My Dreams Durjoy Dutta</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Girl on the Train ( PDFDrive.com )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1S5--fIedervpVUdLEV7zeYy9HgVucCof" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1S5--fIedervpVUdLEV7zeYy9HgVucCof', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Girl on the Train ( PDFDrive.com )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the girl with the dragon tattoo" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1VbtyyuTlMztDo4QcRW2weXs9wbrlpEEr" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1VbtyyuTlMztDo4QcRW2weXs9wbrlpEEr', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the girl with the dragon tattoo</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the hidden oracle" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JzQqbQq0mLzZ8HgsVqolmiNl1b7CylTE" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JzQqbQq0mLzZ8HgsVqolmiNl1b7CylTE', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the hidden oracle</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the house of hades heroes of olympus bo riordan ri" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YmdShqEbDsXfwPqhHRzMaSFFIA20bB6_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YmdShqEbDsXfwPqhHRzMaSFFIA20bB6_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the house of hades heroes of olympus bo riordan ri</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Immortals of Meluha Shiva Trilogy 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1APW3jhn5RP8GSfeo_lXYmCjHFMqsWx-4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1APW3jhn5RP8GSfeo_lXYmCjHFMqsWx-4', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Immortals of Meluha Shiva Trilogy 1</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The kite runner" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JPykWLsgLkPQhE2BBYl2QOji4snfLzMq" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JPykWLsgLkPQhE2BBYl2QOji4snfLzMq', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The kite runner</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the power of five oblivion anthony horowitz(1)" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1N6jBWDZu9fH_kNhvpEjhHZapr8VJ4aID" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1N6jBWDZu9fH_kNhvpEjhHZapr8VJ4aID', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the power of five oblivion anthony horowitz(1)</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the scorch trials james dashner" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uMzecvfXQXTv6icuqUsNVG4Fkfk1HPke" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uMzecvfXQXTv6icuqUsNVG4Fkfk1HPke', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the scorch trials james dashner</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the secret of the nagas" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Vb-54udOb6BGDKP-3bEfp7cK_Dwm7nNV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Vb-54udOb6BGDKP-3bEfp7cK_Dwm7nNV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the secret of the nagas</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the shining" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qo5qSA5UqmzjPraSVqmcSJT7o-rMP92Q" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qo5qSA5UqmzjPraSVqmcSJT7o-rMP92Q', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the shining</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the ship of the dead rick riordan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1iJCouoWtFvnEzgx97aUfmY2weCLAndmc" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1iJCouoWtFvnEzgx97aUfmY2weCLAndmc', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the ship of the dead rick riordan</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the son of sobek" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gzPMUb3vBClF9cwMu_iKm0xB--f5ePqm" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gzPMUb3vBClF9cwMu_iKm0xB--f5ePqm', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the son of sobek</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="the staff of serapis rick riordan" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1bd7BgYZ_bOhqL9UnvsRIfs826AgpmaRv" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1bd7BgYZ_bOhqL9UnvsRIfs826AgpmaRv', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">the staff of serapis rick riordan</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Stand" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kxF0Bnf9Ar6d_LF0Obn-1pqM3xK09Cws" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kxF0Bnf9Ar6d_LF0Obn-1pqM3xK09Cws', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Stand</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Tower of Nero (The Trials of Apollo Book 5) Rick Riordan ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1HWLRHi2Wu7xZV8RP6QyrkOXFJgJoIVye" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1HWLRHi2Wu7xZV8RP6QyrkOXFJgJoIVye', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Tower of Nero (The Trials of Apollo Book 5) Rick Riordan ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Tyrant’s Tomb 8freebooks.net" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1fzp-p1J003JNyCwV0eq5BMle1OeDkjVo" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1fzp-p1J003JNyCwV0eq5BMle1OeDkjVo', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Tyrant’s Tomb 8freebooks.net</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="The Wind Up Bird Chronicle ( PDFDrive )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1I8mfEn4Y5mHyFWJe8uiIZOto7IeGO6XR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1I8mfEn4Y5mHyFWJe8uiIZOto7IeGO6XR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">The Wind Up Bird Chronicle ( PDFDrive )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="TheLastBattle CSL" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=10j7jTi4iimxg-9gBZNPpzqi417gLchD3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('10j7jTi4iimxg-9gBZNPpzqi417gLchD3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">TheLastBattle CSL</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="TheSilverChair CSL" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1s3yvD5_8gpguxAuCwjk3uyFzO1sBAT3V" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1s3yvD5_8gpguxAuCwjk3uyFzO1sBAT3V', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">TheSilverChair CSL</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="This is Not Your Story Savi Sharma" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1RfPT7nO2vMdjE9hVh_dG0cx3eu4XHdDW" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RfPT7nO2vMdjE9hVh_dG0cx3eu4XHdDW', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">This is Not Your Story Savi Sharma</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="TiengAnh 39Clues The Emperors code" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JZUlpFW1444eycaGxJaz3nLcpOxsBwxe" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JZUlpFW1444eycaGxJaz3nLcpOxsBwxe', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">TiengAnh 39Clues The Emperors code</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Till the Last Breath Durjoy Datta" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1IGR2KjDZUpscdr_K63XqteXMoBZMA1pR" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IGR2KjDZUpscdr_K63XqteXMoBZMA1pR', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Till the Last Breath Durjoy Datta</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Tiwari Anuj It s Not Right but It s Okay (2015) libgen.li" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wWGycO_Iv1Ah-XCGuWr66p6fVoN4KWJK" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wWGycO_Iv1Ah-XCGuWr66p6fVoN4KWJK', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Tiwari Anuj It s Not Right but It s Okay (2015) libgen.li</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Tiwari Anuj Journey of Two Hearts Will be Cherished Forever (2015 EBOOK4IN.BLOGSPOT.COM) libgen.li" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_m6WAzbcr8wQWcpROOM7eiZ4HslM-HnL" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_m6WAzbcr8wQWcpROOM7eiZ4HslM-HnL', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Tiwari Anuj Journey of Two Hearts Will be Cherished Forever (2015 EBOOK4IN.BLOGSPOT.COM) libgen.li</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Tripathi Amish [Ram Chandra 1] Scion of Ikshvaku (2015 978 93 85152 16 0) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1S8gMRUGbC7-07ElP01qErGR17TWKQ5Pn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1S8gMRUGbC7-07ElP01qErGR17TWKQ5Pn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Tripathi Amish [Ram Chandra 1] Scion of Ikshvaku (2015 978 93 85152 16 0) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Tripathi Amish [Ram Chandra 3] Raavan Enemy of Aryavarta (2019 Westland 9789388754088) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1l6u0LP4P4ytKqubVeJ-_dpjF_7jxASn2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1l6u0LP4P4ytKqubVeJ-_dpjF_7jxASn2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Tripathi Amish [Ram Chandra 3] Raavan Enemy of Aryavarta (2019 Westland 9789388754088) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Turtles All the Way Down ( PDFDrive.com )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1oRKHJfRiyVlgeK5VFTpyG192exeSjbcg" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1oRKHJfRiyVlgeK5VFTpyG192exeSjbcg', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Turtles All the Way Down ( PDFDrive.com )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="VoyageoftheDawnTreader CSL" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1gmJIOp83omv8C4swycSMLS-I0xo7OALz" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1gmJIOp83omv8C4swycSMLS-I0xo7OALz', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">VoyageoftheDawnTreader CSL</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Watson Jude [39 Clues 6] In Too Deep (2010) libgen.lc" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1y3GKO2xAuLohoJCTNs-R71kEiWl7lisE" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1y3GKO2xAuLohoJCTNs-R71kEiWl7lisE', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Watson Jude [39 Clues 6] In Too Deep (2010) libgen.lc</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="when only love remains by durjoy datta" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_f1RF74ELDQiYjRyiIDZNJChVC19sp6d" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_f1RF74ELDQiYjRyiIDZNJChVC19sp6d', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">when only love remains by durjoy datta</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Will Grayson Will Grayson ( PDFDrive.com )" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1CekG3X8_gkZhCr7XgiMudkELvxj5xcR0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CekG3X8_gkZhCr7XgiMudkELvxj5xcR0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Will Grayson Will Grayson ( PDFDrive.com )</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="Wish I Could Tell You Durjoy Datta" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FiA9SabpaZtXUkx-HOFVg59IdTkjYSUn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FiA9SabpaZtXUkx-HOFVg59IdTkjYSUn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">Wish I Could Tell You Durjoy Datta</div>
-</div>
-
-</div>
-</div>
 </section>
 
-<footer>
-<div class="container">
-<p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
-<div class="footer-links">
-<a href="privacy-policy.html">സ്വകാര്യതാ നയം</a> |
-<a href="terms.html">ഉപയോഗ നിബന്ധനകൾ</a> |
-<a href="#"><i class="fab fa-twitter"></i></a>
-<a href="#"><i class="fab fa-facebook-f"></i></a>
-</div>
-</div>
-</footer>
-
-<div id="login-modal" class="lib-popup-overlay">
-    <div class="lib-popup-box">
-        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
-        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
-        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
-        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+<div id="loginAlertModal" class="login-popup-modal">
+    <div class="popup-box">
+        <div class="popup-header">ത്രിപുടി ലൈബ്രറി പറയുന്നു</div>
+        <div class="popup-body">ഈ പുസ്തകം വായിക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
+        <div class="popup-footer">
+            <a href="#" id="loginRedirectBtn" class="btn-login">ലോഗിൻ ചെയ്യുക</a>
+            <button onclick="closeLoginPopup()" class="btn-cancel">ഇപ്പോൾ വേണ്ട</button>
+        </div>
     </div>
 </div>
 
 <div id="pdfModal" class="pdf-modal-viewer">
     <div class="pdf-modal-header">
-        <span style="font-family:'Poppins',sans-serif; font-weight:600; font-size:1.1em;"> <i class="fas fa-book-reader"></i> വായന മോഡ്</span>
-        <button onclick="closePdfModal()" style="background:transparent; border:none; color:white; font-size:1.2em; cursor:pointer; padding:0 10px;">
-            <i class="fas fa-times"></i> ക്ലോസ്
-        </button>
+        <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മോഡ്</span>
+        <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i> ക്ലോസ്</button>
     </div>
-    <div style="flex:1; width:100%; height:100%; position:relative;">
+    <div class="iframe-container">
+        <div class="security-mask"></div>
         <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
-        <div class="pdf-blocker" title="Pop-out disabled"></div>
     </div>
 </div>
 
+<footer>
+    <div class="container footer-content">
+        <div class="footer-row">
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="font-size: 0.85em; opacity: 0.8;">
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+        </div>
+        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+    </div>
+</footer>
+
 <script type="module">
-    // --- FIREBASE CONFIG ---
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-    const firebaseConfig = { 
-        apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
-        authDomain: "thripudilibrary.firebaseapp.com", 
-        projectId: "thripudilibrary", 
-        storageBucket: "thripudilibrary.firebasestorage.app", 
-        messagingSenderId: "887018912750", 
-        appId: "1:887018912750:web:cc05190a72b13db816acff", 
-        measurementId: "G-B59RDW4KG4" 
-    };
+    
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    let currentUser = null; 
 
-    // --- LOGIN STATE MANAGEMENT & UI UPDATE ---
     onAuthStateChanged(auth, (user) => {
-        const nameDisplay = document.getElementById('display-name');
-        const avatarDiv = document.getElementById('userAvatar');
-        const logoutBtn = document.getElementById('logout-link');
-
         if (user) {
-            currentUser = user;
-            localStorage.setItem('libraryUser', 'true');
-            if(logoutBtn) logoutBtn.style.display = 'block';
-            
-            const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
-            if(nameDisplay) nameDisplay.textContent = displayName;
-            
+            window.currentUser = user;
+            document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
-            if(userPhoto && avatarDiv) avatarDiv.innerHTML = `<img src="${userPhoto}" alt="${displayName}">`;
+            if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
             
-            // REDIRECT LOGIC: ലോഗിൻ ചെയ്ത ശേഷം Modal തുറക്കുന്നു
-            const pendingBookId = sessionStorage.getItem('pendingBook');
-            if (pendingBookId) {
-                sessionStorage.removeItem('pendingBook');
-                // openPdfModal ഫങ്ഷൻ ഇവിടെ വിളിക്കുന്നു
-                if (window.openPdfModal) {
-                    window.openPdfModal(pendingBookId); 
-                }
+            const urlParams = new URLSearchParams(window.location.search);
+            const openBookId = urlParams.get('openBook');
+            if (openBookId) {
+                document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${openBookId}/preview?rm=minimal`;
+                document.getElementById('pdfModal').style.display = "flex";
+                document.body.style.overflow = "hidden";
             }
         } else {
-            currentUser = null;
-            localStorage.removeItem('libraryUser');
-            if(logoutBtn) logoutBtn.style.display = 'none';
+            window.currentUser = null;
+            document.getElementById('display-name').textContent = "...";
+            document.getElementById('userAvatar').innerHTML = `<i class="fas fa-user"></i>`;
         }
     });
 
-    // --- LOGOUT ---
-    const logoutLink = document.getElementById('logout-link');
-    if(logoutLink) {
-        logoutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            signOut(auth).then(() => { 
-                localStorage.removeItem('libraryUser'); 
-                window.location.href = "logout-success.html"; 
-            });
-        });
-    }
-
-    // --- CHECK ACCESS & MODAL OPENING ---
-    window.checkAccess = function(bookId, element) {
-        if (!currentUser) {
-            sessionStorage.setItem('pendingBook', bookId); // ID മാത്രം ഓർത്തു വെക്കുന്നു
-            document.getElementById('login-modal').style.display = 'flex';
-        } else {
-            // ലോഗിൻ ഉണ്ടെങ്കിൽ: 1. ഹിസ്റ്ററി സേവ് ചെയ്യുന്നു
-            saveToHistory(element, bookId);
-            
-            // 2. Modal തുറക്കുന്നു
-            window.openPdfModal(bookId); 
-        }
-    };
-    
-    // --- Global Functions (Defined below) ---
+    document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
 </script>
 
 <script>
-    // Global Helper functions (outside module scope)
-
-    // ⭐⭐ MODAL OPENING LOGIC ⭐⭐
-    window.openPdfModal = function(bookId) {
-        const modal = document.getElementById('pdfModal');
-        const frame = document.getElementById('pdfFrame');
-        
-        // Google Drive Link Conversion (Preview Mode - iFrame-ൽ വർക്ക് ചെയ്യുന്നത്)
-        const embedUrl = `https://drive.google.com/file/d/${bookId}/preview`;
-
-        frame.src = embedUrl;
-        modal.style.display = "flex"; 
-        document.body.style.overflow = "hidden";
-    }
-
-    window.closePdfModal = function() {
-        const modal = document.getElementById('pdfModal');
-        const frame = document.getElementById('pdfFrame');
-        
-        modal.style.display = "none";
-        frame.src = ""; 
-        document.body.style.overflow = "auto";
-    }
-
-    // ⭐⭐ HISTORY SAVING (യൂസർ ID ഉപയോഗിച്ച്) ⭐⭐
     function saveToHistory(element, bookId) {
-        // ഇവിടെ userId കിട്ടാൻ താൽക്കാലികമായി default_user ഉപയോഗിക്കുന്നു
-        // Firebase onAuthStateChanged ഫങ്ഷൻ പൂർത്തിയാകുമ്പോൾ ഇത് കൃത്യമായിരിക്കും
-        try {
-            const userId = localStorage.getItem('libraryUser') ? 'default_user' : null;
-            if (!userId) return;
+        if (!window.currentUser) return;
+        const card = element.closest('.book-card');
+        const title = card.querySelector('.book-title').innerText;
+        const image = card.querySelector('.book-cover').src;
+        const key = 'history_' + window.currentUser.uid;
+        let history = JSON.parse(localStorage.getItem(key)) || [];
+        history = history.filter(item => item.title !== title);
+        history.unshift({ title, image, link: window.location.pathname + '?openBook=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
+        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+    }
 
-            const card = element.closest('.book-card');
-            if (!card) return;
-
-            const title = card.querySelector('.book-title').innerText;
-            const imgTag = card.querySelector('.book-cover');
-            const image = imgTag ? imgTag.src : 'https://via.placeholder.com/150';
-            const date = new Date().toLocaleDateString('ml-IN');
-            const linkUrl = 'read.html?bookId=' + bookId;
-            
-            const key = 'history_' + userId;
-
-            let history = JSON.parse(localStorage.getItem(key)) || [];
-            history = history.filter(item => item.title !== title);
-            history.unshift({ title: title, image: image, link: linkUrl, date: date });
-            
-            if (history.length > 50) history.pop();
-            localStorage.setItem(key, JSON.stringify(history));
-        } catch (e) {
-            console.error("History Save Error:", e);
+    window.checkAccess = function(bookId, element) {
+        if (!window.currentUser) {
+            const currentPath = window.location.pathname.split('/').pop();
+            document.getElementById('loginRedirectBtn').href = `login.html?redirect=${currentPath}&bookId=${bookId}`;
+            document.getElementById('loginAlertModal').style.display = 'flex';
+        } else {
+            saveToHistory(element, bookId);
+            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview?rm=minimal`;
+            document.getElementById('pdfModal').style.display = "flex";
+            document.body.style.overflow = "hidden";
         }
-    }
-    
-    function searchBooks() { 
-        var input = document.getElementById('searchBar'); 
-        if(!input) return; 
-        var filter = input.value.toUpperCase(); 
-        var cards = document.getElementsByClassName('book-card'); 
-        for (var i = 0; i < cards.length; i++) { 
-            var title = cards[i].getElementsByClassName("book-title")[0]; 
-            if (title) { 
-                var txtValue = title.textContent || title.innerText; 
-                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-            } 
-        } 
-    }
-    
-    // ലോഗിൻ മോഡൽ അടക്കാനുള്ള ക്ലോസ് ബട്ടൺ
-    document.addEventListener('DOMContentLoaded', () => {
-        const closeBtn = document.querySelector('.lib-btn-close');
-        if(closeBtn) closeBtn.onclick = function() { document.getElementById('login-modal').style.display='none'; };
-    });
-</script>
+    };
 
+    function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
+    function closePdfModal() {
+        document.getElementById('pdfModal').style.display = "none";
+        document.getElementById('pdfFrame').src = "";
+        document.body.style.overflow = "auto";
+    };
+
+    document.getElementById('profile-section').onclick = function(e) {
+        e.stopPropagation();
+        let d = this.querySelector('.profile-dropdown');
+        d.style.display = d.style.display === "block" ? "none" : "block";
+    };
+    window.onclick = () => document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
+</script>
 </body>
 </html>
