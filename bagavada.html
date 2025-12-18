@@ -15,13 +15,13 @@
         }
 
         * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; padding: 0; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; } /* വശങ്ങളിലേക്കുള്ള തള്ളൽ ഒഴിവാക്കാൻ */
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
         .container { width: 92%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; transition: 0.3s; }
 
-        header { background-color: var(--secondary-dark); padding: 5px 0; height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
         .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
         .logo-img { height: 65px; width: auto; } 
         .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
@@ -35,11 +35,21 @@
         .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
 
         .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
-        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+
+        /* ✅ റെസ്പോൺസീവ് ഹെഡർ കറക്ഷൻ */
+        @media (max-width: 768px) {
+            header { height: auto; padding: 10px 0; }
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+            .nav-item { padding: 6px 10px; font-size: 0.75em; }
+            .welcome-msg { display: none; } /* മൊബൈലിൽ പേര് ഒഴിവാക്കി ഐക്കൺ മാത്രം കാട്ടുന്നു */
+            .logo-text { font-size: 1.3em; }
+        }
 
         .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
         .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
@@ -53,6 +63,7 @@
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
 
+        /* മോഡലുകൾ */
         .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
         .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
@@ -61,14 +72,13 @@
         .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
         .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
 
-        /* ✅ വായനാമോഡ് സെക്യൂരിറ്റി മാസ്കിംഗ് */
         .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
         .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
         .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; }
         .pdf-modal-frame { width:100%; height:100%; border:none; }
         .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
 
-        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; }
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
@@ -102,138 +112,38 @@
 
 <section class="collection-section" id="masterSection">
     <div class="container">
-        <h1>ഇവിടെപേജിന്റെപേര്</h1>
-        <div class="library-container"><div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 1" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1j-zH__1UCEDxTNWEJTlUZnAnuvcR8k8o" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1j-zH__1UCEDxTNWEJTlUZnAnuvcR8k8o', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        <h1>ശേഖരം</h1>
+        <div class="library-container">
+            <script>
+                const books = [
+                    {id: '1j-zH__1UCEDxTNWEJTlUZnAnuvcR8k8o', title: 'ഭാഗവതം 1'},
+                    {id: '180WW8Ka8EThdKaLn3DUsANxtSKwTMvs3', title: 'ഭാഗവതം 2'},
+                    {id: '1SK7a9MPUmLde_Bwwb6pf8Y7dSAGm4O0v', title: 'ഭാഗവതം 3'},
+                    {id: '1TJd1rKzFwucQHcsYmut6RVOydVGMbOFn', title: 'ഭാഗവതം 4'},
+                    {id: '1sIrc64JlENGM5m4fveraRMGDqJkf9ERl', title: 'ഭാഗവതം 5'},
+                    {id: '1toeodKOzBySofD4V9pjQnmkW1aogdGHU', title: 'ഭാഗവതം 6'},
+                    {id: '1dHdTR7T1QmjM8KGb0xcf2jpFRHYLoan9', title: 'ഭാഗവതം 7'},
+                    {id: '1Im5eQghDEo60fJp7JNnTwO8o04Ug_G4e', title: 'ഭാഗവതം 8'},
+                    {id: '1H6mlAPom7l_b2sRp-4p0AQq4veybaFS4', title: 'ഭാഗവതം 9'},
+                    {id: '17BkMWTwszQJqxdkOYVQyATM7hcFvn9zX', title: 'ഭാഗവതം 10'},
+                    {id: '1a5dImlR0DCoiaRxpfCwbw___Fubjd7-q', title: 'ഭാഗവതം 11'},
+                    {id: '1_Y2KgCr1BzHRqC7XBey_-ssCmNyXYL9r', title: 'ഭാഗവതം 12'},
+                    {id: '1xoAFqW0Y6cAhfDjH9QCXXalWer-mrgwW', title: 'ഭാഗവതം 13'}
+                ];
+                
+                document.write(books.map(book => `
+                    <div class="book-card">
+                        <div class="image-wrapper">
+                            <img alt="${book.title}" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=${book.id}" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+                            <div class="read-overlay">
+                                <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('${book.id}', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+                            </div>
+                        </div>
+                        <div class="book-title">${book.title}</div>
+                    </div>
+                `).join(''));
+            </script>
         </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 1</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 2" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=180WW8Ka8EThdKaLn3DUsANxtSKwTMvs3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('180WW8Ka8EThdKaLn3DUsANxtSKwTMvs3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 2</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 3" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1SK7a9MPUmLde_Bwwb6pf8Y7dSAGm4O0v" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1SK7a9MPUmLde_Bwwb6pf8Y7dSAGm4O0v', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 3</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 4" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1TJd1rKzFwucQHcsYmut6RVOydVGMbOFn" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1TJd1rKzFwucQHcsYmut6RVOydVGMbOFn', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 4</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 5" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1sIrc64JlENGM5m4fveraRMGDqJkf9ERl" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1sIrc64JlENGM5m4fveraRMGDqJkf9ERl', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 5</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 6" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1toeodKOzBySofD4V9pjQnmkW1aogdGHU" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1toeodKOzBySofD4V9pjQnmkW1aogdGHU', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 6</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 7" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1dHdTR7T1QmjM8KGb0xcf2jpFRHYLoan9" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1dHdTR7T1QmjM8KGb0xcf2jpFRHYLoan9', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 7</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 8" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Im5eQghDEo60fJp7JNnTwO8o04Ug_G4e" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Im5eQghDEo60fJp7JNnTwO8o04Ug_G4e', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 8</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 9" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1H6mlAPom7l_b2sRp-4p0AQq4veybaFS4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1H6mlAPom7l_b2sRp-4p0AQq4veybaFS4', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 9</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 10" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17BkMWTwszQJqxdkOYVQyATM7hcFvn9zX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17BkMWTwszQJqxdkOYVQyATM7hcFvn9zX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 10</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 11" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1a5dImlR0DCoiaRxpfCwbw___Fubjd7-q" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1a5dImlR0DCoiaRxpfCwbw___Fubjd7-q', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 11</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 12" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1_Y2KgCr1BzHRqC7XBey_-ssCmNyXYL9r" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1_Y2KgCr1BzHRqC7XBey_-ssCmNyXYL9r', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 12</div>
-</div>
-
-<div class="book-card">
-    <div class="image-wrapper">
-        <img alt="ഭാഗവതം 13" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1xoAFqW0Y6cAhfDjH9QCXXalWer-mrgwW" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xoAFqW0Y6cAhfDjH9QCXXalWer-mrgwW', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">ഭാഗവതം 13</div>
-</div>
-
-            </div>
     </div>
 </section>
 
@@ -288,7 +198,6 @@
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
             
-            // Redirect Logic: വായനക്കാരൻ വന്ന പുസ്തകം തുറക്കുന്നു
             const urlParams = new URLSearchParams(window.location.search);
             const openBookId = urlParams.get('openBook');
             if (openBookId) {
@@ -303,7 +212,7 @@
         }
     });
 
-    document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="login.html");
+    document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
 </script>
 
 <script>
