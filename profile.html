@@ -3,41 +3,63 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ | THRIPUDI</title>
+    <title>പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ | THRIPUDI LIBRARY</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
     <style>
-        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; }
+        :root { 
+            --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
+            --text-color: #263238; --light-text: #FFFFFF; --outline-color: #B2DFDB;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); display: flex; flex-direction: column; min-height: 100vh; }
-        .container { width: 85%; margin: 0 auto; max-width: 1200px; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; transition: 0.3s; }
 
         /* --- ത്രിപുടി മാസ്റ്റർ ഹെഡർ --- */
         header { background-color: var(--secondary-dark); height: 95px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo-container { display: flex; align-items: center; gap: 15px; color: #FFFFFF !important; text-decoration: none; }
-        .logo-img { height: 70px; width: auto; } 
-        .logo-text { font-size: 1.8em; font-weight: 700; letter-spacing: 1px; }
+        .logo-container { display: flex; align-items: center; gap: 15px; color: #FFFFFF !important; }
+        .logo-img { height: 65px; width: auto; } 
+        .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
 
-        .nav-links { display: flex; align-items: center; gap: 15px; }
-        .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.9em; text-decoration: none; padding: 10px 20px; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 6px; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; align-items: center; gap: 12px; }
+        .nav-item { 
+            color: #FFFFFF !important; font-weight: 600; font-size: 0.85em; padding: 10px 18px; 
+            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 6px; display: flex; align-items: center; gap: 8px;
+            text-transform: uppercase;
+        }
         .nav-item:hover { background: #fff; color: var(--secondary-dark) !important; }
 
         /* --- പ്രൊഫൈൽ കാർഡ് --- */
-        .profile-card { background: white; padding: 45px; border-radius: 20px; box-shadow: 0 6px 25px rgba(0,0,0,0.08); max-width: 550px; margin: 60px auto; text-align: center; border: 1px solid #B2DFDB; }
-        .avatar-circle { width: 130px; height: 130px; background: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4em; color: white; margin: 0 auto 25px; overflow: hidden; border: 4px solid #B2DFDB; }
+        .profile-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 500px; margin: 50px auto; text-align: center; border: 1px solid var(--outline-color); }
+        .avatar-circle { width: 120px; height: 120px; background: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3.5em; color: white; margin: 0 auto 20px; overflow: hidden; border: 4px solid var(--outline-color); position: relative; }
         .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
         
-        .form-group { margin-bottom: 22px; text-align: left; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--secondary-dark); font-size: 0.95em; }
-        input { width: 100%; padding: 13px; border: 2px solid #B2DFDB; border-radius: 10px; font-size: 1em; outline: none; }
-        input:focus { border-color: var(--primary-teal); }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--secondary-dark); font-size: 0.9em; }
+        input { width: 100%; padding: 12px; border: 2px solid var(--outline-color); border-radius: 8px; font-size: 1em; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary-teal); background-color: #f9ffff; }
+        input:disabled { background-color: #f5f5f5; cursor: not-allowed; }
 
-        .btn-update { background: var(--primary-teal); color: white; border: none; padding: 16px; border-radius: 10px; width: 100%; font-weight: 700; cursor: pointer; font-size: 1.1em; transition: 0.3s; margin-top: 10px; }
-        .btn-update:hover { background: var(--secondary-dark); transform: translateY(-2px); }
+        .btn-update { background: var(--primary-teal); color: white; border: none; padding: 15px; border-radius: 8px; width: 100%; font-weight: 700; cursor: pointer; font-size: 1.1em; transition: 0.3s; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-update:hover { background: var(--secondary-dark); }
+        .btn-update:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .reset-link { color: var(--primary-teal); font-size: 0.85em; font-weight: 600; display: block; margin-top: 15px; cursor: pointer; }
+        .reset-link:hover { text-decoration: underline; }
+
+        #logoutBtn { color: #d32f2f; display: inline-block; margin-top: 25px; font-weight: 600; font-size: 0.9em; }
 
         /* --- ത്രിപുടി ഫൂട്ടർ --- */
-        footer { background: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; font-size: 0.9em; }
+        footer { background: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; }
+        
+        /* Loading Spinner */
+        .spinner { display: none; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -46,10 +68,11 @@
     <div class="container navbar">
         <a href="dashboard.html" class="logo-container">
             <img src="https://drive.google.com/thumbnail?sz=w600&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" class="logo-img">
-            <span class="logo-text">THRIPUDI</span>
+            <span class="logo-text">THRIPUDI LIBRARY</span>
         </a>
         <div class="nav-links">
             <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> HOME</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ശേഖരം</a>
             <a class="nav-item" href="history.html"><i class="fas fa-history"></i> HISTORY</a>
         </div>
     </div>
@@ -58,7 +81,7 @@
 <div class="container">
     <div class="profile-card">
         <div class="avatar-circle" id="userPic"><i class="fas fa-user"></i></div>
-        <h2 style="margin-bottom: 30px; color: var(--secondary-dark);">പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ</h2>
+        <h2 style="margin-bottom: 25px; color: var(--secondary-dark);">പ്രൊഫൈൽ ക്രമീകരണങ്ങൾ</h2>
         
         <div class="form-group">
             <label>ഇമെയിൽ</label>
@@ -66,17 +89,22 @@
         </div>
         <div class="form-group">
             <label>പേര് (Name)</label>
-            <input type="text" id="nameBox">
+            <input type="text" id="nameBox" placeholder="നിങ്ങളുടെ പേര് നൽകുക">
         </div>
         <div class="form-group">
             <label>ഫോട്ടോ ലിങ്ക് (Direct Link URL)</label>
-            <input type="text" id="photoBox" placeholder="ചിത്രത്തിന്റെ URL ഇവിടെ നൽകുക">
+            <input type="text" id="photoBox" placeholder="ചിത്രത്തിന്റെ ലിങ്ക് ഇവിടെ നൽകുക">
         </div>
         
-        <button class="btn-update" id="saveBtn">സേവ് ചെയ്യുക</button>
-        <p id="msg" style="margin-top: 15px; font-weight: bold;"></p>
+        <button class="btn-update" id="saveBtn">
+            <div class="spinner" id="loader"></div>
+            <span id="btnText">സേവ് ചെയ്യുക</span>
+        </button>
         
-        <a href="#" id="logoutBtn" style="color: #d32f2f; display: inline-block; margin-top: 25px; text-decoration: none; font-weight: 600;"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
+        <p class="reset-link" id="resetPassBtn"><i class="fas fa-key"></i> പാസ്‌വേഡ് മാറ്റണോ? (Reset Password)</p>
+        <p id="msg" style="margin-top: 15px; font-size: 0.9em;"></p>
+        
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> സിസ്റ്റത്തിൽ നിന്നും പുറത്തു കടക്കുക (LOGOUT)</a>
     </div>
 </div>
 
@@ -86,7 +114,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, updateProfile, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
     const firebaseConfig = { 
         apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", 
@@ -96,40 +124,76 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    const loader = document.getElementById('loader');
+    const btnText = document.getElementById('btnText');
+    const saveBtn = document.getElementById('saveBtn');
+    const msg = document.getElementById('msg');
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById('emailBox').value = user.email;
             document.getElementById('nameBox').value = user.displayName || "";
             document.getElementById('photoBox').value = user.photoURL || "";
             if(user.photoURL) {
-                document.getElementById('userPic').innerHTML = `<img src="${user.photoURL}">`;
+                document.getElementById('userPic').innerHTML = `<img src="${user.photoURL}" onerror="this.src='https://via.placeholder.com/150?text=Error'">`;
             }
         } else {
             window.location.href = "login.html";
         }
     });
 
-    document.getElementById('saveBtn').onclick = async () => {
+    // വിവരങ്ങൾ അപ്‌ഡേറ്റ് ചെയ്യാനുള്ള ലോജിക്
+    saveBtn.onclick = async () => {
         const user = auth.currentUser;
         if (!user) return;
+
+        // വിഷ്വൽ ഇഫക്റ്റുകൾ തുടങ്ങുന്നു
+        saveBtn.disabled = true;
+        loader.style.display = "block";
+        btnText.innerText = "അപ്‌ഡേറ്റ് ചെയ്യുന്നു...";
 
         try {
             await updateProfile(user, {
                 displayName: document.getElementById('nameBox').value,
                 photoURL: document.getElementById('photoBox').value
             });
-            document.getElementById('msg').style.color = "green";
-            document.getElementById('msg').innerHTML = "വിവരങ്ങൾ വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു!";
-            setTimeout(() => { location.reload(); }, 1200);
+            
+            // ലോക്കൽ സ്റ്റോറേജിലും ഫോട്ടോ സേവ് ചെയ്യുന്നു (ഹെഡറിൽ ഉടൻ മാറ്റം വരാൻ)
+            localStorage.setItem('userPhoto_' + user.uid, document.getElementById('photoBox').value);
+
+            msg.style.color = "green";
+            msg.innerHTML = "<i class='fas fa-check-circle'></i> വിവരങ്ങൾ വിജയകരമായി സേവ് ചെയ്തു!";
+            setTimeout(() => { location.reload(); }, 1500);
         } catch (error) {
-            document.getElementById('msg').style.color = "red";
-            document.getElementById('msg').innerHTML = "Error: " + error.message;
+            msg.style.color = "red";
+            msg.innerHTML = "Error: " + error.message;
+            saveBtn.disabled = false;
+            loader.style.display = "none";
+            btnText.innerText = "സേവ് ചെയ്യുക";
+        }
+    };
+
+    // പാസ്‌വേഡ് റിസെറ്റ് ഇമെയിൽ അയക്കാനുള്ള ലോജിക്
+    document.getElementById('resetPassBtn').onclick = () => {
+        const email = document.getElementById('emailBox').value;
+        if (confirm("പാസ്‌വേഡ് മാറ്റാനുള്ള ലിങ്ക് നിങ്ങളുടെ ഇമെയിലിലേക്ക് അയക്കണോ?")) {
+            sendPasswordResetEmail(auth, email)
+                .then(() => {
+                    msg.style.color = "blue";
+                    msg.innerHTML = "പാസ്‌വേഡ് റിസെറ്റ് ലിങ്ക് ഇമെയിൽ ചെയ്തിട്ടുണ്ട്. ദയവായി പരിശോധിക്കുക.";
+                })
+                .catch((error) => {
+                    msg.style.color = "red";
+                    msg.innerHTML = "Error: " + error.message;
+                });
         }
     };
 
     document.getElementById('logoutBtn').onclick = (e) => {
         e.preventDefault();
-        signOut(auth).then(() => { window.location.href = "login.html"; });
+        if(confirm("സിസ്റ്റത്തിൽ നിന്നും പുറത്തു കടക്കണോ?")) {
+            signOut(auth).then(() => { window.location.href = "login.html"; });
+        }
     };
 </script>
 </body>
