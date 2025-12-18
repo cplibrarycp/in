@@ -43,7 +43,6 @@
         .user-profile:hover .profile-dropdown { display: block; }
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
             header { height: auto; padding: 12px 0; }
             .navbar { flex-direction: column; gap: 12px; }
@@ -57,22 +56,18 @@
             .user-profile { border-left: none; margin-top: 5px; }
         }
 
-        /* --- കണ്ടെന്റ് സെക്ഷൻ --- */
+        /* --- കണ്ടെന്റ് --- */
         .dashboard-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
         .dashboard-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 10px; }
         .dashboard-section p { color: #546E7A; margin-bottom: 40px; }
 
         .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
-        #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; }
+        #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; box-sizing: border-box; }
         #searchBar:focus { border-color: var(--primary-teal); }
         .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
 
-        /* Dashboard Grid (5 per row on Desktop) */
-        .dashboard-container { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 20px; margin: 0 auto; 
-        }
+        /* Dashboard Grid (ത്രിപുടി 5 per row) */
+        .dashboard-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 0 auto; }
         @media (min-width: 1024px) { .dashboard-container { grid-template-columns: repeat(5, 1fr) !important; } }
 
         .category-card { 
@@ -82,18 +77,15 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
         }
         .category-card:hover { transform: translateY(-5px); border-color: var(--primary-teal); box-shadow: 0 10px 25px rgba(0, 137, 123, 0.2); }
-        
         .icon-circle { width: 60px; height: 60px; background-color: var(--background-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; font-size: 1.6em; color: var(--primary-teal); transition: 0.3s; }
         .category-card:hover .icon-circle { background-color: var(--primary-teal); color: white; }
         .label { font-size: 1em; font-weight: 700; }
 
-        /* --- ത്രിപുടി മാസ്റ്റർ ഫൂട്ടർ --- */
+        /* --- ത്രിപുടി മാസ്റ്റർ ഫൂട്ടർ (യഥാർത്ഥ ലിങ്കുകൾക്കൊപ്പം) --- */
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
-        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; }
         .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
 
-        /* Popup */
         .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
         .lib-popup-box { background: white; padding: 30px; width: 90%; max-width: 350px; border-top: 5px solid var(--primary-teal); border-radius: 10px; text-align: center; }
         .lib-btn-login { background: var(--primary-teal); color: white; border: none; padding: 12px; width: 100%; margin-top: 15px; cursor: pointer; border-radius: 5px; font-weight: bold; }
@@ -110,7 +102,7 @@
         </a>
         <div class="nav-links">
             <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> <span>Home</span></a>
-            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> <span>Collections</span></a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> <span>ഗ്രന്ഥശേഖരം</span></a>
             <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> <span>About</span></a>
             <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
             <div class="user-profile">
@@ -130,12 +122,10 @@
     <div class="container">
         <h1>English Collections</h1>
         <p>Explore our vast collection of English literature and resources</p>
-        
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
             <input id="searchBar" onkeyup="searchCategories()" placeholder="Search categories..." type="text"/>
         </div>
-
         <div class="dashboard-container" id="categoryList">
             <a class="category-card" href="fiction.html">
                 <div class="icon-circle"><i class="fas fa-hat-wizard"></i></div>
@@ -182,19 +172,18 @@
 </section>
 
 <footer>
-    <div class="container footer-content">
+    <div class="container">
+        <p>© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
         <div class="footer-row">
-            <div class="social-links-compact">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
             <div style="font-size: 0.85em; opacity: 0.8;">
-                <a href="privacy-policy.html" style="color:white;">Privacy Policy</a> | <a href="terms.html" style="color:white;">Terms of Use</a>
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | 
+                <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
             </div>
         </div>
-        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. All Rights Reserved.</p>
     </div>
 </footer>
 
@@ -264,17 +253,6 @@
             signOut(auth).then(() => { window.location.href = "logout-success.html"; });
         });
     }
-
-    window.checkAccess = function(element, targetUrl) {
-        if (typeof element === 'string') { targetUrl = element; element = null; }
-        if (currentUser) {
-            window.location.href = targetUrl;
-        } else {
-            sessionStorage.setItem('pendingBook', targetUrl);
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.style.display = 'flex';
-        }
-    };
 </script>
 </body>
 </html>
