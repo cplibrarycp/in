@@ -64,6 +64,56 @@
         .login-link a:hover { text-decoration: underline; }
 
         #error-msg { color: #ff5252; margin-top: 10px; display: none; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 4px; font-size: 0.9em; }
+    
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
     </style>
 
 
@@ -93,7 +143,57 @@
         margin-top: auto !important; 
     }
     /* --------------------------- */
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 </head>
 <body>
 <div class="register-container">

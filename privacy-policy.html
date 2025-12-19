@@ -251,6 +251,56 @@
             .user-profile { margin-left: 0; padding-left: 0; border-left: none; margin-top: 10px; width: 100%; justify-content: center; }
             .policy-content { padding: 20px; }
         }
+    
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
     </style>
 
 
@@ -280,7 +330,57 @@
         margin-top: auto !important; 
     }
     /* --------------------------- */
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 </head>
 <body>
 <header>
@@ -458,7 +558,57 @@
     .btn-lib-close:hover { background: #f1f1f1; color: #333; }
 
     @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 <script>
     // 1. PDF വായന പരിശോധന (On Click)
     function checkReadAccess(event, pdfUrl) {
@@ -513,7 +663,57 @@
     }
     .lib-btn-go { background: #00897B; color: white; border: none; padding: 10px 20px; border-radius: 5px; width: 100%; margin: 10px 0; cursor: pointer; font-weight: bold; }
     .lib-btn-no { background: transparent; color: #555; border: 1px solid #ccc; padding: 8px 20px; border-radius: 5px; width: 100%; cursor: pointer; }
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 <script>
     // 1. PDF വായനയ്ക്കുള്ള ഫംഗ്‌ഷൻ
     function openBook(element) {
@@ -557,7 +757,57 @@
     .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold;}
     .lib-btn-login:hover { background: #004D40; }
     .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px;}
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 <script>
     // 1. PDF ലിങ്ക് ക്ലിക്ക് ചെയ്യുമ്പോൾ
     function checkAccess(bookUrl) {
@@ -632,7 +882,57 @@
         transition: 0.3s;
     }
     .lib-btn-close:hover { background: #f1f1f1; color: #333; }
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 <script>
     function checkAccess(targetUrl) {
         // LocalStorage-ൽ libraryUser ഉണ്ടോ എന്ന് നോക്കുന്നു
@@ -691,7 +991,57 @@
     .lib-btn-close:hover { background: #f1f1f1; color: #333; }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // --- A. LOGOUT BUTTON VISIBILITY FIX ---
@@ -726,7 +1076,57 @@
     .lib-popup-box { background: white; padding: 30px; width: 300px; border-top: 5px solid #00897B; border-radius: 10px; text-align: center; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     .lib-btn-login { background: #00897B; color: white; border: none; padding: 10px 20px; width: 100%; margin-top: 10px; cursor: pointer; border-radius: 5px; font-weight: bold; }
     .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 20px; width: 100%; margin-top: 5px; cursor: pointer; border-radius: 5px; }
-</style>
+
+        /* Mobile Header & 2-Column Grid Fix - Thripudi */
+        @media (max-width: 768px) {
+            header {
+                height: auto !important;
+                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
+                padding: 20px 0 !important;
+                position: relative !important;
+                display: block !important;
+            }
+            .navbar {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            .logo-container {
+                margin-bottom: 10px !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .logo-text {
+                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
+                display: block !important;
+                margin-top: 5px !important;
+            }
+            .nav-links {
+                width: 100% !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            .nav-item {
+                font-size: 0.75em !important;
+                padding: 5px 8px !important;
+            }
+            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
+            .library-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                padding: 10px !important;
+            }
+            .image-wrapper {
+                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
+            }
+            .book-title {
+                font-size: 0.8em !important;
+                height: 3em !important;
+            }
+        }
+        
+    </style>
 <div class="lib-popup-overlay" id="login-modal">
 <div class="lib-popup-box">
 <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
