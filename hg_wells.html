@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ലൈബ്രറി പേജ് | THRIPUDI LIBRARY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
+    <style>
+        :root { 
+            --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
+            --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
+        .logo-img { height: 65px; width: auto; } 
+        .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
+
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-item { 
+            color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; 
+            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px;
+            background-color: var(--secondary-dark) !important;
+        }
+        .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
+
+        .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+
+        /* ഹെഡർ റെസ്പോൺസീവ് തിരുത്തലുകൾ */
+        @media (max-width: 768px) {
+            header { height: auto; padding: 12px 0; }
+            .navbar { flex-direction: column; gap: 12px; }
+            .logo-container { gap: 8px; width: 100%; justify-content: center; }
+            .logo-img { height: 45px; } /* ലോഗോ അല്പം ചെറുതാക്കി */
+            .logo-text { font-size: 1.25em; white-space: nowrap; } /* ടെക്സ്റ്റ് ഒറ്റ വരിയിൽ ഒതുക്കി */
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
+            .nav-item { padding: 6px 10px; font-size: 0.72em; border: 1px solid rgba(255, 255, 255, 0.2); }
+            .welcome-msg { display: none; }
+            .user-profile { margin-left: 5px; padding-left: 5px; border-left: none; }
+        }
+
+        .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+        .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 1024px) { .library-container { grid-template-columns: repeat(5, 1fr) !important; } }
+
+        .book-card { background: transparent; text-align: center; }
+        .image-wrapper { position: relative; width: 100%; height: 280px; border-radius: 8px; overflow: hidden; border: 4px solid var(--outline-color); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .book-cover { width: 100%; height: 100%; object-fit: cover; }
+        .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.85); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .book-card:hover .read-overlay { opacity: 1; }
+        .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
+        .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
+
+        .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
+        .popup-body { padding: 25px; color: var(--text-color); font-size: 0.95em; }
+        .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
+        .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
+
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
+        .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; }
+        .pdf-modal-frame { width:100%; height:100%; border:none; }
+        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
+
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
+    </style>
+</head>
+<body>
+
+<header id="masterHeader">
+    <div class="container navbar">
+        <a href="dashboard.html" class="logo-container">
+            <img src="https://drive.google.com/thumbnail?sz=w1000&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
+            <span class="logo-text">THRIPUDI LIBRARY</span>
+        </a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
+                <div class="profile-dropdown">
+                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
+                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                    <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="collection-section" id="masterSection">
+    <div class="container">
+        <h1>H G Wells Books</h1>
+        <div class="library-container">
+           
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="A Modern Utopia H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1BxATMjieFo6X497gCZHgC3MnbFnJAgnX" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1BxATMjieFo6X497gCZHgC3MnbFnJAgnX', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">A Modern Utopia H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="A Short History Of The World H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FiC7s-NsjyMO64OAHxjXta3a-MO_OGWW" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FiC7s-NsjyMO64OAHxjXta3a-MO_OGWW', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">A Short History Of The World H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Ann Veronica H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=156fIGZF1r-EpVEhTWeJocUic8UCL6uIQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('156fIGZF1r-EpVEhTWeJocUic8UCL6uIQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Ann Veronica H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Anticipations H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1YW0zO7kUsadb-e9w0gZ2PbVXPCHHPOpp" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YW0zO7kUsadb-e9w0gZ2PbVXPCHHPOpp', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Anticipations H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Bealby H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1BeQhyRywYNh94utvvH7Xqh8YbOBo-iOz" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1BeQhyRywYNh94utvvH7Xqh8YbOBo-iOz', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Bealby H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Boon H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17kCQVsDjt6CUZyXFU8IfQ43LpwZnIHaq" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17kCQVsDjt6CUZyXFU8IfQ43LpwZnIHaq', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Boon H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="First And Last Things H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wUaDv9UkxfQj27btGozIPUsdE-hx_KVG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wUaDv9UkxfQj27btGozIPUsdE-hx_KVG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">First And Last Things H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Floor Games H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qUNQf03BFD1da__hNKoGMejfhoAumUCf" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qUNQf03BFD1da__hNKoGMejfhoAumUCf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Floor Games H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="God The Invisible King H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1mXCP4AccHoegXxIWeWTMbErtuPpyBTAQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mXCP4AccHoegXxIWeWTMbErtuPpyBTAQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">God The Invisible King H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="In The Days Of The Comet H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1IqTqVFitCgD1klEVEf7-z4629OABg9_H" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IqTqVFitCgD1klEVEf7-z4629OABg9_H', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">In The Days Of The Comet H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Kipps H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1-oew5Bt-0YuGdVhO8-g1IPYJ2asOVV6x" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1-oew5Bt-0YuGdVhO8-g1IPYJ2asOVV6x', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Kipps H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Love And Mr Lewisham H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1QtWRuvl_7ZlW_PWEIQzxT_NaB5Hc2euG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1QtWRuvl_7ZlW_PWEIQzxT_NaB5Hc2euG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Love And Mr Lewisham H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Marriage H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wRqXJKfZUdkCWiu3j5zUSTtXBHJVPsXb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wRqXJKfZUdkCWiu3j5zUSTtXBHJVPsXb', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Marriage H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Mr Britling Sees It Through H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ieODGqLvTuChH_s3eYyNlj7QDsO5bUyV" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ieODGqLvTuChH_s3eYyNlj7QDsO5bUyV', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Mr Britling Sees It Through H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Discovery Of The Future H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1NblXHaMqYt_XA-BufE2EKFRI1q8_3P2I" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1NblXHaMqYt_XA-BufE2EKFRI1q8_3P2I', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Discovery Of The Future H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Door In The Wall And Other Stories H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kA7uS2NRr8Z32x9L19NXSr032-WWtj0s" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kA7uS2NRr8Z32x9L19NXSr032-WWtj0s', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Door In The Wall And Other Stories H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The First Men In The Moon H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1-VkXbvpZ17DmvBrgYDlWeo0N5X9xP0yJ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1-VkXbvpZ17DmvBrgYDlWeo0N5X9xP0yJ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The First Men In The Moon H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Food Of The Gods And How It Came To Earth H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1f5C3vt-4Gpm9bbSDXXGzifpWfzXjS_xK" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1f5C3vt-4Gpm9bbSDXXGzifpWfzXjS_xK', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Food Of The Gods And How It Came To Earth H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The History Of Mr Polly H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1OFQj4qFmgqWOVZ3qOoGol98yRQ0YVvMv" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1OFQj4qFmgqWOVZ3qOoGol98yRQ0YVvMv', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The History Of Mr Polly H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Invisible Man H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1e3GtG2bPP820-zmn6gwlUCoQOAYf4PLi" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1e3GtG2bPP820-zmn6gwlUCoQOAYf4PLi', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Invisible Man H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Island Of Dr Moreau H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JCjlQ7yN8xglE-5smDEZKciBIj7GP2GB" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JCjlQ7yN8xglE-5smDEZKciBIj7GP2GB', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Island Of Dr Moreau H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The New Machiavelli H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1yOVAOc5EcPhBAdtUbsBXt1DCeOJl6x8z" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1yOVAOc5EcPhBAdtUbsBXt1DCeOJl6x8z', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The New Machiavelli H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Passionate Friends A Novel H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wao5AfW-uZNgXRfB5ydBWNGlqy00z_AO" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wao5AfW-uZNgXRfB5ydBWNGlqy00z_AO', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Passionate Friends A Novel H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Research Magnificent H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1uT71-EYyv8x_GJlL8DHV31nu2fO6ud9p" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1uT71-EYyv8x_GJlL8DHV31nu2fO6ud9p', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Research Magnificent H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Sea Lady H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=144hXGBjZhd3MNAZ3KlDTDhNWoNy-iYaS" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('144hXGBjZhd3MNAZ3KlDTDhNWoNy-iYaS', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Sea Lady H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Sleeper Awakes H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1wYctVl1Axxzg4hSt07AHLsOJ-TgcqBXG" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1wYctVl1Axxzg4hSt07AHLsOJ-TgcqBXG', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Sleeper Awakes H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Time Machine H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1FGda1ftMuFfIPQQUD9xQCD7Dxmc2n9G8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1FGda1ftMuFfIPQQUD9xQCD7Dxmc2n9G8', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Time Machine H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The War In The Air H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1P2ZJLF6ly0sEANxehWuVSvxqOh65XhRx" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1P2ZJLF6ly0sEANxehWuVSvxqOh65XhRx', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The War In The Air H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The War Of The Worlds H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=18DcTAi2VbxhWNOOVDnmKA0zzYn84Ej3x" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('18DcTAi2VbxhWNOOVDnmKA0zzYn84Ej3x', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The War Of The Worlds H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Wheels Of Chance H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kGPB6_BkGRFM300xlsrOnNxMLZUeCf2G" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kGPB6_BkGRFM300xlsrOnNxMLZUeCf2G', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Wheels Of Chance H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Wife Of Sir Isaac Harman H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=15yR6n9a4Q5Mt3EDg92ap5pX5zOdJaQN-" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('15yR6n9a4Q5Mt3EDg92ap5pX5zOdJaQN-', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Wife Of Sir Isaac Harman H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Wonderful Visit H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=17kbINZ5dhweWUE4TQCNZMtYByv5wCVUN" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('17kbINZ5dhweWUE4TQCNZMtYByv5wCVUN', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Wonderful Visit H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The World Set Free H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ZQUstpuSHtG1Kst2OFoJOo7k5I9rDyq3" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ZQUstpuSHtG1Kst2OFoJOo7k5I9rDyq3', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The World Set Free H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="This Misery Of Boots H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1HcHh8q1R4b0tTQDoJA96hSLyBCo4t0R_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1HcHh8q1R4b0tTQDoJA96hSLyBCo4t0R_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">This Misery Of Boots H G Wells</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Tono Bungay H G Wells" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Q1bAemFBtHZrmgu3CcWpRAZb-MHwLPPP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Q1bAemFBtHZrmgu3CcWpRAZb-MHwLPPP', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Tono Bungay H G Wells</div>
+</div>
+
+
+
+        </div>
+    </div>
+</section>
+
+<div id="loginAlertModal" class="login-popup-modal">
+    <div class="popup-box">
+        <div class="popup-header">ത്രിപുടി ലൈബ്രറി പറയുന്നു</div>
+        <div class="popup-body">ഈ പുസ്തകം വായിക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
+        <div class="popup-footer">
+            <a href="#" id="loginRedirectBtn" class="btn-login">ലോഗിൻ ചെയ്യുക</a>
+            <button onclick="closeLoginPopup()" class="btn-cancel">ഇപ്പോൾ വേണ്ട</button>
+        </div>
+    </div>
+</div>
+
+<div id="pdfModal" class="pdf-modal-viewer">
+    <div class="pdf-modal-header">
+        <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മോഡ്</span>
+        <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i> ക്ലോസ്</button>
+    </div>
+    <div class="iframe-container">
+        <div class="security-mask"></div>
+        <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
+    </div>
+</div>
+
+<footer>
+    <div class="container footer-content">
+        <div class="footer-row">
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="font-size: 0.85em; opacity: 0.8;">
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+        </div>
+        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+    </div>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.currentUser = user;
+            document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
+            const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
+            if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const openBookId = urlParams.get('openBook');
+            if (openBookId) {
+                document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${openBookId}/preview?rm=minimal`;
+                document.getElementById('pdfModal').style.display = "flex";
+                document.body.style.overflow = "hidden";
+            }
+        } else {
+            window.currentUser = null;
+            document.getElementById('display-name').textContent = "...";
+            document.getElementById('userAvatar').innerHTML = `<i class="fas fa-user"></i>`;
+        }
+    });
+
+    document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
+</script>
+
+<script>
+    function saveToHistory(element, bookId) {
+        if (!window.currentUser) return;
+        const card = element.closest('.book-card');
+        const title = card.querySelector('.book-title').innerText;
+        const image = card.querySelector('.book-cover').src;
+        const key = 'history_' + window.currentUser.uid;
+        let history = JSON.parse(localStorage.getItem(key)) || [];
+        history = history.filter(item => item.title !== title);
+        history.unshift({ title, image, link: window.location.pathname + '?openBook=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
+        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+    }
+
+    window.checkAccess = function(bookId, element) {
+        if (!window.currentUser) {
+            const currentPath = window.location.pathname.split('/').pop();
+            document.getElementById('loginRedirectBtn').href = `login.html?redirect=${currentPath}&bookId=${bookId}`;
+            document.getElementById('loginAlertModal').style.display = 'flex';
+        } else {
+            saveToHistory(element, bookId);
+            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview?rm=minimal`;
+            document.getElementById('pdfModal').style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+    };
+
+    function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
+    function closePdfModal() {
+        document.getElementById('pdfModal').style.display = "none";
+        document.getElementById('pdfFrame').src = "";
+        document.body.style.overflow = "auto";
+    };
+
+    document.getElementById('profile-section').onclick = function(e) {
+        e.stopPropagation();
+        let d = this.querySelector('.profile-dropdown');
+        d.style.display = d.style.display === "block" ? "none" : "block";
+    };
+    window.onclick = () => document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
+</script>
+</body>
+</html>

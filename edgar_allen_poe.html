@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ലൈബ്രറി പേജ് | THRIPUDI LIBRARY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    
+    <style>
+        :root { 
+            --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
+            --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
+        .logo-img { height: 65px; width: auto; } 
+        .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
+
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-item { 
+            color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; 
+            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px;
+            background-color: var(--secondary-dark) !important;
+        }
+        .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
+
+        .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+
+        /* ഹെഡർ റെസ്പോൺസീവ് തിരുത്തലുകൾ */
+        @media (max-width: 768px) {
+            header { height: auto; padding: 12px 0; }
+            .navbar { flex-direction: column; gap: 12px; }
+            .logo-container { gap: 8px; width: 100%; justify-content: center; }
+            .logo-img { height: 45px; } /* ലോഗോ അല്പം ചെറുതാക്കി */
+            .logo-text { font-size: 1.25em; white-space: nowrap; } /* ടെക്സ്റ്റ് ഒറ്റ വരിയിൽ ഒതുക്കി */
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
+            .nav-item { padding: 6px 10px; font-size: 0.72em; border: 1px solid rgba(255, 255, 255, 0.2); }
+            .welcome-msg { display: none; }
+            .user-profile { margin-left: 5px; padding-left: 5px; border-left: none; }
+        }
+
+        .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+        .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 1024px) { .library-container { grid-template-columns: repeat(5, 1fr) !important; } }
+
+        .book-card { background: transparent; text-align: center; }
+        .image-wrapper { position: relative; width: 100%; height: 280px; border-radius: 8px; overflow: hidden; border: 4px solid var(--outline-color); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .book-cover { width: 100%; height: 100%; object-fit: cover; }
+        .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.85); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .book-card:hover .read-overlay { opacity: 1; }
+        .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
+        .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
+
+        .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
+        .popup-body { padding: 25px; color: var(--text-color); font-size: 0.95em; }
+        .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
+        .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
+
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
+        .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; }
+        .pdf-modal-frame { width:100%; height:100%; border:none; }
+        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
+
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
+    </style>
+</head>
+<body>
+
+<header id="masterHeader">
+    <div class="container navbar">
+        <a href="dashboard.html" class="logo-container">
+            <img src="https://drive.google.com/thumbnail?sz=w1000&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
+            <span class="logo-text">THRIPUDI LIBRARY</span>
+        </a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
+                <div class="profile-dropdown">
+                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
+                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                    <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="collection-section" id="masterSection">
+    <div class="container">
+        <h1>Edgar Allan Poe</h1>
+        <div class="library-container">
+           
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="6 The Narrative Of Arthur Gordon Pym Of Nantucket Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1UBjmoFCPqqSUVkGrbRh75SsJq2M13whr" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UBjmoFCPqqSUVkGrbRh75SsJq2M13whr', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">6 The Narrative Of Arthur Gordon Pym Of Nantucket Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="8 The Masque Of The Red Death Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1LrA2QP64y38A5AbUF9u_zV9Th3GBJrZv" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1LrA2QP64y38A5AbUF9u_zV9Th3GBJrZv', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">8 The Masque Of The Red Death Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="10 The Mystery Of Marie Rog T Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1eC1OqiGaYhJAP-MTKLAps1ouWkRcG3hr" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1eC1OqiGaYhJAP-MTKLAps1ouWkRcG3hr', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">10 The Mystery Of Marie Rog T Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="13 The Bells Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1bwzNoJ1P5dRxsJ-opb3zFI0icN1GYbfQ" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1bwzNoJ1P5dRxsJ-opb3zFI0icN1GYbfQ', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">13 The Bells Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="13 The Oval Portrait Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1kcVm-h9z-BYVAUiGTihPXcyCYYfSt29b" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1kcVm-h9z-BYVAUiGTihPXcyCYYfSt29b', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">13 The Oval Portrait Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="14 Lenore Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1m-Bz9c1Fl7Qwk4v7SQhhE0KEvLkcgYX5" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1m-Bz9c1Fl7Qwk4v7SQhhE0KEvLkcgYX5', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">14 Lenore Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="15 William Wilson Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1CBueuo1GbLE4ofCapnMsFaHTw06oh2_A" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1CBueuo1GbLE4ofCapnMsFaHTw06oh2_A', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">15 William Wilson Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="16 A Descent Into The Maelstr M Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qy27IkXvYQmQ4JSwvQdICS8CB4bSpgGI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qy27IkXvYQmQ4JSwvQdICS8CB4bSpgGI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">16 A Descent Into The Maelstr M Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="17 Ms Found In A Bottle Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1rZ6PHpIXXCirQBG0eBl-s2XbC5H1PBrb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1rZ6PHpIXXCirQBG0eBl-s2XbC5H1PBrb', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">17 Ms Found In A Bottle Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="18 The Gold Bug Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1zURtgyYMKd2SdKjY2QOSV2WBRdjaQ6-0" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1zURtgyYMKd2SdKjY2QOSV2WBRdjaQ6-0', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">18 The Gold Bug Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="19 Ulalume Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1fWcW7_QW0c0LcGviL2QtUhFVv46prQR4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1fWcW7_QW0c0LcGviL2QtUhFVv46prQR4', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">19 Ulalume Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="20 Hop Frog Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ppE-as-wYWuuJMcSP89nCjN4l82ll642" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ppE-as-wYWuuJMcSP89nCjN4l82ll642', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">20 Hop Frog Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="20 The Purloined Letter Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1it97v77-zxe7jGftyPPvsN5Z3n_YzxFI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1it97v77-zxe7jGftyPPvsN5Z3n_YzxFI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">20 The Purloined Letter Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="22 The Raven Author Edgar Allan Poe Compressed" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1d13mqoNZ0b9BQLWHztS8DVLaUWabwUKu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1d13mqoNZ0b9BQLWHztS8DVLaUWabwUKu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">22 The Raven Author Edgar Allan Poe Compressed</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="24 The Murders In The Rue Morgue Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1b1P32e3ob6lmwCHwe6pWyJbAFuh06IUU" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1b1P32e3ob6lmwCHwe6pWyJbAFuh06IUU', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">24 The Murders In The Rue Morgue Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="32 The Tell Tale Heart Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1zTp-VGkaqIaS9PCDO3cM1NxQMkSNa5ql" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1zTp-VGkaqIaS9PCDO3cM1NxQMkSNa5ql', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">32 The Tell Tale Heart Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="76 The Premature Burial Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1GN66uhQqwM7prhyIVVi5ehDQHOsY2Oi5" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1GN66uhQqwM7prhyIVVi5ehDQHOsY2Oi5', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">76 The Premature Burial Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="129 Ligeia Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1hx4XfEJUxiEd9nzMtHfLU7qdeVc1zhte" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hx4XfEJUxiEd9nzMtHfLU7qdeVc1zhte', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">129 Ligeia Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="160 The Cask Of Amontillado Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1Ec1nrCMpsTjcEvBDltI8_PnvK4o80hmc" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Ec1nrCMpsTjcEvBDltI8_PnvK4o80hmc', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">160 The Cask Of Amontillado Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="229 The Fall Of The House Of Usher Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1mNhfLTAKf0NyBOfKNWurHs-pymQfgFCz" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mNhfLTAKf0NyBOfKNWurHs-pymQfgFCz', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">229 The Fall Of The House Of Usher Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="244 Metzengerstein Author Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1htt2aNUUmlbgVA0sECeTC9ubP-G5-r7v" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1htt2aNUUmlbgVA0sECeTC9ubP-G5-r7v', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">244 Metzengerstein Author Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Al Aaraaf Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=14p2vYO-X4qdppEUl3chICrvHY14TkN01" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('14p2vYO-X4qdppEUl3chICrvHY14TkN01', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Al Aaraaf Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Annabel Lee Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1UL8dQtsN3uBXxvokSA5ejDgb9t47r6TF" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UL8dQtsN3uBXxvokSA5ejDgb9t47r6TF', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Annabel Lee Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Eldorado Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1UcZaRUplISDRVbslwDXdFi6zA6I-X2uK" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1UcZaRUplISDRVbslwDXdFi6zA6I-X2uK', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Eldorado Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Eleonora Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ZJjy-N5E7b2yR3R1vpV43ZPZ8oBVB-Gu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ZJjy-N5E7b2yR3R1vpV43ZPZ8oBVB-Gu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Eleonora Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Eureka Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=19KdRlKxXudVGBORkANWMvNSntr8skoo2" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('19KdRlKxXudVGBORkANWMvNSntr8skoo2', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Eureka Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="King Pest Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1RepNUMcEG6-xW62huLHCj6Idq_tt1J9t" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RepNUMcEG6-xW62huLHCj6Idq_tt1J9t', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">King Pest Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Morella Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1SkUD6lPpUqR-tZiouuW5bwlROxpC0Bf_" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1SkUD6lPpUqR-tZiouuW5bwlROxpC0Bf_', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Morella Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Never Bet The Devil Your Head Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1tdyBGp4FEdbkYRLm1ku1nDTnp927Pg8N" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1tdyBGp4FEdbkYRLm1ku1nDTnp927Pg8N', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Never Bet The Devil Your Head Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Poems Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=13kuy8WWjfC3GranBI1yTESXElt-ieRTu" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('13kuy8WWjfC3GranBI1yTESXElt-ieRTu', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Poems Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Silence Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1QoQfZLhSBSTBU_XuUXtkO_yKyQBf3VXb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1QoQfZLhSBSTBU_XuUXtkO_yKyQBf3VXb', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Silence Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Tales Of Mystery And Imagination Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1qI3VPMeArwD9NVmpnNiBYEI4p8ZNlVUY" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qI3VPMeArwD9NVmpnNiBYEI4p8ZNlVUY', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Tales Of Mystery And Imagination Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Tales Of The Grotesque And Arabesque Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1XbJATvOtFinwBfHDSubmTy_DN8_Rf2oA" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1XbJATvOtFinwBfHDSubmTy_DN8_Rf2oA', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Tales Of The Grotesque And Arabesque Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Tamerlane Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=11BpYDHNDGC--GxKu2lEL5a1nWRuT365S" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('11BpYDHNDGC--GxKu2lEL5a1nWRuT365S', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Tamerlane Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Black Cat Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1ceFPTN9hxJapMf_U_OId222k4U0c_skW" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1ceFPTN9hxJapMf_U_OId222k4U0c_skW', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Black Cat Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Facts In The Case Of M Valdemar Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=12-wEmZkd5FHJ7LO-EoY3cyGqYd6qAEGS" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('12-wEmZkd5FHJ7LO-EoY3cyGqYd6qAEGS', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Facts In The Case Of M Valdemar Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Haunted Palace Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1DkE6XQhdRgu8G1VQU4F5I2tTYVbd5vNI" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1DkE6XQhdRgu8G1VQU4F5I2tTYVbd5vNI', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Haunted Palace Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Imp Of The Perverse Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=11-ecifJmfYDkE27D4MfrXFtvqAVFedxc" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('11-ecifJmfYDkE27D4MfrXFtvqAVFedxc', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Imp Of The Perverse Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Journal Of Julius Rodman Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1vkGIymFigzeDRcPoDQTKYsXqKJD3Nz6r" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1vkGIymFigzeDRcPoDQTKYsXqKJD3Nz6r', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Journal Of Julius Rodman Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Man Of The Crowd Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1JZK2YbkeQaY3vVJuQn8aLVopASU4rFA7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1JZK2YbkeQaY3vVJuQn8aLVopASU4rFA7', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Man Of The Crowd Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Sleeper Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1U5Xyl0hpP5y4rKi70_rePiI8fL4zZnkq" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1U5Xyl0hpP5y4rKi70_rePiI8fL4zZnkq', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Sleeper Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The System Of Doctor Tarr And Professor Fether Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1COtUgbx_ZaecYnifLksmLzplOPxjEd5Z" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1COtUgbx_ZaecYnifLksmLzplOPxjEd5Z', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The System Of Doctor Tarr And Professor Fether Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="The Unparalleled Adventure Of One Hans Pfaall Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1fQ6WriOr1cdfsFDWaEpDOQ99WxU3wNlx" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1fQ6WriOr1cdfsFDWaEpDOQ99WxU3wNlx', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">The Unparalleled Adventure Of One Hans Pfaall Edgar Allan Poe</div>
+</div>
+
+<div class="book-card">
+    <div class="image-wrapper">
+        <img alt="Works Edgar Allan Poe" class="book-cover" loading="lazy" src="https://drive.google.com/thumbnail?sz=w600&id=1s1krc-JkPdPmgEAr7qqeb7-urhLVs_DW" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1s1krc-JkPdPmgEAr7qqeb7-urhLVs_DW', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">Works Edgar Allan Poe</div>
+</div>
+
+
+
+        </div>
+    </div>
+</section>
+
+<div id="loginAlertModal" class="login-popup-modal">
+    <div class="popup-box">
+        <div class="popup-header">ത്രിപുടി ലൈബ്രറി പറയുന്നു</div>
+        <div class="popup-body">ഈ പുസ്തകം വായിക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
+        <div class="popup-footer">
+            <a href="#" id="loginRedirectBtn" class="btn-login">ലോഗിൻ ചെയ്യുക</a>
+            <button onclick="closeLoginPopup()" class="btn-cancel">ഇപ്പോൾ വേണ്ട</button>
+        </div>
+    </div>
+</div>
+
+<div id="pdfModal" class="pdf-modal-viewer">
+    <div class="pdf-modal-header">
+        <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മോഡ്</span>
+        <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i> ക്ലോസ്</button>
+    </div>
+    <div class="iframe-container">
+        <div class="security-mask"></div>
+        <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
+    </div>
+</div>
+
+<footer>
+    <div class="container footer-content">
+        <div class="footer-row">
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="font-size: 0.85em; opacity: 0.8;">
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+        </div>
+        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+    </div>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.currentUser = user;
+            document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
+            const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
+            if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const openBookId = urlParams.get('openBook');
+            if (openBookId) {
+                document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${openBookId}/preview?rm=minimal`;
+                document.getElementById('pdfModal').style.display = "flex";
+                document.body.style.overflow = "hidden";
+            }
+        } else {
+            window.currentUser = null;
+            document.getElementById('display-name').textContent = "...";
+            document.getElementById('userAvatar').innerHTML = `<i class="fas fa-user"></i>`;
+        }
+    });
+
+    document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
+</script>
+
+<script>
+    function saveToHistory(element, bookId) {
+        if (!window.currentUser) return;
+        const card = element.closest('.book-card');
+        const title = card.querySelector('.book-title').innerText;
+        const image = card.querySelector('.book-cover').src;
+        const key = 'history_' + window.currentUser.uid;
+        let history = JSON.parse(localStorage.getItem(key)) || [];
+        history = history.filter(item => item.title !== title);
+        history.unshift({ title, image, link: window.location.pathname + '?openBook=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
+        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+    }
+
+    window.checkAccess = function(bookId, element) {
+        if (!window.currentUser) {
+            const currentPath = window.location.pathname.split('/').pop();
+            document.getElementById('loginRedirectBtn').href = `login.html?redirect=${currentPath}&bookId=${bookId}`;
+            document.getElementById('loginAlertModal').style.display = 'flex';
+        } else {
+            saveToHistory(element, bookId);
+            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview?rm=minimal`;
+            document.getElementById('pdfModal').style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+    };
+
+    function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
+    function closePdfModal() {
+        document.getElementById('pdfModal').style.display = "none";
+        document.getElementById('pdfFrame').src = "";
+        document.body.style.overflow = "auto";
+    };
+
+    document.getElementById('profile-section').onclick = function(e) {
+        e.stopPropagation();
+        let d = this.querySelector('.profile-dropdown');
+        d.style.display = d.style.display === "block" ? "none" : "block";
+    };
+    window.onclick = () => document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
+</script>
+</body>
+</html>
