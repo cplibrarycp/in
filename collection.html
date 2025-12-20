@@ -39,45 +39,52 @@
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
-        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; font-size: 0.9em; }
 
-        @media (max-width: 768px) {
-            header { height: auto; padding: 12px 0; }
-            .navbar { flex-direction: column; gap: 12px; }
-            .logo-container { gap: 8px; width: 100%; justify-content: center; }
-            .logo-img { height: 45px; } 
-            .logo-text { font-size: 1.25em; white-space: nowrap; } 
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 5px; }
-            .nav-item { padding: 6px 10px; font-size: 0.72em; border: 1px solid rgba(255, 255, 255, 0.2); }
-            .welcome-msg { display: none; }
-            .user-profile { margin-left: 5px; padding-left: 5px; border-left: none; }
+        .search-wrapper { margin: 25px auto 15px; max-width: 800px; width: 100%; position: relative; padding: 0 15px; }
+        .search-bar { width: 100%; padding: 15px 25px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1.1em; font-family: 'Poppins', sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.05); outline: none; transition: 0.3s; }
+        .search-icon { position: absolute; right: 35px; top: 50%; transform: translateY(-50%); color: var(--primary-teal); font-size: 1.2em; }
+
+        /* സ്ക്രോളിംഗ് മാർക്ക്യൂ പരിഷ്കരിച്ച രീതി (Full Height & Label View) */
+        .marquee-container { 
+            background: white; 
+            padding: 40px 0; 
+            border-top: 1px solid var(--outline-color); 
+            border-bottom: 1px solid var(--outline-color); 
+            overflow: hidden; 
+            width: 100%; 
+            position: relative; 
+            margin: 20px 0;
+            min-height: 320px; /* മാർക്ക്യൂവിന് വേണ്ടത്ര ഉയരം നൽകി */
+            display: flex;
+            align-items: center;
+        }
+        .scroll-content { display: flex; gap: 30px; width: max-content; animation: autoScroll 110s linear infinite; }
+        .scroll-content:hover { animation-play-state: paused; }
+        @keyframes autoScroll { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+
+        .marquee-item { width: 160px; text-align: center; cursor: pointer; transition: 0.3s; text-decoration: none; display: block; }
+        .marquee-thumb { height: 210px; width: 100%; border-radius: 8px; overflow: hidden; border: 3px solid var(--outline-color); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .marquee-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .marquee-label { 
+            font-size: 0.78rem; 
+            color: var(--secondary-dark); 
+            font-weight: 700; 
+            margin-top: 15px; 
+            display: block;
+            white-space: normal; /* വരി താഴേക്ക് വരാൻ */
+            line-height: 1.2;
+            text-transform: uppercase;
         }
 
-        /* സ്ക്രോളിംഗ് മാർക്ക്യൂ - Screen End to Screen End */
-        .marquee-full-width { background: white; padding: 25px 0; border-bottom: 1px solid var(--outline-color); overflow: hidden; width: 100%; position: relative; margin: 20px 0; }
-        .scroll-content { display: flex; gap: 25px; width: max-content; animation: autoScroll 110s linear infinite; }
-        .scroll-content:hover { animation-play-state: paused; }
-        @keyframes autoScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee-item { width: 130px; text-align: center; cursor: pointer; }
-        .marquee-thumb { height: 180px; width: 100%; border-radius: 8px; overflow: hidden; border: 3px solid var(--outline-color); transition: 0.3s; }
-        .marquee-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .marquee-label { font-size: 0.65rem; color: var(--secondary-dark); font-weight: 700; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-        .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
-
-        .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
-        .popup-body { padding: 25px; color: var(--text-color); font-size: 0.95em; }
-        .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
-        .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
-        .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
-
-        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
-        .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
-        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; }
-        .pdf-modal-frame { width:100%; height:100%; border:none; }
-        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
+        @media (max-width: 768px) {
+            header { height: auto !important; min-height: 120px !important; padding: 20px 0 !important; }
+            .navbar { flex-direction: column; gap: 10px; }
+            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+            .marquee-container { min-height: 280px; padding: 20px 0; }
+            .marquee-thumb { height: 170px; }
+            .marquee-item { width: 130px; }
+        }
 
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -111,37 +118,26 @@
     </div>
 </header>
 
-<section class="collection-section" id="masterSection">
-    <div class="container">
-        <h1>പുസ്തകശേഖരം</h1>
-    </div>
-    
-    <div class="marquee-full-width">
-        <div id="marquee-engine" class="scroll-content">
-            </div>
-    </div>
-</section>
-
-<div id="loginAlertModal" class="login-popup-modal">
-    <div class="popup-box">
-        <div class="popup-header">ത്രിപുടി ലൈബ്രറി പറയുന്നു</div>
-        <div class="popup-body">ഈ പുസ്തകം വായിക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
-        <div class="popup-footer">
-            <a href="#" id="loginRedirectBtn" class="btn-login">ലോഗിൻ ചെയ്യുക</a>
-            <button onclick="closeLoginPopup()" class="btn-cancel">ഇപ്പോൾ വേണ്ട</button>
-        </div>
-    </div>
+<div class="search-wrapper">
+    <input type="text" class="search-bar" placeholder="പുസ്തകങ്ങൾ ഇവിടെ തിരയുക..." id="bookSearchInput">
+    <i class="fas fa-search search-icon"></i>
 </div>
 
-<div id="pdfModal" class="pdf-modal-viewer">
-    <div class="pdf-modal-header">
+<div class="container">
+    <h1 style="text-align: center;">പുസ്തകശേഖരം</h1>
+</div>
+
+<div class="marquee-container">
+    <div id="marquee-engine" class="scroll-content">
+        </div>
+</div>
+
+<div id="pdfModal" class="pdf-modal-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; flex-direction:column;">
+    <div class="pdf-modal-header" style="background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center;">
         <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മോഡ്</span>
         <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i> ക്ലോസ്</button>
     </div>
-    <div class="iframe-container">
-        <div class="security-mask"></div>
-        <iframe id="pdfFrame" class="pdf-modal-frame"></iframe>
-    </div>
+    <iframe id="pdfFrame" style="width:100%; height:100%; border:none; flex: 1;"></iframe>
 </div>
 
 <footer>
@@ -170,14 +166,14 @@
         { name: "Agatha Christie Books", id: "13J_Ml41jY9G_Iy6lZOeRFjMnd8HlIXmY" },
         { name: "Plato Books", id: "1BWOvtAKQPoyRUMqLcvP14sVYM8aMo_mK" },
         { name: "Aristotle Books", id: "1DphPFMDXE5Ostg6dk4hOHzReltngA8He" },
-        { name: "changampuzha", id: "1ZL6lLoGou1WWzuM_T4dIeC4Vk3b5xugi" },
-        { name: "ulloor", id: "1aQfKxBj89D6MRyy-dd5nWJAyi3OHGAhZ" },
-        { name: "thikkodiyan", id: "1WqchqLpiqN0DxYTv1wUyOkwXKupboquI" },
+        { name: "Changampuzha", id: "1ZL6lLoGou1WWzuM_T4dIeC4Vk3b5xugi" },
+        { name: "Ulloor", id: "1aQfKxBj89D6MRyy-dd5nWJAyi3OHGAhZ" },
+        { name: "Thikkodiyan", id: "1WqchqLpiqN0DxYTv1wUyOkwXKupboquI" },
         { name: "Arthur Conan Doyle Books", id: "1QH14rIMhaGsCY8nsGz8LtQydH7CndeAw" },
         { name: "Edgar Allan Poe Books", id: "1n-qlBnMYtVpRRqepmziIM9JFTWopR2ML" },
         { name: "Bagavada", id: "1VywuK_Z1ybQW3voEc3F6mQ7O8cGw7GvR" },
-        { name: "kumaranassan", id: "1eTxMxFwq8aV4GBntEekeKbprSU_UXSd9" },
-        { name: "rigvedam", id: "1FbCd9aAYP2BmmDJcSePGWbDdlw5Y6RVL" },
+        { name: "Kumaranassan", id: "1eTxMxFwq8aV4GBntEekeKbprSU_UXSd9" },
+        { name: "Rigvedam", id: "1FbCd9aAYP2BmmDJcSePGWbDdlw5Y6RVL" },
         { name: "Data Analysis", id: "1nboCklxhOzsALdALxt7taXukNgl6R3tM" },
         { name: "Quantum Computing", id: "19fRq9daUAQlHqDDKC9M0G7iej3IgxcAN" },
         { name: "Software Engineering", id: "1QK3Ya0OfsX9yFuTavHcUp4wglnxGe2D9" },
@@ -188,7 +184,7 @@
         { name: "Police Novels", id: "1LoV62EH-iBc0XEoq8R12X9htiyCCtmG3" },
         { name: "Mistery Novels", id: "10kUe4wMoF_EsFF3Hug1pMg1i-jOsip5c" },
         { name: "Vampire Novels", id: "1gJkAVKBOQf776lOm5OPAtZz-_ZcXhRn6" },
-        { name: "vallathol", id: "1TMc3PyL-cJFjUhn-8Rsi1T5FMsl37Vk5" }
+        { name: "Vallathol", id: "1TMc3PyL-cJFjUhn-8Rsi1T5FMsl37Vk5" }
     ];
 
     onAuthStateChanged(auth, (user) => {
@@ -207,50 +203,29 @@
 
     function renderMarquee() {
         const engine = document.getElementById('marquee-engine');
-        engine.innerHTML = [...scrollingData, ...scrollingData].map(b => `
-            <div class="marquee-item" onclick="checkAccess('${b.id}', this)">
-                <div class="marquee-thumb"><img src="https://drive.google.com/thumbnail?sz=w400&id=${b.id}"></div>
-                <div class="marquee-label">${b.name}</div>
-            </div>
-        `).join('');
+        const fullList = [...scrollingData, ...scrollingData]; 
+        
+        engine.innerHTML = fullList.map(item => {
+            const fileLink = item.name.toLowerCase().replace(/\s+/g, '_') + ".html";
+            return `
+                <a href="${fileLink}" class="marquee-item">
+                    <div class="marquee-thumb"><img src="https://drive.google.com/thumbnail?id=${item.id}&sz=w400" loading="lazy"></div>
+                    <span class="marquee-label">${item.name}</span>
+                </a>
+            `;
+        }).join('');
     }
 
     document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
-</script>
 
-<script>
-    function saveToHistory(element, bookId) {
-        if (!window.currentUser) return;
-        const card = element.closest('.marquee-item');
-        const title = card.querySelector('.marquee-label').innerText;
-        const image = card.querySelector('img').src;
-        const key = 'history_' + window.currentUser.uid;
-        let history = JSON.parse(localStorage.getItem(key)) || [];
-        history = history.filter(item => item.title !== title);
-        history.unshift({ title, image, link: window.location.pathname + '?openBook=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
-        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
-    }
-
-    window.checkAccess = function(bookId, element) {
-        if (!window.currentUser) {
-            const currentPath = window.location.pathname.split('/').pop();
-            document.getElementById('loginRedirectBtn').href = `login.html?redirect=${currentPath}&bookId=${bookId}`;
-            document.getElementById('loginAlertModal').style.display = 'flex';
-        } else {
-            saveToHistory(element, bookId);
-            document.getElementById('pdfFrame').src = `https://drive.google.com/file/d/${bookId}/preview?rm=minimal`;
-            document.getElementById('pdfModal').style.display = "flex";
-            document.body.style.overflow = "hidden";
-        }
-    };
-
-    function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
-    function closePdfModal() {
+    window.closePdfModal = function() {
         document.getElementById('pdfModal').style.display = "none";
         document.getElementById('pdfFrame').src = "";
         document.body.style.overflow = "auto";
     };
+</script>
 
+<script>
     document.getElementById('profile-section').onclick = function(e) {
         e.stopPropagation();
         let d = this.querySelector('.profile-dropdown');
