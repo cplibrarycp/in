@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>📚 ഡാഷ്ബോർഡ് | THRIPUDI LIBRARY</title>
+    <title>📚 മലയാളം വിഭാഗം | THRIPUDI LIBRARY</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
@@ -57,12 +57,17 @@
             .user-profile { border-left: none; margin-top: 5px; }
         }
 
-        /* --- ഡാഷ്ബോർഡ് സെക്ഷൻ --- */
-        .dashboard-section { padding: 50px 0; text-align: center; flex: 1 0 auto; }
-        .dashboard-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 10px; }
-        .dashboard-section p { color: #546E7A; margin-bottom: 40px; }
+        /* --- കണ്ടെന്റ് സെക്ഷൻ --- */
+        .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+        .collection-section h1 { font-size: 2.2em; color: var(--secondary-dark); margin-bottom: 10px; }
+        .collection-section p { color: #546E7A; margin-bottom: 40px; }
 
-        /* ത്രിപുടി ഗ്രിഡ് ലോജിക്: ഡെസ്ക്ടോപ്പിൽ 5 വരികൾ */
+        .search-container { margin-bottom: 40px; position: relative; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #searchBar { width: 100%; padding: 15px 20px 15px 45px; border-radius: 50px; border: 2px solid var(--outline-color); font-size: 1em; outline: none; transition: 0.3s; }
+        #searchBar:focus { border-color: var(--primary-teal); }
+        .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary-dark); opacity: 0.6; }
+
+        /* Dashboard Grid (ത്രിപുടി സ്റ്റൈൽ - 5 Books per row on Desktop) */
         .dashboard-container { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -72,71 +77,27 @@
 
         .category-card { 
             background: var(--card-bg); border: 2px solid var(--outline-color); border-radius: 12px; 
-            padding: 30px 20px; text-align: center; color: var(--secondary-dark); 
+            padding: 25px 15px; text-align: center; color: var(--secondary-dark); 
             transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
         }
         .category-card:hover { transform: translateY(-5px); border-color: var(--primary-teal); box-shadow: 0 10px 25px rgba(0, 137, 123, 0.2); }
         
-        .icon-circle { width: 70px; height: 70px; background-color: var(--background-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; font-size: 1.8em; color: var(--primary-teal); transition: 0.3s; }
+        .icon-circle { width: 60px; height: 60px; background-color: var(--background-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; font-size: 1.6em; color: var(--primary-teal); transition: 0.3s; }
         .category-card:hover .icon-circle { background-color: var(--primary-teal); color: white; }
-        .label { font-size: 1.1em; font-weight: 700; }
+        .label { font-size: 1em; font-weight: 700; }
 
         /* --- ത്രിപുടി മാസ്റ്റർ ഫൂട്ടർ --- */
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
-    
-        /* Mobile Header & 2-Column Grid Fix - Thripudi */
-        @media (max-width: 768px) {
-            header {
-                height: auto !important;
-                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
-                padding: 20px 0 !important;
-                position: relative !important;
-                display: block !important;
-            }
-            .navbar {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 10px !important;
-            }
-            .logo-container {
-                margin-bottom: 10px !important;
-                justify-content: center !important;
-                width: 100% !important;
-            }
-            .logo-text {
-                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
-                display: block !important;
-                margin-top: 5px !important;
-            }
-            .nav-links {
-                width: 100% !important;
-                justify-content: center !important;
-                flex-wrap: wrap !important;
-            }
-            .nav-item {
-                font-size: 0.75em !important;
-                padding: 5px 8px !important;
-            }
-            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
-            .library-container {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 12px !important;
-                padding: 10px !important;
-            }
-            .image-wrapper {
-                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
-            }
-            .book-title {
-                font-size: 0.8em !important;
-                height: 3em !important;
-            }
-        }
-        
+
+        /* Popup */
+        .lib-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999999; }
+        .lib-popup-box { background: white; padding: 30px; width: 90%; max-width: 350px; border-top: 5px solid var(--primary-teal); border-radius: 10px; text-align: center; }
+        .lib-btn-login { background: var(--primary-teal); color: white; border: none; padding: 12px; width: 100%; margin-top: 15px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .lib-btn-close { background: transparent; border: 1px solid #ccc; color: #555; padding: 10px; width: 100%; margin-top: 8px; cursor: pointer; border-radius: 5px; }
     
         /* Mobile Header & 2-Column Grid Fix - Thripudi */
         @media (max-width: 768px) {
@@ -195,7 +156,7 @@
     <div class="container navbar">
         <a href="dashboard.html" class="logo-container">
             <img src="https://drive.google.com/thumbnail?sz=w600&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
-            <span class="logo-text">THRIPUDI LIBRARY®</span>
+            <span class="logo-text">THRIPUDI LIBRARY</span>
         </a>
         <div class="nav-links">
             <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> <span>Home</span></a>
@@ -215,53 +176,46 @@
     </div>
 </header>
 
-<section class="dashboard-section">
+<section class="collection-section">
     <div class="container">
-        <h1>ലൈബ്രറി വിഭാഗങ്ങൾ</h1>
-        <p>നിങ്ങൾക്ക് ഇഷ്ടപ്പെട്ട വിഭാഗം തിരഞ്ഞെടുത്ത് വായന തുടങ്ങൂ</p> 
-<marquee behavior="scroll" direction="left">അറിവിന്‍റെ ലോകത്തേയ്ക്ക് സ്വാഗതം! ത്രിപുടി ലൈബ്രറിയിൽ പുതിയ പുസ്തകങ്ങൾ എത്തിയിരിക്കുന്നു. വായനശാലയിലെ പുത്തൻ ശേഖരങ്ങൾ പരിചയപ്പെടാനും നിങ്ങളുടെ പ്രിയപ്പെട്ട പുസ്തകങ്ങൾ കണ്ടെത്താനും ഈ ഇടം പ്രയോജനപ്പെടുത്തുക. വായന വളരട്ടെ, ചിന്ത പടരട്ടെ! © എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</marquee>
+        <h1>ഇതിഹാസ വിഭാഗം</h1>
+        <p>വായനയ്ക്കായി ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക</p>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchBar" onkeyup="searchCategories()" placeholder="വിഭാഗം തിരയുക..." type="text"/>
+        </div>
 
-        <div class="dashboard-container">
-            <a class="category-card" href="language.html">
+        <div class="dashboard-container" id="categoryList">
+            <a class="category-card" href="mahabharath_hindi.html">
+                <div class="icon-circle"><i class="fas fa-feather-alt"></i></div>
+                <span class="label">Mahabharath Hindi</span>
+            </a>
+            <a class="category-card" href="mahabharath_gadyam.html">
                 <div class="icon-circle"><i class="fas fa-pen-nib"></i></div>
-                <span class="label">ഭാഷകള്‍</span>
+                <span class="label">മഹാഭാരതം ഗദ്യം</span>
             </a>
-            <a class="category-card" href="yoga.html">
-                <div class="icon-circle"><i class="fas fa-language"></i></div>
-                <span class="label">Yoga Books</span>
+            <a class="category-card" href="mahabharath_english.html">
+                <div class="icon-circle"><i class="fas fa-scroll"></i></div>
+                <span class="label">Mahabharath English</span>
             </a>
-            <a class="category-card" href="science.html">
-                <div class="icon-circle"><i class="fas fa-spa"></i></div>
-                <span class="label">Science Books</span>
+            <a class="category-card" href="mahabharath_vidwan.html">
+                <div class="icon-circle"><i class="fas fa-book-reader"></i></div>
+                <span class="label">മഹാഭാരതം വിദ്വാന്‍ കെ പ്രാകശം</span>
             </a>
-            <a class="category-card" href="computer.html">
-                <div class="icon-circle"><i class="fas fa-spa"></i></div>
-                <span class="label">Computer Books</span>
+            <a class="category-card" href="vyasa_bharatham.html">
+                <div class="icon-circle"><i class="fas fa-om"></i></div>
+                <span class="label">വ്യാസഭാരതം ഗദ്യം</span>
             </a>
-            <a class="category-card" href="mistery.html">
-                <div class="icon-circle"><i class="fas fa-spa"></i></div>
-                <span class="label">Mistery Books</span>
+            <a class="category-card" href="bharatham.html">
+                <div class="icon-circle"><i class="fas fa-dharmachakra"></i></div>
+                <span class="label">വേദം</span>
             </a>
-            <a class="category-card" href="horthus.html">
-                <div class="icon-circle"><i class="fas fa-landmark"></i></div>
-                <span class="label">Horthus Malabaricus</span>
+            <a class="category-card" href="rigvedam.html">
+                <div class="icon-circle"><i class="fas fa-book"></i></div>
+                <span class="label">ഋഗ്വേദം മലയാളം</span>
             </a>
-            <a class="category-card" href="history.html">
-                <div class="icon-circle"><i class="fas fa-flask"></i></div>
-                <span class="label">Browse History</span>
-            </a>
-            <a class="category-card" href="ithihasam.html">
-                <div class="icon-circle"><i class="fas fa-folder-open"></i></div>
-                <span class="label">ഇതിഹാസം</span>
-            </a>
-            <a class="category-card" href="dashboard.html">
-                <div class="icon-circle"><i class="fas fa-folder-open"></i></div>
-                <span class="label">##</span>
-            </a>
-            <a class="category-card" href="others.html">
-                <div class="icon-circle"><i class="fas fa-folder-open"></i></div>
-                <span class="label">Other Books</span>
-            </a>
+                        
         </div>
     </div>
 </section>
@@ -271,7 +225,7 @@
         <div class="footer-row">
             <div class="social-links-compact">
                 <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="whatsapp.html"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
@@ -283,33 +237,98 @@
     </div>
 </footer>
 
+<div class="lib-popup-overlay" id="login-modal">
+    <div class="lib-popup-box">
+        <h3 style="color: #004D40; margin-top:0;">ലോഗിൻ ആവശ്യമാണ് 🔒</h3>
+        <p style="color:#555;">വായന തുടരാൻ ലോഗിൻ ചെയ്യുക.</p>
+        <button class="lib-btn-login" onclick="window.location.href='login.html'">ലോഗിൻ പേജിലേക്ക്</button>
+        <button class="lib-btn-close" onclick="document.getElementById('login-modal').style.display='none'">ഇപ്പോൾ വേണ്ട</button>
+    </div>
+</div>
+
+<script>
+    function searchCategories() { 
+        var input = document.getElementById('searchBar'); 
+        if(!input) return; 
+        var filter = input.value.toUpperCase(); 
+        var cards = document.getElementsByClassName('category-card'); 
+        for (var i = 0; i < cards.length; i++) { 
+            var title = cards[i].querySelector(".label"); 
+            if (title) { 
+                var txtValue = title.textContent || title.innerText; 
+                cards[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none"; 
+            } 
+        } 
+    }
+</script>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
+    
     const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff", measurementId: "G-B59RDW4KG4" };
-    const app = initializeApp(firebaseConfig); 
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    onAuthStateChanged(auth, async (user) => {
+    let currentUser = null;
+
+    onAuthStateChanged(auth, (user) => {
+        const logoutBtn = document.getElementById('logout-link');
         const nameDisplay = document.getElementById('display-name');
         const avatarDiv = document.getElementById('userAvatar');
 
         if (user) {
-            try { await user.reload(); } catch(e) {}
-            const currentUser = auth.currentUser;
-            const displayName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : currentUser.email.split('@')[0];
+            currentUser = user;
+            if(logoutBtn) logoutBtn.style.display = 'block';
+            const displayName = user.displayName ? user.displayName.split(' ')[0] : "User";
             if(nameDisplay) nameDisplay.textContent = displayName;
-            if (currentUser.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${currentUser.photoURL}" alt="Profile">`;
+            if(user.photoURL && avatarDiv) avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+
+            const pendingUrl = sessionStorage.getItem('pendingBook');
+            if (pendingUrl) {
+                sessionStorage.removeItem('pendingBook');
+                window.location.href = pendingUrl;
+            }
+        } else {
+            currentUser = null;
+            if(nameDisplay) nameDisplay.textContent = "Guest";
+            if(avatarDiv) avatarDiv.innerHTML = `<i class="fas fa-user"></i>`;
+            if(logoutBtn) logoutBtn.style.display = 'none';
         }
     });
 
     const logoutLink = document.getElementById('logout-link');
     if(logoutLink) {
-        logoutLink.addEventListener('click', (e) => { 
-            e.preventDefault(); 
-            signOut(auth).then(() => { window.location.href = "logout-success.html"; }); 
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { window.location.href = "logout-success.html"; });
         });
+    }
+
+    window.checkAccess = function(element, targetUrl) {
+        if (typeof element === 'string') { targetUrl = element; element = null; }
+        if (currentUser) {
+            if (element) { saveToHistory(element, targetUrl); }
+            window.location.href = targetUrl;
+        } else {
+            sessionStorage.setItem('pendingBook', targetUrl);
+            const modal = document.getElementById('login-modal');
+            if(modal) modal.style.display = 'flex';
+        }
+    };
+
+    function saveToHistory(element, url) {
+        try {
+            const card = element.closest('.category-card');
+            if (!card) return;
+            const title = card.querySelector('.label').innerText;
+            const key = 'history_' + currentUser.uid;
+            let history = JSON.parse(localStorage.getItem(key)) || [];
+            history = history.filter(item => item.title !== title);
+            history.unshift({ title: title, image: '', link: url, date: new Date().toLocaleDateString('ml-IN') });
+            if (history.length > 50) history.pop();
+            localStorage.setItem(key, JSON.stringify(history));
+        } catch (e) { console.error("History Error:", e); }
     }
 </script>
 </body>
