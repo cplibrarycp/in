@@ -45,6 +45,11 @@
         .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
         .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
         .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
+        .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .pdf-modal-frame { width:90%; height:120px; border:none; border-radius: 15px; background: rgba(255,255,255,0.95); }
+        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -54,8 +59,8 @@
         .audio-popup-header { background:var(--secondary-dark); color:white; padding:12px; display:flex; justify-content:space-between; align-items:center; }
         .audio-player-container { padding:30px; position:relative; background-size:cover; background-position:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; }
         .audio-blur-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); backdrop-filter:blur(5px); }
-        /* പോപ്പ് ഔട്ട് ബട്ടൺ മാസ്ക് */
-        .player-mask { position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: transparent; z-index: 20; cursor: default; }
+        /* Pop-out button mask */
+        .popup-overlay-mask { position: absolute; top: 0; right: 0; width: 65px; height: 65px; background: transparent; z-index: 100; cursor: default; }
     </style>
 </head>
 <body>
@@ -121,7 +126,7 @@
     </div>
     <div class="audio-player-container" id="playerBg">
         <div class="audio-blur-overlay"></div>
-        <div class="player-mask"></div> 
+        <div class="popup-overlay-mask"></div> 
         <iframe id="audioFrame" style="width:100%; height:80px; border:none; position:relative; z-index:10; border-radius:10px;"></iframe>
     </div>
 </div>
@@ -186,6 +191,7 @@
             const card = element.closest('.book-card');
             const thumb = card.querySelector('.book-cover').src;
             const title = card.querySelector('.book-title').innerText;
+            
             document.getElementById('popupTitle').innerText = title;
             document.getElementById('playerBg').style.backgroundImage = "url('" + thumb + "')";
             document.getElementById('audioFrame').src = "https://drive.google.com/file/d/" + bookId + "/preview";
