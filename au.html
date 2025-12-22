@@ -41,11 +41,9 @@
         .bottom-player-overlay { display:none; position:absolute; bottom:0; left:0; width:100%; height:75px; background:rgba(0,0,0,0.85); z-index:10; border-top:1px solid var(--primary-teal); }
         .bottom-player-overlay iframe { width:100%; height:100%; border:none; }
         .mask-shield { position:absolute; top:0; right:0; width:50px; height:45px; background:transparent; z-index:15; }
-        .close-p-btn { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--primary-teal); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; z-index:20; font-size:10px; }
+        .close-p-btn { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--primary-teal); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; z-index:20; font-size:10px; display:flex; align-items:center; justify-content:center; }
         .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; }
-        
-        /* താങ്കൾ നൽകിയ ഒറിജിനൽ ഫൂട്ടർ സി.എസ്.എസ് */
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -68,9 +66,9 @@
                 <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <a href="profile.html">Settings</a>
-                    <a href="history.html">History</a>
-                    <a href="#" id="logout-link" style="color:red;">Logout</a>
+                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
+                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                    <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
         </div>
@@ -111,9 +109,9 @@
 <div id="loginAlertModal" class="login-popup-modal">
     <div class="popup-box">
         <div style="background:var(--secondary-dark);color:white;padding:15px;font-weight:700;">ത്രിപുടി ലൈബ്രറി</div>
-        <div style="padding:20px;">ഈ ഓഡിയോ കേൾക്കാനായി ലോഗിൻ ചെയ്യുക.</div>
+        <div style="padding:20px;">ഈ ഓഡിയോ കേൾക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
         <div style="padding:15px; background:#f9f9f9;">
-            <button class="overlay-btn" onclick="window.location.href='login.html'">ലോഗിൻ ചെയ്യുക</button>
+            <button id="loginRedirectBtn" class="overlay-btn">ലോഗിൻ ചെയ്യുക</button>
             <button onclick="document.getElementById('loginAlertModal').style.display='none'" style="padding:8px 15px; border:none; cursor:pointer; margin-left:10px;">ഇപ്പോൾ വേണ്ട</button>
         </div>
     </div>
@@ -121,15 +119,8 @@
 <footer>
     <div class="container footer-content">
         <div class="footer-row">
-            <div class="social-links-compact">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-            <div style="font-size: 0.85em; opacity: 0.8;">
-                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
-            </div>
+            <div class="social-links-compact"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
+            <div style="font-size: 0.85em; opacity: 0.8;"><a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a></div>
         </div>
         <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
     </div>
@@ -146,36 +137,45 @@
             document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
+            const urlParams = new URLSearchParams(window.location.search);
+            const openAudioId = urlParams.get('openAudio');
+            if (openAudioId) {
+                setTimeout(() => checkAccess(openAudioId, null, true), 1000);
+            }
         }
     });
     document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="login.html");
 </script>
 <script>
-    function saveToHistory(element, bookId) {
+    function saveToHistory(title, image, bookId) {
         if (!window.currentUser) return;
-        const card = element.closest('.book-card');
-        const title = card.querySelector('.book-title').innerText;
-        const image = card.querySelector('.book-cover').src;
         const key = 'history_' + window.currentUser.uid;
         let history = JSON.parse(localStorage.getItem(key)) || [];
         history = history.filter(item => item.title !== title);
         history.unshift({ title, image, link: window.location.pathname + '?openAudio=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
         localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
     }
-    window.checkAccess = function(bookId, element) {
+    window.checkAccess = function(bookId, element, isRedirect) {
         if (!window.currentUser) {
+            const currentPath = window.location.pathname.split('/').pop();
+            document.getElementById('loginRedirectBtn').onclick = () => {
+                window.location.href = "login.html?redirect=" + currentPath + "&openAudio=" + bookId;
+            };
             document.getElementById('loginAlertModal').style.display = 'flex';
         } else {
-            saveToHistory(element, bookId);
+            if(!isRedirect) {
+                const card = element.closest('.book-card');
+                saveToHistory(card.querySelector('.book-title').innerText, card.querySelector('.book-cover').src, bookId);
+            }
             document.querySelectorAll('.image-wrapper').forEach(w => w.classList.remove('active-p'));
             document.querySelectorAll('.bottom-player-overlay').forEach(p => p.style.display = "none");
-            document.querySelectorAll('.bottom-player-overlay iframe').forEach(f => f.src = "");
-            const wrapper = document.getElementById('wrapper-' + bookId);
             const playerDiv = document.getElementById('player-' + bookId);
-            const frame = document.getElementById('frame-' + bookId);
-            wrapper.classList.add('active-p');
-            playerDiv.style.display = "block";
-            frame.src = "https://drive.google.com/file/d/" + bookId + "/preview";
+            const wrapper = document.getElementById('wrapper-' + bookId);
+            if(playerDiv) {
+                playerDiv.style.display = "block";
+                document.getElementById('frame-' + bookId).src = "https://drive.google.com/file/d/" + bookId + "/preview";
+                wrapper.classList.add('active-p');
+            }
         }
     };
     window.closeInCardPlayer = function(id) {
