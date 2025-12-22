@@ -37,12 +37,12 @@
         .image-wrapper:not(.active-p):hover .read-overlay { opacity: 1; }
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
-        .bottom-player-overlay { display:none; position:absolute; bottom:0; left:0; width:100%; height:80px; background:rgba(0,0,0,0.85); z-index:10; border-top:1px solid var(--primary-teal); }
+        .bottom-player-overlay { display:none; position:absolute; bottom:0; left:0; width:100%; height:75px; background:rgba(0,0,0,0.9); z-index:10; border-top:1px solid var(--primary-teal); }
         .bottom-player-overlay iframe { width:100%; height:100%; border:none; }
         .mask-shield { position:absolute; top:0; right:0; width:50px; height:45px; background:transparent; z-index:15; }
         .close-p-btn { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--primary-teal); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; z-index:20; font-size:10px; display:flex; align-items:center; justify-content:center; }
         .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -137,15 +137,26 @@
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
             
-            // വായനക്കാരൻ ലോഗിൻ ചെയ്ത് തിരിച്ചെത്തിയാൽ ഇവിടെ വരും
+            // വായനക്കാരൻ ലോഗിൻ ചെയ്ത് ഡാഷ്ബോർഡിലെത്തി ഇങ്ങോട്ട് തിരിച്ചുവന്നാൽ
             const urlParams = new URLSearchParams(window.location.search);
             const openId = urlParams.get('openAudio');
             if (openId) setTimeout(() => checkAccess(openId, null, true), 1500);
+        } else {
+            document.getElementById('display-name').textContent = "...";
         }
     });
     document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="logout-success.html");
 </script>
 <script>
+    // ഡാഷ്ബോർഡിൽ നിന്ന് തിരികെ ഓഡിയോ പേജിലേക്ക് എത്തിക്കാൻ ഇത് സഹായിക്കും
+    if (window.location.pathname.includes('dashboard.html')) {
+        const lastPage = localStorage.getItem('last_page_before_login');
+        if (lastPage) {
+            localStorage.removeItem('last_page_before_login');
+            window.location.href = lastPage;
+        }
+    }
+
     function saveToHistory(title, image, bookId) {
         if (!window.currentUser) return;
         const key = 'history_' + window.currentUser.uid;
@@ -154,14 +165,14 @@
         history.unshift({ title, image, link: window.location.pathname + '?openAudio=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
         localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
     }
+
     window.checkAccess = function(bookId, element, isRedirect) {
         if (!window.currentUser) {
             const currentPath = window.location.pathname.split('/').pop();
-            // ലോഗിൻ പേജിന് റീഡയറക്ട് ലിങ്ക് നൽകുന്നു
-            document.getElementById('loginRedirectBtn').onclick = () => {
-                window.location.href = "login.html?redirect=" + currentPath + "&openAudio=" + bookId;
-            };
+            // തിരികെ വരേണ്ട അഡ്രസ് സേവ് ചെയ്യുന്നു
+            localStorage.setItem('last_page_before_login', currentPath + "?openAudio=" + bookId);
             document.getElementById('loginAlertModal').style.display = 'flex';
+            document.getElementById('loginRedirectBtn').onclick = () => window.location.href = "login.html";
         } else {
             if(!isRedirect) {
                 const card = element.closest('.book-card');
@@ -178,11 +189,13 @@
             }
         }
     };
+
     window.closeInCardPlayer = function(id) {
         document.getElementById('wrapper-' + id).classList.remove('active-p');
         document.getElementById('player-' + id).style.display = "none";
         document.getElementById('frame-' + id).src = "";
     };
+
     document.getElementById('profile-section').onclick = (e) => {
         e.stopPropagation();
         let d = document.getElementById('profileDropdown');
