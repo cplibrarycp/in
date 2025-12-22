@@ -131,13 +131,12 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-        window.currentUser = user;
         if (user) {
+            window.currentUser = user;
             document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
             
-            // URL-ൽ openAudio ഉണ്ടെങ്കിൽ അത് പ്ലേ ചെയ്യുന്നു
             const urlParams = new URLSearchParams(window.location.search);
             const openId = urlParams.get('openAudio');
             if (openId) setTimeout(() => checkAccess(openId, null, true), 1000);
@@ -156,14 +155,13 @@
         history.unshift({ title, image, link: window.location.pathname + '?openAudio=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
         localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
     }
-
     window.checkAccess = function(bookId, element, isRedirect) {
         if (!window.currentUser) {
             const currentPath = window.location.pathname.split('/').pop();
-            // വായനക്കാരനെ ഇങ്ങോട്ട് തന്നെ തിരികെ കൊണ്ടുവരാൻ ലോഗിൻ പേജിനോട് ആവശ്യപ്പെടുന്നു
-            const backToMe = currentPath + "?openAudio=" + bookId;
+            // വായനക്കാരെ തിരിച്ചെത്തിക്കാൻ പി.ഡി.എഫ് പേജിലെ അതേ ലോജിക്
+            const redirectUrl = currentPath + "?openAudio=" + bookId;
             document.getElementById('loginRedirectBtn').onclick = () => {
-                window.location.href = "login.html?redirect=" + encodeURIComponent(backToMe);
+                window.location.href = "login.html?redirect=" + encodeURIComponent(redirectUrl);
             };
             document.getElementById('loginAlertModal').style.display = 'flex';
         } else {
@@ -173,7 +171,6 @@
             }
             document.querySelectorAll('.image-wrapper').forEach(w => w.classList.remove('active-p'));
             document.querySelectorAll('.bottom-player-overlay').forEach(p => p.style.display = "none");
-            document.querySelectorAll('.bottom-player-overlay iframe').forEach(f => f.src = "");
             const playerDiv = document.getElementById('player-' + bookId);
             const wrapper = document.getElementById('wrapper-' + bookId);
             if(playerDiv) {
@@ -183,13 +180,11 @@
             }
         }
     };
-
     window.closeInCardPlayer = function(id) {
         document.getElementById('wrapper-' + id).classList.remove('active-p');
         document.getElementById('player-' + id).style.display = "none";
         document.getElementById('frame-' + id).src = "";
     };
-
     document.getElementById('profile-section').onclick = (e) => {
         e.stopPropagation();
         let d = document.getElementById('profileDropdown');
