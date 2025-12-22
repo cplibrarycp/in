@@ -7,10 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     <style>
-        :root { 
-            --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1;
-            --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB;
-        }
+        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB; }
         * { box-sizing: border-box; }
         html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
@@ -22,11 +19,7 @@
         .logo-img { height: 65px; width: auto; } 
         .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
         .nav-links { display: flex; align-items: center; gap: 8px; }
-        .nav-item { 
-            color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; 
-            border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px;
-            background-color: var(--secondary-dark) !important;
-        }
+        .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px; background-color: var(--secondary-dark) !important; }
         .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
         .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
         .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
@@ -34,17 +27,7 @@
         .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
-        @media (max-width: 768px) {
-            header { height: auto !important; min-height: 120px !important; padding: 20px 0 !important; position: relative !important; display: block !important; }
-            .navbar { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 10px !important; }
-            .logo-container { margin-bottom: 10px !important; justify-content: center !important; width: 100% !important; }
-            .logo-text { font-size: 1.4em !important; display: block !important; margin-top: 5px !important; }
-            .nav-links { width: 100% !important; justify-content: center !important; flex-wrap: wrap !important; }
-            .nav-item { font-size: 0.75em !important; padding: 5px 8px !important; }
-            .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; padding: 10px !important; }
-            .image-wrapper { height: 220px !important; }
-            .book-title { font-size: 0.8em !important; height: 3em !important; }
-        }
+        @media (max-width: 768px) { header { height: auto !important; min-height: 120px !important; padding: 20px 0 !important; position: relative !important; display: block !important; } .navbar { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 10px !important; } .logo-container { margin-bottom: 10px !important; justify-content: center !important; width: 100% !important; } .logo-text { font-size: 1.4em !important; display: block !important; margin-top: 5px !important; } .nav-links { width: 100% !important; justify-content: center !important; flex-wrap: wrap !important; } .nav-item { font-size: 0.75em !important; padding: 5px 8px !important; } .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; padding: 10px !important; } .image-wrapper { height: 220px !important; } .book-title { font-size: 0.8em !important; height: 3em !important; } }
         .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
         .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
         @media (min-width: 1024px) { .library-container { grid-template-columns: repeat(5, 1fr) !important; } }
@@ -101,11 +84,11 @@
     <div class="container">
         <h1>മഹാഭാരതം ഓഡിയോ ബുക്സ്</h1>
         <div class="library-container">
-            
+
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 01 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1K0GQGlKYu2mOf7bAyRAIOLW3ECtLAYAu">
+        <div class="read-overlay" id="overlay-1K0GQGlKYu2mOf7bAyRAIOLW3ECtLAYAu">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1K0GQGlKYu2mOf7bAyRAIOLW3ECtLAYAu', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -115,7 +98,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 02 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1Qwx2GMEPjc2PFRO7axbCKon7j6so77Sl">
+        <div class="read-overlay" id="overlay-1Qwx2GMEPjc2PFRO7axbCKon7j6so77Sl">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Qwx2GMEPjc2PFRO7axbCKon7j6so77Sl', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -125,7 +108,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 03 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-14ec8hCUswpASpXJ8l-H_jpkzGbnQNlHZ">
+        <div class="read-overlay" id="overlay-14ec8hCUswpASpXJ8l-H_jpkzGbnQNlHZ">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('14ec8hCUswpASpXJ8l-H_jpkzGbnQNlHZ', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -135,7 +118,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 04 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1qBkNDy6L-ecWZshvnua8XJrSqSEykKYk">
+        <div class="read-overlay" id="overlay-1qBkNDy6L-ecWZshvnua8XJrSqSEykKYk">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1qBkNDy6L-ecWZshvnua8XJrSqSEykKYk', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -145,7 +128,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 05 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1WT_wiElYkxZSRTD5tnB4q8VAqKscAPdK">
+        <div class="read-overlay" id="overlay-1WT_wiElYkxZSRTD5tnB4q8VAqKscAPdK">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1WT_wiElYkxZSRTD5tnB4q8VAqKscAPdK', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -155,7 +138,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 06 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1mxO2LMuGx2sEvmQiFag9f6jNeAoq_kgX">
+        <div class="read-overlay" id="overlay-1mxO2LMuGx2sEvmQiFag9f6jNeAoq_kgX">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1mxO2LMuGx2sEvmQiFag9f6jNeAoq_kgX', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -165,7 +148,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 07 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1IwGOzYsnJOfOgr_WVXg-sb1RLrrXyE4l">
+        <div class="read-overlay" id="overlay-1IwGOzYsnJOfOgr_WVXg-sb1RLrrXyE4l">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1IwGOzYsnJOfOgr_WVXg-sb1RLrrXyE4l', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -175,7 +158,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 08 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-154uJrBgTgjqL9IPxgAgVkjVa63pUUkRL">
+        <div class="read-overlay" id="overlay-154uJrBgTgjqL9IPxgAgVkjVa63pUUkRL">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('154uJrBgTgjqL9IPxgAgVkjVa63pUUkRL', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -185,7 +168,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 09 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1KolCw8YVI_Dn_CoT4CAe0CvxR82IzOH-">
+        <div class="read-overlay" id="overlay-1KolCw8YVI_Dn_CoT4CAe0CvxR82IzOH-">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1KolCw8YVI_Dn_CoT4CAe0CvxR82IzOH-', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -195,7 +178,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 10 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1Yh-FrOk5ES8okCMtfdA374TEivUj5-or">
+        <div class="read-overlay" id="overlay-1Yh-FrOk5ES8okCMtfdA374TEivUj5-or">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Yh-FrOk5ES8okCMtfdA374TEivUj5-or', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -205,7 +188,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 11 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1PtW-ocxAFwizE2S96UuuDsFLNNhWjMQT">
+        <div class="read-overlay" id="overlay-1PtW-ocxAFwizE2S96UuuDsFLNNhWjMQT">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1PtW-ocxAFwizE2S96UuuDsFLNNhWjMQT', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -215,7 +198,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 12 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1GDc_GJXgSx6bOIqmMaCW868YqGWGj3nK">
+        <div class="read-overlay" id="overlay-1GDc_GJXgSx6bOIqmMaCW868YqGWGj3nK">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1GDc_GJXgSx6bOIqmMaCW868YqGWGj3nK', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -225,7 +208,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 13 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1YvTYXUc4gkXW9zNOCSRwnclBpmmvQ1xT">
+        <div class="read-overlay" id="overlay-1YvTYXUc4gkXW9zNOCSRwnclBpmmvQ1xT">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1YvTYXUc4gkXW9zNOCSRwnclBpmmvQ1xT', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -235,7 +218,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 14 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1AMEQA-6v6EoW7JEkM-_uBdAqpCTrmpzO">
+        <div class="read-overlay" id="overlay-1AMEQA-6v6EoW7JEkM-_uBdAqpCTrmpzO">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1AMEQA-6v6EoW7JEkM-_uBdAqpCTrmpzO', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -245,7 +228,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 15 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1hUmTbkCbMoiuAr_AgkZDlwtO1Q0E4H7A">
+        <div class="read-overlay" id="overlay-1hUmTbkCbMoiuAr_AgkZDlwtO1Q0E4H7A">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hUmTbkCbMoiuAr_AgkZDlwtO1Q0E4H7A', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -255,7 +238,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 16 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1zju0_1GVKrkK7OZfTtIxySD5AHjsujNL">
+        <div class="read-overlay" id="overlay-1zju0_1GVKrkK7OZfTtIxySD5AHjsujNL">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1zju0_1GVKrkK7OZfTtIxySD5AHjsujNL', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -265,7 +248,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 17 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1lQMEeScDw8xII_kh4i-1MZMLOJhUL6DE">
+        <div class="read-overlay" id="overlay-1lQMEeScDw8xII_kh4i-1MZMLOJhUL6DE">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1lQMEeScDw8xII_kh4i-1MZMLOJhUL6DE', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -275,7 +258,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 18 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1bLITpimrCMPUKvR3Hf4iErUJoGNqOFvq">
+        <div class="read-overlay" id="overlay-1bLITpimrCMPUKvR3Hf4iErUJoGNqOFvq">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1bLITpimrCMPUKvR3Hf4iErUJoGNqOFvq', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -285,7 +268,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 19 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1b191TrLLOeHqj4VwHDZjh_Np3jw4P_HQ">
+        <div class="read-overlay" id="overlay-1b191TrLLOeHqj4VwHDZjh_Np3jw4P_HQ">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1b191TrLLOeHqj4VwHDZjh_Np3jw4P_HQ', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -295,7 +278,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 20 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1cxjB8zgch7wv7xOrS7WE5myKYq09sxUe">
+        <div class="read-overlay" id="overlay-1cxjB8zgch7wv7xOrS7WE5myKYq09sxUe">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1cxjB8zgch7wv7xOrS7WE5myKYq09sxUe', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -305,7 +288,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 21 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-16HkBs1EeUarqml2V9IJKdJKZvoXX2auT">
+        <div class="read-overlay" id="overlay-16HkBs1EeUarqml2V9IJKdJKZvoXX2auT">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('16HkBs1EeUarqml2V9IJKdJKZvoXX2auT', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -315,7 +298,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 22 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1RwenTJMo7BTe5NX8Gzk1VuNWYmMLeQdF">
+        <div class="read-overlay" id="overlay-1RwenTJMo7BTe5NX8Gzk1VuNWYmMLeQdF">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1RwenTJMo7BTe5NX8Gzk1VuNWYmMLeQdF', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -325,7 +308,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 23 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1Tqa1bJSB9x67XHeSRgNgxYJi5fg8O0p-">
+        <div class="read-overlay" id="overlay-1Tqa1bJSB9x67XHeSRgNgxYJi5fg8O0p-">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Tqa1bJSB9x67XHeSRgNgxYJi5fg8O0p-', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -335,7 +318,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 24 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1-Rks1iECaRL9wHeCik94cme3oLKBUFuK">
+        <div class="read-overlay" id="overlay-1-Rks1iECaRL9wHeCik94cme3oLKBUFuK">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1-Rks1iECaRL9wHeCik94cme3oLKBUFuK', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -345,7 +328,7 @@
 <div class="book-card">
     <div class="image-wrapper">
         <img alt="autobiography 25 twain 64kb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1IhWs33Wb_xoUL6NZk5xA159ZqModWZqb" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay" id="container-1Y2tlXlDPu737JfdDW_KdiB8S0HfIZ5Vj">
+        <div class="read-overlay" id="overlay-1Y2tlXlDPu737JfdDW_KdiB8S0HfIZ5Vj">
             <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Y2tlXlDPu737JfdDW_KdiB8S0HfIZ5Vj', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>
         </div>
     </div>
@@ -408,6 +391,7 @@
     document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
 </script>
 <script>
+    let activeAudio = null;
     function saveToHistory(element, bookId) {
         if (!window.currentUser) return;
         const card = element.closest('.book-card');
@@ -426,11 +410,17 @@
             document.getElementById('loginAlertModal').style.display = 'flex';
         } else {
             saveToHistory(element, bookId);
-            // ബട്ടൺ മാറ്റി അവിടെ തന്നെ പ്ലെയർ വെക്കുന്നു
-            const container = document.getElementById('container-' + bookId);
+            if (activeAudio) {
+                const oldOverlay = activeAudio.parentNode;
+                const oldId = activeAudio.dataset.id;
+                oldOverlay.innerHTML = `<a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('${oldId}', this)">കേൾക്കാം <i class="fas fa-play-circle"></i></a>`;
+                activeAudio.pause();
+            }
+            const overlay = document.getElementById('overlay-' + bookId);
             const directUrl = "https://docs.google.com/uc?export=download&id=" + bookId;
-            container.innerHTML = `<audio style="width:100%; height:35px;" controls autoplay controlsList="nodownload"><source src="${directUrl}" type="audio/mpeg"></audio>`;
-            container.style.opacity = "1";
+            overlay.innerHTML = `<audio data-id="${bookId}" style="width:100%; height:45px;" controls autoplay controlsList="nodownload"><source src="${directUrl}" type="audio/mpeg"></audio>`;
+            activeAudio = overlay.querySelector('audio');
+            overlay.style.opacity = "1";
         }
     };
     function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
