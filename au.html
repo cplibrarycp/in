@@ -9,8 +9,7 @@
     <style>
         :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB; }
         * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         .container { width: 92%; margin: 0 auto; max-width: 1200px; }
         a { text-decoration: none; transition: 0.3s; }
         header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
@@ -22,6 +21,7 @@
         .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px; background-color: var(--secondary-dark) !important; text-decoration: none; }
         .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
         .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; text-decoration: none; }
@@ -35,9 +35,9 @@
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; text-decoration: none; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
 
-        /* ഇൻ-കാർഡ് പ്ലെയർ - ട്രാൻസ്പരന്റ് ഡിസൈൻ */
-        .in-card-player { display:none; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index:20; }
-        .in-card-player iframe { width:100%; height:100%; border:none; opacity: 0.9; }
+        /* ഇൻ-കാർഡ് പ്ലെയർ - 99% ട്രാൻസ്പരന്റ് ഡിസൈൻ */
+        .in-card-player { display:none; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.05); backdrop-filter: none; z-index:20; }
+        .in-card-player iframe { width:100%; height:100%; border:none; background: transparent; }
         .popout-mask { position:absolute; top:0; right:0; width:50px; height:50px; background:transparent; z-index:30; cursor:default; }
         .close-card-player { position:absolute; bottom:10px; right:10px; background:rgba(255,0,0,0.8); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; z-index:40; display:flex; align-items:center; justify-content:center; }
 
