@@ -49,7 +49,6 @@
         .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
         .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .pdf-modal-frame { width:95%; height:130px; border:none; border-radius: 10px; background: rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -59,8 +58,9 @@
         .audio-popup-header { background:var(--secondary-dark); color:white; padding:12px; display:flex; justify-content:space-between; align-items:center; }
         .audio-player-container { padding:30px; position:relative; background-size:cover; background-position:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; }
         .audio-blur-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); backdrop-filter:blur(5px); }
-        /* Pop-out button hard block shield */
-        .shield-layer { position: absolute; top: 0; right: 0; width: 70px; height: 70px; background: transparent; z-index: 1000; pointer-events: auto; cursor: default; }
+        /* Crop logic for blocking pop-out button */
+        .player-clipper { position: relative; width: 100%; height: 80px; overflow: hidden; border-radius: 8px; z-index: 10; }
+        .player-clipper iframe { width: 110%; height: 300px; position: absolute; top: -50px; left: -5%; }
     </style>
 </head>
 <body>
@@ -126,8 +126,9 @@
     </div>
     <div class="audio-player-container" id="playerBg">
         <div class="audio-blur-overlay"></div>
-        <div class="shield-layer"></div> 
-        <iframe id="audioFrame" style="width:100%; height:80px; border:none; position:relative; z-index:10; border-radius:10px;"></iframe>
+        <div class="player-clipper">
+             <iframe id="audioFrame"></iframe>
+        </div>
     </div>
 </div>
 <div id="loginAlertModal" class="login-popup-modal">
