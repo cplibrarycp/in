@@ -45,15 +45,15 @@
         .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
         .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
         .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
-        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.95); z-index:9999; flex-direction:column; }
-        .pdf-modal-header { background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
-        .iframe-container { position: relative; flex: 1; width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .pdf-modal-frame { width:90%; height:130px; border:none; border-radius: 15px; background: rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .security-mask { position: absolute; top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10000; pointer-events: all; }
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
+        /* പ്ലെയർ പോപ്പപ്പ് സ്റ്റൈൽ */
+        .audio-popup { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:90%; max-width:400px; background:white; z-index:10000; border-radius:15px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.4); }
+        .audio-popup-header { background:var(--secondary-dark); color:white; padding:12px; display:flex; justify-content:space-between; align-items:center; }
+        .audio-player-container { padding:30px; position:relative; background-size:cover; background-position:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; }
+        .audio-blur-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); backdrop-filter:blur(5px); }
     </style>
 </head>
 <body>
@@ -112,6 +112,17 @@
         </div>
     </div>
 </section>
+
+<div id="audioPopup" class="audio-popup">
+    <div class="audio-popup-header">
+        <span id="popupTitle" style="font-size:0.85em; font-weight:600;">ഓഡിയോ വായന</span>
+        <button onclick="closeAudioPlayer()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="audio-player-container" id="playerBg">
+        <div class="audio-blur-overlay"></div>
+        <iframe id="audioFrame" style="width:100%; height:80px; border:none; position:relative; z-index:10; border-radius:10px;"></iframe>
+    </div>
+</div>
 <div id="loginAlertModal" class="login-popup-modal">
     <div class="popup-box">
         <div class="popup-header">ത്രിപുടി ലൈബ്രറി പറയുന്നു</div>
@@ -122,25 +133,11 @@
         </div>
     </div>
 </div>
-<div id="pdfModal" class="pdf-modal-viewer">
-    <div class="pdf-modal-header">
-        <span id="popupTitle" style="font-weight:600;"><i class="fas fa-headphones"></i> ഓഡിയോ വായന</span>
-        <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i> ക്ലോസ്</button>
-    </div>
-    <div class="iframe-container" id="playerWrapper" style="position:relative;">
-        <div id="modalBg" style="position:absolute; width:100%; height:100%; background-size:cover; background-position:center; filter: blur(10px) brightness(0.6); opacity: 0.8;"></div>
-        <iframe id="pdfFrame" class="pdf-modal-frame" style="position:relative; z-index:10;"></iframe>
-    </div>
-</div>
 <footer>
     <div class="container footer-content">
         <div class="footer-row">
-            <div class="social-links-compact">
-                <a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-            <div style="font-size: 0.85em; opacity: 0.8;">
-                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
-            </div>
+            <div class="social-links-compact"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
+            <div style="font-size: 0.85em; opacity: 0.8;"><a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a></div>
         </div>
         <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
     </div>
@@ -187,25 +184,18 @@
             const card = element.closest('.book-card');
             const thumb = card.querySelector('.book-cover').src;
             const title = card.querySelector('.book-title').innerText;
-            const modal = document.getElementById('pdfModal');
-            const frame = document.getElementById('pdfFrame');
-            const bg = document.getElementById('modalBg');
             
             document.getElementById('popupTitle').innerText = title;
-            bg.style.backgroundImage = "url('" + thumb + "')";
-            
-            // preview മോഡിൽ പ്ലെയർ ലോഡ് ചെയ്യുന്നു
-            frame.src = "https://drive.google.com/file/d/" + bookId + "/preview";
-            modal.style.display = "flex";
-            document.body.style.overflow = "hidden";
+            document.getElementById('playerBg').style.backgroundImage = "url('" + thumb + "')";
+            document.getElementById('audioFrame').src = "https://drive.google.com/file/d/" + bookId + "/preview";
+            document.getElementById('audioPopup').style.display = "block";
         }
     };
+    function closeAudioPlayer() {
+        document.getElementById('audioPopup').style.display = "none";
+        document.getElementById('audioFrame').src = "";
+    }
     function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
-    function closePdfModal() {
-        document.getElementById('pdfModal').style.display = "none";
-        document.getElementById('pdfFrame').src = "";
-        document.body.style.overflow = "auto";
-    };
     document.getElementById('profile-section').onclick = function(e) {
         e.stopPropagation();
         let d = this.querySelector('.profile-dropdown');
