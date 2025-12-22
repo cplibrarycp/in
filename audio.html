@@ -131,17 +131,16 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
+        window.currentUser = user;
         if (user) {
-            window.currentUser = user;
             document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
             
+            // വായനക്കാരൻ ലോഗിൻ ചെയ്ത് തിരിച്ചെത്തിയാൽ bookId ചെക്ക് ചെയ്യുന്നു
             const urlParams = new URLSearchParams(window.location.search);
-            const openId = urlParams.get('openAudio');
-            if (openId) setTimeout(() => checkAccess(openId, null, true), 1000);
-        } else {
-            document.getElementById('display-name').textContent = "...";
+            const bId = urlParams.get('bookId');
+            if (bId) setTimeout(() => checkAccess(bId, null, true), 1000);
         }
     });
     document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="logout-success.html");
@@ -152,16 +151,15 @@
         const key = 'history_' + window.currentUser.uid;
         let history = JSON.parse(localStorage.getItem(key)) || [];
         history = history.filter(item => item.title !== title);
-        history.unshift({ title, image, link: window.location.pathname + '?openAudio=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
+        history.unshift({ title, image, link: window.location.pathname + '?bookId=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
         localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
     }
     window.checkAccess = function(bookId, element, isRedirect) {
         if (!window.currentUser) {
             const currentPath = window.location.pathname.split('/').pop();
-            // വായനക്കാരെ തിരിച്ചെത്തിക്കാൻ പി.ഡി.എഫ് പേജിലെ അതേ ലോജിക്
-            const redirectUrl = currentPath + "?openAudio=" + bookId;
+            // പി.ഡി.എഫ് പേജിൽ വർക്ക് ചെയ്യുന്ന അതേ Redirect URL സ്ട്രക്ചർ
             document.getElementById('loginRedirectBtn').onclick = () => {
-                window.location.href = "login.html?redirect=" + encodeURIComponent(redirectUrl);
+                window.location.href = "login.html?redirect=" + currentPath + "&bookId=" + bookId;
             };
             document.getElementById('loginAlertModal').style.display = 'flex';
         } else {
