@@ -43,7 +43,7 @@
         .mask-shield { position:absolute; top:0; right:0; width:50px; height:45px; background:transparent; z-index:15; }
         .close-p-btn { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--primary-teal); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; z-index:20; font-size:10px; display:flex; align-items:center; justify-content:center; }
         .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; }
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -138,11 +138,14 @@
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
             
+            const savedRedirect = localStorage.getItem('last_audio_redirect');
+            if(savedRedirect) {
+                localStorage.removeItem('last_audio_redirect');
+                window.location.href = savedRedirect;
+            }
             const urlParams = new URLSearchParams(window.location.search);
             const openId = urlParams.get('openAudio');
             if(openId) setTimeout(() => checkAccess(openId, null, true), 1500);
-        } else {
-            document.getElementById('display-name').textContent = "...";
         }
     });
     document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="logout-success.html");
@@ -159,10 +162,9 @@
     window.checkAccess = function(bookId, element, isRedirect) {
         if (!window.currentUser) {
             const currentPath = window.location.pathname.split('/').pop();
-            document.getElementById('loginRedirectBtn').onclick = () => {
-                window.location.href = "login.html?redirect=" + currentPath + "&openAudio=" + bookId;
-            };
+            localStorage.setItem('last_audio_redirect', currentPath + "?openAudio=" + bookId);
             document.getElementById('loginAlertModal').style.display = 'flex';
+            document.getElementById('loginRedirectBtn').onclick = () => window.location.href = "login.html";
         } else {
             if(!isRedirect) {
                 const card = element.closest('.book-card');
