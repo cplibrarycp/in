@@ -38,24 +38,15 @@
         .book-card:hover .read-overlay { opacity: 1; }
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
-        .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .popup-header { background: var(--secondary-dark); color: white; padding: 15px; font-weight: 700; }
-        .popup-body { padding: 25px; color: var(--text-color); font-size: 0.95em; }
-        .popup-footer { padding: 15px; display: flex; gap: 10px; justify-content: center; background: #f9f9f9; }
-        .btn-login { background: var(--primary-teal); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; }
-        .btn-cancel { background: #e0e0e0; color: #555; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; }
+        .audio-popup { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:90%; max-width:420px; background:white; z-index:10000; border-radius:15px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.4); }
+        .audio-popup-header { background:var(--secondary-dark); color:white; padding:12px; display:flex; justify-content:space-between; align-items:center; }
+        .audio-player-container { padding:0px; position:relative; min-height:120px; background: #000; display:flex; align-items:center; justify-content:center; }
+        /* ഷീൽഡ് - പോപ്പ് ഔട്ട് ബട്ടൺ മറയ്ക്കാൻ */
+        .popout-shield { position: absolute; top: 0; right: 0; width: 50px; height: 50px; background: #000; z-index: 20; }
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
-        /* പ്ലെയർ പോപ്പപ്പ് സ്റ്റൈൽ */
-        .audio-popup { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:90%; max-width:400px; background:white; z-index:10000; border-radius:15px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.4); }
-        .audio-popup-header { background:var(--secondary-dark); color:white; padding:12px; display:flex; justify-content:space-between; align-items:center; }
-        .audio-player-container { padding:30px; position:relative; background-size:cover; background-position:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; align-items:center; }
-        .audio-blur-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); backdrop-filter:blur(5px); }
-        /* പോപ്പ് ഔട്ട് ബട്ടൺ മറയ്ക്കാനുള്ള ഷീൽഡ് - ലൊക്കേഷൻ ഫിക്സ് ചെയ്തത് */
-        .popout-shield { position: absolute; top: 30px; right: 30px; width: 55px; height: 55px; background: #111; z-index: 100; pointer-events: auto; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
@@ -75,7 +66,6 @@
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
                 <div class="profile-dropdown">
                     <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
-                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
                     <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
@@ -119,20 +109,9 @@
         <span id="popupTitle" style="font-size:0.85em; font-weight:600;">ഓഡിയോ വായന</span>
         <button onclick="closeAudioPlayer()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i></button>
     </div>
-    <div class="audio-player-container" id="playerBg">
-        <div class="audio-blur-overlay"></div>
-        <div class="popout-shield"><i class="fas fa-headphones" style="color:#00897B; font-size:1.2em;"></i></div>
-        <iframe id="audioFrame" style="width:100%; height:80px; border:none; position:relative; z-index:10; border-radius:10px;"></iframe>
-    </div>
-</div>
-<div id="loginAlertModal" class="login-popup-modal">
-    <div class="popup-box">
-        <div class="popup-header">ത്രിപുടി ലൈബ്രറി പറയുന്നു</div>
-        <div class="popup-body">ഈ പുസ്തകം വായിക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
-        <div class="popup-footer">
-            <a href="#" id="loginRedirectBtn" class="btn-login">ലോഗിൻ ചെയ്യുക</a>
-            <button onclick="closeLoginPopup()" class="btn-cancel">ഇപ്പോൾ വേണ്ട</button>
-        </div>
+    <div class="audio-player-container">
+        <div class="popout-shield"></div>
+        <iframe id="audioFrame" style="width:100%; height:120px; border:none; z-index:10;"></iframe>
     </div>
 </div>
 <footer>
@@ -156,48 +135,22 @@
             document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
-        } else {
-            window.currentUser = null;
-            document.getElementById('display-name').textContent = "...";
-            document.getElementById('userAvatar').innerHTML = `<i class="fas fa-user"></i>`;
         }
     });
     document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html"); };
 </script>
 <script>
-    function saveToHistory(element, bookId) {
-        if (!window.currentUser) return;
-        const card = element.closest('.book-card');
-        const title = card.querySelector('.book-title').innerText;
-        const image = card.querySelector('.book-cover').src;
-        const key = 'history_' + window.currentUser.uid;
-        let history = JSON.parse(localStorage.getItem(key)) || [];
-        history = history.filter(item => item.title !== title);
-        history.unshift({ title, image, link: window.location.pathname + '?openAudio=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
-        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
-    }
     window.checkAccess = function(bookId, element) {
-        if (!window.currentUser) {
-            const currentPath = window.location.pathname.split('/').pop();
-            document.getElementById('loginRedirectBtn').href = "login.html?redirect=" + currentPath + "&bookId=" + bookId;
-            document.getElementById('loginAlertModal').style.display = 'flex';
-        } else {
-            saveToHistory(element, bookId);
-            const card = element.closest('.book-card');
-            const thumb = card.querySelector('.book-cover').src;
-            const title = card.querySelector('.book-title').innerText;
-            
-            document.getElementById('popupTitle').innerText = title;
-            document.getElementById('playerBg').style.backgroundImage = "url('" + thumb + "')";
-            document.getElementById('audioFrame').src = "https://drive.google.com/file/d/" + bookId + "/preview";
-            document.getElementById('audioPopup').style.display = "block";
-        }
+        const title = element.closest('.book-card').querySelector('.book-title').innerText;
+        document.getElementById('popupTitle').innerText = title;
+        // Autoplay ലോജിക് ഇവിടെ ചേർക്കുന്നു
+        document.getElementById('audioFrame').src = "https://drive.google.com/file/d/" + bookId + "/preview?autoplay=1";
+        document.getElementById('audioPopup').style.display = "block";
     };
     function closeAudioPlayer() {
         document.getElementById('audioPopup').style.display = "none";
         document.getElementById('audioFrame').src = "";
     }
-    function closeLoginPopup() { document.getElementById('loginAlertModal').style.display = 'none'; }
     document.getElementById('profile-section').onclick = function(e) {
         e.stopPropagation();
         let d = this.querySelector('.profile-dropdown');
