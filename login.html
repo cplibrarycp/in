@@ -32,55 +32,17 @@
         #login { left: 50px; }
         #register { left: 450px; }
     
-        /* Mobile Header & 2-Column Grid Fix - Thripudi */
         @media (max-width: 768px) {
-            header {
-                height: auto !important;
-                min-height: 120px !important; /* ഹെഡറിന് കൂടുതൽ ഉയരം നൽകി */
-                padding: 20px 0 !important;
-                position: relative !important;
-                display: block !important;
-            }
-            .navbar {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 10px !important;
-            }
-            .logo-container {
-                margin-bottom: 10px !important;
-                justify-content: center !important;
-                width: 100% !important;
-            }
-            .logo-text {
-                font-size: 1.4em !important; /* പേര് വ്യക്തമായി കാണാൻ */
-                display: block !important;
-                margin-top: 5px !important;
-            }
-            .nav-links {
-                width: 100% !important;
-                justify-content: center !important;
-                flex-wrap: wrap !important;
-            }
-            .nav-item {
-                font-size: 0.75em !important;
-                padding: 5px 8px !important;
-            }
-            /* ഒരു വരിയിൽ രണ്ട് പുസ്തകങ്ങൾ */
-            .library-container {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 12px !important;
-                padding: 10px !important;
-            }
-            .image-wrapper {
-                height: 220px !important; /* 2 പുസ്തകം വരുമ്പോൾ ഹൈറ്റ് അല്പം കുറച്ചു */
-            }
-            .book-title {
-                font-size: 0.8em !important;
-                height: 3em !important;
-            }
+            header { height: auto !important; min-height: 120px !important; padding: 20px 0 !important; position: relative !important; display: block !important; }
+            .navbar { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 10px !important; }
+            .logo-container { margin-bottom: 10px !important; justify-content: center !important; width: 100% !important; }
+            .logo-text { font-size: 1.4em !important; display: block !important; margin-top: 5px !important; }
+            .nav-links { width: 100% !important; justify-content: center !important; flex-wrap: wrap !important; }
+            .nav-item { font-size: 0.75em !important; padding: 5px 8px !important; }
+            .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; padding: 10px !important; }
+            .image-wrapper { height: 220px !important; }
+            .book-title { font-size: 0.8em !important; height: 3em !important; }
         }
-        
     </style>
 </head>
 <body>
@@ -147,13 +109,20 @@
         setTimeout(() => { messageBox.textContent = ""; }, 5000);
     }
 
-    // Redirect Logic
+    // പബ്ലിക് പ്ലെയർ പേജുകളിൽ നിന്ന് വരുമ്പോൾ റീഡയറക്ട് ചെയ്യുന്ന ലോജിക്
     function handleRedirect() {
+        // 1. URL വഴിയുള്ള പഴയ PDF റീഡയറക്ട് പരിശോധിക്കുന്നു
         const urlParams = new URLSearchParams(window.location.search);
         const targetPage = urlParams.get('redirect');
         const targetBook = urlParams.get('bookId');
 
-        if (targetPage && targetBook) {
+        // 2. LocalStorage വഴിയുള്ള പുതിയ Audio/Video റീഡയറക്ട് പരിശോധിക്കുന്നു
+        const storageRedirect = localStorage.getItem("after_login_go_to");
+
+        if (storageRedirect) {
+            localStorage.removeItem("after_login_go_to");
+            window.location.href = storageRedirect;
+        } else if (targetPage && targetBook) {
             window.location.href = targetPage + "?openBook=" + targetBook;
         } else {
             window.location.href = "dashboard.html";
