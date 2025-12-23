@@ -41,14 +41,14 @@
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
         
-        /* PLAYER STYLES FIXED */
-        .player-wrap { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; background: black; z-index: 15; }
-        .media-player { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; border: none; }
+        /* പ്ലെയർ സ്റ്റൈലുകൾ പരിഷ്കരിച്ചു - വീഡിയോ ഫുൾ ആകും */
+        .player-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 15; }
+        .media-player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; object-fit: cover; }
         .pop-mask { position: absolute; top: 0; right: 0; width: 80px; height: 60px; background: transparent; z-index: 25; }
         
         .audio-player-layout { width: 100%; height: 100%; display: flex; flex-direction: column; position: absolute; top: 0; left: 0; z-index: 15; background: black; }
-        .audio-visual-thumb { height: 75% !important; width: 100% !important; object-fit: cover; }
-        .audio-frame-wrap { position: relative; height: 25%; width: 100%; }
+        .audio-visual-thumb { height: 75%; width: 100%; object-fit: cover; }
+        .audio-frame-wrap { position: relative; height: 25%; width: 100%; background: #000; }
         
         .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index:9999; flex-direction:column; }
         .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
@@ -84,8 +84,8 @@
                 <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
                 <div class="profile-dropdown">
-                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
-                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
+                    <a href="profile.html"><i class="fas fa-user-cog"></i> Settings</a>
+                    <a href="history.html"><i class="fas fa-history"></i> History</a>
                     <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
@@ -121,6 +121,15 @@
         </div>
     </div>
     <div class="book-title">IMG 20210414 033939</div>
+</div>
+<div class="book-card" id="card-1xZST16GXNqaF0zkIvOnegms-WIPDvXoN">
+    <div class="image-wrapper" id="media-container-1xZST16GXNqaF0zkIvOnegms-WIPDvXoN" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1xZST16GXNqaF0zkIvOnegms-WIPDvXoN" data-type="pdf">
+        <img alt="library" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1xZST16GXNqaF0zkIvOnegms-WIPDvXoN" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xZST16GXNqaF0zkIvOnegms-WIPDvXoN', 'pdf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">library</div>
 </div>
 <div class="book-card" id="card-1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh">
     <div class="image-wrapper" id="media-container-1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" data-type="video">
@@ -250,14 +259,16 @@
         } else {
             if(element) saveToHistory(element, id, type);
             
-            // Stop/Remove other players
+            // മറ്റ് പ്ലെയറുകളെ മാറ്റുന്നു
             document.querySelectorAll('.player-wrap, .audio-player-layout').forEach(wrap => {
                 const container = wrap.parentElement;
-                const thumb = container.getAttribute('data-thumb');
-                const origType = container.getAttribute('data-type');
-                const btnTxt = origType === "audio" ? "കേൾക്കാം" : (origType === "video" ? "കാണാം" : "തുറക്കാം");
-                const icon = origType === "audio" ? "fa-play-circle" : (origType === "video" ? "fa-video" : "fa-book-open");
-                container.innerHTML = `<img src="${thumb}" class="book-cover"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('${container.id.replace("media-container-", "")}', '${origType}', this)">${btnTxt} <i class="fas ${icon}"></i></a></div>`;
+                if(container.id !== "media-container-" + id) {
+                   const thumb = container.getAttribute('data-thumb');
+                   const origType = container.getAttribute('data-type');
+                   const btnTxt = origType === "audio" ? "കേൾക്കാം" : (origType === "video" ? "കാണാം" : "തുറക്കാം");
+                   const icon = origType === "audio" ? "fa-play-circle" : (origType === "video" ? "fa-video" : "fa-book-open");
+                   container.innerHTML = `<img src="${thumb}" class="book-cover"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('${container.id.replace("media-container-", "")}', '${origType}', this)">${btnTxt} <i class="fas ${icon}"></i></a></div>`;
+                }
             });
             
             const embedUrl = "https://drive.google.com/file/d/" + id + "/preview";
