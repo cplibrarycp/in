@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <title>ലൈബ്രറി പേജ് | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --outline-color: #B2DFDB; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); margin: 0; padding: 0; overflow-x: hidden; width: 100%; }
+        .container { width: 95%; margin: 0 auto; max-width: 1200px; }
+        
+        header { background-color: var(--secondary-dark); padding: 10px 0; min-height: 80px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .logo-container { display: flex; align-items: center; gap: 10px; color: #FFFFFF !important; text-decoration: none; }
+        .logo-img { height: 50px; width: auto; }
+        .logo-text { font-size: 1.4em; font-weight: 700; letter-spacing: 0.5px; }
+        
+        .nav-links { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+        .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.75em; text-transform: uppercase; padding: 6px 10px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; text-decoration: none; transition: 0.3s; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+        .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; }
+        
+        .user-profile { display: flex; align-items: center; margin-left: 5px; cursor: pointer; color: #FFFFFF; position: relative; }
+        .user-avatar { width: 32px; height: 32px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .welcome-msg { font-size: 0.75em; font-weight: 500; margin-left: 5px; white-space: nowrap; }
+        
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 170px; margin-top: 10px; z-index: 1001; }
+        .profile-dropdown a { display: block; padding: 10px 12px; color: var(--text-color); border-bottom: 1px solid #eee; font-size: 0.85em; text-decoration: none; }
+        
+        .collection-section { padding: 20px 0; text-align: center; }
+        .library-container { display: grid; gap: 15px; grid-template-columns: repeat(5, 1fr); padding: 10px 0; }
+        .book-card { background: transparent; text-align: center; }
+        
+        .image-wrapper { position: relative; width: 100%; height: 260px; border-radius: 8px; overflow: hidden; border: 3px solid var(--outline-color); box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: #000; display: flex; flex-direction: column; }
+        .book-cover { width: 100%; height: 100%; object-fit: cover; }
+        .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.85); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; z-index: 5; }
+        .book-card:hover .read-overlay { opacity: 1; }
+        .overlay-btn { background-color: var(--primary-teal); color: white; padding: 7px 14px; border-radius: 20px; font-size: 0.8em; font-weight: 600; text-decoration: none; }
+        .book-title { margin-top: 8px; font-weight: 700; color: var(--secondary-dark); font-size: 0.85em; height: 2.6em; overflow: hidden; }
+        
+        /* Player Layouts - FIXED VIDEO */
+        .player-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 10; }
+        .media-player { width: 100%; height: 100%; border: none; object-fit: contain; }
+        .pop-mask { position: absolute; top: 0; right: 0; width: 70px; height: 50px; background: transparent; z-index: 20; }
+        
+        .audio-player-layout { width: 100%; height: 100%; display: flex; flex-direction: column; position: absolute; top: 0; z-index: 10; background: black; }
+        .audio-visual-thumb { height: 70%; width: 100%; object-fit: cover; }
+        
+        .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index:9999; flex-direction:column; }
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 20px 0; width: 100%; }
+        
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 900px) { .library-container { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) {
+            header { min-height: auto; padding: 10px 0; }
+            .navbar { flex-direction: column; align-items: center; gap: 8px; }
+            .logo-container { justify-content: center; width: 100%; }
+            .logo-text { font-size: 1.1em; }
+            .logo-img { height: 35px; }
+            .nav-links { width: 100%; justify-content: center; }
+            .nav-item { font-size: 0.65em; padding: 5px 8px; }
+            .welcome-msg { display: none; }
+            .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; padding: 10px; }
+            .image-wrapper { height: 210px !important; } 
+        }
+    </style>
+</head>
+<body>
+<header id="masterHeader">
+    <div class="container navbar">
+        <a href="dashboard.html" class="logo-container">
+            <img src="https://drive.google.com/thumbnail?sz=w1000&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
+            <span class="logo-text">THRIPUDI LIBRARY</span>
+        </a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> HOME</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> ABOUT</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> CONTACT</a>
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="welcome-msg"><span id="display-name">...</span></div>
+                <div class="profile-dropdown">
+                    <a href="profile.html">Profile Settings</a>
+                    <a href="history.html">History</a>
+                    <a href="#" id="logout-link" style="color:red;">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="collection-section">
+    <div class="container">
+        <h1>ത്രിപുടി ലൈബ്രറി</h1>
+        <div class="library-container"><div class="book-card" id="card-1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X">
+    <div class="image-wrapper" id="media-container-1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X" data-type="pdf">
+        <img alt="3" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X', 'pdf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">3</div>
+</div>
+<div class="book-card" id="card-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP">
+    <div class="image-wrapper" id="media-container-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP" data-type="video">
+        <img alt="16.03.2021 HD 720p" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">16.03.2021 HD 720p</div>
+</div>
+<div class="book-card" id="card-1PWFxAwgjvDglFOBpv_DnufFdo27U-9uL">
+    <div class="image-wrapper" id="media-container-1PWFxAwgjvDglFOBpv_DnufFdo27U-9uL" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1PWFxAwgjvDglFOBpv_DnufFdo27U-9uL" data-type="pdf">
+        <img alt="IMG 20210414 033939" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1PWFxAwgjvDglFOBpv_DnufFdo27U-9uL" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1PWFxAwgjvDglFOBpv_DnufFdo27U-9uL', 'pdf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">IMG 20210414 033939</div>
+</div>
+<div class="book-card" id="card-1fab0_ed-KEe1Kos447lMX_xCd8hojxn8">
+    <div class="image-wrapper" id="media-container-1fab0_ed-KEe1Kos447lMX_xCd8hojxn8" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1fab0_ed-KEe1Kos447lMX_xCd8hojxn8" data-type="pdf">
+        <img alt="library" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1fab0_ed-KEe1Kos447lMX_xCd8hojxn8" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1fab0_ed-KEe1Kos447lMX_xCd8hojxn8', 'pdf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
+        </div>
+    </div>
+    <div class="book-title">library</div>
+</div>
+<div class="book-card" id="card-1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh">
+    <div class="image-wrapper" id="media-container-1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" data-type="video">
+        <img alt="VIDEO f5e0902c-1d09-402b-906c-8f4c7bdc8132" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">VIDEO f5e0902c-1d09-402b-906c-8f4c7bdc8132</div>
+</div>
+<div class="book-card" id="card-1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml">
+    <div class="image-wrapper" id="media-container-1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml" data-type="video">
+        <img alt="VIDEO f6f64d4a-9478-450c-b89d-e67b32a41cbb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">VIDEO f6f64d4a-9478-450c-b89d-e67b32a41cbb</div>
+</div>
+<div class="book-card" id="card-1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7">
+    <div class="image-wrapper" id="media-container-1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7" data-type="video">
+        <img alt="VIDEO fa84181e-2842-464f-96ee-5493fb5e4648" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">VIDEO fa84181e-2842-464f-96ee-5493fb5e4648</div>
+</div>
+<div class="book-card" id="card-1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4">
+    <div class="image-wrapper" id="media-container-1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4" data-type="video">
+        <img alt="VIDEO fac4b5ea-8dcf-4be3-861d-bc91fb062360" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">VIDEO fac4b5ea-8dcf-4be3-861d-bc91fb062360</div>
+</div>
+<div class="book-card" id="card-1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T">
+    <div class="image-wrapper" id="media-container-1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T" data-type="video">
+        <img alt="VIDEO fae7cdb2-f69d-42dc-85f6-e4d3082ef96b" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">VIDEO fae7cdb2-f69d-42dc-85f6-e4d3082ef96b</div>
+</div>
+<div class="book-card" id="card-1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy">
+    <div class="image-wrapper" id="media-container-1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy" data-type="video">
+        <img alt="VIDEO fd5f0905-a125-4c14-b596-312f83bf8822" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">VIDEO fd5f0905-a125-4c14-b596-312f83bf8822</div>
+</div>
+<div class="book-card" id="card-1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-">
+    <div class="image-wrapper" id="media-container-1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-" data-type="video">
+        <img alt="VIDEO fe67776b-0e56-4d7e-9da8-743475691cb7" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
+        <div class="read-overlay">
+            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-', 'video', this)">കാണാം <i class="fas fa-video"></i></a>
+        </div>
+    </div>
+    <div class="book-title">VIDEO fe67776b-0e56-4d7e-9da8-743475691cb7</div>
+</div></div>
+    </div>
+</section>
+<div id="pdfModal" class="pdf-modal-viewer">
+    <div style="background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മുറി</span>
+        <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.5em;"><i class="fas fa-times"></i></button>
+    </div>
+    <div style="position:relative; flex:1;">
+        <div class="pop-mask" style="width:100px; height:80px;"></div>
+        <iframe id="pdfFrame" style="width:100%; height:100%; border:none; background:white;"></iframe>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div style="margin-bottom:10px;">
+            <a href="privacy.html" style="color:white; font-size:0.8em; text-decoration:none;">സ്വകാര്യതാ നയം</a> | 
+            <a href="terms.html" style="color:white; font-size:0.8em; text-decoration:none;">ഉപയോഗ നിബന്ധനകൾ</a>
+        </div>
+        <p style="font-size: 0.8em; opacity: 0.7;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+    </div>
+</footer>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+        window.currentUser = user;
+        if (user) {
+            document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
+            if(user.photoURL) document.getElementById('userAvatar').innerHTML = `<img src="${user.photoURL}">`;
+        }
+    });
+    document.getElementById('logout-link').onclick = (e) => { e.preventDefault(); signOut(auth).then(() => window.location.href="logout-success.html"); };
+</script>
+<script>
+    window.checkAccess = function(id, type, element) {
+        if (!window.currentUser) {
+            window.location.href = "login.html";
+        } else {
+            // Reset any active players
+            document.querySelectorAll('.player-wrap, .audio-player-layout').forEach(wrap => {
+                const container = wrap.parentElement;
+                const thumb = container.getAttribute('data-thumb');
+                const origType = container.getAttribute('data-type');
+                const btnTxt = origType === "audio" ? "കേൾക്കാം" : (origType === "video" ? "കാണാം" : "തുറക്കാം");
+                const icon = origType === "audio" ? "fa-play-circle" : (origType === "video" ? "fa-video" : "fa-book-open");
+                container.innerHTML = `<img src="${thumb}" class="book-cover"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('${container.id.replace("media-container-", "")}', '${origType}', this)">${btnTxt} <i class="fas ${icon}"></i></a></div>`;
+            });
+            
+            const embedUrl = "https://drive.google.com/file/d/" + id + "/preview";
+            if (type === "pdf") {
+                document.getElementById('pdfFrame').src = embedUrl;
+                document.getElementById('pdfModal').style.display = "flex";
+                document.body.style.overflow = "hidden";
+            } else {
+                const container = document.getElementById('media-container-' + id);
+                const thumb = container.getAttribute('data-thumb');
+                if (type === "video") {
+                    container.innerHTML = `<div class="player-wrap"><div class="pop-mask"></div><iframe src="${embedUrl}" class="media-player" allow="autoplay"></iframe></div>`;
+                } else {
+                    container.innerHTML = `<div class="audio-player-layout"><img src="${thumb}" class="audio-visual-thumb"/><div style="position:relative; height:30%;"><div class="pop-mask" style="height:100%;"></div><iframe src="${embedUrl}" class="media-player" allow="autoplay"></iframe></div></div>`;
+                }
+            }
+        }
+    };
+    window.closePdfModal = function() {
+        document.getElementById('pdfModal').style.display = "none";
+        document.getElementById('pdfFrame').src = "";
+        document.body.style.overflow = "auto";
+    };
+    document.getElementById('profile-section').onclick = function(e) {
+        e.stopPropagation();
+        let d = this.querySelector('.profile-dropdown');
+        d.style.display = d.style.display === "block" ? "none" : "block";
+    };
+    window.onclick = () => document.querySelectorAll('.profile-dropdown').forEach(d => d.style.display='none');
+</script>
+</body>
+</html>
