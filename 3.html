@@ -11,23 +11,29 @@
         * { box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
         .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        
         header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
         .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; text-decoration: none; }
         .logo-img { height: 65px; width: auto; }
         .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
+        
         .nav-links { display: flex; align-items: center; gap: 8px; }
         .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px; background-color: var(--secondary-dark) !important; text-decoration: none; transition: 0.3s; }
         .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
+        
         .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
         .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
+        
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        
         .collection-section { padding: 40px 0; text-align: center; flex: 1; }
         .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(5, 1fr); }
         .book-card { background: transparent; text-align: center; }
+        
         .image-wrapper { position: relative; width: 100%; height: 280px; border-radius: 8px; overflow: hidden; border: 4px solid var(--outline-color); box-shadow: 0 5px 15px rgba(0,0,0,0.08); background: #000; display: flex; flex-direction: column; }
         .book-cover { width: 100%; height: 100%; object-fit: cover; }
         .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.85); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; z-index: 5; }
@@ -35,10 +41,11 @@
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
         
-        .player-wrap { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
+        /* Player Layouts */
+        .player-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 15; }
         .pop-mask { position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: transparent; z-index: 20; }
-        .media-player { width: 100%; height: 100%; border: none; flex: 1; }
-        .audio-player-layout { height: 100%; width: 100%; display: flex; flex-direction: column; }
+        .media-player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .audio-player-layout { width: 100%; height: 100%; display: flex; flex-direction: column; position: absolute; top: 0; z-index: 15; background: black; }
         .audio-visual-thumb { height: 75%; width: 100%; object-fit: cover; }
         
         .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index:9999; flex-direction:column; }
@@ -48,7 +55,15 @@
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; }
         .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
-        @media (max-width: 768px) { header { min-height: 120px; } .navbar { flex-direction: column; gap: 10px; } .library-container { grid-template-columns: repeat(2, 1fr); } .image-wrapper { height: 220px; } }
+        
+        @media (max-width: 768px) { 
+            header { min-height: 120px; } 
+            .navbar { flex-direction: column; gap: 10px; } 
+            .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; padding: 10px; }
+            .image-wrapper { height: 220px !important; } 
+            .logo-img { height: 45px; } 
+            .logo-text { font-size: 1.3em; }
+        }
     </style>
 </head>
 <body>
@@ -67,8 +82,8 @@
                 <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
                 <div class="profile-dropdown">
-                    <a href="profile.html"><i class="fas fa-user-cog"></i> Settings</a>
-                    <a href="history.html"><i class="fas fa-history"></i> History</a>
+                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
+                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
                     <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
@@ -78,16 +93,7 @@
 <section class="collection-section">
     <div class="container">
         <h1>ത്രിപുടി ലൈബ്രറി</h1>
-        <div class="library-container"><div class="book-card" id="card-1W2phkzx9vHjMn9ajDM9CpmFVTIdFQhd1">
-    <div class="image-wrapper" id="media-container-1W2phkzx9vHjMn9ajDM9CpmFVTIdFQhd1">
-        <img alt="1" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1W2phkzx9vHjMn9ajDM9CpmFVTIdFQhd1" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
-        <div class="read-overlay">
-            <a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1W2phkzx9vHjMn9ajDM9CpmFVTIdFQhd1', 'pdf', this)">വായന തുടങ്ങൂ <i class="fas fa-book-open"></i></a>
-        </div>
-    </div>
-    <div class="book-title">1</div>
-</div>
-<div class="book-card" id="card-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP">
+        <div class="library-container"><div class="book-card" id="card-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP">
     <div class="image-wrapper" id="media-container-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP">
         <img alt="16.03.2021 HD 720p" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP" onerror="this.src='https://via.placeholder.com/150?text=No+Image'"/>
         <div class="read-overlay">
@@ -175,7 +181,7 @@
         <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മോഡ്</span>
         <button onclick="closePdfModal()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.5em;"><i class="fas fa-times"></i></button>
     </div>
-    <div class="player-wrap" style="flex:1;">
+    <div style="position:relative; flex:1;">
         <div class="pop-mask"></div>
         <iframe id="pdfFrame" style="width:100%; height:100%; border:none; background:white;"></iframe>
     </div>
@@ -232,9 +238,9 @@
             document.getElementById('loginAlertModal').style.display = 'flex';
         } else {
             if(element) saveToHistory(element, id, type);
-            // Stop all other players
-            document.querySelectorAll('.player-wrap').forEach(p => p.remove());
-            document.querySelectorAll('.image-wrapper').forEach(w => { if(w.querySelector('.audio-player-layout')) w.querySelector('.audio-player-layout').remove(); });
+            
+            // Stop/Remove other players
+            document.querySelectorAll('.player-wrap, .audio-player-layout').forEach(p => p.remove());
             
             const embedUrl = "https://drive.google.com/file/d/" + id + "/preview";
             if (type === "pdf") {
@@ -245,9 +251,9 @@
                 const container = document.getElementById('media-container-' + id);
                 const thumb = container.querySelector('img').src;
                 if (type === "video") {
-                    container.innerHTML = `<div class="player-wrap"><div class="pop-mask"></div><iframe src="${embedUrl}" class="media-player" allow="autoplay"></iframe></div>`;
+                    container.innerHTML += `<div class="player-wrap"><div class="pop-mask"></div><iframe src="${embedUrl}" class="media-player" allow="autoplay"></iframe></div>`;
                 } else {
-                    container.innerHTML = `<div class="audio-player-layout"><img src="${thumb}" class="audio-visual-thumb"/><div style="position:relative; height:25%;"><div class="pop-mask" style="height:100%;"></div><iframe src="${embedUrl}" class="media-player" allow="autoplay"></iframe></div></div>`;
+                    container.innerHTML += `<div class="audio-player-layout"><img src="${thumb}" class="audio-visual-thumb"/><div style="position:relative; height:25%;"><div class="pop-mask" style="height:100%;"></div><iframe src="${embedUrl}" class="media-player" allow="autoplay"></iframe></div></div>`;
                 }
             }
         }
