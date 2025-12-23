@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
     <style>
-        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --card-bg: #FFFFFF; --outline-color: #B2DFDB; }
+        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB; }
         * { box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); margin: 0; padding: 0; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; }
         .container { width: 92%; margin: 0 auto; max-width: 1200px; }
@@ -23,12 +23,12 @@
         .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
 
         .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
-        .user-avatar { width: 38px; height: 38px; background-color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; margin-left: 8px; }
 
         .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 15px; z-index: 1001; }
-        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; text-decoration: none; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; text-decoration: none; }
 
         .collection-section { padding: 40px 0; text-align: center; flex: 1; }
         .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(5, 1fr); }
@@ -40,17 +40,13 @@
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; font-weight: 600; text-decoration: none; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
 
-        /* VIDEO & AUDIO PLAYER FIXES */
-        .player-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 10; overflow: hidden; }
-        /* Scale fixes black bars for portrait videos */
-        .media-player { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border: none; transform: translate(-50%, -50%) scale(1.1); pointer-events: auto; }
+        /* VIDEO FIX - NO BLACK BARS */
+        .player-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 10; }
+        .media-player { width: 100%; height: 100%; border: none; object-fit: contain; }
         .pop-mask { position: absolute; top: 0; right: 0; width: 80px; height: 60px; background: transparent; z-index: 20; }
-        
-        .audio-player-layout { height: 100%; width: 100%; display: flex; flex-direction: column; position: absolute; top: 0; z-index: 15; background: black; }
         
         .pdf-modal-viewer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index:9999; flex-direction:column; }
 
-        /* FOOTER: താങ്കൾ തന്ന അതേ ലേഔട്ട് */
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -64,14 +60,13 @@
             .nav-links { width: 100%; justify-content: center; gap: 5px; }
             .nav-item { font-size: 0.7em; padding: 6px 10px; }
             .welcome-msg { display: none; }
-            .user-profile { border-left: none; }
             .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; padding: 10px; }
-            .image-wrapper { height: 240px !important; }
+            .image-wrapper { height: 230px !important; }
         }
     </style>
 </head>
 <body>
-<header id="masterHeader">
+<header>
     <div class="container navbar">
         <a href="dashboard.html" class="logo-container">
             <img src="https://drive.google.com/thumbnail?sz=w1000&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
@@ -86,8 +81,8 @@
                 <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
                 <div class="profile-dropdown">
-                    <a href="history.html">History</a>
-                    <a href="#" id="logout-link" style="color:red;">Logout</a>
+                    <a href="history.html"><i class="fas fa-history"></i> History</a>
+                    <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
         </div>
@@ -95,6 +90,7 @@
 </header>
 <section class="collection-section">
     <div class="container">
+        <h1>ത്രിപുടി ലൈബ്രറി</h1>
         <div class="library-container"><div class="book-card">
     <div class="image-wrapper" id="media-container-1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X" data-thumb="https://drive.google.com/thumbnail?sz=w600&id=1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X" data-type="pdf">
         <img alt="3" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1QicL10zbq5Hg-uVqqBq-8AGcptTbhD4X"/>
@@ -190,10 +186,10 @@
 <div id="pdfModal" class="pdf-modal-viewer">
     <div style="background:var(--secondary-dark); color:white; padding:15px; display:flex; justify-content:space-between;">
         <span style="font-weight:600;"><i class="fas fa-book-reader"></i> വായന മുറി</span>
-        <button onclick="closePdfModal()" style="color:white; background:none; border:none; cursor:pointer; font-size:1.5em;"><i class="fas fa-times"></i></button>
+        <button onclick="closePdfModal()" style="color:white; background:none; border:none; cursor:pointer;">CLOSE X</button>
     </div>
     <div style="position:relative; flex:1;">
-        <div class="pop-mask" style="width:100px;"></div>
+        <div class="pop-mask" style="width:120px;"></div>
         <iframe id="pdfFrame" style="width:100%; height:100%; border:none; background:white;"></iframe>
     </div>
 </div>
@@ -223,24 +219,20 @@
             if(user.photoURL) document.getElementById('userAvatar').innerHTML = '<img src="'+user.photoURL+'">';
         }
     });
-    document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="login.html");
+    document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="logout-success.html");
 </script>
 <script>
     window.checkAccess = function(id, type, element) {
         if (!window.currentUser) {
             window.location.href = "login.html";
         } else {
-            // സിംഗിൾ പ്ലേ - മറ്റുള്ളവ നീക്കം ചെയ്യുന്നു
-            document.querySelectorAll('.player-wrap, .audio-player-layout').forEach(p => {
-                const wrap = p.parentElement;
-                wrap.innerHTML = '<img class="book-cover" src="'+wrap.getAttribute('data-thumb')+'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess(\''+wrap.id.replace('media-container-','')+'\', \''+wrap.getAttribute('data-type')+'\', this)">Play</a></div>';
-            });
+            document.querySelectorAll('.player-wrap').forEach(p => p.remove());
             const embedUrl = "https://drive.google.com/file/d/" + id + "/preview";
             const container = document.getElementById('media-container-' + id);
             if (type === "video") {
-                container.innerHTML = '<div class="player-wrap"><div class="pop-mask"></div><iframe src="'+embedUrl+'" class="media-player" allow="autoplay"></iframe></div>';
+                container.innerHTML += '<div class="player-wrap"><div class="pop-mask"></div><iframe src="'+embedUrl+'" class="media-player" allow="autoplay"></iframe></div>';
             } else if (type === "audio") {
-                container.innerHTML = '<div class="audio-player-layout"><img src="'+container.getAttribute('data-thumb')+'" style="height:75%; object-fit:cover;"/><iframe src="'+embedUrl+'" style="height:25%; width:100%; border:none;" allow="autoplay"></iframe></div>';
+                container.innerHTML += '<div class="player-wrap" style="display:flex; flex-direction:column;"><img src="'+container.getAttribute('data-thumb')+'" style="height:75%; object-fit:cover;"/><iframe src="'+embedUrl+'" style="height:25%; width:100%; border:none;" allow="autoplay"></iframe></div>';
             } else {
                 document.getElementById('pdfFrame').src = embedUrl;
                 document.getElementById('pdfModal').style.display = "flex";
