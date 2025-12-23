@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>വീഡിയോ ലൈബ്രറി | THRIPUDI LIBRARY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        :root { --primary-teal: #00897B; --secondary-dark: #004D40; --background-light: #E0F2F1; --text-color: #263238; --light-text: #FFFFFF; --card-bg: #FFFFFF; --outline-color: #B2DFDB; }
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 92%; margin: 0 auto; max-width: 1200px; }
+        a { text-decoration: none; transition: 0.3s; }
+        header { background-color: var(--secondary-dark); padding: 5px 0; min-height: 90px; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); width: 100%; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; }
+        .logo-container { display: flex; align-items: center; gap: 12px; color: #FFFFFF !important; }
+        .logo-img { height: 65px; width: auto; }
+        .logo-text { font-size: 1.6em; font-weight: 700; letter-spacing: 1px; }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-item { color: #FFFFFF !important; font-weight: 600; font-size: 0.82em; text-transform: uppercase; padding: 8px 14px; border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 4px; display: flex; align-items: center; gap: 6px; background-color: var(--secondary-dark) !important; }
+        .nav-item:hover { background-color: #FFFFFF !important; color: var(--secondary-dark) !important; border-color: #FFFFFF; }
+        .user-profile { display: flex; align-items: center; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); position: relative; cursor: pointer; color: #FFFFFF; }
+        .user-avatar { width: 38px; height: 38px; background-color: #fff; color: var(--primary-teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.5); flex-shrink: 0; }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .welcome-msg { font-size: 0.85em; font-weight: 500; white-space: nowrap; }
+        .profile-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 5px; min-width: 190px; margin-top: 20px; z-index: 1001; }
+        .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+        @media (max-width: 768px) { header { height: auto !important; min-height: 120px !important; padding: 20px 0 !important; position: relative !important; display: block !important; } .navbar { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 10px !important; } .logo-container { margin-bottom: 10px !important; justify-content: center !important; width: 100% !important; } .logo-text { font-size: 1.4em !important; display: block !important; margin-top: 5px !important; } .nav-links { width: 100% !important; justify-content: center !important; flex-wrap: wrap !important; } .nav-item { font-size: 0.75em !important; padding: 5px 8px !important; } .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; padding: 10px !important; } .image-wrapper { height: 220px !important; } .book-title { font-size: 0.8em !important; height: 3em !important; } }
+        .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
+        .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 1024px) { .library-container { grid-template-columns: repeat(5, 1fr) !important; } }
+        .book-card { background: transparent; text-align: center; }
+        .image-wrapper { position: relative; width: 100%; height: 280px; border-radius: 8px; overflow: hidden; border: 4px solid var(--outline-color); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .book-cover { width: 100%; height: 100%; object-fit: cover; }
+        .read-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 77, 64, 0.85); opacity: 0; display: flex; justify-content: center; align-items: center; transition: 0.3s; z-index: 5; }
+        .image-wrapper:not(.active-p):hover .read-overlay { opacity: 1; }
+        .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
+        .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
+        .bottom-player-overlay { display:none; position:absolute; bottom:0; left:0; width:100%; height:75px; background:rgba(0,0,0,0.85); z-index:10; border-top:1px solid var(--primary-teal); }
+        .bottom-player-overlay iframe { width:100%; height:100%; border:none; }
+        .mask-shield { position:absolute; top:0; right:0; width:50px; height:45px; background:transparent; z-index:15; }
+        .close-p-btn { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--primary-teal); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; z-index:20; font-size:10px; }
+        .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; }
+        
+        footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .social-links-compact a { color: white; opacity: 0.8; font-size: 1.3em; margin: 0 10px; }
+    </style>
+</head>
+<body>
+<header id="masterHeader">
+    <div class="container navbar">
+        <a href="dashboard.html" class="logo-container">
+            <img src="https://drive.google.com/thumbnail?sz=w1000&id=1DuMrsRg-QsW9mf5lV4uK8eWn8oiofz5r" alt="Logo" class="logo-img">
+            <span class="logo-text">THRIPUDI LIBRARY</span>
+        </a>
+        <div class="nav-links">
+            <a class="nav-item" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-item" href="collection.html"><i class="fas fa-book"></i> ശേഖരം</a>
+            <a class="nav-item" href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a class="nav-item" href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <div class="user-profile" id="profile-section">
+                <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="profile.html">Settings</a>
+                    <a href="history.html">History</a>
+                    <a href="#" id="logout-link" style="color:red;">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="collection-section" id="masterSection">
+    <div class="container">
+        <h1>വീഡിയോ ലൈബ്രറി</h1>
+        <div class="library-container">
+<div class="book-card"><div class="image-wrapper" id="wrapper-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP"><img alt="16.03.2021 HD 720p" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1xwvMFobk3OUAfJUFK55wATjx5ggZnHbP')"><i class="fas fa-times"></i></button></div></div><div class="book-title">16.03.2021 HD 720p</div></div>
+<div class="book-card"><div class="image-wrapper" id="wrapper-1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh"><img alt="VIDEO f5e0902c-1d09-402b-906c-8f4c7bdc8132" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1Wr4-0ma22-0uJE-D7QZxExsBGLEGUdwh')"><i class="fas fa-times"></i></button></div></div><div class="book-title">VIDEO f5e0902c-1d09-402b-906c-8f4c7bdc8132</div></div>
+<div class="book-card"><div class="image-wrapper" id="wrapper-1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml"><img alt="VIDEO f6f64d4a-9478-450c-b89d-e67b32a41cbb" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1AtDUa5bqjVtPnr02yq2b0QdtYJPy21ml')"><i class="fas fa-times"></i></button></div></div><div class="book-title">VIDEO f6f64d4a-9478-450c-b89d-e67b32a41cbb</div></div>
+<div class="book-card"><div class="image-wrapper" id="wrapper-1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7"><img alt="VIDEO fa84181e-2842-464f-96ee-5493fb5e4648" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1SeytJGP0Oqz5r0LUx890Y0N6roOdXSK7')"><i class="fas fa-times"></i></button></div></div><div class="book-title">VIDEO fa84181e-2842-464f-96ee-5493fb5e4648</div></div>
+<div class="book-card"><div class="image-wrapper" id="wrapper-1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4"><img alt="VIDEO fac4b5ea-8dcf-4be3-861d-bc91fb062360" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1M5D0ly4RDP-uERiyTvR-xwn3MK2dsyY4')"><i class="fas fa-times"></i></button></div></div><div class="book-title">VIDEO fac4b5ea-8dcf-4be3-861d-bc91fb062360</div></div>
+<div class="book-card"><div class="image-wrapper" id="wrapper-1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T"><img alt="VIDEO fae7cdb2-f69d-42dc-85f6-e4d3082ef96b" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1hBwwqV3qBM0xNoJMPy8ZXvsD-ia9-n4T')"><i class="fas fa-times"></i></button></div></div><div class="book-title">VIDEO fae7cdb2-f69d-42dc-85f6-e4d3082ef96b</div></div>
+<div class="book-card"><div class="image-wrapper" id="wrapper-1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy"><img alt="VIDEO fd5f0905-a125-4c14-b596-312f83bf8822" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1GLpu6OyyuQJO0RuVOoQtOrbysm0uUbEy')"><i class="fas fa-times"></i></button></div></div><div class="book-title">VIDEO fd5f0905-a125-4c14-b596-312f83bf8822</div></div>
+<div class="book-card"><div class="image-wrapper" id="wrapper-1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-"><img alt="VIDEO fe67776b-0e56-4d7e-9da8-743475691cb7" class="book-cover" src="https://drive.google.com/thumbnail?sz=w600&id=1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-" onerror="this.src='https://via.placeholder.com/150?text=Video'"/><div class="read-overlay"><a class="overlay-btn" href="javascript:void(0)" onclick="checkAccess('1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-', this)">കാണാം <i class="fas fa-play-circle"></i></a></div><div class="bottom-player-overlay" id="player-1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-" style="height: 100%;"><div class="mask-shield"></div><iframe src="" id="frame-1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-" allow="autoplay"></iframe><button class="close-p-btn" onclick="closeInCardPlayer('1sMuBxGTSKO9YyAKUEB1_d0bLaDl407o-')"><i class="fas fa-times"></i></button></div></div><div class="book-title">VIDEO fe67776b-0e56-4d7e-9da8-743475691cb7</div></div>
+        </div>
+    </div>
+</section>
+<div id="loginAlertModal" class="login-popup-modal">
+    <div class="popup-box">
+        <div style="background:var(--secondary-dark);color:white;padding:15px;font-weight:700;">ത്രിപുടി ലൈബ്രറി</div>
+        <div style="padding:20px;">ഈ വീഡിയോ കാണാനായി ലോഗിൻ ചെയ്യുക.</div>
+        <div style="padding:15px; background:#f9f9f9;">
+            <button class="overlay-btn" onclick="window.location.href='login.html'">ലോഗിൻ ചെയ്യുക</button>
+            <button onclick="document.getElementById('loginAlertModal').style.display='none'" style="padding:8px 15px; border:none; cursor:pointer; margin-left:10px;">ഇപ്പോൾ വേണ്ട</button>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container footer-content">
+        <div class="footer-row">
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="font-size: 0.85em; opacity: 0.8;">
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
+        </div>
+        <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
+    </div>
+</footer>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+    const firebaseConfig = { apiKey: "AIzaSyBzwhpHmeZdLf_nZrcPQirlnpj3Vhg9EqA", authDomain: "thripudilibrary.firebaseapp.com", projectId: "thripudilibrary", storageBucket: "thripudilibrary.firebasestorage.app", messagingSenderId: "887018912750", appId: "1:887018912750:web:cc05190a72b13db816acff" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+        window.currentUser = user;
+        if (user) {
+            document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
+            const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
+            if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
+        }
+    });
+    document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="login.html");
+</script>
+<script>
+    function saveToHistory(element, bookId) {
+        if (!window.currentUser) return;
+        const card = element.closest('.book-card');
+        const title = card.querySelector('.book-title').innerText;
+        const image = card.querySelector('.book-cover').src;
+        const key = 'history_' + window.currentUser.uid;
+        let history = JSON.parse(localStorage.getItem(key)) || [];
+        history = history.filter(item => item.title !== title);
+        history.unshift({ title, image, link: window.location.pathname + '?openVideo=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
+        localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
+    }
+    window.checkAccess = function(bookId, element) {
+        if (!window.currentUser) {
+            document.getElementById('loginAlertModal').style.display = 'flex';
+        } else {
+            saveToHistory(element, bookId);
+            document.querySelectorAll('.image-wrapper').forEach(w => w.classList.remove('active-p'));
+            document.querySelectorAll('.bottom-player-overlay').forEach(p => p.style.display = "none");
+            document.querySelectorAll('.bottom-player-overlay iframe').forEach(f => f.src = ""); 
+            const wrapper = document.getElementById('wrapper-' + bookId);
+            const playerDiv = document.getElementById('player-' + bookId);
+            const frame = document.getElementById('frame-' + bookId);
+            wrapper.classList.add('active-p');
+            playerDiv.style.display = "block";
+            frame.src = "https://drive.google.com/file/d/" + bookId + "/preview";
+        }
+    };
+    window.closeInCardPlayer = function(id) {
+        document.getElementById('wrapper-' + id).classList.remove('active-p');
+        document.getElementById('player-' + id).style.display = "none";
+        document.getElementById('frame-' + id).src = "";
+    };
+    document.getElementById('profile-section').onclick = (e) => {
+        e.stopPropagation();
+        let d = document.getElementById('profileDropdown');
+        d.style.display = d.style.display === "block" ? "none" : "block";
+    };
+    window.onclick = () => document.getElementById('profileDropdown').style.display='none';
+</script>
+</body>
+</html>
