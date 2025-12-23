@@ -29,7 +29,8 @@
         .profile-dropdown a { display: block; padding: 12px 15px; color: var(--text-color); border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
         @media (max-width: 768px) { header { height: auto !important; min-height: 120px !important; padding: 20px 0 !important; position: relative !important; display: block !important; } .navbar { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 10px !important; } .logo-container { margin-bottom: 10px !important; justify-content: center !important; width: 100% !important; } .logo-text { font-size: 1.4em !important; display: block !important; margin-top: 5px !important; } .nav-links { width: 100% !important; justify-content: center !important; flex-wrap: wrap !important; } .nav-item { font-size: 0.75em !important; padding: 5px 8px !important; } .library-container { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; padding: 10px !important; } .image-wrapper { height: 220px !important; } .book-title { font-size: 0.8em !important; height: 3em !important; } }
         .collection-section { padding: 40px 0; text-align: center; flex: 1 0 auto; }
-        .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(5, 1fr); }
+        .library-container { display: grid; gap: 25px; margin-top: 20px; grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 1024px) { .library-container { grid-template-columns: repeat(5, 1fr) !important; } }
         .book-card { background: transparent; text-align: center; }
         .image-wrapper { position: relative; width: 100%; height: 280px; border-radius: 8px; overflow: hidden; border: 4px solid var(--outline-color); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .book-cover { width: 100%; height: 100%; object-fit: cover; }
@@ -37,12 +38,13 @@
         .image-wrapper:not(.active-p):hover .read-overlay { opacity: 1; }
         .overlay-btn { background-color: var(--primary-teal); color: white; padding: 8px 18px; border-radius: 30px; cursor: pointer; border: none; font-weight: 600; font-size: 0.85em; }
         .book-title { margin-top: 12px; font-weight: 700; color: var(--secondary-dark); font-size: 0.95em; height: 2.8em; overflow: hidden; }
-        .bottom-player-overlay { display:none; position:absolute; bottom:0; left:0; width:100%; height:80px; background:rgba(0,0,0,0.9); z-index:10; border-top:1px solid var(--primary-teal); }
+        .bottom-player-overlay { display:none; position:absolute; bottom:0; left:0; width:100%; height:75px; background:rgba(0,0,0,0.85); z-index:10; border-top:1px solid var(--primary-teal); }
         .bottom-player-overlay iframe { width:100%; height:100%; border:none; }
         .mask-shield { position:absolute; top:0; right:0; width:50px; height:45px; background:transparent; z-index:15; }
-        .close-p-btn { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--primary-teal); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; z-index:20; font-size:10px; display:flex; align-items:center; justify-content:center; }
+        .close-p-btn { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--primary-teal); color:white; border:none; border-radius:50%; width:22px; height:22px; cursor:pointer; z-index:20; font-size:10px; }
         .login-popup-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .popup-box { background: white; width: 90%; max-width: 400px; border-radius: 12px; overflow: hidden; text-align: center; }
+        
         footer { background-color: var(--secondary-dark); color: white; text-align: center; padding: 25px 0; margin-top: auto; width: 100%; }
         .footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .footer-row { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -65,9 +67,9 @@
                 <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                 <div class="welcome-msg">സ്വാഗതം, <span id="display-name">...</span></div>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <a href="profile.html"><i class="fas fa-user-cog"></i> Profile Settings</a>
-                    <a href="history.html"><i class="fas fa-history"></i> Reading History</a>
-                    <a href="#" id="logout-link" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="profile.html">Settings</a>
+                    <a href="history.html">History</a>
+                    <a href="#" id="logout-link" style="color:red;">Logout</a>
                 </div>
             </div>
         </div>
@@ -108,9 +110,9 @@
 <div id="loginAlertModal" class="login-popup-modal">
     <div class="popup-box">
         <div style="background:var(--secondary-dark);color:white;padding:15px;font-weight:700;">ത്രിപുടി ലൈബ്രറി</div>
-        <div style="padding:20px;">ഈ ഓഡിയോ കേൾക്കാനായി ദയവായി ലോഗിൻ ചെയ്യുക.</div>
+        <div style="padding:20px;">ഈ ഓഡിയോ കേൾക്കാനായി ലോഗിൻ ചെയ്യുക.</div>
         <div style="padding:15px; background:#f9f9f9;">
-            <button id="loginRedirectBtn" class="overlay-btn">ലോഗിൻ ചെയ്യുക</button>
+            <button class="overlay-btn" onclick="window.location.href='login.html'">ലോഗിൻ ചെയ്യുക</button>
             <button onclick="document.getElementById('loginAlertModal').style.display='none'" style="padding:8px 15px; border:none; cursor:pointer; margin-left:10px;">ഇപ്പോൾ വേണ്ട</button>
         </div>
     </div>
@@ -118,8 +120,15 @@
 <footer>
     <div class="container footer-content">
         <div class="footer-row">
-            <div class="social-links-compact"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
-            <div style="font-size: 0.85em; opacity: 0.8;"><a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a></div>
+            <div class="social-links-compact">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="font-size: 0.85em; opacity: 0.8;">
+                <a href="privacy-policy.html" style="color:white;">സ്വകാര്യതാ നയം</a> | <a href="terms.html" style="color:white;">ഉപയോഗ നിബന്ധനകൾ</a>
+            </div>
         </div>
         <p style="font-size: 0.85em; opacity: 0.6; margin-top:10px;">© 2025 THRIPUDI LIBRARY. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.</p>
     </div>
@@ -136,46 +145,39 @@
             document.getElementById('display-name').textContent = user.displayName ? user.displayName.split(' ')[0] : "User";
             const userPhoto = localStorage.getItem('userPhoto_' + user.uid) || user.photoURL;
             if(userPhoto) document.getElementById('userAvatar').innerHTML = `<img src="${userPhoto}">`;
-            
-            // വായനക്കാരൻ ലോഗിൻ ചെയ്ത് തിരിച്ചെത്തിയാൽ bookId ചെക്ക് ചെയ്യുന്നു
-            const urlParams = new URLSearchParams(window.location.search);
-            const bId = urlParams.get('bookId');
-            if (bId) setTimeout(() => checkAccess(bId, null, true), 1000);
         }
     });
-    document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="logout-success.html");
+    document.getElementById('logout-link').onclick = () => signOut(auth).then(() => window.location.href="login.html");
 </script>
 <script>
-    function saveToHistory(title, image, bookId) {
+    function saveToHistory(element, bookId) {
         if (!window.currentUser) return;
+        const card = element.closest('.book-card');
+        const title = card.querySelector('.book-title').innerText;
+        const image = card.querySelector('.book-cover').src;
         const key = 'history_' + window.currentUser.uid;
         let history = JSON.parse(localStorage.getItem(key)) || [];
         history = history.filter(item => item.title !== title);
-        history.unshift({ title, image, link: window.location.pathname + '?bookId=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
+        history.unshift({ title, image, link: window.location.pathname + '?openAudio=' + bookId, date: new Date().toLocaleDateString('ml-IN') });
         localStorage.setItem(key, JSON.stringify(history.slice(0, 50)));
     }
-    window.checkAccess = function(bookId, element, isRedirect) {
+    window.checkAccess = function(bookId, element) {
         if (!window.currentUser) {
-            const currentPath = window.location.pathname.split('/').pop();
-            // പി.ഡി.എഫ് പേജിൽ വർക്ക് ചെയ്യുന്ന അതേ Redirect URL സ്ട്രക്ചർ
-            document.getElementById('loginRedirectBtn').onclick = () => {
-                window.location.href = "login.html?redirect=" + currentPath + "&bookId=" + bookId;
-            };
             document.getElementById('loginAlertModal').style.display = 'flex';
         } else {
-            if(!isRedirect) {
-                const card = element.closest('.book-card');
-                saveToHistory(card.querySelector('.book-title').innerText, card.querySelector('.book-cover').src, bookId);
-            }
+            saveToHistory(element, bookId);
+            
+            // ഇവിടെയാണ് മാറ്റം വരുത്തിയത്: നിലവിലുള്ള എല്ലാ പ്ലെയറുകളെയും നിർത്തിക്കുകയും ഇല്ലാതാക്കുകയും ചെയ്യുന്നു
             document.querySelectorAll('.image-wrapper').forEach(w => w.classList.remove('active-p'));
             document.querySelectorAll('.bottom-player-overlay').forEach(p => p.style.display = "none");
-            const playerDiv = document.getElementById('player-' + bookId);
+            document.querySelectorAll('.bottom-player-overlay iframe').forEach(f => f.src = ""); 
+            
             const wrapper = document.getElementById('wrapper-' + bookId);
-            if(playerDiv) {
-                playerDiv.style.display = "block";
-                document.getElementById('frame-' + bookId).src = "https://drive.google.com/file/d/" + bookId + "/preview";
-                wrapper.classList.add('active-p');
-            }
+            const playerDiv = document.getElementById('player-' + bookId);
+            const frame = document.getElementById('frame-' + bookId);
+            wrapper.classList.add('active-p');
+            playerDiv.style.display = "block";
+            frame.src = "https://drive.google.com/file/d/" + bookId + "/preview";
         }
     };
     window.closeInCardPlayer = function(id) {
